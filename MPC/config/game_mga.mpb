@@ -1,0 +1,9 @@
+// $Id$
+
+project : mfc, game {
+  after += GAME_Mga
+  libs  += GAME_Mga
+
+  includes += $(GAME_ROOT)/game/mga \
+              $(GME_ROOT)/Interfaces
+}

@@ -11,3 +11,7 @@
 *.lai
 *.la
 *.a
+
+# Annoying files
+.DS_Store
+*~
