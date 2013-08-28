@@ -18,4 +18,4 @@ Set the **GAME_ROOT** environment variable, then use the following command:
     %> %ACE_ROOT%\bin\mwc.pl -type [buildtool] GAME_ACE.mwc
     %> # build the generated workspace
 
-The executables will be place in **GAME_ROOT\bin** and **GAME_ROOT\lib**.
+The executables will be place in **GAME_ROOT\bin** and the shared libraries will be placed in **GAME_ROOT\lib**.
