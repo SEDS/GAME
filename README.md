@@ -11,7 +11,7 @@ and installed on your build machine:
  * [Boost.Spirit](http://boost-spirit.com/home/)
  * [Makefile, Project, Workspace Creator](http://www.ociweb.com/products/mpc)
 
-For more information on building the above, please consult the following Wiki Page.
+For more information on building the above, please consult the following [Wiki Page](https://github.iu.edu/SEDS/GAME/wiki/Building-Required-Middleware).
 
 Set the **GAME_ROOT** environment variable, then use the following command:
 
