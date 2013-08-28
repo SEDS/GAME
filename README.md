@@ -11,11 +11,14 @@ and installed on your build machine:
  * [Boost.Spirit](http://boost-spirit.com/home/)
  * [Makefile, Project, Workspace Creator](http://www.ociweb.com/products/mpc)
 
-For more information on building the above, please consult the following [Wiki Page](https://github.iu.edu/SEDS/GAME/wiki/Building-Required-Middleware).
+For more information on building the above, please consult the following 
+[Wiki Page](https://github.iu.edu/SEDS/GAME/wiki/Building-Required-Middleware).
 
-Set the **GAME_ROOT** environment variable, then use the following command:
+Set the **GAME_ROOT** environment variable to the location of the GAME 
+repo, then use the following commands:
 
     %> %ACE_ROOT%\bin\mwc.pl -type [buildtool] GAME_ACE.mwc
-    %> # build the generated workspace
-
-The executables will be place in **GAME_ROOT\bin** and the shared libraries will be placed in **GAME_ROOT\lib**.
+    %> devenv /useenv GAME_ACE.sln
+    
+Build the open solution file. The executables will be place in **GAME_ROOT\bin** 
+and the shared libraries will be placed in **GAME_ROOT\lib**.
