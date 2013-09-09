@@ -1,0 +1,3 @@
+[submodule "contrib/CCF"]
+	path = contrib/CCF
+	url = git@github.iu.edu:SEDS/CCF.git
