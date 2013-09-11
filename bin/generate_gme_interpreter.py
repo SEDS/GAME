@@ -65,8 +65,8 @@ project (${project_name}) : game_mga_interpreter, game_lib {
     gme_progid      = $paradigm.Interpreter.$filename
     gme_uuid        = $uuid_value
     gme_paradigms   = $paradigm
-    gme_description = GAME $filename Interpreter
-    gme_tooltip     = GAME $filename Interpreter
+    gme_description = $filename Interpreter
+    gme_tooltip     = $filename Interpreter
     $icon
   }
 
@@ -342,6 +342,7 @@ def generate_idl_file (filename, pathname, comp_guid, lib_guid):
 #define $idl_filename_caps
 
 #include <Gme.idl>
+#include <Core.idl>
 
 [
 	uuid (${lib_guid}),
@@ -356,7 +357,7 @@ library ${filename}_Component
 	{
 		[default] interface IMgaComponentEx;
 		interface IMgaComponent;
-		interface IMgaVersionInfo;
+                interface IGMEVersionInfo;
 	};
 };
 
