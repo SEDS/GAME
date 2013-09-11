@@ -22,10 +22,10 @@ namespace GAME
  * Template metaprogramming object for asserting a statement.
  */
 template <bool>
-struct static_assert;
+struct __static_assert;
 
 template < >
-struct static_assert <true>
+struct __static_assert <true>
 {
   static const bool result_type = true;
 };

@@ -2,6 +2,6 @@
 
 feature (gme10) {
   Source_Files {
-    $(GME_ROOT)/Interfaces/MgaDecorator.idl
+    $(GME_ROOT)/Interfaces/Gme.idl
   }
 }

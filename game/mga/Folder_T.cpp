@@ -71,8 +71,8 @@ template <typename T>
 size_t Folder_Impl::children (std::vector <T> & children) const
 {
   typedef typename T::impl_type impl_type;
-  GAME::static_assert < assertion::element_containable_in_folder <impl_type::type_tag>::result_type >::result_type;
-  GAME::static_assert < assertion::element_is_not_folder <impl_type::type_tag>::result_type >::result_type;
+  GAME::__static_assert < assertion::element_containable_in_folder <impl_type::type_tag>::result_type >::result_type;
+  GAME::__static_assert < assertion::element_is_not_folder <impl_type::type_tag>::result_type >::result_type;
 
   CComPtr <IMgaFCOs> fcos;
   VERIFY_HRESULT (this->impl ()->get_ChildFCOs (&fcos));
@@ -87,8 +87,8 @@ template <typename T>
 Iterator <T> Folder_Impl::children (void) const
 {
   typedef typename T::impl_type impl_type;
-  GAME::static_assert < assertion::element_containable_in_folder <impl_type::type_tag>::result_type >::result_type;
-  GAME::static_assert < assertion::element_is_not_folder <impl_type::type_tag>::result_type >::result_type;
+  GAME::__static_assert < assertion::element_containable_in_folder <impl_type::type_tag>::result_type >::result_type;
+  GAME::__static_assert < assertion::element_is_not_folder <impl_type::type_tag>::result_type >::result_type;
 
   CComPtr <IMgaFCOs> fcos;
   CComBSTR bstr (impl_type::metaname.length (), impl_type::metaname.c_str ());
@@ -104,8 +104,8 @@ template <typename T>
 Iterator <T> Folder_Impl::children (const std::string & type) const
 {
   typedef typename T::impl_type impl_type;
-  GAME::static_assert < assertion::element_containable_in_folder <impl_type::type_tag>::result_type >::result_type;
-  GAME::static_assert < assertion::element_is_not_folder <impl_type::type_tag>::result_type >::result_type;
+  GAME::__static_assert < assertion::element_containable_in_folder <impl_type::type_tag>::result_type >::result_type;
+  GAME::__static_assert < assertion::element_is_not_folder <impl_type::type_tag>::result_type >::result_type;
 
   CComPtr <IMgaFCOs> fcos;
   CComBSTR bstr (type.length (), type.c_str ());
@@ -122,8 +122,8 @@ size_t Folder_Impl::
 children (const std::string & type, std::vector <T> & children) const
 {
   typedef typename T::impl_type impl_type;
-  GAME::static_assert < assertion::element_containable_in_folder <impl_type::type_tag>::result_type >::result_type;
-  GAME::static_assert < assertion::element_is_not_folder <impl_type::type_tag>::result_type >::result_type;
+  GAME::__static_assert < assertion::element_containable_in_folder <impl_type::type_tag>::result_type >::result_type;
+  GAME::__static_assert < assertion::element_is_not_folder <impl_type::type_tag>::result_type >::result_type;
 
   CComPtr <IMgaFCOs> fcos;
   CComBSTR bstr (type.length (), type.c_str ());
@@ -139,7 +139,7 @@ template <typename T>
 size_t Folder_Impl::folders (std::vector <T> & children) const
 {
   typedef typename T::impl_type impl_type;
-  GAME::static_assert <
+  GAME::__static_assert <
     GAME::negate <assertion::element_is_not_folder <impl_type::type_tag>::result_type>::result_type >::
     result_type;
 
@@ -163,7 +163,7 @@ size_t Folder_Impl::
 folders (const std::string & type, std::vector <T> & children) const
 {
   typedef typename T::impl_type impl_type;
-  GAME::static_assert <
+  GAME::__static_assert <
     GAME::negate <assertion::element_is_not_folder <impl_type::type_tag>::result_type>::result_type >::
     result_type;
 

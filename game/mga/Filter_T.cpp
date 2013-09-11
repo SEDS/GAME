@@ -70,8 +70,8 @@ size_t Filter::apply (const Folder_in & folder, std::vector <T> & result) const
   // Make sure the element type is either a folder, or containable
   // in a folder.
   typedef typename T::impl_type impl_type;
-  GAME::static_assert < assertion::element_containable_in_folder <impl_type::type_tag>::result_type >::result_type;
-  GAME::static_assert < assertion::element_is_not_folder <impl_type::type_tag>::result_type >::result_type;
+  GAME::__static_assert < assertion::element_containable_in_folder <impl_type::type_tag>::result_type >::result_type;
+  GAME::__static_assert < assertion::element_is_not_folder <impl_type::type_tag>::result_type >::result_type;
 
   CComPtr <IMgaFCOs> fcos;
   VERIFY_HRESULT (folder->impl ()->GetDescendantFCOs (this->filter_, &fcos));
@@ -88,8 +88,8 @@ Iterator <T> Filter::apply (const Folder_in & folder) const
   // Make sure the element type is either a folder, or containable
   // in a folder.
   typedef typename T::impl_type impl_type;
-  GAME::static_assert < assertion::element_containable_in_folder <impl_type::type_tag>::result_type >::result_type;
-  GAME::static_assert < assertion::element_is_not_folder <impl_type::type_tag>::result_type >::result_type;
+  GAME::__static_assert < assertion::element_containable_in_folder <impl_type::type_tag>::result_type >::result_type;
+  GAME::__static_assert < assertion::element_is_not_folder <impl_type::type_tag>::result_type >::result_type;
 
   CComPtr <IMgaFCOs> fcos;
   VERIFY_HRESULT (folder->impl ()->GetDescendantFCOs (this->filter_, &fcos));

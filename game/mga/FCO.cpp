@@ -330,12 +330,21 @@ in_connections (std::vector <Connection> & conns) const
   std::vector <ConnectionPoint> points;
 
   if (iter_to_collection (temp.p, points) > 0)
+  {
+#if _MSC_VER < 1600
     std::for_each (points.begin (),
                    points.end (),
                    boost::bind (&std::vector <Connection>::push_back,
                                 boost::ref (conns),
-                                boost::bind (&ConnectionPoint::impl_type::owner,
-                                             boost::bind (&ConnectionPoint::get, _1))));
+                                boost::bind (&ConnectionPoint::impl_type::owner, boost::bind (&ConnectionPoint::get, _1))));
+#else
+	  std::vector <ConnectionPoint>::const_iterator
+		  iter = points.begin (), iter_end = points.end ();
+
+	  for ( ; iter != iter_end; ++ iter)
+		  conns.push_back ((*iter)->owner ());
+#endif
+  }
 
   return conns.size ();
 }
