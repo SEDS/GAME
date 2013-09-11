@@ -32,8 +32,8 @@ GAME_DEFAULT_ADDON_IMPL (Model_Intelligence_Impl,
                          "GAME Model Intelligence",
                          "*",
                          "GAME.AddOn.Model_Intelligence");
-namespace GAME
 
+namespace GAME
 {
 /**
  * @class Model_Intelligence

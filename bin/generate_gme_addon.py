@@ -14,8 +14,7 @@ def generate_mwc_file (filename, pathname):
     temp_mwc = string.Template ("""
 
 workspace (${filename}) {
-  cmdline += -include $$COSMIC_ROOT/MPC/config \\
-             -include $$GAME_ROOT/MPC/config \\
+  cmdline += -include $$GAME_ROOT/MPC/config \\
              
   ${filename}.mpc
 }""")
@@ -38,9 +37,7 @@ def generate_mpc_file (filename, pathname, comp_guid, paradigm):
     #Creating string template for .mpc file
     temp_mpc = string.Template ("""// $$Id$$
 
-project (${project_name}) : \
-boost_base, game_mga_component, game_mga_utils, game_lib {
-
+project (${project_name}) : boost_base, game_mga_component, game_mga_utils, game_lib {
   sharedname = $project_name
 
   pch_header = StdAfx.h
@@ -59,17 +56,17 @@ boost_base, game_mga_component, game_mga_utils, game_lib {
   specific (wix) {
     gme_install        = 1
     gme_component_type = 2
-    gme_progid         = GAME.MGA.AddOn.$filename
+    gme_progid         = $paradigm.AddOn.$filename
     gme_uuid           = $uuid_value
     gme_paradigms      = $paradigm
-    gme_description    = GAME $filename AddOn
-    gme_tooltip        = GAME $filename AddOn
+    gme_description    = $filename AddOn
+    gme_tooltip        = $filename AddOn
   }
 
 }""")
 
     
-    replace_mpc = {'project_name' : 'GAME_' + filename,
+    replace_mpc = {'project_name' : filename,
                    'filename' : filename,
                    'cpp_filename' : filename + '_Impl.cpp',
                    'module_filename' : filename + '_Module.cpp',
@@ -329,10 +326,11 @@ def generate_idl_file (filename, pathname, comp_guid, lib_guid):
 #define $idl_filename_caps
 
 #include <Gme.idl>
+#include <Core.idl>
 
 [
-	uuid (${lib_guid}),
-	version (1.0),
+  uuid (${lib_guid}),
+  version (1.0),
 ]
 library ${filename}_AddonLib
 {
@@ -341,9 +339,9 @@ library ${filename}_AddonLib
 	[uuid (${comp_guid})]
 	coclass ${filename}_Addon
 	{
-		[default] interface IMgaComponentEx;
-		interface IMgaComponent;
-		interface IMgaVersionInfo;
+            [default] interface IMgaComponentEx;
+            interface IMgaComponent;
+            interface IGMEVersionInfo;
 	};
 };
 
@@ -394,29 +392,24 @@ def generate_impl_h_file (filename, pathname, paradigm):
 #include "game/mga/FCO.h"
 #include "game/mga/component/Addon_Impl_T.h"
 #include "game/mga/component/ComponentEx_T.h"
-#include "game/mga/component/Event_Handler_Impl.h"
+#include "game/mga/component/Event_Handler.h"
 
 GAME_DEFAULT_ADDON_IMPL ($filename,
-                         "GAME $classname",
+                         "$classname",
                          "$paradigm",
-                         "GAME.AddOn.$classname");
-
-namespace GAME
-{
+                         "${paradigm}.AddOn.$classname");
 
 /**
  * @class $classname
  *
  * Raw component interface for the add-on.
  */
-class $classname : public Mga::Event_Handler_Impl
+class $classname :
+  public GAME::Mga::Top_Level_Event_Handler
 {
 public:
-  static const unsigned long eventmask = OBJEVENT_CREATED | OBJEVENT_ATTR |
-                                         OBJEVENT_RELATION |  OBJEVENT_SELECT |
-                                         OBJEVENT_SETINCLUDED | OBJEVENT_SETEXCLUDED |
-                                         OBJEVENT_DESTROYED | OBJEVENT_LOSTCHILD |
-                                         OBJEVENT_REGISTRY;
+  /// TODO Update with the global event mask for the add-on
+  static const unsigned long eventmask = 0;
   
   /// Default constructor.
   $classname (void);
@@ -424,9 +417,9 @@ public:
   /// Destructor.
   virtual ~$classname (void);
 
-  virtual int initialize (Mga::Project project);
+  virtual int initialize (GAME::Mga::Project project);
 };
-}
+
 
 #endif
 """)
@@ -472,17 +465,14 @@ def generate_impl_cpp_file (filename, pathname):
 #include <algorithm>
 #include <sstream>
 
-namespace GAME
-{
-
 /// Type definition of the add-on implementation.
-typedef Mga::Addon_Impl_T <$filename,
-                           $classname>
-                           ${classname}_ComponentEx;
+typedef GAME::Mga::Addon_Impl_T <$filename,
+                                 $classname>
+                                 ${classname}_ComponentEx;
 
 DECLARE_GAME_COMPONENT_EX (${classname}_ComponentEx, ${classname}_Addon);
 
-#define DLL_NAME "GAME_$classname"
+#define DLL_NAME "$classname"
 
 /**
  * Adapter for the ACE_DLL_Singleton_T object. This allows singletons
@@ -507,7 +497,7 @@ public:
 // $classname
 //
 $classname::$classname (void)
-: Mga::Event_Handler_Impl (eventmask, false)
+: GAME::Mga::Top_Level_Event_Handler (eventmask)
 {
 
 }
@@ -523,11 +513,11 @@ $classname::~$classname (void)
 //
 // initialize
 //
-int $classname::initialize (Mga::Project project)
+int $classname::initialize (GAME::Mga::Project project)
 {
   return 0;
 }
-}
+
 """)
 
     replace_impl_cpp = {'filename' : filename + '_Impl',
@@ -553,13 +543,11 @@ def generate_module_cpp_file (filename, pathname, comp_guid):
 
 #include "${filename}_i.c"
 
-namespace GAME
-{
 /**
- * GAME_${filename}_Module
+ * ${filename}_Module
  */
-class GAME_${filename}_Module :
-  public CAtlDllModuleT < GAME_${filename}_Module >
+class ${filename}_Module :
+  public CAtlDllModuleT < ${filename}_Module >
 {
 public :
   DECLARE_LIBID (LIBID_${filename}_AddonLib)
@@ -567,14 +555,14 @@ public :
   DECLARE_REGISTRY_APPID_RESOURCEID (2008, "{$comp_guid}")
 };
 
-static GAME_${filename}_Module _AtlModule;
+static ${filename}_Module _AtlModule;
 
 //
 // DllCanUnloadNow
 //
 STDAPI DllCanUnloadNow (void)
 {
-  return (::AfxDllCanUnloadNow () == S_OK && ::GAME::_AtlModule.GetLockCount () == 0) ? S_OK : S_FALSE;
+  return (::AfxDllCanUnloadNow () == S_OK && _AtlModule.GetLockCount () == 0) ? S_OK : S_FALSE;
 }
 
 //
@@ -582,7 +570,7 @@ STDAPI DllCanUnloadNow (void)
 //
 STDAPI DllGetClassObject (REFCLSID rclsid, REFIID riid, LPVOID* ppv)
 {
-  return ::GAME::_AtlModule.GetClassObject (rclsid, riid, ppv);
+  return _AtlModule.GetClassObject (rclsid, riid, ppv);
 }
 
 //
@@ -590,7 +578,7 @@ STDAPI DllGetClassObject (REFCLSID rclsid, REFIID riid, LPVOID* ppv)
 //
 STDAPI DllRegisterServer (void)
 {
-  return GAME::_AtlModule.DllRegisterServer ();
+  return _AtlModule.DllRegisterServer ();
 }
 
 //
@@ -598,27 +586,25 @@ STDAPI DllRegisterServer (void)
 //
 STDAPI DllUnregisterServer (void)
 {
-  return GAME::_AtlModule.DllUnregisterServer ();
-}
-
+  return _AtlModule.DllUnregisterServer ();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 //
 
 /**
- * @class GAME_${filename}_App
+ * @class ${filename}_App
  *
  * The application for the $filename. This is like the
  * main entry point for the component's module/application.
  */
-class GAME_${filename}_App : public CWinApp
+class ${filename}_App : public CWinApp
 {
 public:
   //
   // Component_Module_App
   //
-  GAME_${filename}_App (void)
+  ${filename}_App (void)
     : CWinApp ("GAME $filename")
   {
   }
@@ -628,7 +614,7 @@ public:
   //
   virtual BOOL InitInstance (void)
   {
-    GAME::_AtlModule.InitLibId ();
+    _AtlModule.InitLibId ();
     return CWinApp::InitInstance();
   }
 
@@ -637,17 +623,17 @@ public:
   //
   virtual int ExitInstance (void)
   {
-    GAME::_AtlModule.Term ();
+    _AtlModule.Term ();
     return CWinApp::ExitInstance();
   }
 
   DECLARE_MESSAGE_MAP ()
 };
 
-BEGIN_MESSAGE_MAP (GAME_${filename}_App, CWinApp)
+BEGIN_MESSAGE_MAP (${filename}_App, CWinApp)
 END_MESSAGE_MAP()
 
-static GAME_${filename}_App _theApp;
+static ${filename}_App _theApp;
 
 """)
 
@@ -674,27 +660,27 @@ def generate_reg_file (filename, pathname, comp_guid, paradigm):
 [HKEY_CURRENT_USER\Software\Classes\CLSID]
 
 [HKEY_CURRENT_USER\Software\Classes\CLSID\{$comp_guid}]
-@="GAME.AddOn.$filename"
+@="${paradigm}.AddOn.$filename"
 
 [HKEY_CURRENT_USER\Software\Classes\CLSID\{$comp_guid}\ProgID]
-@="GAME.AddOn.$filename"
+@="${paradigm}.AddOn.$filename"
 
 [HKEY_CURRENT_USER\Software\Classes\CLSID\{$comp_guid}\InProcServer32]
-@="GAME_$filename.dll"
+@="$filename.dll"
 
-[HKEY_CURRENT_USER\Software\Classes\GAME.AddOn.$filename]
-@="GAME.AddOn.$filename"
+[HKEY_CURRENT_USER\Software\Classes\${paradigm}.AddOn.$filename]
+@="${paradigm}.AddOn.$filename"
 
-[HKEY_CURRENT_USER\Software\Classes\GAME.AddOn.$filename\CLSID]
+[HKEY_CURRENT_USER\Software\Classes\${paradigm}.AddOn.$filename\CLSID]
 @="{$comp_guid}"
 
-[HKEY_CURRENT_USER\Software\GME\Components\GAME.AddOn.$filename]
+[HKEY_CURRENT_USER\Software\GME\Components\${paradigm}.AddOn.$filename]
 "Tooltip"=""
 "Paradigm"="$paradigm"
 "Type"=dword:00000002
-"Description"="GAME ${filename}"
+"Description"="${filename}"
 
-[HKEY_CURRENT_USER\Software\GME\Components\GAME.AddOn.$filename\Associated]
+[HKEY_CURRENT_USER\Software\GME\Components\${paradigm}.AddOn.$filename\Associated]
 
 """)
 
@@ -722,27 +708,27 @@ def generate_dreg_file (filename, pathname, comp_guid, paradigm):
 [HKEY_CURRENT_USER\Software\Classes\CLSID]
 
 [HKEY_CURRENT_USER\Software\Classes\CLSID\{$comp_guid}]
-@="GAME.AddOn.$filename"
+@="${paradigm}.AddOn.$filename"
 
 [HKEY_CURRENT_USER\Software\Classes\CLSID\{$comp_guid}\ProgID]
-@="GAME.AddOn.$filename"
+@="${paradigm}.AddOn.$filename"
 
 [HKEY_CURRENT_USER\Software\Classes\CLSID\{$comp_guid}\InProcServer32]
-@="GAME_${filename}d.dll"
+@="${filename}d.dll"
 
-[HKEY_CURRENT_USER\Software\Classes\GAME.AddOn.$filename]
-@="GAME.AddOn.$filename"
+[HKEY_CURRENT_USER\Software\Classes\${paradigm}.AddOn.$filename]
+@="${paradigm}.AddOn.$filename"
 
-[HKEY_CURRENT_USER\Software\Classes\GAME.AddOn.$filename\CLSID]
+[HKEY_CURRENT_USER\Software\Classes\${paradigm}.AddOn.$filename\CLSID]
 @="{$comp_guid}"
 
-[HKEY_CURRENT_USER\Software\GME\Components\GAME.AddOn.$filename]
+[HKEY_CURRENT_USER\Software\GME\Components\${paradigm}.AddOn.$filename]
 "Tooltip"=""
 "Paradigm"="$paradigm"
 "Type"=dword:00000002
-"Description"="GAME ${filename}"
+"Description"="${filename}"
 
-[HKEY_CURRENT_USER\Software\GME\Components\GAME.AddOn.$filename\Associated]
+[HKEY_CURRENT_USER\Software\GME\Components\${paradigm}.AddOn.$filename\Associated]
 
 
 """)
