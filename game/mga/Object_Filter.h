@@ -98,6 +98,6 @@ private:
 }
 }
 
-#include "Filter_T.cpp"
+#include "Object_Filter_T.cpp"
 
 #endif  // !defined _GME_FILTER_H_

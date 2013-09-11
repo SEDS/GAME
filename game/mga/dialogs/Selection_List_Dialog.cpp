@@ -178,11 +178,16 @@ void Selection_List_Dialog::
 insert (std::vector <Mga::Object>::const_iterator begin,
         std::vector <Mga::Object>::const_iterator end)
 {
+#if _MSC_VER < 1600
   std::for_each (begin,
                  end,
                  boost::bind (&std::vector <Mga::Object>::push_back,
                               boost::ref (this->items_),
                               _1));
+#else
+	for (; begin != end; ++ begin)
+		this->items_.push_back (*begin);
+#endif
 }
 
 //
@@ -192,11 +197,16 @@ void Selection_List_Dialog::
 meta_insert(std::vector<GAME::Mga::Meta::Base>::const_iterator begin,
             std::vector<GAME::Mga::Meta::Base>::const_iterator end)
 {
+#if _MSC_VER < 1600
   std::for_each (begin,
                  end,
                  boost::bind (&std::vector <GAME::Mga::Meta::Base>::push_back,
                               boost::ref (this->metaitems_),
                               _1));
+#else
+	for (; begin != end; ++ begin)
+		this->metaitems_.push_back (*begin);
+#endif
 }
 
 //
@@ -206,11 +216,16 @@ void Selection_List_Dialog::
 string_insert(std::vector<std::string>::const_iterator begin,
               std::vector<std::string>::const_iterator end)
 {
+#if _MSC_VER < 1600
   std::for_each (begin,
                  end,
                  boost::bind (&std::vector <std::string>::push_back,
                               boost::ref (this->strs_),
                               _1));
+#else
+	for (; begin != end; ++ begin)
+		this->strs_.push_back (*begin);
+#endif
 }
 
 

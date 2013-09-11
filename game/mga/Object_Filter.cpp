@@ -2,7 +2,7 @@
 
 #include "stdafx.h"
 #include "Mga.h"
-#include "Filter.h"
+#include "Object_Filter.h"
 #include "Folder.h"
 #include "Model.h"
 #include "FCO.h"

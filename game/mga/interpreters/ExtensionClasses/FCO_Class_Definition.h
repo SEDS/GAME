@@ -40,7 +40,7 @@ private:
                            GAME::Mga::Atom_in item);
 
   void generate_connection_point (const Generation_Context & ctx,
-                                  std::pair < std::string, FCO_Class_Definition * > & item);
+                                  const std::pair < std::string, FCO_Class_Definition * > & item);
 
   /// Attribute connections for this object.
   std::set <GAME::Mga::Atom> attributes_;

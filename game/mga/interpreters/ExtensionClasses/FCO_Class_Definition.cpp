@@ -226,12 +226,22 @@ generate_definition (const Generation_Context & ctx)
       << " */" << std::endl
       << "///@{" << std::endl;
 
+#if _MSC_VER < 1600
     std::for_each (this->src_connpoints_.begin (),
                    this->src_connpoints_.end (),
                    boost::bind (&FCO_Class_Definition::generate_connection_point,
                                 this,
                                 boost::ref (ctx),
                                 _1));
+#else
+
+	std::set < std::pair <std::string, FCO_Class_Definition *> >::const_iterator
+		iter = this->src_connpoints_.begin (), 
+		iter_end = this->src_connpoints_.end ();
+
+	for (; iter != iter_end; ++ iter)
+		this->generate_connection_point (ctx, *iter);
+#endif
 
     ctx.hfile_
       << "///@}"
@@ -350,7 +360,7 @@ generate_attribute (const Generation_Context & ctx, GAME::Mga::Atom_in item)
 //
 void FCO_Class_Definition::
 generate_connection_point (const Generation_Context & ctx,
-                           std::pair < std::string, FCO_Class_Definition * > & item)
+                           const std::pair < std::string, FCO_Class_Definition * > & item)
 {
   const std::string role_name = item.first;
   const std::string type_name = item.second->name ();

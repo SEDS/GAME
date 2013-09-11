@@ -34,7 +34,7 @@ project (GAME_Mga) : acelib, game_lib, boost_base {
     Errors.cpp
     Exception.cpp
     FCO.cpp
-    Filter.cpp
+    Object_Filter.cpp
     Folder.cpp
     Impl_Factory.cpp
     Mga_Init.cpp
@@ -77,7 +77,7 @@ project (GAME_Mga) : acelib, game_lib, boost_base {
     Collection_T.cpp
     Factory_T.cpp
     FCO_T.cpp
-    Filter_T.cpp
+    Object_Filter_T.cpp
     Functional_T.cpp
     Init_T.cpp
     Model_T.cpp
