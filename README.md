@@ -24,7 +24,7 @@ the submodules as well. Otherwise, GAME will not build correctly.
 Set the **GAME_ROOT** environment variable to the location of the GAME 
 repo, then use the following commands:
 
-    %> %ACE_ROOT%\bin\mwc.pl -type [buildtool] GAME_ACE.mwc
+    %> %ACE_ROOT%\bin\mwc.pl -type [buildtool] GAME_ACE.mwc -features boost=1,xerces3=1,mfc=1
     %> devenv /useenv GAME_ACE.sln
     
 Build the open solution file. The executables will be place in **GAME_ROOT\bin** 
