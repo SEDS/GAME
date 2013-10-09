@@ -29,5 +29,5 @@ environment variable. Next, build GAME using the following commands:
     %> devenv /useenv GAME_ACE.sln
     
 Build the open solution file. The executables will be place in 
-**GAME_ROOT\bin** and the shared libraries will be placed in 
-**GAME_ROOT\lib**.
+**%GAME_ROOT%\bin** and the shared libraries will be placed in 
+**%GAME_ROOT%\lib**.
