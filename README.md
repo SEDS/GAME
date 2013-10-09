@@ -28,4 +28,4 @@ repo, then use the following commands:
     %> devenv /useenv GAME_ACE.sln
     
 Build the open solution file. The executables will be place in **GAME_ROOT\bin** 
-and the shared libraries will be placed in **GAME_ROOT\lib**.
+and the shared libraries will be placed in **GAME_ROOT\lib*. The Lib directory **MUST** be on your path for modules to load in GME.
