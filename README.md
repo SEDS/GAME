@@ -22,10 +22,12 @@ the submodules as well. Otherwise, GAME will not build correctly.
     %> git submodule update --init --recursive
 
 Set the **GAME_ROOT** environment variable to the location of the GAME 
-repo, then use the following commands:
+repo. Also, add **%GAME_ROOT%\lib** and  **%GAME_ROOT%\lib** to the **PATH**
+environment variable. Next, build GAME using the following commands:
 
-    %> %ACE_ROOT%\bin\mwc.pl -type [buildtool] GAME_ACE.mwc
+    %> %ACE_ROOT%\bin\mwc.pl -type [buildtool] -features boost=1,xerces3=1,mfc=1 GAME_ACE.mwc 
     %> devenv /useenv GAME_ACE.sln
     
-Build the open solution file. The executables will be place in **GAME_ROOT\bin** 
-and the shared libraries will be placed in **GAME_ROOT\lib**.
+Build the open solution file. The executables will be place in 
+**%GAME_ROOT%\bin** and the shared libraries will be placed in 
+**%GAME_ROOT%\lib**.
