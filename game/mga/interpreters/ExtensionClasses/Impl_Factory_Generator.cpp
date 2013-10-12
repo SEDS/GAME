@@ -156,6 +156,7 @@ generate (const std::string & location,
     << include_t (pch_basename + ".h")
     << include_t ("Impl_Factory.h")
     << std::endl
+    << include_t ("game/mga/RootFolder.h")
     << include_t ("game/mga/Functional_T.h")
     << include_t ("game/mga/Exception.h")
     << std::endl;
