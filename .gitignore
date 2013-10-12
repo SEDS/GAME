@@ -19,9 +19,14 @@
 *.sln
 *.sdf
 *.suo
+*.exe
+*.ilk
+*.pdb
+*.ncb
 
 # Project gen files
 *.vcxproj*
+*.vcproj*
 *_i.c
 *_p.c
 dlldata.c
