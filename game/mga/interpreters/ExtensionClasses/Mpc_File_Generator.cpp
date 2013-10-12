@@ -101,7 +101,8 @@ generate (const std::string & location,
     << "  Source_Files {" << std::endl
     << "    " << proj.root_folder ()->name () << "/Impl_Factory.cpp" << std::endl
     << "    " << proj.root_folder ()->name () << "/Init.cpp" << std::endl
-    << "    " << proj.root_folder ()->name () << "/Visitor.cpp" << std::endl;
+    << "    " << proj.root_folder ()->name () << "/Visitor.cpp" << std::endl
+    << "    " << proj.root_folder ()->name () << "/RootFolder.cpp" << std::endl;
 
   // Write the extension class source files.
   std::for_each (obj_mgr->objects ().begin (),

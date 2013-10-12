@@ -155,6 +155,7 @@ generate (const std::string & location,
     << std::endl
     << include_t (pch_basename + ".h")
     << include_t ("Impl_Factory.h")
+    << include_t ("RootFolder.h")
     << std::endl
     << include_t ("game/mga/RootFolder.h")
     << include_t ("game/mga/Functional_T.h")
@@ -229,7 +230,7 @@ generate_source_files (const Project & proj, const Object_Manager * obj_mgr)
   // Generate the bind method for the RootFolder, then end the
   // the constructor's implementation.
   this->cxx_file_
-    << "this->map_.bind (\"RootFolder\", &::GAME::Mga::allocate_impl <GAME::Mga::RootFolder_Impl>);"
+    << "this->map_.bind (\"RootFolder\", &::GAME::Mga::allocate_impl <RootFolder_Impl>);"
     << "}"
     << function_header_t ("~Impl_Factory")
     << "Impl_Factory::~Impl_Factory (void)"

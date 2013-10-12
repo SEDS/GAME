@@ -16,6 +16,7 @@
 #include "Top_Level_File_Generator.h"
 #include "Object_Manager.h"
 #include "Object_Builder.h"
+#include "RootFolder_Generator.h"
 
 #include "game/mga/Atom.h"
 #include "game/mga/Model.h"
@@ -81,9 +82,7 @@ invoke_ex (GAME::Mga::Project project,
     if (this->is_interactive_)
     {
       // Get the output directory for the extension classes.
-      bool retval = GAME::Utils::get_path ("Select target output directory...",
-                                           this->output_,
-                                           this->output_);
+      bool retval = GAME::Utils::get_path ("Select target output directory...", this->output_, this->output_);
 
       if (!retval)
         return 0;
@@ -141,9 +140,11 @@ invoke_ex (GAME::Mga::Project project,
     GAME::Mga::Export_File_Generator export_file_gen;
     export_file_gen.generate (this->output_, project);
 
+    GAME::Mga::RootFolder_Generator root_folder_gen;
+    root_folder_gen.generate (this->output_, project, pch_basename, OBJECT_MANAGER);
+
     if (this->is_interactive_)
-      ::AfxMessageBox ("Successfully generated extension class files.",
-                       MB_OK | MB_ICONINFORMATION);
+      ::AfxMessageBox ("Successfully generated extension class files.", MB_OK | MB_ICONINFORMATION);
 
     // Save the project settings for next time.
     this->save_project_settings (project);

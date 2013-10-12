@@ -107,7 +107,12 @@ generate (const std::string & location,
       << include_t ("game/mga/Smart_Ptr.h")
       << std::endl
       << "namespace " << name
-      << "{";
+      << "{"
+      << "// Forward declarations for RootFolder" << std::endl
+      << "class RootFolder_Impl;"
+      << "typedef RootFolder_Impl * " << "RootFolder_in;"
+      << "typedef ::GAME::Mga::Smart_Ptr <RootFolder_Impl> RootFolder;";
+
 
     std::for_each (obj_mgr->objects ().begin (),
                    obj_mgr->objects ().end (),

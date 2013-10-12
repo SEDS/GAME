@@ -430,7 +430,7 @@ void Object_Class_Definition::generate (const Generation_Context & ctx)
   parent_include_gen (ctx.sfile_, seen_includes)(this);
 
   if (this->in_root_folder_)
-    ctx.hfile_ << include_t ("game/mga/RootFolder.h");
+    ctx.hfile_ << include_t (root_name + "/RootFolder.h");
 
   ctx.hfile_
     << include_t ("game/mga/" + this->metaname_ + ".h");
@@ -638,14 +638,14 @@ void Object_Class_Definition::generate (const Generation_Context & ctx)
     // define and implement the factory method bound to the root
     // folder of the project.
     ctx.hfile_
-      << "::GAME::Mga::RootFolder parent_RootFolder (void);";
+      << "RootFolder parent_RootFolder (void);";
 
     // Implement the root folder factory method.
     ctx.sfile_
       << function_header_t ("parent_RootFolder (void)")
-      << "::GAME::Mga::RootFolder " << this->classname_ << "::parent_RootFolder (void)"
+      << "RootFolder " << this->classname_ << "::parent_RootFolder (void)"
       << "{"
-      << "return ::GAME::Mga::RootFolder::_narrow (this->parent ());"
+      << "return RootFolder::_narrow (this->parent ());"
       << "}";
   }
 

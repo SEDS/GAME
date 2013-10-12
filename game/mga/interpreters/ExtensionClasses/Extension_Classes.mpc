@@ -31,6 +31,7 @@ project (GAME_ExtensionClassesComponent) : boost_base, game_codegenerationkit, g
     Mpc_File_Generator.cpp
     Mwc_File_Generator.cpp
     Reference_Class_Definition.cpp
+    RootFolder_Generator.cpp
     Set_Class_Definition.cpp
     Top_Level_File_Generator.cpp
     Visitor_Generator.cpp

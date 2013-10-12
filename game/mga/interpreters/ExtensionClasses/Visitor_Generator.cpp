@@ -183,18 +183,20 @@ generate_source_files (const Project & proj, const Object_Manager * obj_mgr)
     << "/**" << std::endl
     << " * @name Visit Methods" << std::endl
     << " */" << std::endl
-    << "///@{" << std::endl;
+    << "///@{" << std::endl
+    << "virtual void visit_RootFolder (RootFolder_in folder);";
 
   this->cxx_file_
     << std::endl
     << "namespace " << project_name
     << "{"
-    << function_header_t ("Visitor")
     << "Visitor::Visitor (void)"
     << "{"
     << "}"
-    << function_header_t ("~Visitor")
     << "Visitor::~Visitor (void)"
+    << "{"
+    << "}"
+    << "void Visitor::visit_RootFolder (RootFolder_in folder)"
     << "{"
     << "}";
 
