@@ -48,7 +48,7 @@ public:
   //
   virtual void visit_Atom (GAME::Mga::Atom_in item)
   {
-    const std::string metaname = item->name ();
+    const std::string metaname = item->meta ()->name ();
     this->process_FCO (metaname, item);
 
     // Gather all the Proxy elements that reference this element.
@@ -68,7 +68,7 @@ public:
   //
   void Base_Class_Locator::visit_Reference (GAME::Mga::Reference_in ref)
   {
-    const std::string metaname = ref->refers_to ()->name ();
+    const std::string metaname = ref->refers_to ()->meta ()->name ();
     this->process_FCO (metaname, ref);
   }
 
