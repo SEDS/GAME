@@ -4,7 +4,7 @@ GAME
 GAME is an framework that enables the development of lightweight components
 for GME.
 
-See our (Wiki)[https://github.iu.edu/SEDS/GAME/wiki] for uses of GAME.
+See our [Wiki](https://github.iu.edu/SEDS/GAME/wiki) for uses of GAME.
 
 Building from Sources
 ---------------------
