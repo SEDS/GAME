@@ -7,7 +7,7 @@ GME component frameworks, such as BON, BON2, and UDM.
 
 See our [Wiki](https://github.iu.edu/SEDS/GAME/wiki) for uses of GAME.
 
-Building from Sources
+Building from Source
 ---------------------
 
 We assume you have the following third-party middleware downloaded
