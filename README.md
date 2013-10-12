@@ -2,7 +2,8 @@ GAME
 ====
 
 GAME is an framework that enables the development of lightweight components
-for GME.
+for GME. It is also designed to address many of the shortcomings of using 
+GME component frameworks, such as BON, BON2, and UDM.
 
 See our [Wiki](https://github.iu.edu/SEDS/GAME/wiki) for uses of GAME.
 
