@@ -11,6 +11,7 @@
 *.lai
 *.la
 *.a
+*.lib
 
 # Annoying files
 .DS_Store
@@ -23,6 +24,7 @@
 *.ilk
 *.pdb
 *.ncb
+*.exp
 
 # Project gen files
 *.vcxproj*
