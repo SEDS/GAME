@@ -1,7 +1,13 @@
 GAME
 ====
 
-Building from Sources
+GAME is an framework that enables the development of lightweight components
+for GME. It is also designed to address many of the shortcomings of existing 
+GME component frameworks, such as BON, BON2, and UDM.
+
+See our [Wiki](https://github.iu.edu/SEDS/GAME/wiki) for uses of GAME.
+
+Building from Source
 ---------------------
 
 We assume you have the following third-party middleware downloaded
@@ -28,6 +34,6 @@ environment variable. Next, build GAME using the following commands:
     %> %ACE_ROOT%\bin\mwc.pl -type [buildtool] -features boost=1,xerces3=1,mfc=1 GAME_ACE.mwc 
     %> devenv /useenv GAME_ACE.sln
     
-Build the open solution file. The executables will be place in 
+Build the opened solution file. The executables will be place in 
 **%GAME_ROOT%\bin** and the shared libraries will be placed in 
 **%GAME_ROOT%\lib**.
