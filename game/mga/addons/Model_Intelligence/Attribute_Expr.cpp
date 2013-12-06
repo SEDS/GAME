@@ -56,26 +56,26 @@ Value * Attribute_Expr::evaluate (Ocl_Context & res)
   GAME::Mga::Meta::Attribute meta_atr = metafco->attribute (this->attribute_, false);
   std::string atrname = meta_atr->name ();
 
-  GAME::Mga::Attribute work_atr = fco->attribute (meta_atr);
+  GAME::Mga::Attribute attr = fco->attribute (meta_atr);
 
   if (meta_atr->type () == ATTVAL_INTEGER)
   {
-    long val = work_atr->int_value ();
+    long val = attr->int_value ();
     return new Int_Value (val);
   }
   else if (meta_atr->type () == ATTVAL_STRING)
   {
-    std::string val = work_atr->string_value ();
+    std::string val = attr->string_value ();
     return new String_Value (val);
   }
   else if (meta_atr->type () == ATTVAL_BOOLEAN)
   {
-    bool val = work_atr->bool_value ();
+    bool val = attr->bool_value ();
     return new Boolean_Value (val);
   }
   else if (meta_atr->type () == ATTVAL_DOUBLE)
   {
-    double val = work_atr->double_value ();
+    double val = attr->double_value ();
     return new Double_Value (val);
   }
   else
@@ -115,31 +115,24 @@ Value * Attribute_Expr::filter_evaluate (Ocl_Context & res)
   GAME::Mga::Meta::Attribute meta_atr = metafco->attribute (this->attribute_, false);
   std::string atrname = meta_atr->name ();
 
-  GAME::Mga::Attribute work_atr = fco->attribute (meta_atr);
+  GAME::Mga::Attribute attr = fco->attribute (meta_atr);
 
-  if (meta_atr->type () == ATTVAL_INTEGER)
+  switch (meta_atr->type ())
   {
-    long val = work_atr->int_value ();
-    return new Int_Value (val);
-  }
-  else if (meta_atr->type () == ATTVAL_STRING)
-  {
-    std::string val = work_atr->string_value ();
-    return new String_Value (val);
-  }
-  else if (meta_atr->type () == ATTVAL_BOOLEAN)
-  {
-    bool val = work_atr->bool_value ();
-    return new Boolean_Value (val);
-  }
-  else if (meta_atr->type () == ATTVAL_DOUBLE)
-  {
-    double val = work_atr->double_value ();
-    return new Double_Value (val);
-  }
-  else
-  {
-    std::cerr <<"Invalid return type of Attribute";
+  case ATTVAL_INTEGER:
+    return new Int_Value (attr->int_value ());
+
+  case ATTVAL_STRING:
+    return new String_Value (attr->string_value ());
+
+  case ATTVAL_BOOLEAN:
+    return new Boolean_Value (attr->bool_value ());
+
+  case ATTVAL_DOUBLE:
+    return new Double_Value (attr->double_value ());
+
+  default:
+    throw GAME::Mga::Exception ("invalid return type of Attribute");
   }
 }
 

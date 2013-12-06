@@ -9,11 +9,11 @@
 #include "game/mga/MetaModel.h"
 #include "game/mga/Connection.h"
 #include "game/mga/Atom.h"
-#include "game/mga/Filter.h"
+#include "game/mga/Object_Filter.h"
 #include "game/mga/MetaConstraint.h"
 #include "game/mga/FCO.h"
 #include "game/mga/MetaFCO.h"
-#include "MetaPart.h" 
+#include "MetaPart.h"
 
 #include "boost/bind.hpp"
 
@@ -50,38 +50,38 @@ int Containment_Handler::handle_object_created (GAME::Mga::Object_in obj)
   GAME::Mga::Model mod = GAME::Mga::Model::_narrow (obj);
 
   // Setting the model specific attributes in Model_Intelligence_Features for containment
-	Ocl_Context res;
-	res.model_constraint = true;
+  Ocl_Context res;
+  res.model_constraint = true;
   res.model_attributes = false;
-	res.self = obj;
-	res.model_object = mod;
+  res.self = obj;
+  res.model_object = mod;
   res.checker = false;
 
-	// Collecting all constraints on the entered model
+  // Collecting all constraints on the entered model
   std::vector <GAME::Mga::Meta::Constraint> cs;
 
   size_t csize = mod->meta ()->constraints (cs);
 
-	std::vector <std::string> all_cardinalities;
+  std::vector <std::string> all_cardinalities;
 
-	std::for_each (cs.begin (),
-		             cs.end (),
-								 boost::bind (&std::vector <std::string>::push_back,
+  std::for_each (cs.begin (),
+                 cs.end (),
+                 boost::bind (&std::vector <std::string>::push_back,
                               boost::ref (all_cardinalities),
-															boost::bind (&GAME::Mga::Meta::Constraint::impl_type::expression,
-															             boost::bind (&GAME::Mga::Meta::Constraint::get, _1))));
+                              boost::bind (&GAME::Mga::Meta::Constraint::impl_type::expression,
+                                           boost::bind (&GAME::Mga::Meta::Constraint::get, _1))));
 
 
-	// Iterating over all the cardinalities one by one so as to
+  // Iterating over all the cardinalities one by one so as to
   // parse and evaluate them to generate a list of actions
   std::vector <std::string>::const_iterator
     iter = all_cardinalities.begin (), iter_end = all_cardinalities.end ();
 
-	for (; iter != iter_end; ++ iter)
+  for (; iter != iter_end; ++ iter)
   {
-		//reseting the constraint specific variables
-		res.target_metaroles.clear ();
-		res.locals.clear ();
+    //reseting the constraint specific variables
+    res.target_metaroles.clear ();
+    res.locals.clear ();
 
     std::vector <Boolean_Expr *> ocl;
     OCL_Expr_Parser parser;
@@ -108,7 +108,7 @@ int Containment_Handler::handle_object_created (GAME::Mga::Object_in obj)
       parser.parse_string ((*iter), ocl);
       this->cache[(*iter)] = ocl;
     }
-   
+
     std::vector <Boolean_Expr *>::iterator
       cont = ocl.begin (), cont_end = ocl.end ();
 
@@ -131,13 +131,13 @@ int Containment_Handler::handle_object_created (GAME::Mga::Object_in obj)
 
   }
 
-	// Iterating over the list of actions and executing them
-	std::for_each (res.actions.begin (),
+  // Iterating over the list of actions and executing them
+  std::for_each (res.actions.begin (),
                  res.actions.end (),
-								 boost::bind(&Expr_Command::execute, _1));
+                 boost::bind(&Expr_Command::execute, _1));
 
 
-  
+
   return 0;
 
 }

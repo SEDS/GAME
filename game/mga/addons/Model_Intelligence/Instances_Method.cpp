@@ -3,7 +3,7 @@
 #include "StdAfx.h"
 
 #include "Instances_Method.h"
-#include "game/mga/Filter.h"
+#include "game/mga/Object_Filter.h"
 #include "MetaModel.h"
 #include "MetaRole.h"
 #include "MetaFCO.h"
@@ -49,7 +49,7 @@ Value * Instances_Method::evaluate (Ocl_Context & res, GAME::Mga::Object caller)
   }
 
   return new Collection_Value_T <GAME::Mga::FCO> (fcos);
-	
+
 }
 
 //
@@ -60,9 +60,9 @@ Value * Instances_Method::evaluate(Ocl_Context &res, Value *caller)
   Object_Value * iv = dynamic_cast <Object_Value *> (caller);
   std::vector <GAME::Mga::FCO> fcos;
 
-	if (iv != 0)
-	{
-		GAME::Mga::Object val = iv->value ();
+  if (iv != 0)
+  {
+    GAME::Mga::Object val = iv->value ();
 
     GAME::Mga::FCO obj = GAME::Mga::FCO::_narrow (val);
 
@@ -81,8 +81,8 @@ Value * Instances_Method::evaluate(Ocl_Context &res, Value *caller)
         fcos.push_back ((*it));
     }
   }
-  
-	return new Collection_Value_T<GAME::Mga::FCO> (fcos);
+
+  return new Collection_Value_T<GAME::Mga::FCO> (fcos);
 }
 
 //

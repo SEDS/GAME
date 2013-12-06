@@ -8,7 +8,7 @@
 #include "game/mga/MetaConstraint.h"
 #include "game/mga/MetaConnection.h"
 #include "game/mga/Atom.h"
-#include "game/mga/Filter.h"
+#include "game/mga/Object_Filter.h"
 #include "game/mga/MetaBase.h"
 #include "game/mga/MetaModel.h"
 #include "game/mga/MetaFolder.h"
@@ -87,7 +87,7 @@ int User_Guidance_Handler::handle_object_select (GAME::Mga::Object_in obj)
   dlg.directions ("User Guidance");
   dlg.string_insert (first);
 
-  
+
   if (IDOK != dlg.DoModal ())
       return 0;
 
@@ -99,7 +99,7 @@ int User_Guidance_Handler::handle_object_select (GAME::Mga::Object_in obj)
       rootmodel_add (root_folder, rootmodels);
     else if (first_select == "Actions relevant to existing models")
       aspect_add (root_folder, models);
-  } 
+  }
 
   return 0;
 
@@ -162,7 +162,7 @@ int User_Guidance_Handler::aspect_add (GAME::Mga::RootFolder & root_folder,
   {
     option_list (mod);
   }
-    
+
   return 0;
 }
 
@@ -221,7 +221,7 @@ int User_Guidance_Handler::option_list (GAME::Mga::Model & mod)
   dlg.directions ("User Guidance");
   dlg.string_insert (initial);
 
-  
+
   if (IDOK != dlg.DoModal ())
       return 0;
 
@@ -239,7 +239,7 @@ int User_Guidance_Handler::option_list (GAME::Mga::Model & mod)
       element_delete (mod);
     else if (str_select == "Delete a reference")
       reference_delete (mod);
-  } 
+  }
 
   return 0;
 }
@@ -252,7 +252,7 @@ int User_Guidance_Handler::element_add (GAME::Mga::Model & parent_model,
 {
 
   GAME::Mga::Meta::Role select;
-  
+
   AFX_MANAGE_STATE (::AfxGetStaticModuleState ());
 
   // Create the dialog and pass in the data
@@ -429,7 +429,7 @@ int User_Guidance_Handler::connection_add (GAME::Mga::Model & parent_model,
   if (!select.is_nil ())
   {
     if (select->kind()->type () == OBJTYPE_CONNECTION)
-      select_source (parent_model, select);    
+      select_source (parent_model, select);
   }
 
   return 0;

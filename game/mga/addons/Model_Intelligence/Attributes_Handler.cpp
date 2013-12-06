@@ -6,7 +6,7 @@
 #include "game/mga/Model.h"
 #include "game/mga/MetaConstraint.h"
 #include "game/mga/Atom.h"
-#include "game/mga/Filter.h"
+#include "game/mga/Object_Filter.h"
 #include "game/mga/MetaBase.h"
 #include "game/mga/FCO.h"
 #include "game/mga/MetaFCO.h"
@@ -48,51 +48,51 @@ int Attributes_Handler::handle_object_created (GAME::Mga::Object_in obj)
   Ocl_Context res;
 
   // Seting values in the model intelligence context
-	res.model_constraint = false;
+  res.model_constraint = false;
   res.model_attributes = true;
-	res.self = obj;
+  res.self = obj;
 
   // Collecting all constraints on the entered object
   std::vector <GAME::Mga::Meta::Constraint> cs;
 
   size_t csize = obj->meta ()->constraints (cs);
 
-	std::vector <std::string> all_constraints;
+  std::vector <std::string> all_constraints;
 
   std::for_each (cs.begin (),
-		             cs.end (),
-								 boost::bind (&std::vector <std::string>::push_back,
+                 cs.end (),
+                 boost::bind (&std::vector <std::string>::push_back,
                               boost::ref (all_constraints),
-															boost::bind (&GAME::Mga::Meta::Constraint::impl_type::expression,
-															             boost::bind (&GAME::Mga::Meta::Constraint::get, _1))));
+                              boost::bind (&GAME::Mga::Meta::Constraint::impl_type::expression,
+                                           boost::bind (&GAME::Mga::Meta::Constraint::get, _1))));
 
   // Iterating over all the constraints one by one so as to
   // parse and evaluate them to generate a list of actions
   std::vector <std::string>::const_iterator
     iter = all_constraints.begin (), iter_end = all_constraints.end ();
 
-	for (; iter != iter_end; ++ iter)
+  for (; iter != iter_end; ++ iter)
   {
     //reseting the constraint specific variables
-		res.target_metaroles.clear ();
-		res.locals.clear ();
+    res.target_metaroles.clear ();
+    res.locals.clear ();
 
     std::vector <Boolean_Expr *> ocl;
     OCL_Expr_Parser parser;
 
-		//Parsing the constraint string
+    //Parsing the constraint string
     parser.parse_string ((*iter), ocl);
 
     // Iterating over the sub-expressions and evaluating them
-		std::for_each (ocl.begin (),
-			             ocl.end (),
-									 boost::bind(&Boolean_Expr::evaluate, _1, boost::ref(res)));
+    std::for_each (ocl.begin (),
+                   ocl.end (),
+                   boost::bind(&Boolean_Expr::evaluate, _1, boost::ref(res)));
   }
 
   // Iterating over the list of actions and executing them
-	std::for_each (res.actions.begin (),
+  std::for_each (res.actions.begin (),
                  res.actions.end (),
-								 boost::bind(&Expr_Command::execute, _1));
+                 boost::bind(&Expr_Command::execute, _1));
 
 
   return 0;

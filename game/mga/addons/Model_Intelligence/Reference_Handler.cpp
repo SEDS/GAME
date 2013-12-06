@@ -8,7 +8,7 @@
 #include "game/mga/MetaReference.h"
 #include "game/mga/MetaConstraint.h"
 #include "game/mga/Atom.h"
-#include "game/mga/Filter.h"
+#include "game/mga/Object_Filter.h"
 #include "game/mga/MetaBase.h"
 #include "game/mga/FCO.h"
 #include "game/mga/MetaFCO.h"
@@ -49,7 +49,7 @@ int Reference_Handler::handle_object_created (GAME::Mga::Object_in obj)
   // happen if some other addon creates the reference and sets the object
   // it refers to.
   GAME::Mga::Reference ref = GAME::Mga::Reference::_narrow (obj);
-  
+
   // Finding the metaobjects that ref referes to
   std::vector <GAME::Mga::Meta::FCO> types;
   ref->meta ()->targets (types);
@@ -63,50 +63,50 @@ int Reference_Handler::handle_object_created (GAME::Mga::Object_in obj)
   filter.kind (types);
   filter.apply (objs);
 
-	// Filtering the results based on constraints for the dialog box
-	std::vector <GAME::Mga::Meta::Constraint> cs;
+  // Filtering the results based on constraints for the dialog box
+  std::vector <GAME::Mga::Meta::Constraint> cs;
 
-	size_t csize = ref->meta ()->constraints (cs);
+  size_t csize = ref->meta ()->constraints (cs);
 
   std::vector <std::string> ref_constraints;
 
-	std::for_each (cs.begin (),
-		             cs.end (),
-								 boost::bind (&std::vector <std::string>::push_back,
+  std::for_each (cs.begin (),
+                 cs.end (),
+                 boost::bind (&std::vector <std::string>::push_back,
                               boost::ref (ref_constraints),
-															boost::bind (&GAME::Mga::Meta::Constraint::impl_type::expression,
-															             boost::bind (&GAME::Mga::Meta::Constraint::get, _1))));
+                              boost::bind (&GAME::Mga::Meta::Constraint::impl_type::expression,
+                                           boost::bind (&GAME::Mga::Meta::Constraint::get, _1))));
 
-  
-	Ocl_Context res;
 
-	res.self = obj;
-	res.model_constraint = false;
+  Ocl_Context res;
+
+  res.self = obj;
+  res.model_constraint = false;
   res.model_attributes = false;
 
-	std::vector <GAME::Mga::FCO>::iterator 
-		objs_iter = objs.begin (), objs_iter_end = objs.end ();
+  std::vector <GAME::Mga::FCO>::iterator
+    objs_iter = objs.begin (), objs_iter_end = objs.end ();
 
-	// Vector to hold the qualified FCO's
-	std::vector <GAME::Mga::FCO> qual_fcos;
+  // Vector to hold the qualified FCO's
+  std::vector <GAME::Mga::FCO> qual_fcos;
 
-	for (; objs_iter != objs_iter_end; ++ objs_iter)
-	{
-		bool result = true;
+  for (; objs_iter != objs_iter_end; ++ objs_iter)
+  {
+    bool result = true;
 
-		std::vector <std::string>::iterator 
-			iter = ref_constraints.begin (), iter_end = ref_constraints.end ();
+    std::vector <std::string>::iterator
+      iter = ref_constraints.begin (), iter_end = ref_constraints.end ();
 
-		for (; iter != iter_end; ++ iter)
-		{
+    for (; iter != iter_end; ++ iter)
+    {
       bool temp = false;
 
-			//reseting the constraint specific variables
-			res.target_metaroles.clear ();
-			res.locals.clear ();
+      //reseting the constraint specific variables
+      res.target_metaroles.clear ();
+      res.locals.clear ();
 
-			std::vector <Boolean_Expr *> ocl;
-			OCL_Expr_Parser parser;
+      std::vector <Boolean_Expr *> ocl;
+      OCL_Expr_Parser parser;
 
       // Checking if the constraint exists in cache
       std::map <std::string, std::vector <Boolean_Expr *>>::iterator
@@ -142,12 +142,12 @@ int Reference_Handler::handle_object_created (GAME::Mga::Object_in obj)
           counter++;
       }
 
-			// Iterating over the sub-expressions and evaluating them
-			std::vector <Boolean_Expr *>::iterator 
-				oclitt = ocl.begin (), oclitt_end = ocl.end ();
+      // Iterating over the sub-expressions and evaluating them
+      std::vector <Boolean_Expr *>::iterator
+        oclitt = ocl.begin (), oclitt_end = ocl.end ();
 
-			for (; oclitt != oclitt_end; ++ oclitt)
-			{
+      for (; oclitt != oclitt_end; ++ oclitt)
+      {
         if (counter == ocl.size () && result)
         {
           temp = (*oclitt)->filter_evaluate (res, (*objs_iter));
@@ -155,12 +155,12 @@ int Reference_Handler::handle_object_created (GAME::Mga::Object_in obj)
           if (!temp)
             result = false;
         }
-			}
-		}
+      }
+    }
 
-		if (result)
-			qual_fcos.push_back ((*objs_iter));
-	}
+    if (result)
+      qual_fcos.push_back ((*objs_iter));
+  }
 
   if (1 == qual_fcos.size ())
   {

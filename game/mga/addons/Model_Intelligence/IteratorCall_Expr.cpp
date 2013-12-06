@@ -6,7 +6,7 @@
 #include "Object_Value.h"
 #include "Boolean_Value.h"
 #include "Collection_Value_T.h"
-#include "game/mga/Filter.h"
+#include "game/mga/Object_Filter.h"
 #include "game/mga/MetaFCO.h"
 #include "game/mga/FCO.h"
 
@@ -48,11 +48,11 @@ IteratorCall_Expr::~IteratorCall_Expr (void)
 // evaluate
 //
 bool IteratorCall_Expr::evaluate (Ocl_Context & res)
-{ 
+{
   Value * result;
 
   // Collect the value for the invoking collection
-  Collection_Value_T <GAME::Mga::FCO> * cv = 
+  Collection_Value_T <GAME::Mga::FCO> * cv =
     dynamic_cast <Collection_Value_T<GAME::Mga::FCO> *> (this->obj_->evaluate (res));
 
   if (cv != 0)
@@ -73,9 +73,9 @@ bool IteratorCall_Expr::evaluate (Ocl_Context & res)
 //
 // filter_evaluate
 //
-bool IteratorCall_Expr::filter_evaluate (Ocl_Context & res, 
+bool IteratorCall_Expr::filter_evaluate (Ocl_Context & res,
                                          GAME::Mga::FCO &current)
-{ 
+{
   bool result = false;
 
   std::string name = current->name ();
@@ -94,7 +94,7 @@ bool IteratorCall_Expr::filter_evaluate (Ocl_Context & res,
     default:
       result = false;
   }
-          
+
   return result;
 }
 

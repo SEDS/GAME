@@ -3,7 +3,7 @@
 #include "StdAfx.h"
 
 #include "ReferencedBy_Method.h"
-#include "game/mga/Filter.h"
+#include "game/mga/Object_Filter.h"
 #include "MetaModel.h"
 #include "MetaRole.h"
 #include "MetaFCO.h"
@@ -37,7 +37,7 @@ ReferencedBy_Method::~ReferencedBy_Method (void)
 //
 // evaluate
 //
-Value * ReferencedBy_Method::evaluate (Ocl_Context & res, 
+Value * ReferencedBy_Method::evaluate (Ocl_Context & res,
                                        GAME::Mga::Object caller)
 {
   GAME::Mga::FCO obj = GAME::Mga::FCO::_narrow (caller);
@@ -65,21 +65,21 @@ Value * ReferencedBy_Method::evaluate (Ocl_Context & res,
   }
 
   return new Collection_Value_T <GAME::Mga::Reference> (temps);
-	
+
 }
 
 //
 // evaluate
 //
-Value * ReferencedBy_Method::evaluate (Ocl_Context & res, 
+Value * ReferencedBy_Method::evaluate (Ocl_Context & res,
                                        Value * caller)
 {
   Object_Value * iv = dynamic_cast <Object_Value *> (caller);
   std::vector <GAME::Mga::Reference> temps;
 
-	if (iv != 0)
-	{
-		GAME::Mga::Object val = iv->value ();
+  if (iv != 0)
+  {
+    GAME::Mga::Object val = iv->value ();
 
     GAME::Mga::FCO obj = GAME::Mga::FCO::_narrow (val);
 
@@ -101,10 +101,10 @@ Value * ReferencedBy_Method::evaluate (Ocl_Context & res,
       }
 
       return new Collection_Value_T <GAME::Mga::Reference> (refs);
-    }         
+    }
   }
-  
-	return new Collection_Value_T <GAME::Mga::Reference> (temps);
+
+  return new Collection_Value_T <GAME::Mga::Reference> (temps);
 }
 
 //

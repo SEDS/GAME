@@ -10,7 +10,7 @@
 #include "game/mga/Connection.h"
 #include "game/mga/Atom.h"
 #include "game/mga/MetaAtom.h"
-#include "game/mga/Filter.h"
+#include "game/mga/Object_Filter.h"
 #include "game/mga/MetaConstraint.h"
 #include "game/mga/FCO.h"
 #include "game/mga/MetaFCO.h"
@@ -41,7 +41,7 @@ Containment_Check_Handler::~Containment_Check_Handler (void)
 }
 
 //
-// handle_object_created 
+// handle_object_created
 //
 int Containment_Check_Handler::handle_object_select (GAME::Mga::Object_in obj)
 {
@@ -67,11 +67,11 @@ int Containment_Check_Handler::handle_object_select (GAME::Mga::Object_in obj)
  std::vector <std::string> all_cardinalities;
 
   std::for_each (cs.begin (),
-		             cs.end (),
-								 boost::bind (&std::vector <std::string>::push_back,
+                 cs.end (),
+                 boost::bind (&std::vector <std::string>::push_back,
                               boost::ref (all_cardinalities),
-															boost::bind (&GAME::Mga::Meta::Constraint::impl_type::expression,
-															             boost::bind (&GAME::Mga::Meta::Constraint::get, _1))));
+                              boost::bind (&GAME::Mga::Meta::Constraint::impl_type::expression,
+                                           boost::bind (&GAME::Mga::Meta::Constraint::get, _1))));
 
   // Iterating over all the cardinalities one by one so as to
   // parse and evaluate them to generate a list of actions
@@ -81,8 +81,8 @@ int Containment_Check_Handler::handle_object_select (GAME::Mga::Object_in obj)
   for (; iter != iter_end; ++ iter)
   {
     //reseting the constraint specific variables
-		res.target_metaroles.clear ();
-		res.locals.clear ();
+    res.target_metaroles.clear ();
+    res.locals.clear ();
 
     std::vector <Boolean_Expr *> ocl;
     OCL_Expr_Parser parser;
