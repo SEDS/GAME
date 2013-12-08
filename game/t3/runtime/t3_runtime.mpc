@@ -1,6 +1,6 @@
 // $Id$
 
-project (T3_Runtime) : game_mga, game_lib {
+project (T3_Runtime) : boost_base, game_mga, game_lib {
   sharedname    = t3_runtime
   dynamicflags += T3_RUNTIME_BUILD_DLL
 
