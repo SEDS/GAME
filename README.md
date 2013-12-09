@@ -20,16 +20,9 @@ and installed on your build machine:
 For more information on building the above, please consult the following 
 [Wiki Page](https://github.iu.edu/SEDS/GAME/wiki/Building-Required-Middleware).
 
-Clone the GAME repo using the following commands. It is important that you checkout
-the submodules as well. Otherwise, GAME will not build correctly.
-
-    %> git clone [GAME repo] GAME
-    %> cd GAME
-    %> git submodule update --init --recursive
-
-Set the **GAME_ROOT** environment variable to the location of the GAME 
-repo. Also, add **%GAME_ROOT%\lib** and  **%GAME_ROOT%\lib** to the **PATH**
-environment variable. Next, build GAME using the following commands:
+Clone the GAME repo, then set the **GAME_ROOT** environment variable to the 
+location of the GAME repo. Also, add **%GAME_ROOT%\bin** and  **%GAME_ROOT%\lib** 
+to the **PATH** environment variable. Next, build GAME using the following commands:
 
     %> %ACE_ROOT%\bin\mwc.pl -type [buildtool] -features boost=1,xerces3=1,mfc=1 GAME_ACE.mwc 
     %> devenv /useenv GAME_ACE.sln
