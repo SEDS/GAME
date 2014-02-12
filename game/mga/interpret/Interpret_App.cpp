@@ -23,6 +23,7 @@
 #include "ace/Get_Opt.h"
 #include "ace/OS_NS_string.h"
 #include "ace/OS_NS_unistd.h"
+#include "ace/Lib_Find.h"
 #include "ace/streams.h"
 
 #include "boost/bind.hpp"
@@ -265,7 +266,6 @@ int GAME_Automation_App::open_gme_project (const std::string & file)
     parser.get_info (file, info);
 
     ACE_TCHAR pathname[MAX_PATH];
-
     if (ACE::get_temp_dir (pathname, MAX_PATH - 20) != -1)
     {
       // Create a temporary filename for the project.
