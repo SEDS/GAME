@@ -35,6 +35,8 @@ dlldata.c
 
 # VS directories
 Debug/
+Static_Debug/
 Release/
+Static_Release/
 ipch/
 lib/
