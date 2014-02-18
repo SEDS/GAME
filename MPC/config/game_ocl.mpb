@@ -1,0 +1,4 @@
+project : game_mga {
+  after += GAME_OCL
+  libs  += GAME_OCL
+}
