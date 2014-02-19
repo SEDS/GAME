@@ -28,7 +28,7 @@
  * Struct used for keeping a track of variables
  * and local objects.Used by different expression resolvers
  */
-struct Ocl_Context
+struct GAME_OCL_Export Ocl_Context
 {
   // Flag denoting the type of constraint (for containment)
   bool model_constraint;

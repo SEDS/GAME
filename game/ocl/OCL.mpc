@@ -1,7 +1,8 @@
 // $Id: Model_Intelligence.mpc 2908 2012-06-10 18:21:53Z tpati $
 
 project (GAME_OCL): boost_base, game_lib {
-  sharedname = GAME_OCL
+  sharedname    = GAME_OCL
+  dynamicflags += GAME_OCL_BUILD_DLL
 
   pch_header = stdafx.h
   pch_source = stdafx.cpp

@@ -20,7 +20,7 @@
  *
  * Class used for parsing OCL expressions.
  */
-class OCL_Parser
+class GAME_OCL_Export OCL_Parser
 {
 public:
   /// Default Constructor

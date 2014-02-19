@@ -10,17 +10,17 @@
  */
 //=============================================================================
 
-#ifndef _GAME_MODEL_INTELLIGENCE_VALUE_VARIABLE_H_
-#define _GAME_MODEL_INTELLIGENCE_VALUE_VARIABLE_H_
+#ifndef _GAME_OCL_VALUE_H_
+#define _GAME_OCL_VALUE_H_
 
-#include <iostream>
+#include "OCL_export.h"
 
 /**
  * @class Value
  *
  * Base class for any value types
  */
-class Value
+class GAME_OCL_Export Value
 {
 public:
   /// Default constructor.

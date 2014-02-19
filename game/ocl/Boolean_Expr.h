@@ -23,7 +23,7 @@
  *
  * Base class for any expression returning boolean
  */
-class Boolean_Expr
+class GAME_OCL_Export Boolean_Expr
 {
 public:
   /// Default constructor.
