@@ -21,5 +21,5 @@ This will include the required import libraries, and setup the correct
 project build dependencies. There is no need to derive from **game_ocl**
 if another base project derives from it.
 
-Inclusion
+Usage
 ---------------
