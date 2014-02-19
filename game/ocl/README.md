@@ -2,8 +2,7 @@ OCL Expression Evaluator
 =============================
 
 This file contains instructions on how to compile against the OCL
-expression evaluator in our project, and how to use it to evaluate
-OCL expressions.
+expression evaluator, and how to use it to evaluate OCL expressions.
 
 Project Setup
 -------------------------
