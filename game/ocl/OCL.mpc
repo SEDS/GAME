@@ -1,6 +1,6 @@
 // $Id: Model_Intelligence.mpc 2908 2012-06-10 18:21:53Z tpati $
 
-project (GAME_OCL): boost_base, game_lib {
+project (GAME_OCL): boost_base, game_mga, game_lib {
   sharedname    = GAME_OCL
   dynamicflags += GAME_OCL_BUILD_DLL
 
@@ -13,6 +13,7 @@ project (GAME_OCL): boost_base, game_lib {
     }
 
     OCL_Parser.cpp
+    Evaluator.cpp
 
     Boolean_Expr.cpp
     Local_Value_Assignment_Expr.cpp
