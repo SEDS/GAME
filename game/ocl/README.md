@@ -42,7 +42,7 @@ The example above will compile the OCL expression, and evaluate it. This approac
 however, is not optimal because it requires compiling the OCL expression each
 time you want to evaluate it against an object.
 
-You therefore can use the ```OCL_Parser``` class to compile an OCL expression.
-Thecan then use the ```GAME::Ocl::Evaluator``` to evaluate the pre-compiled OCL
+You therefore can use the ```OCL_Parser``` class to compile an OCL expression,
+and use the ```GAME::Ocl::Evaluator``` to evaluate the pre-compiled OCL
 expression against the target object. This approach will allow you to cache the
 OCL expression for repeated use against many objects.
