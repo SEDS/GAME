@@ -29,12 +29,7 @@ Not_Equal_Expr::~Not_Equal_Expr (void)
 //
 bool Not_Equal_Expr::evaluate (Ocl_Context & res)
 {
-  bool ret = this->lhs_->evaluate (res)->is_equal (this->rhs_->evaluate (res));
-
-  if (!ret)
-    return true;
-
-  return false;
+  return !this->lhs_->evaluate (res)->is_equal (this->rhs_->evaluate (res));
 }
 
 //
