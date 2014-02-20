@@ -23,3 +23,26 @@ if another base project derives from it.
 
 Usage
 ---------------
+
+The simpliest way to use the OCL expression evaluator is to create an
+```GAME::OCL::Evaluator``` object and invoke its ```evaluate``` method on
+a target object and OCL expression.
+
+```cpp
+// include the OCL evaluator
+#include "game/ocl/Evaluator.h"
+
+// ...
+GAME::Mga::Object obj = /* get object from somewhere */;
+GAME::Ocl::Evalutor eval;
+bool result = eval.evaluate (obj, "self.parts(Foo).size = 3");
+```
+
+The example above will compile the OCL expression, and evaluate it. This approach
+however, is not optimal because it requires compiling the OCL expression each
+time you want to evaluate it against an object.
+
+You therefore can use the ```OCL_Parser``` class to compile an OCL expression.
+Thecan then use the ```GAME::OCL::Evaluator``` to evaluate the pre-compiled OCL
+expression against the target object. This approach will allow you to cache the
+OCL expression for repeated use against many objects.
