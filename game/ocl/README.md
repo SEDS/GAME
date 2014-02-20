@@ -25,7 +25,7 @@ Usage
 ---------------
 
 The simpliest way to use the OCL expression evaluator is to create an
-```GAME::OCL::Evaluator``` object and invoke its ```evaluate``` method on
+```GAME::Ocl::Evaluator``` object and invoke its ```evaluate``` method on
 a target object and OCL expression.
 
 ```cpp
@@ -43,6 +43,6 @@ however, is not optimal because it requires compiling the OCL expression each
 time you want to evaluate it against an object.
 
 You therefore can use the ```OCL_Parser``` class to compile an OCL expression.
-Thecan then use the ```GAME::OCL::Evaluator``` to evaluate the pre-compiled OCL
+Thecan then use the ```GAME::Ocl::Evaluator``` to evaluate the pre-compiled OCL
 expression against the target object. This approach will allow you to cache the
 OCL expression for repeated use against many objects.
