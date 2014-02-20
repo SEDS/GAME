@@ -2,8 +2,7 @@ OCL Expression Evaluator
 =============================
 
 This file contains instructions on how to compile against the OCL
-expression evaluator in our project, and how to use it to evaluate
-OCL expressions.
+expression evaluator, and how to use it to evaluate OCL expressions.
 
 Project Setup
 -------------------------
@@ -22,5 +21,5 @@ This will include the required import libraries, and setup the correct
 project build dependencies. There is no need to derive from **game_ocl**
 if another base project derives from it.
 
-Inclusion
+Usage
 ---------------
