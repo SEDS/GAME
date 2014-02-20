@@ -19,4 +19,10 @@ workspace (GAME) {
     game/xml
     game/xme
   }
+
+  include_examples {
+    cmdline += -base requires_examples
+
+    examples
+  }
 }
