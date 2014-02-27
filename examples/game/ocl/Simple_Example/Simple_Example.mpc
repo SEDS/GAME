@@ -2,8 +2,12 @@ project (GAME_OCL_Simple_Example) : requires_examples, game_ocl {
   exename = Simple_Example
   install = .
 
-  specific (prop:microsoft) {
+  specific (vc9) {
     subsystem = 1
+  }
+  
+  specific (vc10) {
+    subsystem = Console
   }
 
   pch_header = stdafx.h

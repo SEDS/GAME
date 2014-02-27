@@ -25,7 +25,7 @@ IsUnique_Iterator::~IsUnique_Iterator (void)
 Value * IsUnique_Iterator::evaluate(Ocl_Context & res,
                                     std::vector <GAME::Mga::FCO> & coll,
                                     std::vector <std::string> & decl,
-                                    std::string & decltype,
+                                    std::string & decl_type,
                                     Boolean_Expr * expr)
 {
   return new Boolean_Value (false);
@@ -37,7 +37,7 @@ Value * IsUnique_Iterator::evaluate(Ocl_Context & res,
 Value * IsUnique_Iterator::evaluate (Ocl_Context & res,
                                      std::vector <GAME::Mga::FCO> & coll,
                                      std::vector <std::string> & decl,
-                                     std::string & decltype,
+                                     std::string & decl_type,
                                      Value_Expr * valexpr)
 {
   std::vector <Value *> allvalues;
