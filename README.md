@@ -16,13 +16,15 @@ and installed on your build machine:
  * [Adaptive Communcation Environment (ACE)](http://www.dre.vanderbilt.edu/ACE)
  * [Boost.Spirit](http://boost-spirit.com/home/)
  * [Makefile, Project, Workspace Creator](http://www.ociweb.com/products/mpc)
+ * [GME](http://repo.isis.vanderbilt.edu/GME/old/13.11.14/)
 
 For more information on building the above, please consult the following 
 [Wiki Page](https://github.iu.edu/SEDS/GAME/wiki/Building-Required-Middleware).
 
 Clone the GAME repo, then set the **GAME_ROOT** environment variable to the 
 location of the GAME repo. Also, add **%GAME_ROOT%\bin** and  **%GAME_ROOT%\lib** 
-to the **PATH** environment variable. Next, build GAME using the following commands:
+to the **PATH** environment variable. Also, be sure that the **GME_ROOT** is set
+properly. Next, build GAME using the following commands:
 
     %> %ACE_ROOT%\bin\mwc.pl -type [buildtool] -features boost=1,xerces3=1,mfc=1 GAME_ACE.mwc 
     %> devenv /useenv GAME_ACE.sln
