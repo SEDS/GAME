@@ -32,6 +32,7 @@
 *_i.c
 *_p.c
 dlldata.c
+*.aps
 
 # VS directories
 Debug/
