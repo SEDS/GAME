@@ -56,14 +56,14 @@ project (${project_name}) : boost_base, game_mga_component, game_mga_utils, game
   specific (wix) {
     gme_install        = 1
     gme_component_type = 2
-    gme_progid         = $paradigm.AddOn.$filename
+    gme_progid         = ${company}.AddOn.$filename
     gme_uuid           = $uuid_value
     gme_paradigms      = $paradigm
     gme_description    = $filename AddOn
     gme_tooltip        = $filename AddOn
   }
-
-}""")
+}
+""")
 
     
     replace_mpc = {'project_name' : filename,
@@ -72,13 +72,12 @@ project (${project_name}) : boost_base, game_mga_component, game_mga_utils, game
                    'module_filename' : filename + '_Module.cpp',
                    'idl_filename' : filename + '.idl',
                    'uuid_value' : comp_guid,
-                   'paradigm' : paradigm}
+                   'paradigm' : paradigm,
+                   'company' : 'GAME' }
 
     #Creating a file object in write mode.
     FILE_mpc = open (pathname + filename_mpc, "w")
-
     FILE_mpc.write (temp_mpc.substitute (replace_mpc))
-
     FILE_mpc.close ()
 
 ##################################################################
@@ -129,9 +128,7 @@ def generate_stdafx_hfile (filename, pathname):
 
     #Creating a file object in write mode.
     FILE_stdafx_h = open (pathname + filename_stdafx_h, "w")
-
     FILE_stdafx_h.write (temp_stdafx_h.substitute (replace_stdafx_h))
-
     FILE_stdafx_h.close ()
 
 ##################################################################
@@ -148,9 +145,7 @@ def generate_stdafx_cppfile (pathname):
 
     #Creating a file object in write mode.
     FILE_stdafx_cpp = open (pathname + filename_stdafx_cpp, "w")
-
     FILE_stdafx_cpp.write (temp_stdafx_cpp)
-
     FILE_stdafx_cpp.close ()
 
 ##################################################################
@@ -224,13 +219,13 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 
 1 TEXTINCLUDE 
 BEGIN
-    "resource.h\0"
+    "resource.h\\0"
 END
 
 2 TEXTINCLUDE 
 BEGIN
-    "#include ""afxres.h""\r\n"
-    "\0"
+    "#include ""afxres.h""\\r\\n"
+    "\\0"
 END
 
 #endif    // APSTUDIO_INVOKED
@@ -299,9 +294,7 @@ END
 
     #Creating a file object in write mode.
     FILE_componentrc = open (pathname + filename_componentrc, "w")
-
     FILE_componentrc.write (temp_componentrc)
-
     FILE_componentrc.close ()
 
 ##################################################################
@@ -515,6 +508,7 @@ $classname::~$classname (void)
 //
 int $classname::initialize (GAME::Mga::Project project)
 {
+  ::AfxMessageBox ("add-on is initialized");
   return 0;
 }
 
@@ -642,15 +636,13 @@ static ${filename}_App _theApp;
 
     #Creating a file object in write mode.
     FILE_module_cpp = open (pathname + filename_module_cpp, "w")
-
     FILE_module_cpp.write (temp_module_cpp.substitute (replace_module_cpp))
-
     FILE_module_cpp.close ()
     
 ##################################################################
 
-def generate_reg_file (filename, pathname, comp_guid, paradigm):
-    filename_reg = 'GAME_' + filename + '.reg'
+def generate_reg_file (filename, pathname, comp_guid, paradigm, suffix):
+    filename_reg = filename + suffix + '.reg'
 
     #Creating string template for *.reg file
     temp_reg = string.Template ("""REGEDIT4
@@ -660,90 +652,40 @@ def generate_reg_file (filename, pathname, comp_guid, paradigm):
 [HKEY_CURRENT_USER\Software\Classes\CLSID]
 
 [HKEY_CURRENT_USER\Software\Classes\CLSID\{$comp_guid}]
-@="${paradigm}.AddOn.$filename"
+@="${company}.AddOn.$filename"
 
 [HKEY_CURRENT_USER\Software\Classes\CLSID\{$comp_guid}\ProgID]
-@="${paradigm}.AddOn.$filename"
+@="${company}.AddOn.$filename"
 
 [HKEY_CURRENT_USER\Software\Classes\CLSID\{$comp_guid}\InProcServer32]
-@="$filename.dll"
+@="${filename}${suffix}.dll"
 
-[HKEY_CURRENT_USER\Software\Classes\${paradigm}.AddOn.$filename]
-@="${paradigm}.AddOn.$filename"
+[HKEY_CURRENT_USER\Software\Classes\${company}.AddOn.$filename]
+@="${company}.AddOn.$filename"
 
-[HKEY_CURRENT_USER\Software\Classes\${paradigm}.AddOn.$filename\CLSID]
+[HKEY_CURRENT_USER\Software\Classes\${company}.AddOn.$filename\CLSID]
 @="{$comp_guid}"
 
-[HKEY_CURRENT_USER\Software\GME\Components\${paradigm}.AddOn.$filename]
+[HKEY_CURRENT_USER\Software\GME\Components\${company}.AddOn.$filename]
 "Tooltip"=""
 "Paradigm"="$paradigm"
 "Type"=dword:00000002
 "Description"="${filename}"
 
-[HKEY_CURRENT_USER\Software\GME\Components\${paradigm}.AddOn.$filename\Associated]
+[HKEY_CURRENT_USER\Software\GME\Components\${company}.AddOn.$filename\Associated]
 
 """)
 
     replace_reg = {'filename' : filename,
                    'comp_guid' : comp_guid,
-                   'paradigm' : paradigm}
+                   'paradigm' : paradigm,
+                   'company' : 'GAME',
+                   'suffix' : suffix }
 
     #Creating a file object in write mode.
     FILE_reg = open (pathname + filename_reg, "w")
-
     FILE_reg.write (temp_reg.substitute (replace_reg))
-
     FILE_reg.close ()
-
-##################################################################
-
-def generate_dreg_file (filename, pathname, comp_guid, paradigm):
-    filename_dreg = 'GAME_' + filename + 'd.reg'
-
-    #Creating string template for *d.reg file
-    temp_dreg = string.Template ("""REGEDIT4
-
-[HKEY_CURRENT_USER\Software\Classes]
-
-[HKEY_CURRENT_USER\Software\Classes\CLSID]
-
-[HKEY_CURRENT_USER\Software\Classes\CLSID\{$comp_guid}]
-@="${paradigm}.AddOn.$filename"
-
-[HKEY_CURRENT_USER\Software\Classes\CLSID\{$comp_guid}\ProgID]
-@="${paradigm}.AddOn.$filename"
-
-[HKEY_CURRENT_USER\Software\Classes\CLSID\{$comp_guid}\InProcServer32]
-@="${filename}d.dll"
-
-[HKEY_CURRENT_USER\Software\Classes\${paradigm}.AddOn.$filename]
-@="${paradigm}.AddOn.$filename"
-
-[HKEY_CURRENT_USER\Software\Classes\${paradigm}.AddOn.$filename\CLSID]
-@="{$comp_guid}"
-
-[HKEY_CURRENT_USER\Software\GME\Components\${paradigm}.AddOn.$filename]
-"Tooltip"=""
-"Paradigm"="$paradigm"
-"Type"=dword:00000002
-"Description"="${filename}"
-
-[HKEY_CURRENT_USER\Software\GME\Components\${paradigm}.AddOn.$filename\Associated]
-
-
-""")
-
-    replace_dreg = {'filename' : filename,
-                   'comp_guid' : comp_guid,
-                    'paradigm' : paradigm}
-
-    #Creating a file object in write mode.
-    FILE_dreg = open (pathname + filename_dreg, "w")
-
-    FILE_dreg.write (temp_dreg.substitute (replace_dreg))
-
-    FILE_dreg.close ()
-
 
 ##################################################################
 
@@ -760,7 +702,7 @@ def main (*argv):
     #Initializing the variable values
     comp_guid = uuid.uuid4 ()
     lib_guid = uuid.uuid4 ()
-    pathname = os.getcwd () + "\\"
+    pathname = os.getcwd ()
     filename = 'Default'
     paradigm = '*'
 
@@ -786,7 +728,8 @@ def main (*argv):
                 return 1
             lib_guid = arg
 
-
+    pathname = os.path.normcase (pathname + '\\');
+        
     #Calling respective function for creating .mwc file
     generate_mwc_file (filename, pathname)
 
@@ -812,11 +755,9 @@ def main (*argv):
     generate_module_cpp_file (filename, pathname, comp_guid)
 
     #Calling respective function for creating *d.reg file
-    generate_dreg_file (filename, pathname, comp_guid, paradigm)
-
-    #Calling respective function for creating *.reg file
-    generate_reg_file (filename, pathname, comp_guid, paradigm)
-
+    generate_reg_file (filename, pathname, comp_guid, paradigm, 'd')
+    generate_reg_file (filename, pathname, comp_guid, paradigm, '')
+    
     #Calling respective function for creating _Impl.h file
     generate_impl_h_file (filename, pathname, paradigm)
 
