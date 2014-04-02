@@ -1,0 +1,7 @@
+
+
+workspace (GAME_Model_Open_Addon) {
+  cmdline += -include $GAME_ROOT/MPC/config \
+             
+  GAME_Model_Open_Addon.mpc
+}

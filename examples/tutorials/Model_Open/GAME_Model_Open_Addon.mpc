@@ -1,0 +1,28 @@
+// $Id$
+
+project (GAME_Model_Open_Addon) : boost_base, game_mga_component, game_mga_utils, game_lib {
+  sharedname = GAME_Model_Open_Addon
+
+  pch_header = StdAfx.h
+  pch_source = StdAfx.cpp
+
+  Source_Files {
+    GAME_Model_Open_Addon.idl
+    GAME_Model_Open_Addon_Impl.cpp
+    GAME_Model_Open_Addon_Module.cpp
+  }
+
+  Resource_Files {
+    Component.rc
+  }
+  
+  specific (wix) {
+    gme_install        = 1
+    gme_component_type = 2
+    gme_progid         = GAME.AddOn.GAME_Model_Open_Addon
+    gme_uuid           = 74c1a6db-8921-45f0-8489-209f3e9c3833
+    gme_paradigms      = *
+    gme_description    = GAME_Model_Open_Addon AddOn
+    gme_tooltip        = GAME_Model_Open_Addon AddOn
+  }
+}

@@ -1,0 +1,36 @@
+// -*- IDL -*-
+
+//=============================================================================
+/**
+ * @file      GAME_Model_Open_Addon.idl
+ *
+ * $Id$
+ *
+ * @author    Tanumoy Pati
+ */
+//=============================================================================
+
+#ifndef _GAME_MODEL_OPEN_ADDON_IDL_
+#define _GAME_MODEL_OPEN_ADDON_IDL_
+
+#include <Gme.idl>
+#include <Core.idl>
+
+[
+  uuid (3fd58650-0aef-471c-bf20-8bbb262d9216),
+  version (1.0),
+]
+library GAME_Model_Open_Addon_AddonLib
+{
+	importlib ("stdole32.tlb");
+
+	[uuid (74c1a6db-8921-45f0-8489-209f3e9c3833)]
+	coclass GAME_Model_Open_Addon_Addon
+	{
+            [default] interface IMgaComponentEx;
+            interface IMgaComponent;
+            interface IGMEVersionInfo;
+	};
+};
+
+#endif  // !defined _GAME_MODEL_OPEN_ADDON_IDL_
