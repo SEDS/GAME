@@ -65,21 +65,13 @@ int Reference_Handler::handle_object_created (GAME::Mga::Object_in obj)
 
   // Filtering the results based on constraints for the dialog box
   std::vector <GAME::Mga::Meta::Constraint> cs;
-
-  size_t csize = ref->meta ()->constraints (cs);
+  ref->meta ()->constraints (cs);
 
   std::vector <std::string> ref_constraints;
-
-  std::for_each (cs.begin (),
-                 cs.end (),
-                 boost::bind (&std::vector <std::string>::push_back,
-                              boost::ref (ref_constraints),
-                              boost::bind (&GAME::Mga::Meta::Constraint::impl_type::expression,
-                                           boost::bind (&GAME::Mga::Meta::Constraint::get, _1))));
-
+  for (const auto & item : cs)
+    ref_constraints.push_back (item->expression ());
 
   Ocl_Context res;
-
   res.self = obj;
   res.model_constraint = false;
   res.model_attributes = false;

@@ -25,7 +25,7 @@ ForAll_Iterator::~ForAll_Iterator (void)
 Value * ForAll_Iterator::evaluate (Ocl_Context & res,
                                    std::vector <GAME::Mga::FCO> & coll,
                                    std::vector <std::string> & decl,
-                                   std::string & decltype,
+                                   std::string & decl_type,
                                    Boolean_Expr * expr)
 {
   int count = 0;
@@ -95,7 +95,7 @@ Value * ForAll_Iterator::evaluate (Ocl_Context & res,
 Value * ForAll_Iterator::evaluate(Ocl_Context & res, 
                                   std::vector <GAME::Mga::FCO> & coll, 
                                   std::vector <std::string> & decl, 
-                                  std::string & decltype, 
+                                  std::string & decl_type, 
                                   Value_Expr * valexpr)
 {
   return new Boolean_Value (false);

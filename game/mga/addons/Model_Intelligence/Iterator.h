@@ -39,14 +39,14 @@ public:
   virtual Value * evaluate (Ocl_Context & res,
                             std::vector <GAME::Mga::FCO> & coll,
                             std::vector <std::string> & decl,
-                            std::string & decltype,
+                            std::string & decl_type,
                             Boolean_Expr * expr) = 0;
 
   // Pure virtual method for evaluating respective value expression
   virtual Value * evaluate (Ocl_Context & res,
                             std::vector <GAME::Mga::FCO> & coll,
                             std::vector <std::string> & decl,
-                            std::string & decltype,
+                            std::string & decl_type,
                             Value_Expr * valexpr) = 0;
 
   // pure virtual is_association method  to check if this iterator 

@@ -192,17 +192,12 @@ int Association_Handler::handle_object_select (GAME::Mga::Object_in obj)
 
           // Filtering the results based on constraints for the dialog box
           std::vector <GAME::Mga::Meta::Constraint> cs;
-
-          size_t csize = fco->meta ()->constraints (cs);
+          fco->meta ()->constraints (cs);
 
           std::vector <std::string> asn_constraints;
 
-          std::for_each (cs.begin (),
-                         cs.end (),
-                         boost::bind (&std::vector <std::string>::push_back,
-                                      boost::ref (asn_constraints),
-                                      boost::bind (&GAME::Mga::Meta::Constraint::impl_type::expression,
-                                                   boost::bind (&GAME::Mga::Meta::Constraint::get, _1))));
+          for (const auto & item : cs)
+            asn_constraints.push_back (item->expression ());
 
           Ocl_Context res;
 

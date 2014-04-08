@@ -37,14 +37,14 @@ public:
    * @param[in]     res           Object of model intelligence context
    * @param[in]     coll          The collection on which the iterator operates
    * @param[in]     decl          The collection of declarators
-   * @param[in]     decltype      The declaration type
+   * @param[in]     decl_type      The declaration type
    * @param[in]     expr          Boolean expression applied to the iterator
    * @return        Object        Value object
    */
   Value * evaluate (Ocl_Context & res,
                     std::vector <GAME::Mga::FCO> & coll,
                     std::vector <std::string> & decl,
-                    std::string & decltype,
+                    std::string & decl_type,
                     Boolean_Expr * expr);
 
   /**
@@ -53,14 +53,14 @@ public:
    * @param[in]     res           Object of model intelligence context
    * @param[in]     coll          The collection on which the iterator operates
    * @param[in]     decl          The collection of declarators
-   * @param[in]     decltype      The declaration type
+   * @param[in]     decl_type      The declaration type
    * @param[in]     valexpr       Value expression applied to the iterator
    * @return        Object        Value object
    */
   Value * evaluate (Ocl_Context & res,
                     std::vector <GAME::Mga::FCO> & coll,
                     std::vector <std::string> & decl,
-                    std::string & decltype,
+                    std::string & decl_type,
                     Value_Expr * valexpr);
 
   /**

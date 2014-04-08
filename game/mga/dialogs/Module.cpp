@@ -21,7 +21,7 @@ int initialize_module (void)
   common_controls.dwSize = sizeof (INITCOMMONCONTROLSEX);
   common_controls.dwICC = ICC_LISTVIEW_CLASSES;
 
-  if (0 == ::AfxInitCommonControlsEx (&common_controls))
+  if (0 == ::InitCommonControlsEx (&common_controls))
     return -1;
 
    return 0;

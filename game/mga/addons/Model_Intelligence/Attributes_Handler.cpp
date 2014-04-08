@@ -54,17 +54,11 @@ int Attributes_Handler::handle_object_created (GAME::Mga::Object_in obj)
 
   // Collecting all constraints on the entered object
   std::vector <GAME::Mga::Meta::Constraint> cs;
-
-  size_t csize = obj->meta ()->constraints (cs);
+  obj->meta ()->constraints (cs);
 
   std::vector <std::string> all_constraints;
-
-  std::for_each (cs.begin (),
-                 cs.end (),
-                 boost::bind (&std::vector <std::string>::push_back,
-                              boost::ref (all_constraints),
-                              boost::bind (&GAME::Mga::Meta::Constraint::impl_type::expression,
-                                           boost::bind (&GAME::Mga::Meta::Constraint::get, _1))));
+  for (const auto & item : cs)
+    all_constraints.push_back (item->expression ());
 
   // Iterating over all the constraints one by one so as to
   // parse and evaluate them to generate a list of actions
