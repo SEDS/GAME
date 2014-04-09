@@ -67,27 +67,5 @@ void Event_Handler::handle_close (void)
 
 }
 
-///////////////////////////////////////////////////////////////////////////////
-// class Top_Level_Event_Handler
-
-//
-// Top_Level_Event_Handler
-//
-GAME_INLINE
-Top_Level_Event_Handler::Top_Level_Event_Handler (unsigned long mask)
-: Event_Handler (mask, false)
-{
-
-}
-
-//
-// Top_Level_Event_Handler
-//
-GAME_INLINE
-Top_Level_Event_Handler::~Top_Level_Event_Handler (void)
-{
-
-}
-
 }
 }

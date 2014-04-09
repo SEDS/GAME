@@ -82,26 +82,6 @@ private:
   const Event_Handler & operator = (const Event_Handler &);
 };
 
-/**
- * @class Top_Level_Event_Handler
- *
- * Top-level event handler for an add-on.
- */
-class GAME_MGA_COMPONENT_Export Top_Level_Event_Handler :
-  public Event_Handler
-{
-public:
-  /**
-   * Initializing constructor.
-   *
-   * @param[in]         mask          Event mask
-   */
-  Top_Level_Event_Handler (unsigned long mask);
-
-  /// Destructor.
-  virtual ~Top_Level_Event_Handler (void);
-};
-
 }
 }
 

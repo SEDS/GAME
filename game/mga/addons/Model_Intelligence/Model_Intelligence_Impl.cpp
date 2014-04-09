@@ -8,6 +8,8 @@
 #include "Attributes_Handler.h"
 #include "User_Guidance_Handler.h"
 #include "Containment_Check_Handler.h"
+#include "Timer_Handler.h"
+
 #include "game/mga/component/ComponentEx_T.h"
 
 #include "game/mga/Atom.h"
@@ -56,6 +58,9 @@ Model_Intelligence::~Model_Intelligence (void)
 //
 int Model_Intelligence::initialize (Mga::Project project)
 {
+  if (0 != Top_Level_Event_Handler::initialize (project))
+    return -1;
+
   this->sink_->register_handler (OBJTYPE_REFERENCE, new Reference_Handler ());
   this->sink_->register_handler (OBJTYPE_MODEL, new Containment_Handler ());
   this->sink_->register_handler (OBJTYPE_ATOM,new Association_Handler ());
@@ -65,7 +70,9 @@ int Model_Intelligence::initialize (Mga::Project project)
   this->sink_->register_handler (OBJTYPE_MODEL, new User_Guidance_Handler ());
   this->sink_->register_handler (OBJTYPE_ATOM, new Containment_Check_Handler ());
   //this->sink_->register_handler (OBJTYPE_REFERENCE, new User_Guidance_Handler ());
-  	
+
+  this->sink_->register_handler (new Timer_Handler ());
+
   return 0;
 }
 

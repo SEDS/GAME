@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include <cstring>
+
 #include "Containment_Check_Handler.h"
 #include "game/mga/Model.h"
 #include "game/mga/MetaModel.h"
@@ -27,7 +28,7 @@
 // Containment_Check_Handler
 //
 Containment_Check_Handler::Containment_Check_Handler (void)
-: GAME::Mga::Object_Event_Handler (eventmask)
+: GAME::Model_Intelligence_Event_Handler (eventmask)
 {
 
 }
@@ -84,16 +85,13 @@ int Containment_Check_Handler::handle_object_select (GAME::Mga::Object_in obj)
     OCL_Expr_Parser parser;
 
     // Checking if the constraint exists in cache
-    std::map <std::string, std::vector <Boolean_Expr *>>::iterator
-      cacheit = this->cache.begin (), cacheit_end = this->cache.end ();
-
     bool exists = false;
 
-    for (; cacheit != cacheit_end; ++cacheit)
+    for (const auto & cached_item : this->cache_)
     {
-      if ((*iter) == cacheit->first)
+      if ((*iter) == cached_item.first)
       {
-        ocl = cacheit->second;
+        ocl = cached_item.second;
         exists = true;
         break;
       }
@@ -103,7 +101,7 @@ int Containment_Check_Handler::handle_object_select (GAME::Mga::Object_in obj)
     {
       // Parsing the constraint string
       parser.parse_string ((*iter), ocl);
-      this->cache[(*iter)] = ocl;
+      this->cache_[*iter] = ocl;
     }
 
     std::vector <Boolean_Expr *>::iterator

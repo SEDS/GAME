@@ -540,44 +540,24 @@ Event_Sink::Event_Sink (void)
 }
 
 //
-// set_event_handler
-//
-void Event_Sink::set_event_handler (Top_Level_Event_Handler * impl)
-{
-  if (this->impl_ != impl)
-  {
-    // Unset event handler for current implementation
-    if (0 != this->impl_)
-      this->impl_->set_event_sink (0);
-
-    // Save the implementation.
-    this->impl_ = impl;
-
-    // Set event handler for current implementation
-    if (0 != this->impl_)
-      this->impl_->set_event_sink (this);
-  }
-}
-
-//
 // initialize
 //
-int Event_Sink::initialize (Project project)
+int Event_Sink::initialize (Project project, Top_Level_Event_Handler * impl)
 {
   this->project_ = project;
   int retval = 0;
 
+  // Save the implementation.
+  this->impl_ = impl;
+
+  // Set event handler for current implementation
   if (0 != this->impl_)
-  {
-    // Start a new transaction and initialize the implementation.
-    Transaction t (this->project_);
-    retval = this->impl_->initialize (project);
+    this->impl_->set_event_sink (this);
 
-    if (0 == retval)
-      t.commit ();
-  }
+  if (0 != this->register_handler (impl))
+    return -1;
 
-  return retval;
+  return 0;
 }
 
 //
@@ -625,7 +605,7 @@ dispatch_global_event (long global_event, Global_Event_Handler * eh)
   GLOBAL_EVENT_METHOD method = 0;
 
   if (global_event >= 0 &&
-      global_event <= GLOBALEVENT_NOTIFICATION_READY)
+      global_event <= GLOBALEVENT_OPEN_PROJECT_FINISHED)
   {
     // Locate the method in the global event map.
     method = __globalevent_map__[global_event];
@@ -694,6 +674,10 @@ ObjectEvent (IMgaObject * obj, unsigned long eventmask, VARIANT v)
         return E_MGA_MUST_ABORT;
     }
 
+    // Finally, notify the generic handlers of the event.
+    if (0 != this->dispatch_object_event (object, eventmask, this->generic_obj_handlers_))
+        return E_MGA_MUST_ABORT;
+
     return 0;
   }
   catch (const GAME::Mga::Exception & ex)
@@ -705,6 +689,15 @@ ObjectEvent (IMgaObject * obj, unsigned long eventmask, VARIANT v)
 
     console->error (ex.message ());
   }
+  catch (const std::exception & ex)
+  {
+    Console_Service * console = GME_CONSOLE_SERVICE;
+
+    if (!console->is_initialized ())
+      console->initialize (this->project_);
+
+    console->error (ex.what ());
+  }
   catch (...)
   {
 
@@ -713,9 +706,6 @@ ObjectEvent (IMgaObject * obj, unsigned long eventmask, VARIANT v)
   return E_MGA_MUST_ABORT;
 }
 
-//
-// register_handler
-//
 int Event_Sink::register_handler (Global_Event_Handler * eh)
 {
   int retval = this->insert_into_global_handlers (eh);
@@ -726,21 +716,43 @@ int Event_Sink::register_handler (Global_Event_Handler * eh)
   return retval;
 }
 
-//
-// unregister_handler
-//
+int Event_Sink::register_handler (Object_Event_Handler * handler)
+{
+  // Initialize the event handler.
+  handler->set_event_sink (this);
+
+  if (0 != handler->initialize (this->project_))
+    return -1;
+
+  // Insert the event handler into the global handler set.
+  if (0 != this->insert_into_global_handlers (handler))
+    return -1;
+
+  // Last, store the event handler for later usage.
+  this->generic_obj_handlers_.insert (handler);
+
+  return 0;
+}
+
+int Event_Sink::unregister_handler (Object_Event_Handler * eh)
+{
+  this->generic_obj_handlers_.remove (eh);
+  return this->remove_from_global_handlers (eh);
+}
+
 int Event_Sink::unregister_handler (Global_Event_Handler * eh)
 {
   return this->remove_from_global_handlers (eh);
 }
 
-
-//
-// register_handler
-//
 int Event_Sink::
 register_handler (size_t metatype, Object_Event_Handler * eh)
 {
+  // Initialize the event handler.
+  eh->set_event_sink (this);
+  if (0 != eh->initialize (this->project_))
+    return -1;
+
   // Make sure the meta type is valid.
   if (metatype + 1 >= this->meta_handlers_.size ())
     return -1;
@@ -749,20 +761,12 @@ register_handler (size_t metatype, Object_Event_Handler * eh)
   if (0 != this->insert_into_global_handlers (eh))
     return -1;
 
-  // Initialize the event handler.
-  eh->set_event_sink (this);
-  if (0 != eh->initialize (this->project_))
-    return -1;
-
   // Lastly, store the event handler.
   this->meta_handlers_[metatype].insert (eh);
 
   return 0;
 }
 
-//
-// register_handler
-//
 int Event_Sink::
 register_handler (const std::string & metaname, Object_Event_Handler * eh)
 {
@@ -793,12 +797,16 @@ register_handler (const std::string & metaname, Object_Event_Handler * eh)
   return -1;
 }
 
-//
-// register_handler
-//
 int Event_Sink::
 register_handler (const Meta::Base_in meta, Object_Event_Handler * eh)
 {
+  // Initialize the event handler.
+  eh->set_event_sink (this);
+
+  if (0 != eh->initialize (this->project_))
+    return -1;
+
+  // Insert the sink into the global handlers.
   if (0 != this->insert_into_global_handlers (eh))
     return -1;
 
@@ -817,21 +825,18 @@ register_handler (const Meta::Base_in meta, Object_Event_Handler * eh)
     auto_clean.release ();
   }
 
+  handlers->insert (eh);
+  return 0;
+}
+
+int Event_Sink::
+register_handler (const Object_in obj, Object_Event_Handler * eh)
+{
   // Initialize the event handler.
   eh->set_event_sink (this);
   if (0 != eh->initialize (this->project_))
     return -1;
 
-  handlers->insert (eh);
-  return 0;
-}
-
-//
-// register_handler
-//
-int Event_Sink::
-register_handler (const Object_in obj, Object_Event_Handler * eh)
-{
   if (0 != this->insert_into_global_handlers (eh))
     return -1;
 
@@ -850,18 +855,10 @@ register_handler (const Object_in obj, Object_Event_Handler * eh)
     auto_clean.release ();
   }
 
-  // Initialize the event handler.
-  eh->set_event_sink (this);
-  if (0 != eh->initialize (this->project_))
-    return -1;
-
   handlers->insert (eh);
   return 0;
 }
 
-//
-// unregister_handler
-//
 int Event_Sink::
 unregister_handler (const Object_in obj, Object_Event_Handler * eh)
 {
@@ -876,9 +873,6 @@ unregister_handler (const Object_in obj, Object_Event_Handler * eh)
   return 0;
 }
 
-//
-// unregister_all
-//
 int Event_Sink::unregister_all (const Object_in obj)
 {
   handler_set * handlers = 0;
@@ -896,9 +890,6 @@ int Event_Sink::unregister_all (const Object_in obj)
   return 0;
 }
 
-//
-// close
-//
 void Event_Sink::close (void)
 {
   // Close all the event handlers.
@@ -911,9 +902,6 @@ void Event_Sink::close (void)
   }
 }
 
-//
-// dispatch_object_event
-//
 int Event_Sink::
 dispatch_object_event (Object_in obj, unsigned long mask, const handler_set & handlers)
 {
@@ -934,9 +922,6 @@ dispatch_object_event (Object_in obj, unsigned long mask, const handler_set & ha
   return 0;
 }
 
-//
-// dispatch_object_event
-//
 int Event_Sink::
 dispatch_object_event (const Object_in obj,
                        unsigned long mask,
@@ -971,9 +956,6 @@ dispatch_object_event (const Object_in obj,
   return 0;
 }
 
-//
-// insert_into_global_handlers
-//
 int Event_Sink::
 insert_into_global_handlers (Global_Event_Handler * eh)
 {
@@ -985,9 +967,6 @@ insert_into_global_handlers (Global_Event_Handler * eh)
   return this->global_handlers_.rebind (eh, refcount + 1) == -1 ? -1 : 0;
 }
 
-//
-// remove_from_global_handlers
-//
 int Event_Sink::
 remove_from_global_handlers (Global_Event_Handler * eh)
 {

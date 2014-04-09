@@ -12,9 +12,6 @@ namespace GAME
 namespace Mga
 {
 
-//
-// close
-//
 void Event_Handler::close (void)
 {
   if (this->destroy_on_close_)

@@ -16,6 +16,7 @@
 #include <atlbase.h>
 #include <atlcom.h>
 #include <bitset>
+#include <set>
 
 #include "Component_export.h"
 #include "game/mga/Project.h"
@@ -61,35 +62,34 @@ public:
    *
    * @param[in]       proj          The source project
    */
-  int initialize (Project project);
+  int initialize (Project project, Top_Level_Event_Handler * impl);
 
   /// Close the event sink.
   void close (void);
 
   /**
-   * Attach the event handler to an implementation.
-   *
-   * @param[in]       impl          The target implementation
-   */
-  void set_event_handler (Top_Level_Event_Handler * impl = 0);
-
-  /**
    * Register a global event handler.
    *
-   * @param[in]       handler         Pointer to event handler
+   * @param[in]       handler         The global event handler
    */
   int register_handler (Global_Event_Handler * handler);
+
+  /**
+   * Register an object event handler for all object types.
+   *
+   * @param[in]       handle          The object event handler
+   */
+  int register_handler (Object_Event_Handler * handler);
 
   /**
    * Register event handler for the specified meta_metatype. If an event
    * occurs for the specfied meta_metatype and the event handler registers
    * for the event type, then the event handler is invoked.
    *
-   * @param[in]      metatype      Type to register for
-   * @param[in]      eh            Pointer to the event handler
+   * @param[in]      metatype         Target object type
+   * @param[in]      eh               The object event handler
    */
-  int register_handler (size_t metatype,
-                        Object_Event_Handler * eh);
+  int register_handler (size_t metatype, Object_Event_Handler * eh);
 
   /**
    * Register event handler for the specified type. If an event
@@ -99,8 +99,7 @@ public:
    * @param[in]       metaname      Type to register for
    * @param[in]       eh            Pointer to the event handler
    */
-  int register_handler (const std::string & metaname,
-                        Object_Event_Handler * eh);
+  int register_handler (const std::string & metaname, Object_Event_Handler * eh);
 
   /**
    * @overload
@@ -108,8 +107,7 @@ public:
    * @param[in]       meta          The type's meta information
    * @param[in]       eh            Pointer to the event handler
    */
-  int register_handler (const Meta::Base_in meta,
-                        Object_Event_Handler * eh);
+  int register_handler (const Meta::Base_in meta, Object_Event_Handler * eh);
 
   /**
    * @overload
@@ -133,6 +131,7 @@ public:
    * @param[in]       meta          The type's meta information
    * @param[in]       eh            Pointer to the event handler
    */
+  int unregister_handler (Object_Event_Handler * eh);
   int unregister_handler (Global_Event_Handler * eh);
 
   /// Unregister all handlers for an instance.
@@ -194,6 +193,9 @@ private:
                              global_handler_map_t;
 
   global_handler_map_t global_handlers_;
+
+  /// Collection of general-purpose object event handlers.
+  handler_set generic_obj_handlers_;
 
   /// Collection of event handlers registered by type.
   ACE_Hash_Map_Manager <Meta::Base,
