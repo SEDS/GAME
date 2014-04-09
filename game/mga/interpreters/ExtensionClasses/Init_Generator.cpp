@@ -86,8 +86,24 @@ void Init_Generator::generate_source_file (const Project & proj)
   this->cxx_file_
     << "namespace " << project_name
     << "{"
+    << "class Init" << std::endl
+    << "{"
+    << "public:" << std::endl
+    << "/// Default constructor." << std::endl
+    << "Init (void)"
+    << "{"
+    << "::GAME::Mga::GLOBAL_IMPL_FACTORY::instance ()->set_next (GLOBAL_IMPL_FACTORY::instance ());"
+    << "}"
+    << std::endl
+    << "/// Destructor."
+    << "~Init (void)"
+    << "{"
+    << "::GAME::Mga::GLOBAL_IMPL_FACTORY::instance ()->remove (GLOBAL_IMPL_FACTORY::instance ());"
+    << "}"
+    << "};"
+    << std::endl
     << "/// Extension class initialization." << std::endl
-    << "static ::GAME::Mga::Init_T < ::" << project_name << "::Impl_Factory > init;"
+    << "static Init init;"
     << "}";
 }
 

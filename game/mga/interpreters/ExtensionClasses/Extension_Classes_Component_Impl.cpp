@@ -26,8 +26,6 @@
 #include "game/mga/component/Interpreter_T.h"
 #include "game/mga/utils/Project_Settings.h"
 
-#include "boost/bind.hpp"
-
 #include <direct.h>
 #include <algorithm>
 
@@ -106,11 +104,8 @@ invoke_ex (GAME::Mga::Project project,
     std::set <GAME::Mga::Object> ext_classes;
     GAME::Mga::Extension_Classes_Visitor ecv (this->output_, root, pch_basename);
 
-    std::for_each (OBJECT_MANAGER->objects ().begin (),
-                   OBJECT_MANAGER->objects ().end (),
-                   boost::bind (&GAME::Mga::Extension_Classes_Visitor::generate,
-                                boost::ref (ecv),
-                                boost::bind (&Object_Manager::map_type::ENTRY::item, _1)));
+    for (const auto & entry : OBJECT_MANAGER->objects ())
+      ecv.generate (entry.item ());
 
     // Generate workspace, project, and precompiled header files.
     GAME::Mga::Mwc_File_Generator mwc_gen;
