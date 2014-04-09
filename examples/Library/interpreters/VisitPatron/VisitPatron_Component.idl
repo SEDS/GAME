@@ -14,6 +14,7 @@
 #define _VISITPATRON_COMPONENT_IDL_
 
 #include <Gme.idl>
+#include <Core.idl>
 
 [
 	uuid (09d0f531-557b-4326-a6ab-69b3aa6f3637),
@@ -26,9 +27,9 @@ library VisitPatron_Component
 	[uuid (1db2a901-aeba-4e19-a55c-42b80af08148)]
 	coclass VisitPatron_Component
 	{
-		[default] interface IMgaComponentEx;
-		interface IMgaComponent;
-		interface IMgaVersionInfo;
+    [default] interface IMgaComponentEx;
+    interface IMgaComponent;
+    interface IGMEVersionInfo;
 	};
 };
 
