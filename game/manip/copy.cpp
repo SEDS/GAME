@@ -417,16 +417,13 @@ struct copy_connection_t
     {
       using GAME::Mga_t;
 
-      if (!GAME::find <Mga_t> (this->dst_, metaname, new_conn,
-            boost::bind (std::logical_and <bool> (),
-              boost::bind (std::equal_to <FCO> (),
-                           this->config_.mapping_[src_from],
-                           boost::bind (&GAME::Mga::Connection::impl_type::src,
-                                        boost::bind (&GAME::Mga::Connection::get, _1))),
-              boost::bind (std::equal_to <FCO> (),
-                           this->config_.mapping_[src_to],
-                           boost::bind (&GAME::Mga::Connection::impl_type::dst,
-                                        boost::bind (&GAME::Mga::Connection::get, _1))))))
+      auto functor = [&src_from, &src_to, this] (const GAME::Mga::Connection & item) {
+        return 
+          this->config_.mapping_[src_from] == item->src () &&
+          this->config_.mapping_[src_to] == item->dst ();
+      };
+
+      if (GAME::find <Mga_t> (this->dst_, metaname, new_conn, functor))
       {
         new_conn =
           GAME::Mga::Connection_Impl::_create (this->dst_,
