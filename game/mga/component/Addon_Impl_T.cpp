@@ -45,8 +45,6 @@ STDMETHODIMP Addon_Impl_T <T, SINK>::Initialize (IMgaProject * proj)
   {
     // Create a new event handler for this add-on.
     this->sink_.Attach (new CComObject <Event_Sink> ());
-    this->sink_->set_event_handler (&this->impl_);
-
     // Register the event handler with GME. We need to make sure the
     // destoryed event is set. Otherwise, it will be hard to unregister
     // event handlers associated with an object once it has been destroyed.
@@ -55,7 +53,7 @@ STDMETHODIMP Addon_Impl_T <T, SINK>::Initialize (IMgaProject * proj)
     long mask = this->impl_.event_mask () | OBJEVENT_DESTROYED;
     VERIFY_HRESULT (this->addon_->put_EventMask (mask));
 
-    return this->sink_->initialize (GAME::Mga::Project (proj));
+    return this->sink_->initialize (GAME::Mga::Project (proj), &this->impl_);
   }
   catch (...)
   {

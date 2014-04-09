@@ -40,8 +40,7 @@ namespace GAME
  *
  * Raw component interface for the add-on.
  */
-class Model_Intelligence :
-  public Mga::Top_Level_Event_Handler
+class Model_Intelligence : public Mga::Top_Level_Event_Handler
 {
 public:
   static const unsigned long eventmask = OBJEVENT_CREATED |
@@ -56,8 +55,6 @@ public:
   virtual ~Model_Intelligence (void);
 
   virtual int initialize (Mga::Project project);
-private:
-  int test;
 };
 
 }

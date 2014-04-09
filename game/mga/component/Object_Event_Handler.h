@@ -76,6 +76,34 @@ public:
   virtual int handle_object_prestatus (Object_in obj);
 };
 
+/**
+ * @class Top_Level_Event_Handler
+ *
+ * Top-level event handler for an add-on.
+ */
+class GAME_MGA_COMPONENT_Export Top_Level_Event_Handler :
+  public Object_Event_Handler
+{
+public:
+  /**
+   * Initializing constructor.
+   *
+   * @param[in]         mask          Event mask
+   */
+  Top_Level_Event_Handler (unsigned long mask);
+
+  /// Destructor.
+  virtual ~Top_Level_Event_Handler (void);
+
+  /**
+   * Process the project open finished notification from GME. During this
+   * time, the default implemenation perform the following tasks:
+   *
+   *  = Initializes the GME console for the add-on
+   */
+  virtual int handle_project_open_finished (void);
+};
+
 } // namespace GAME
 } // namespace Mga
 
