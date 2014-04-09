@@ -3,8 +3,12 @@
 project (GAME_Mga_Interpret) : game_mga_utils, game_bin {
   exename = gme_interpret
 
-  specific (prop:microsoft) {
+  specific (vc7, vc8, vc9) {
     subsystem = 1
+  }
+
+  specific (vc10, vc11) {
+    subsystem = CONSOLE
   }
 
   pch_header = stdafx.h
