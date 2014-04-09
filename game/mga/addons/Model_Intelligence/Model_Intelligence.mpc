@@ -15,6 +15,7 @@ project (GAME_Model_Intelligence): boost_base, game_mga_component, game_dialogs,
     Model_Intelligence.idl
     Model_Intelligence_Impl.cpp
     Model_Intelligence_Module.cpp
+    Model_Intelligence_Event_Handler.cpp
 
     Containment_Handler.cpp
     Reference_Handler.cpp
@@ -22,6 +23,7 @@ project (GAME_Model_Intelligence): boost_base, game_mga_component, game_dialogs,
     Attributes_Handler.cpp
     User_Guidance_Handler.cpp
     Containment_Check_Handler.cpp
+    Timer_Handler.cpp
 
     OCL_Expr_Parser.cpp
 

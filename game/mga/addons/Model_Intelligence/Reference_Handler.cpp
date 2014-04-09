@@ -24,7 +24,7 @@
 // Reference_Handler
 //
 Reference_Handler::Reference_Handler (void)
-: GAME::Mga::Object_Event_Handler (eventmask)
+: GAME::Model_Intelligence_Event_Handler (eventmask)
 {
 
 }
@@ -101,16 +101,13 @@ int Reference_Handler::handle_object_created (GAME::Mga::Object_in obj)
       OCL_Expr_Parser parser;
 
       // Checking if the constraint exists in cache
-      std::map <std::string, std::vector <Boolean_Expr *>>::iterator
-        cacheit = this->cache.begin (), cacheit_end = this->cache.end ();
-
       bool exists = false;
 
-      for (; cacheit != cacheit_end; ++cacheit)
+      for (const auto & cached_item : this->cache_)
       {
-        if ((*iter) == cacheit->first)
+        if (*iter == cached_item.first)
         {
-          ocl = cacheit->second;
+          ocl = cached_item.second;
           exists = true;
           break;
         }
@@ -120,7 +117,7 @@ int Reference_Handler::handle_object_created (GAME::Mga::Object_in obj)
       {
         // Parsing the constraint string
         parser.parse_string ((*iter), ocl);
-        this->cache[(*iter)] = ocl;
+        this->cache_[*iter] = ocl;
       }
 
       std::vector <Boolean_Expr *>::iterator
