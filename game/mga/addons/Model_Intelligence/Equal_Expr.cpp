@@ -291,10 +291,11 @@ bool Equal_Expr::evaluate (Ocl_Context & res)
 //
 // filter_evaluate
 //
-bool Equal_Expr::filter_evaluate (Ocl_Context & res, 
-                                  GAME::Mga::FCO & current)
+bool Equal_Expr::filter_evaluate (Ocl_Context & res, GAME::Mga::FCO & current)
 {
   res.cur_fco = current;
+  std::string name = current->path ("/");
+
   bool ret = false;
 
   if (this->lhs_->is_filter () || this->rhs_->is_filter ())
@@ -305,11 +306,12 @@ bool Equal_Expr::filter_evaluate (Ocl_Context & res,
 
       // Increment the value by one as the object being added is also considered
       Int_Value * lv = dynamic_cast <Int_Value *> (this->lhs_->filter_evaluate (res));
+
       if (lv != 0)
       {
-        lv->get_sum (new Int_Value (1), count);
-        Int_Value * left = new Int_Value (count);
-        ret = left->is_equal (this->rhs_->filter_evaluate (res));
+        //lv->get_sum (new Int_Value (1), count);
+        //Int_Value * left = new Int_Value (count);
+        ret = lv->is_equal (this->rhs_->filter_evaluate (res));
       }
       else
         ret = this->lhs_->filter_evaluate (res)->is_equal (this->rhs_->filter_evaluate (res));

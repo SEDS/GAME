@@ -27,6 +27,7 @@
 #include "OCL_Expr_Parser.h"
 #include "Model_Intelligence_Context.h"
 #include "Expr_Command.h"
+#include "Model_Stats.h"
 
 //
 // Association_Handler
@@ -53,9 +54,15 @@ int Association_Handler::handle_object_select (GAME::Mga::Object_in obj)
   if (this->is_importing_)
     return 0;
 
-  GAME::Mga::FCO fco = GAME::Mga::FCO::_narrow (obj);
+  // Make sure that we are timing the model creation process. We do it
+  // here and not in Timer_Handler since this handler is called before
+  // the Timer_Handler.
+  Model_Stats * stats = MODEL_STATS::instance ();
 
-  // Collecting all roles of the meta parent model
+  if (!stats->is_timing ())
+    stats->start_timing ();
+
+  GAME::Mga::FCO fco = GAME::Mga::FCO::_narrow (obj);
   GAME::Mga::Meta::Model meta_parent_model = fco->parent_model ()->meta ();
 
   std::vector <GAME::Mga::Meta::Role> rls;
@@ -301,6 +308,10 @@ int Association_Handler::handle_object_select (GAME::Mga::Object_in obj)
             dlg.title ("Auto Connection Resolver");
             dlg.directions (directions.c_str ());
             dlg.insert (qual_fcos);
+
+            // Make sure we switch to user time here since we are displaying
+            // a dialog requesting the user's input.
+            User_Time_Guard guard (*stats);
 
             if (IDOK != dlg.DoModal ())
               return 0;

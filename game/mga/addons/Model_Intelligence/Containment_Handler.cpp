@@ -22,6 +22,7 @@
 #include "OCL_Expr_Parser.h"
 #include "Model_Intelligence_Context.h"
 #include "Expr_Command.h"
+#include "Model_Stats.h"
 
 //
 // Containment_Handler
@@ -47,6 +48,14 @@ int Containment_Handler::handle_object_created (GAME::Mga::Object_in obj)
 {
   if (this->is_importing_)
     return 0;
+
+  // Make sure that we are timing the model creation process. We do it
+  // here and not in Timer_Handler since this handler is called before
+  // the Timer_Handler.
+  Model_Stats * stats = MODEL_STATS::instance ();
+
+  if (!stats->is_timing ())
+    stats->start_timing ();
 
   GAME::Mga::Model mod = GAME::Mga::Model::_narrow (obj);
 

@@ -38,13 +38,6 @@ public:
   virtual int handle_object_created (Mga::Object_in obj);
 
   virtual int handle_notification_ready (void);
-
-private:
-  /// Timer object for the handler.
-  ACE_High_Res_Timer timer_;
-
-  /// Timing state of the timer object.
-  bool is_timing_;
 };
 
 } // namespace GAME

@@ -9,8 +9,7 @@ namespace GAME
 //
 GAME_INLINE
 Timer_Handler::Timer_Handler (void)
-: Object_Event_Handler (OBJEVENT_CREATED),
-  is_timing_ (false)
+: Object_Event_Handler (OBJEVENT_CREATED)
 {
 
 }

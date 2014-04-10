@@ -22,6 +22,7 @@
 #include "Boolean_Expr.h"
 #include "OCL_Expr_Parser.h"
 #include "Expr_Command.h"
+#include "Model_Stats.h"
 
 //
 // Default Constructor
@@ -46,10 +47,15 @@ int User_Guidance_Handler::handle_object_select (GAME::Mga::Object_in obj)
   if (this->is_importing_)
     return 0;
 
-  GAME::Mga::RootFolder root_folder =  this->project_.root_folder ();
+  // Make sure that we are timing the model creation process. We do it
+  // here and not in Timer_Handler since this handler is called before
+  // the Timer_Handler.
+  Model_Stats * stats = MODEL_STATS::instance ();
 
-  /*GAME::Mga::Atom atm = GAME::Mga::Atom::_narrow (obj);
-  GAME::Mga::RootFolder root_folder = atm->project ().root_folder ();*/
+  if (!stats->is_timing ())
+    stats->start_timing ();
+
+  GAME::Mga::RootFolder root_folder =  this->project_.root_folder ();
 
   // Contains all the models that can be added by the rootfolder
   std::vector <GAME::Mga::Meta::FCO> rootfcos;
@@ -87,9 +93,13 @@ int User_Guidance_Handler::handle_object_select (GAME::Mga::Object_in obj)
   dlg.directions ("User Guidance");
   dlg.string_insert (first);
 
+  do
+  {
+    User_Time_Guard guard (*stats);
 
-  if (IDOK != dlg.DoModal ())
-      return 0;
+    if (IDOK != dlg.DoModal ())
+        return 0;
+  } while (false);
 
   first_select = dlg.string_selection ();
 
