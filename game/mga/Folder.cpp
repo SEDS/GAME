@@ -80,12 +80,12 @@ size_t Folder_Impl::folders (std::vector <Folder> & children) const
 //
 // children
 //
-Iterator <Folder> Folder_Impl::folders (void) const
+Collection_T <Folder> Folder_Impl::folders (void) const
 {
   CComPtr <IMgaFolders> folders;
   VERIFY_HRESULT (this->impl ()->get_ChildFolders (&folders));
 
-  return Iterator <Folder> (folders.p);
+  return Collection_T <Folder> (folders.p);
 }
 
 //

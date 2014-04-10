@@ -57,10 +57,8 @@ public:
     using GAME::Mga::Iterator;
     using GAME::Mga::Reference;
 
-    Iterator <Reference> iter = item->referenced_by ();
-    std::for_each (GAME::Mga::make_impl_iter (iter),
-                   GAME::Mga::make_impl_iter (iter.make_end ()),
-                   boost::bind (&Reference::impl_type::accept, _1, this));
+    for (auto ref_by : item->referenced_by ())
+      ref_by->accept (this);
   }
 
   //
@@ -349,10 +347,8 @@ void Object_Class_Definition::build (GAME::Mga::FCO_in fco)
     using GAME::Mga::Iterator;
     using GAME::Mga::Reference;
 
-    Iterator <Reference> iter = fco->referenced_by ();
-    std::for_each (GAME::Mga::make_impl_iter (iter),
-                   GAME::Mga::make_impl_iter (iter.make_end ()),
-                   boost::bind (&Class_Definition::build, this, _1));
+    for (auto ref_by : fco->referenced_by ())
+      this->build (ref_by);
   }
 }
 

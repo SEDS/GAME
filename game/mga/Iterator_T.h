@@ -14,7 +14,6 @@
 #define _GAME_MGA_ITERATOR_T_H_
 
 #include <iterator>
-#include "Collection_T.h"
 
 namespace GAME
 {
@@ -82,8 +81,7 @@ struct iterator_type_t <IMgaReference>
  * implements the input iterator iterface contract.
  */
 template <typename T>
-class Iterator :
-  public std::iterator <std::input_iterator_tag, T, int, T *, T &>
+class Iterator : public std::iterator <std::input_iterator_tag, T, int, T *, T &>
 {
 public:
   /// Type definition of the iterator's element interface type.
@@ -92,15 +90,8 @@ public:
   /// Type definition of the COM iterator interface.
   typedef typename iterator_type_t < interface_type >::result_type iterator_type;
 
-  /// Default constructor.
-  Iterator (void);
-
-  /**
-   * Initializing constructor.
-   *
-   * @param[in]       iter          COM iterator pointer
-   */
   Iterator (iterator_type * iter);
+  Iterator (iterator_type * iter, long index);
 
   /**
    * Copy constructor
@@ -112,38 +103,23 @@ public:
   /// Destructor.
   ~Iterator (void);
 
-  /// Test if the iterator is done.
-  bool is_done (void) const;
-
   /// Move the iterator to the next element.
   void advance (void);
 
   /// Reset the iterator to the first element
   void reset (void);
 
-  /// Number of elements in collection.
-  long count (void) const;
-
   /// Current 1-based index of iterator.
   long index (void) const;
-
-  /// Make an STL end iterator.
-  Iterator make_end (void) const;
-
-  /// Get the current item.
-  T & item (void) const;
-
-  /// Get all the items in the collection.
-  void items (std::vector <T> & out) const;
 
   /// Assignment/copy operator
   const Iterator & operator = (const Iterator & rhs);
 
   /// Dereference the current item.
-  T & operator * (void) const;
+  T & operator * (void);
 
   /// Dereference the current item.
-  T * operator -> (void) const;
+  T * operator -> (void);
 
   Iterator & operator ++ (void);
   Iterator operator ++ (int);
@@ -155,8 +131,8 @@ public:
   bool operator != (const Iterator & rhs) const;
 
 private:
-  /// Help constructor.
-  Iterator (iterator_type * iter, long index, long count);
+  /// Get the current item.
+  void get_current_item (void);
 
   /// The underlying COM pointer.
   ::ATL::CComPtr <iterator_type> iter_;
@@ -164,11 +140,8 @@ private:
   /// Current index for the iterator.
   long index_;
 
-  /// Number of elements in the collection.
-  long count_;
-
   /// The current item.
-  mutable T item_;
+  T item_;
 };
 
 /**

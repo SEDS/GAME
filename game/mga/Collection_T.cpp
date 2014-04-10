@@ -100,9 +100,50 @@ struct collection_traits <IMgaMetaConnJoints *>
   typedef IMgaMetaConnJoint interface_type;
 };
 
-//
-// get_collection
-//
+template <typename T>
+GAME_INLINE
+Collection_T <T>::Collection_T (interface_type * iter)
+: iter_ (iter),
+  count_ (0)
+{
+  VERIFY_HRESULT (this->iter_->get_Count (&this->count_));
+}
+
+template <typename T>
+GAME_INLINE
+Collection_T <T>::~Collection_T (void)
+{
+
+}
+
+template <typename T>
+GAME_INLINE
+long Collection_T <T>::count (void) const
+{
+  return this->count_;
+}
+
+template <typename T>
+GAME_INLINE
+typename Collection_T <T>::iterator_type Collection_T <T>::begin (void)
+{
+  return iterator_type (this->iter_.p, 1L);
+}
+
+template <typename T>
+GAME_INLINE
+typename Collection_T <T>::iterator_type Collection_T <T>::end (void)
+{
+  return iterator_type (this->iter_.p, this->count_ + 1);
+}
+
+template <typename T>
+GAME_INLINE
+void Collection_T <T>::items (std::vector <T> & out) const
+{
+  iter_to_collection (this->iter_.p, out, this->count_);
+}
+
 template <typename ITER, typename T>
 size_t iter_to_collection (ITER iter, std::vector <T> & coll)
 {
@@ -110,6 +151,51 @@ size_t iter_to_collection (ITER iter, std::vector <T> & coll)
   long count;
   iter->get_Count (&count);
 
+  return iter_to_collection (iter, coll, count);
+}
+
+template <typename ITER, typename T>
+size_t iter_to_collection (ITER iter, std::vector <FCO> & coll)
+{
+  long count;
+  iter->get_Count (&count);
+
+  // Make space for the elements, but set the collection's size
+  // to zero. We will grow the collection as we insert elements.
+  coll.reserve (count);
+  coll.resize (0);
+
+  if (count == 0)
+    return 0;
+
+  // Get the interface to all the members.
+  typedef typename collection_traits <ITER>::interface_type interface_type;
+  ATL::CComPtr <interface_type> * arr = new ATL::CComPtr <interface_type> [count];
+
+  VERIFY_HRESULT (iter->GetAll (count, &(*arr)));
+
+  // Store the members in a collection.
+  ATL::CComPtr <T::interface_type> temp;
+
+  for (long i = 0; i < count; i ++)
+  {
+    if (FAILED (arr[i].QueryInterface (&temp)))
+      continue;
+
+    FCO fco (temp.p);
+
+    if (fco->type () == object_type_t <T::impl_type>::result_type)
+      coll.push_back (temp.p);
+
+    temp.Release ();
+  }
+
+  return coll.size ();
+}
+
+template <typename ITER, typename T>
+size_t iter_to_collection (ITER iter, std::vector <T> & coll, long count)
+{
   // Make space for the elements, but set the collection's size
   // to zero. We will grow the collection as we insert elements.
   coll.reserve (count);
