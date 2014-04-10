@@ -92,20 +92,24 @@ Value * Attribute_Expr::filter_evaluate (Ocl_Context & res)
 
   // Checking the invoking object for the attribute
   if (this->var_ == "self")
+  {
     fco = GAME::Mga::FCO::_narrow (res.self);
+  }
   else
   {
     // The object value associated with the local variable is taken from map
     // and is used for attribute value calculation
     std::map <std::string, Value *>::iterator it;
     it = res.locals.find(this->var_);
-    if (it == res.locals.end ())
-      fco = res.cur_fco;
-    else
+
+    if (it != res.locals.end ())
     {
       Object_Value * iv = dynamic_cast <Object_Value *> (res.locals [this->var_]);
       fco = GAME::Mga::FCO::_narrow (iv->value ());
     }
+
+    if (!fco)
+      fco = res.cur_fco;
   }
 
   // The current fco is used for attribute value computation

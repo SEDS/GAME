@@ -19,6 +19,9 @@
 #include "Model_Intelligence_Context.h"
 #include "Boolean_Expr.h"
 #include "OCL_Expr_Parser.h"
+#include "Model_Stats.h"
+
+#include <sstream>
 
 //
 // Reference_Handler
@@ -44,6 +47,14 @@ int Reference_Handler::handle_object_created (GAME::Mga::Object_in obj)
 {
   if (this->is_importing_)
     return 0;
+
+  // Make sure that we are timing the model creation process. We do it
+  // here and not in Timer_Handler since this handler is called before
+  // the Timer_Handler.
+  Model_Stats * stats = MODEL_STATS::instance ();
+
+  if (!stats->is_timing ())
+    stats->start_timing ();
 
   // There is no need to continue if the reference is not nil. This can
   // happen if some other addon creates the reference and sets the object
@@ -163,13 +174,18 @@ int Reference_Handler::handle_object_created (GAME::Mga::Object_in obj)
     using GAME::Dialogs::Selection_List_Dialog_T;
     Selection_List_Dialog_T <GAME::Mga::FCO> dlg (0, ::AfxGetMainWnd (), 0);
 
-    const std::string directions =
-      "Please select the target object for the " +
-      ref->meta ()->display_name () + " reference object:";
+    std::ostringstream prompt;
+    prompt 
+      << "Select the target object for the " 
+      << ref->meta ()->display_name ()
+      << " reference object:";
 
-    dlg.title ("Auto Reference Resolver");
-    dlg.directions (directions.c_str ());
+    dlg.title ("Reference Resolver");
+    dlg.directions (prompt.str ().c_str ());
     dlg.insert (qual_fcos);
+
+    // Start timing the user time.
+    User_Time_Guard guard (*stats);
 
     if (IDOK != dlg.DoModal ())
       return 0;

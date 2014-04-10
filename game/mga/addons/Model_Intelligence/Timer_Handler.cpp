@@ -7,42 +7,35 @@
 #include "Timer_Handler.inl"
 #endif  // !defined __GAME_INLINE__
 
+#include "Model_Stats.h"
 #include "game/mga/component/Console_Service.h"
-#include <sstream>
 
 namespace GAME
 {
 
 int Timer_Handler::handle_object_created (Mga::Object_in obj)
 {
-  if (this->is_timing_)
-    return 0;
+  Model_Stats * stats = MODEL_STATS::instance ();
 
-  // Reset the timer, and start timing the new chain of events.
-  this->timer_.start ();
-  this->is_timing_ = true;
+  if (stats->is_timing ())
+    stats->increment_create_count ();
 
   return 0;
 }
 
 int Timer_Handler::handle_notification_ready (void)
 {
-  if (!this->is_timing_)
+  Model_Stats * stats = MODEL_STATS::instance ();
+
+  if (!stats->is_timing ())
     return 0;
 
-  // Stop the timer, and display result to the console.
-  this->timer_.stop ();
-  this->is_timing_ = false;
+  // Stop the timer, and write the stats to the console.
+  stats->stop_timing ();
+  *GME_CONSOLE_SERVICE << *stats;
 
-  ACE_Time_Value duration;
-  this->timer_.elapsed_time (duration);
-
-  std::ostringstream msg;
-  msg << "Elapsed time: " << duration.sec () << "." << duration.usec () << " second(s)";
-  GME_CONSOLE_SERVICE->message (msg.str ());
-
-  // Reset the timer for the next chain of events.
-  this->timer_.reset ();
+  // Reset the stats for the next set of actions.
+  stats->reset ();
 
   return 0;
 }
