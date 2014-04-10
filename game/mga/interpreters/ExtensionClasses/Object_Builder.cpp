@@ -50,9 +50,8 @@ void Object_Builder::visit_Model (GAME::Mga::Model_in model)
   std::vector <GAME::Mga::FCO> children;
   model->children (children);
 
-  std::for_each (make_impl_iter (children.begin ()),
-                 make_impl_iter (children.end ()),
-                 boost::bind (&GAME::Mga::FCO::impl_type::accept, _1, this));
+  for (GAME::Mga::FCO fco : children)
+    fco->accept (this);
 }
 
 //
@@ -60,19 +59,11 @@ void Object_Builder::visit_Model (GAME::Mga::Model_in model)
 //
 void Object_Builder::visit_Folder_i (GAME::Mga::Folder_in folder)
 {
-  using namespace GAME::Mga;
-
   // Visit all the SheetFolder elements in the model.
-  Iterator <GAME::Mga::Folder> folders = folder->folders ();
-  std::for_each (make_impl_iter (folders),
-                 make_impl_iter (folders.make_end ()),
-                 boost::bind (&GAME::Mga::Folder::impl_type::accept, _1, this));
+  for (auto sheet_folder : folder->folders ())
+    sheet_folder->accept (this);
 
   // Visit all the paradigm sheets.
-  std::vector <Model> sheets;
-  folder->children (sheets);
-
-  std::for_each (make_impl_iter (sheets.begin ()),
-                 make_impl_iter (sheets.end ()),
-                 boost::bind (&Model::impl_type::accept, _1, this));
+  for (auto paradigm_sheet : folder->children <GAME::Mga::Model> ())
+    paradigm_sheet->accept (this);
 }

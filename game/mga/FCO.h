@@ -16,7 +16,7 @@
 #include "GME_fwd.h"
 #include "Object.h"
 #include "Part.h"
-#include "Iterator_T.h"
+#include "Collection_T.h"
 #include "Attribute.h"
 
 namespace GAME
@@ -233,7 +233,7 @@ public:
    * @return          Number of items in \a sets
    */
   size_t in_sets (std::vector <Set> & sets) const;
-  Iterator <Set> in_sets (void) const;
+  Collection_T <Set> in_sets (void) const;
 
   /**
    * Get the collection of objects this object is derived
@@ -265,7 +265,7 @@ public:
    * @return      size.
    */
   size_t referenced_by (std::vector <Reference> & refs) const;
-  Iterator <Reference> referenced_by (void) const;
+  Collection_T <Reference> referenced_by (void) const;
 
 private:
   /// The COM pointer for the FCO_Impl type.

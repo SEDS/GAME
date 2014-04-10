@@ -94,10 +94,10 @@ public:
    * Get an iterator to the children. The actual item type is defined
    * using the template parameter for this method (i.e., children <T> ()).
    *
-   * @return            Iterator to the children.
+   * @return            Collection object
    */
   template <typename T>
-  Iterator <T> children (void) const;
+  Collection_T <T> children (void) const;
 
   /**
    * @overloaded
@@ -117,7 +117,7 @@ public:
    * @overloaded
    */
   template <typename T>
-  Iterator <T> children (const std::string & type) const;
+  Collection_T <T> children (const std::string & type) const;
 
   /**
    * @overloaded

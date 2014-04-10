@@ -50,6 +50,56 @@ struct negate <true>
   static const bool result_type = false;
 };
 
+namespace Mga
+{
+namespace assertion
+{
+
+template <typename T>
+struct is_extension_class
+{
+  static const bool result_type = true;
+};
+
+template < >
+struct is_extension_class <Object>
+{
+  static const bool result_type = false;
+};
+
+template < >
+struct is_extension_class <FCO>
+{
+  static const bool result_type = false;
+};
+
+template < >
+struct is_extension_class <Model>
+{
+  static const bool result_type = false;
+};
+
+template < >
+struct is_extension_class <Reference>
+{
+  static const bool result_type = false;
+};
+
+template < >
+struct is_extension_class <Set>
+{
+  static const bool result_type = false;
+};
+
+template < >
+struct is_extension_class <Atom>
+{
+  static const bool result_type = false;
+};
+
+}
+}
+
 }
 
 #endif  // !define _GAME_MGA_ASSERT_H_

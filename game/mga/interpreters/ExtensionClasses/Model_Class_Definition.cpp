@@ -228,8 +228,7 @@ generate_single_definition (const Generation_Context & ctx, Object_Class_Definit
       << function_header_t (get_method_name)
       << name << " " << this->classname_ << "::" << get_method_name << " (void) const"
       << "{"
-      << "GAME::Mga::Iterator <" << name << "> iter = this->children <" << name << "> ();"
-      << "return !iter.is_done () ? *iter : 0;"
+      << "return *this->children <" << name << "> ().begin ();"
       << "}";
   }
 
@@ -259,7 +258,7 @@ generate_multiple_definition (const Generation_Context & ctx, Object_Class_Defin
     // Declare the function.
     ctx.hfile_
       << "size_t " << get_method_name << " (std::vector <" << name << "> & items) const;"
-      << "::GAME::Mga::Iterator <" << name << "> " << get_method_name << " (void) const;"
+      << "::GAME::Mga::Collection_T <" << name << "> " << get_method_name << " (void) const;"
       << std::endl;
 
     // Implement the function.
@@ -271,7 +270,7 @@ generate_multiple_definition (const Generation_Context & ctx, Object_Class_Defin
       << "return this->children (items);"
       << "}"
       << function_header_t (get_method_name)
-      << "::GAME::Mga::Iterator <" << name << "> " << this->classname_ << "::"
+      << "::GAME::Mga::Collection_T <" << name << "> " << this->classname_ << "::"
       << get_method_name << " (void) const"
       << "{"
       << "return this->children <" << name << "> ();"

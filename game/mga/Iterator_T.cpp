@@ -9,21 +9,6 @@ namespace GAME
 namespace Mga
 {
 
-//
-// Iterator
-//
-template <typename T>
-Iterator <T>::Iterator (iterator_type * iter)
-: iter_ (iter),
-  index_ (1),
-  count_ (0)
-{
-  VERIFY_HRESULT (this->iter_->get_Count (&this->count_));
-}
-
-//
-// operator =
-//
 template <typename T>
 const Iterator <T> & Iterator <T>::operator = (const Iterator <T> & rhs)
 {
@@ -31,22 +16,15 @@ const Iterator <T> & Iterator <T>::operator = (const Iterator <T> & rhs)
     return *this;
 
   this->iter_ = rhs.iter_;
-  this->count_ = rhs.count_;
   this->index_ = rhs.index_;
   this->item_ = rhs.item_;
 
   return *this;
 }
 
-//
-// item
-//
 template <typename T>
-T & Iterator <T>::item (void) const
+void Iterator <T>::get_current_item (void)
 {
-  if (!this->item_.is_nil ())
-    return this->item_;
-
   ATL::CComPtr <typename collection_traits <iterator_type *>::interface_type> temp;
   VERIFY_HRESULT (this->iter_->get_Item (this->index_, &temp));
 
@@ -55,22 +33,27 @@ T & Iterator <T>::item (void) const
   VERIFY_HRESULT (temp.QueryInterface (&item));
 
   this->item_ = item.p;
+}
+
+//
+// operator *
+//
+template <typename T>
+T & Iterator <T>::operator * (void)
+{
+  this->get_current_item ();
   return this->item_;
 }
 
 //
-// advance
+// operator ->
 //
 template <typename T>
-GAME_INLINE
-void Iterator <T>::advance (void)
+T * Iterator <T>::operator -> (void)
 {
-  ++ this->index_;
-
-  if (!this->item_.is_nil ())
-    this->item_ = 0;
+  this->get_current_item ();
+  return &this->item_;
 }
-
 
 //
 // operator ++
@@ -81,27 +64,8 @@ Iterator <T> Iterator <T>::operator ++ (int)
   Iterator iter (*this);
   ++ this->index_;
 
-  if (!this->item_.is_nil ())
-    this->item_ = 0;
-
   return iter;
 }
-
-//
-// operator ++
-//
-template <typename T>
-GAME_INLINE
-Iterator <T> & Iterator <T>::operator ++ (void)
-{
-  ++ this->index_;
-
-  if (!this->item_.is_nil ())
-    this->item_ = 0;
-
-  return *this;
-}
-
 
 }
 }

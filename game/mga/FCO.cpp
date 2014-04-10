@@ -299,12 +299,12 @@ size_t FCO_Impl::in_sets (std::vector <Set> & sets) const
 //
 // in_sets
 //
-Iterator <Set> FCO_Impl::in_sets (void) const
+Collection_T <Set> FCO_Impl::in_sets (void) const
 {
   CComPtr <IMgaFCOs> temp;
   VERIFY_HRESULT (this->impl ()->get_MemberOfSets (&temp));
 
-  return Iterator <Set> (temp.p);
+  return Collection_T <Set> (temp.p);
 }
 
 //
@@ -393,12 +393,12 @@ size_t FCO_Impl::referenced_by (std::vector <Reference> & refs) const
 //
 // referenced_by
 //
-Iterator <Reference> FCO_Impl::referenced_by (void) const
+Collection_T <Reference> FCO_Impl::referenced_by (void) const
 {
   CComPtr <IMgaFCOs> temp;
   VERIFY_HRESULT (this->impl ()->get_ReferencedBy (&temp));
 
-  return Iterator <Reference> (temp.p);
+  return Collection_T <Reference> (temp.p);
 }
 
 }
