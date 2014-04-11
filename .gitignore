@@ -41,3 +41,10 @@ Release/
 Static_Release/
 ipch/
 lib/
+
+# GME files
+*.mga
+*.mga.bak
+*.mta
+*.xmp
+*.xmp.log
