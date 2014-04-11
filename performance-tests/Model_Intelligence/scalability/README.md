@@ -43,3 +43,58 @@ you used to register the metamodel, do the following:
 
 ## Running Scalability Tests
 
+Each metamodel is designed to test each of the following scenarios
+with a different number of modeling elements:
+
+1. How long does it take to create N elements?
+2. How long does it take to create N elements, and evaluate a min 
+   value attribute constraint?
+3. How long does it take to complete a reference to 1 of N elements?
+4. How long does it take to complete a reference to 1 of N elements 
+   when filtering on a constraint?
+
+The value of N is based on the number in the metamodel.
+
+### Scenario 1
+
+To run this scenerio, creaete a project for one of the metamodels
+above. In the project, insert a ```Parent``` model element into the
+```RootFolder```. The model intelligence will create ```N``` model
+elements.
+
+View the GME console pane. It will display that ```N + 1``` model elements
+has been created. It will also display the amount of system and user
+time spent creating the elements.
+
+### Scenario 2
+
+To run this scenerio, creaete a project for one of the metamodels
+above. In the project, insert a ```ParentAttr``` model element into the
+```RootFolder```. The model intelligence will create ```N``` model
+elements.
+
+View the GME console pane. It will display that ```N + 1``` model elements
+has been created. It will also display the amount of system and user
+time spent creating the elements.
+
+### Scenario 3
+
+Open the model element added to the ```RootFolder``` from Scenario 1
+above by double-clicking it. It should contain ```N``` model elements. 
+Add a ```ChildRef``` model element to the active model. Select any one of 
+the elements listed in the dialog box.
+
+View the GME console pane. It will display that ```N + 1``` model elements
+has been created. It will also display the amount of system and user
+time spent creating the elements.
+
+### Scenario 4
+
+Open the model element added to the ```RootFolder``` from Scenario 2
+above by double-clicking it. It should contain ```N``` model elements. 
+Add a ```ChildRef``` model element to the active model. Select any one of 
+the elements listed in the dialog box.
+
+View the GME console pane. It will display that ```N + 1``` model elements
+has been created. It will also display the amount of system and user
+time spent creating the elements.
