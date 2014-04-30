@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE project SYSTEM "mga.dtd">
 
-<project guid="{D560A6CB-B957-447C-8E8E-3B0952D3DB10}" cdate="Thu Apr 10 20:14:48 2014" mdate="Thu Apr 10 20:14:48 2014" version="" metaguid="{4F6845B3-EF6E-40FE-98CA-F052AA0AB999}" metaversion="" metaname="MetaGME">
+<project guid="{BFF9786C-6167-4692-AAA3-5F26636750DD}" cdate="Thu Apr 10 20:14:48 2014" mdate="Thu Apr 10 20:14:48 2014" version="" metaguid="{4F6845B3-EF6E-40FE-98CA-F052AA0AB999}" metaversion="" metaname="MetaGME">
 	<name>MI_scalability_model_10</name>
 	<comment></comment>
 	<author></author>
