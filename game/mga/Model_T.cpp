@@ -77,7 +77,7 @@ struct get_model_children_t
   Collection_T <T> operator () (const Model_Impl * m) const
   {
     CComPtr <IMgaFCOs> fcos;
-    CComBSTR bstr (impl_type::metaname.length (), impl_type::metaname.c_str ());
+    CComBSTR bstr (T::mimpl_typee::metaname.length (), T::impl_type::metaname.c_str ());
     VERIFY_HRESULT (m->impl ()->GetChildrenOfKind (bstr, &fcos));
 
     return Collection_T <T> (fcos.p);
