@@ -125,6 +125,13 @@ long Collection_T <T>::count (void) const
 
 template <typename T>
 GAME_INLINE
+T Collection_T <T>::item (void)
+{
+  return first()
+}
+
+template <typename T>
+GAME_INLINE
 typename Collection_T <T>::iterator_type Collection_T <T>::begin (void)
 {
   return iterator_type (this->iter_.p, 1L);

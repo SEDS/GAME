@@ -176,7 +176,7 @@ size_t Folder_Impl::folders (std::vector <T> & children) const
   for (Folder folder : Collection_T <Folder> (folders.p))
   {
     if (folder->meta ()->name () == T::impl_type::metaname)
-      children.push_back (*iter);
+      children.push_back (folder);
   }
 
   return children.size ();

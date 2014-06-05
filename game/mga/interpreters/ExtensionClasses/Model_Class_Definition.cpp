@@ -191,7 +191,7 @@ generate_optional_definition (const Generation_Context & ctx, Object_Class_Defin
       << function_header_t (get_method_name)
       << name << " " << this->classname_ << "::" << get_method_name << " (void) const"
       << "{"
-      << "return this->children <" << name << "> ().item ();"
+      << "return this->children <" << name << "> ().first ();"
       << "}";
   }
 

@@ -74,6 +74,9 @@ public:
   /// Get the first element in the collection.
   T first (void) const;
 
+  /// Get the first element in the collection.
+  T item (void) const;
+
 private:
   /// Pointer to the collection.
   ::ATL::CComPtr <interface_type> iter_;
