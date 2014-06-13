@@ -47,7 +47,7 @@ struct element_is_not_folder <folder_tag_t>
 };
 
 /**
- * @struct element_is_not_folder
+ * @struct element_is_folder
  */
 template <typename T>
 struct element_is_folder
@@ -73,6 +73,7 @@ struct element_is_folder <folder_tag_t>
 template <typename T, bool EXTENSION_CLASS>
 struct get_folder_children_t 
 {
+  typedef typename T::impl_type impl_type;
   Collection_T <T> operator () (const Folder_Impl * m) const
   {
     CComPtr <IMgaFCOs> fcos;
@@ -157,6 +158,23 @@ children (const std::string & type, std::vector <T> & children) const
   VERIFY_HRESULT (this->impl ()->GetChildrenOfKind (bstr, &fcos));
 
   return iter_to_collection (fcos.p, children);
+}
+
+//
+// folders
+//
+template <typename T>
+Collection_T <T> Folder_Impl::folders (void) const
+{
+  typedef typename T::impl_type impl_type;
+  GAME::__static_assert <
+    GAME::negate <assertion::element_is_not_folder <impl_type::type_tag>::result_type>::result_type >::
+    result_type;
+
+  CComPtr <IMgaFolders> folders;
+  VERIFY_HRESULT (this->impl ()->get_ChildFolders (&folders));
+
+  return Collection_T <T> (folders.p);
 }
 
 //

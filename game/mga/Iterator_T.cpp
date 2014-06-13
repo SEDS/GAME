@@ -4,6 +4,8 @@
 #include "Iterator_T.inl"
 #endif
 
+#include "Exception.h"
+
 namespace GAME
 {
 namespace Mga

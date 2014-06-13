@@ -113,7 +113,10 @@ size_t Model_Impl::children (std::vector <T> & children) const
   typedef typename T::impl_type impl_type;
   assertion::element_not_containable_in_model <impl_type::type_tag>::result_type;
 
-  return get_model_children_t <T, assertion::is_extension_class <T>::result_type> () (this, children);
+  CComPtr <IMgaFCOs> fcos;
+  VERIFY_HRESULT (this->impl ()->get_ChildFCOs (&fcos));
+
+  return iter_to_collection (fcos.p, children);
 }
 
 //
@@ -164,6 +167,7 @@ children (const Meta::Aspect_in apsect, std::vector <T> & children) const
 {
   // Let's get the list of children.
   std::vector <T> temp;
+
   this->children (temp);
 
   std::vector <T>::const_iterator

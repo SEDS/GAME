@@ -40,6 +40,7 @@ public:
   //
   void visit_Atom (GAME::Mga::Atom_in src)
   {
+
     if (this->is_false_self_containment (src))
       return;
 
