@@ -22,28 +22,6 @@ namespace GAME
 namespace Mga
 {
 
-/**
- * @struct generate_include
- */
-struct generate_include
-{
-  generate_include (std::ofstream & cxx_file)
-    : cxx_file_ (cxx_file)
-  {
-
-  }
-
-  void operator () (const Object_Manager::map_type::ENTRY & entry) const
-  {
-    if (!entry.int_id_->in_root_folder ())
-      return;
-
-    this->cxx_file_ << include_t (entry.int_id_->compute_path ("/", false) + ".h");
-  }
-
-private:
-  std::ofstream & cxx_file_;
-};
 
 /**
 *
@@ -64,9 +42,9 @@ public:
   {
     std::string metaname = ((GAME::Mga::FCO)atom)->meta ()->name ();
     if (metaname == "Folder")
-      write_Folder ();
+      this->write_Folder ();
     else if (metaname == "Model")
-      write_Model();
+      this->write_Model ();
   }
 
   void write_Model (void)
@@ -92,53 +70,6 @@ private:
 };
 
 
-/**
- * @struct generate_container_method
- */
-struct generate_container_method
-{
-  generate_container_method (std::ofstream & hxx_file, std::ofstream & cxx_file)
-    : hxx_file_ (hxx_file),
-      cxx_file_ (cxx_file)
-  {
-
-  }
-
-  void operator () (const Object_Manager::map_type::ENTRY & entry) const
-  {
-    if (!entry.int_id_->in_root_folder ())
-      return;
-
-    const std::string name = entry.int_id_->name ();
-
-    this->hxx_file_
-      << std::endl
-      << "size_t get_" << name << " (std::vector <" << name << "> & items) const;"
-      << "::GAME::Mga::Collection_T <" << name << "> get_" << name << " (void) const;";
-
-    this->cxx_file_
-      << "size_t RootFolder_Impl::get_" << name << " (std::vector <" << name << "> & items) const"
-      << "{";
-
-    Containment_Method_Visitor items_method (this->cxx_file_, name, false);
-    entry.item ()->get_object ()->accept (&items_method);
-    
-    this->cxx_file_
-      << "}"
-      << "::GAME::Mga::Collection_T <" << name << "> RootFolder_Impl::get_" << name << " (void) const"
-      << "{";
-
-    Containment_Method_Visitor collection_method (this->cxx_file_, name, true);
-    entry.item ()->get_object ()->accept (&collection_method);
-  
-    this->cxx_file_
-      << "}";
-  }
-
-private:
-  std::ofstream & hxx_file_;
-  std::ofstream & cxx_file_;
-};
 
 RootFolder_Generator::RootFolder_Generator (void)
 {
@@ -254,7 +185,13 @@ generate (const std::string & location,
     // Write the extension class source files.
     std::for_each (obj_mgr->objects ().begin (),
                    obj_mgr->objects ().end (),
-                   generate_include (cxx_file));
+                   [&] (Object_Manager::map_type::ENTRY Obj)
+                    {
+                      if (!Obj.int_id_->in_root_folder ())
+                        return;
+
+                      cxx_file << include_t (Obj.int_id_->compute_path ("/", false) + ".h");
+                    } );
 
     cxx_file
       << std::endl
@@ -283,9 +220,39 @@ generate (const std::string & location,
       << "}";
 
     // Write the extension class source files.
-    for (auto obj : obj_mgr->objects ())
-      generate_container_method (hxx_file, cxx_file) (obj);
+    std::for_each (obj_mgr->objects ().begin (),
+                   obj_mgr->objects ().end (),
+                   [&] (Object_Manager::map_type::ENTRY & obj)
+                    {
+                      if (!obj.int_id_->in_root_folder ())
+                        return;
 
+                      const std::string name = obj.int_id_->name ();
+
+                      hxx_file
+                        << std::endl
+                        << "size_t get_" << name << " (std::vector <" << name << "> & items) const;"
+                        << "::GAME::Mga::Collection_T <" << name << "> get_" << name << " (void) const;";
+
+                      cxx_file
+                        << "size_t RootFolder_Impl::get_" << name << " (std::vector <" << name << "> & items) const"
+                        << "{";
+
+                      Containment_Method_Visitor items_method (cxx_file, name, false);
+                      obj.item ()->get_object ()->accept (&items_method);
+    
+                      cxx_file
+                        << "}"
+                        << "::GAME::Mga::Collection_T <" << name << "> RootFolder_Impl::get_" << name << " (void) const"
+                        << "{";
+
+                      Containment_Method_Visitor collection_method (cxx_file, name, true);
+                      obj.item ()->get_object ()->accept (&collection_method);
+  
+                      cxx_file
+                        << "}";
+                    } );
+    
     // Write the postamble to both files.
     hxx_file
       << "};"

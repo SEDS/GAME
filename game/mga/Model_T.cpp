@@ -87,7 +87,7 @@ struct get_model_children_t
 template <typename T>
 struct get_model_children_t <T, false>
 {
-  size_t operator () (const Model_Impl * m, std::vector <FCO> & children) const
+  size_t operator () (const Model_Impl * m, std::vector <T> & children) const
   {
     CComPtr <IMgaFCOs> fcos;
     VERIFY_HRESULT (m->impl ()->get_ChildFCOs (&fcos));
@@ -113,10 +113,8 @@ size_t Model_Impl::children (std::vector <T> & children) const
   typedef typename T::impl_type impl_type;
   assertion::element_not_containable_in_model <impl_type::type_tag>::result_type;
 
-  CComPtr <IMgaFCOs> fcos;
-  VERIFY_HRESULT (this->impl ()->get_ChildFCOs (&fcos));
-
-  return iter_to_collection (fcos.p, children);
+  return get_model_children_t <T, assertion::is_extension_class <T>::result_type> () (this, children); 
+  
 }
 
 //
