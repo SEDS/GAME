@@ -167,9 +167,7 @@ template <typename T>
 Collection_T <T> Folder_Impl::folders (void) const
 {
   typedef typename T::impl_type impl_type;
-  GAME::__static_assert <
-    GAME::negate <assertion::element_is_not_folder <impl_type::type_tag>::result_type>::result_type >::
-    result_type;
+  GAME::__static_assert <<assertion::element_is_folder <impl_type::type_tag>::result_type>::result_type;
 
   CComPtr <IMgaFolders> folders;
   VERIFY_HRESULT (this->impl ()->get_ChildFolders (&folders));
@@ -184,9 +182,7 @@ template <typename T>
 size_t Folder_Impl::folders (std::vector <T> & children) const
 {
   typedef typename T::impl_type impl_type;
-  GAME::__static_assert <
-    GAME::negate <assertion::element_is_not_folder <impl_type::type_tag>::result_type>::result_type >::
-    result_type;
+  GAME::__static_assert <<assertion::element_is_folder <impl_type::type_tag>::result_type>::result_type;
 
   CComPtr <IMgaFolders> folders;
   VERIFY_HRESULT (this->impl ()->get_ChildFolders (&folders));
@@ -208,9 +204,7 @@ size_t Folder_Impl::
 folders (const std::string & type, std::vector <T> & children) const
 {
   typedef typename T::impl_type impl_type;
-  GAME::__static_assert <
-    GAME::negate <assertion::element_is_not_folder <impl_type::type_tag>::result_type>::result_type >::
-    result_type;
+  GAME::__static_assert <<assertion::element_is_folder <impl_type::type_tag>::result_type>::result_type;
 
   CComPtr <IMgaFolders> folders;
   VERIFY_HRESULT (this->impl ()->get_ChildFolders (&folders));

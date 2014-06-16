@@ -111,7 +111,7 @@ template <typename T>
 size_t Model_Impl::children (std::vector <T> & children) const
 {
   typedef typename T::impl_type impl_type;
-  assertion::element_not_containable_in_model <impl_type::type_tag>::result_type;
+  GAME::__static_assert <assertion::element_not_containable_in_model <impl_type::type_tag>::result_type>::result_type;
 
   return get_model_children_t <T, assertion::is_extension_class <T>::result_type> () (this, children); 
 }
@@ -123,7 +123,7 @@ template <typename T>
 Collection_T <T> Model_Impl::children (void) const
 {
   typedef typename T::impl_type impl_type;
-  assertion::element_not_containable_in_model <impl_type::type_tag>::result_type;
+  GAME::__static_assert <assertion::element_not_containable_in_model <impl_type::type_tag>::result_type>::result_type;
 
   return get_model_children_t <T, assertion::is_extension_class <T>::result_type> () (this);
 }
