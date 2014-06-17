@@ -9,6 +9,7 @@
 #include "game/mga/Object.h"
 #include "game/mga/Project.h"
 #include "game/mga/Utils.h"
+#include "game/mga/Visitor.h"
 
 #include "CCF/CodeGenerationKit/IndentationCxx.hpp"
 #include "CCF/CodeGenerationKit/IndentationImplanter.hpp"
@@ -21,68 +22,54 @@ namespace GAME
 namespace Mga
 {
 
-/**
- * @struct generate_container_method
- */
-struct generate_include
-{
-  generate_include (std::ofstream & cxx_file)
-    : cxx_file_ (cxx_file)
-  {
 
+/**
+*
+* Visitor to generate methods respect to Folder or Model types
+*/
+#include "Meta.h"
+class Containment_Method_Visitor : public GAME::Mga::Visitor
+{
+public:
+  Containment_Method_Visitor (std::ostream & out, const std::string & name, bool is_collection = false)
+    : out_ (out),
+      name_ (name),
+      is_collection_ (is_collection)
+  {
   }
 
-  void operator () (const Object_Manager::map_type::ENTRY & entry) const
+  virtual void visit_Atom (GAME::Mga::Atom_in atom)
   {
-    if (!entry.int_id_->in_root_folder ())
-      return;
+    std::string metaname = ((GAME::Mga::FCO)atom)->meta ()->name ();
+    if (metaname == "Folder")
+      this->write_Folder ();
+    else if (metaname == "Model")
+      this->write_Model ();
+  }
 
-    this->cxx_file_ << include_t (entry.int_id_->compute_path ("/", false) + ".h");
+  void write_Model (void)
+  {
+    if (this->is_collection_)
+      this->out_ << "return this->children <" << this->name_ << "> ();";
+    else
+      this->out_ << "return this->children (items);"; 
+  }
+
+  void write_Folder ()
+  {
+    if (this->is_collection_)
+      this->out_ << "return this->folders <" << this->name_ << "> ();";
+    else
+      this->out_ << "return this->folders (items);";
   }
 
 private:
-  std::ofstream & cxx_file_;
+  std::ostream & out_;
+  const std::string & name_;
+  bool is_collection_;
 };
 
-/**
- * @struct generate_container_method
- */
-struct generate_container_method
-{
-  generate_container_method (std::ofstream & hxx_file, std::ofstream & cxx_file)
-    : hxx_file_ (hxx_file),
-      cxx_file_ (cxx_file)
-  {
 
-  }
-
-  void operator () (const Object_Manager::map_type::ENTRY & entry) const
-  {
-    if (!entry.int_id_->in_root_folder ())
-      return;
-
-    const std::string name = entry.int_id_->name ();
-
-    this->hxx_file_
-      << std::endl
-      << "size_t get_" << name << " (std::vector <" << name << "> & items) const;"
-      << "::GAME::Mga::Iterator <" << name << "> get_" << name << " (void) const;";
-
-    this->cxx_file_
-      << "size_t RootFolder_Impl::get_" << name << " (std::vector <" << name << "> & items) const"
-      << "{"
-      << "return this->children (items);"
-      << "}"
-      << "::GAME::Mga::Iterator <" << name << "> RootFolder_Impl::get_" << name << " (void) const"
-      << "{"
-      << "return this->children <" << name << "> ();"
-      << "}";
-  }
-
-private:
-  std::ofstream & hxx_file_;
-  std::ofstream & cxx_file_;
-};
 
 RootFolder_Generator::RootFolder_Generator (void)
 {
@@ -198,7 +185,13 @@ generate (const std::string & location,
     // Write the extension class source files.
     std::for_each (obj_mgr->objects ().begin (),
                    obj_mgr->objects ().end (),
-                   generate_include (cxx_file));
+                   [&] (Object_Manager::map_type::ENTRY Obj)
+                    {
+                      if (!Obj.int_id_->in_root_folder ())
+                        return;
+
+                      cxx_file << include_t (Obj.int_id_->compute_path ("/", false) + ".h");
+                    } );
 
     cxx_file
       << std::endl
@@ -229,8 +222,37 @@ generate (const std::string & location,
     // Write the extension class source files.
     std::for_each (obj_mgr->objects ().begin (),
                    obj_mgr->objects ().end (),
-                   generate_container_method (hxx_file, cxx_file));
+                   [&] (Object_Manager::map_type::ENTRY & obj)
+                    {
+                      if (!obj.int_id_->in_root_folder ())
+                        return;
 
+                      const std::string name = obj.int_id_->name ();
+
+                      hxx_file
+                        << std::endl
+                        << "size_t get_" << name << " (std::vector <" << name << "> & items) const;"
+                        << "::GAME::Mga::Collection_T <" << name << "> get_" << name << " (void) const;";
+
+                      cxx_file
+                        << "size_t RootFolder_Impl::get_" << name << " (std::vector <" << name << "> & items) const"
+                        << "{";
+
+                      Containment_Method_Visitor items_method (cxx_file, name, false);
+                      obj.item ()->get_object ()->accept (&items_method);
+    
+                      cxx_file
+                        << "}"
+                        << "::GAME::Mga::Collection_T <" << name << "> RootFolder_Impl::get_" << name << " (void) const"
+                        << "{";
+
+                      Containment_Method_Visitor collection_method (cxx_file, name, true);
+                      obj.item ()->get_object ()->accept (&collection_method);
+  
+                      cxx_file
+                        << "}";
+                    } );
+    
     // Write the postamble to both files.
     hxx_file
       << "};"

@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0595 */
-/* at Tue Apr 08 23:04:57 2014
+/* at Mon Jun 09 23:49:29 2014
  */
 /* Compiler settings for VisitPatron_Component.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0595 

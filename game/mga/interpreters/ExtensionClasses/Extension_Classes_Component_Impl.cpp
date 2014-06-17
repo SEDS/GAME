@@ -131,7 +131,7 @@ invoke_ex (GAME::Mga::Project project,
 
     GAME::Mga::Top_Level_File_Generator top_level_gen;
     top_level_gen.generate (this->output_, project, OBJECT_MANAGER);
-
+    
     GAME::Mga::Export_File_Generator export_file_gen;
     export_file_gen.generate (this->output_, project);
 

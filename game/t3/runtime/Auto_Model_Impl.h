@@ -2,7 +2,7 @@
 #define _T3_AUTO_MODEL_IMPL_H_
 
 #include "Runtime_export.h"
-
+#include "game/config.h"
 #include "game/mga/Collection_T.h"
 #include "game/mga/Object.h"
 

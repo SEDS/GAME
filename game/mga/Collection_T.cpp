@@ -144,6 +144,13 @@ void Collection_T <T>::items (std::vector <T> & out) const
   iter_to_collection (this->iter_.p, out, this->count_);
 }
 
+template <typename T>
+GAME_INLINE
+T Collection_T <T>::first (void) const
+{
+  return iter_.p;
+}
+
 template <typename ITER, typename T>
 size_t iter_to_collection (ITER iter, std::vector <T> & coll)
 {

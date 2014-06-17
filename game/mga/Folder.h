@@ -87,6 +87,12 @@ public:
   Collection_T <Folder> folders (void) const;
 
   /**
+   * @overloaded
+   */
+  template <typename T>
+  Collection_T <T> folders (void) const;
+
+  /**
    * Get all the first-level child folders of this folder.
    *
    * @return      Collection of folder objects.
@@ -101,6 +107,7 @@ public:
    */
   template <typename T>
   size_t folders (std::vector <T> & items) const;
+
 
   /**
    * Get all the first-level child folders of this folder.
