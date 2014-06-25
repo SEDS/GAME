@@ -14,7 +14,6 @@ namespace Mga
 //
 GAME_INLINE
 Impl_Factory::Impl_Factory (void)
-: next_ (0)
 {
 
 }
@@ -67,7 +66,6 @@ Default_Impl_Factory::~Default_Impl_Factory (void)
 GAME_INLINE
 Impl_Factory_Manager::Impl_Factory_Manager (void)
 {
-  this->set_next (&this->default_impl_);
 }
 
 //
@@ -76,7 +74,6 @@ Impl_Factory_Manager::Impl_Factory_Manager (void)
 GAME_INLINE
 Impl_Factory_Manager::~Impl_Factory_Manager (void)
 {
-
 }
 
 }
