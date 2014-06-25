@@ -33,7 +33,6 @@
 #include "MetaRole.h"
 #include "MetaSet.h"
 
-#include <algorithm>
 #include <assert.h>
 
 namespace GAME
