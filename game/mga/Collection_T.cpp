@@ -146,9 +146,9 @@ void Collection_T <T>::items (std::vector <T> & out) const
 
 template <typename T>
 GAME_INLINE
-T Collection_T <T>::first (void) 
+T Collection_T <T>::first (void) const
 {
-  return * begin ();
+  return * iterator_type (this->iter_.p, 1L);
 }
 
 template <typename ITER, typename T>

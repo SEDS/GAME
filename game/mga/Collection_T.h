@@ -72,7 +72,7 @@ public:
   void items (std::vector <T> & out) const;
 
   /// Get the first element in the collection.
-  T first (void);
+  T first (void) const;
 
 private:
   /// Pointer to the collection.
