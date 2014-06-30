@@ -148,7 +148,7 @@ template <typename T>
 GAME_INLINE
 T Collection_T <T>::first (void) const
 {
-  return iter_.p;
+  return * iterator_type (this->iter_.p, 1L);
 }
 
 template <typename ITER, typename T>

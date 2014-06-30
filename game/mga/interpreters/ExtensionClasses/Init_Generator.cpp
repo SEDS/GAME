@@ -92,14 +92,16 @@ void Init_Generator::generate_source_file (const Project & proj)
     << "/// Default constructor." << std::endl
     << "Init (void)"
     << "{"
-    << "::GAME::Mga::GLOBAL_IMPL_FACTORY::instance ()->set_next (::GAME::Mga::GLOBAL_IMPL_FACTORY::instance ());"
+    << "::GAME::Mga::GLOBAL_IMPL_FACTORY::instance ()->register_factory (&this->impl_factory_);"
     << "}"
     << std::endl
     << "/// Destructor." << std::endl
     << "~Init (void)"
     << "{"
-    << "::GAME::Mga::GLOBAL_IMPL_FACTORY::instance ()->remove (::GAME::Mga::GLOBAL_IMPL_FACTORY::instance ());"
+    << "::GAME::Mga::GLOBAL_IMPL_FACTORY::instance ()->unregister_factory (&this->impl_factory_);"
     << "}"
+    << "private:"
+    << "Impl_Factory impl_factory_;"
     << "};"
     << std::endl
     << "/// Extension class initialization." << std::endl

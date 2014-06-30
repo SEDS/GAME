@@ -186,13 +186,16 @@ size_t Folder_Impl::folders (std::vector <T> & children) const
 
   CComPtr <IMgaFolders> folders;
   VERIFY_HRESULT (this->impl ()->get_ChildFolders (&folders));
-
   for (Folder folder : Collection_T <Folder> (folders.p))
   {
-    if (folder->meta ()->name () == T::impl_type::metaname)
-      children.push_back (folder);
+    try
+    {
+      children.push_back (T::_narrow (folder));
+    }
+    catch (GAME::Mga::Invalid_Cast &)
+    {
+    }
   }
-
   return children.size ();
 }
 

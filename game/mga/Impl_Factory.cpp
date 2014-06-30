@@ -41,35 +41,79 @@ namespace Mga
 {
 
 ///////////////////////////////////////////////////////////////////////////////
-// Impl_Factory
-
-
+// Impl_Factory 
 //
-// set_next
+// allocate
 //
-void Impl_Factory::set_next (Impl_Factory * n)
+Object_Impl * Impl_Factory_Base::allocate (IMgaObject * ptr)
 {
-  n->next_ = this->next_;
-  this->next_ = n;
-}
+  return 0;
+};
 
 //
-// remove
+// allocate
 //
-void Impl_Factory::remove (Impl_Factory * n)
+RegistryNode_Impl * Impl_Factory_Base::allocate (IMgaRegNode * ptr)
 {
-  if (this->next_ == n)
-  {
-    // Remove this link from the chain.
-    this->next_ = n->next_;
-    n->next_ = 0;
-  }
-  else if (0 != this->next_)
-  {
-    // Go to the next link in the chain.
-    this->next_->remove (n);
-  }
-}
+  return 0;
+};
+
+//
+// allocate
+//
+Component_Impl * Impl_Factory_Base::allocate (IMgaComponent * ptr)
+{
+  return 0;
+};
+
+//
+// allocate
+//
+ComponentEx_Impl * Impl_Factory_Base::allocate (IMgaComponentEx * ptr)
+{
+  return 0;
+};
+
+//
+// allocate
+//
+Attribute_Impl * Impl_Factory_Base::allocate (IMgaAttribute * ptr)
+{
+  return 0;
+};
+
+//
+// allocate
+//
+ConnectionPoint_Impl * Impl_Factory_Base::allocate (IMgaConnPoint * ptr)
+{
+  return 0;
+};
+
+//
+// allocate
+//
+Meta::Base_Impl * Impl_Factory_Base::allocate (IMgaMetaBase * ptr)
+{
+  return 0;
+};
+
+//
+// allocate
+//
+Meta::Constraint_Impl * Impl_Factory_Base::allocate (IMgaConstraint * ptr)
+{
+  return 0;
+};
+
+//
+// allocate
+//
+Meta::ConnectionPoint_Impl * Impl_Factory_Base::allocate (IMgaMetaConnJoint * ptr)
+{
+  return 0;
+};
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // Default_Impl_Factory
@@ -209,105 +253,148 @@ Meta::ConnectionPoint_Impl * Default_Impl_Factory::allocate (IMgaMetaConnJoint *
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// Impl_Factory_Base
+// Impl_Factory_Manager
 
+//
+// register_factory
+//
+void Impl_Factory_Manager::register_factory (Impl_Factory * n)
+{
+  //Put new Factory in the beginning of the list for fast access in allocates loop
+  this->impl_factories_.push_front (n);
+}
+
+//
+// unregister_factory
+//
+void Impl_Factory_Manager::unregister_factory (Impl_Factory * n)
+{
+  this->impl_factories_.remove (n);
+}
 //
 // allocate
 //
-Object_Impl * Impl_Factory_Base::allocate (IMgaObject * ptr)
+Object_Impl * Impl_Factory_Manager::allocate (IMgaObject * ptr)
 {
-  if (0 != this->next_)
-    return this->next_->allocate (ptr);
-
-  throw Exception ("failed to allocate object implementation");
+  for (auto impl_factory : this->impl_factories_)
+  {
+    auto ret_var = impl_factory->allocate (ptr);
+    if (0 != ret_var)
+      return ret_var;
+  }
+  return this->default_impl_.allocate (ptr);
 }
 
 //
 // allocate
 //
-RegistryNode_Impl * Impl_Factory_Base::allocate (IMgaRegNode * ptr)
+RegistryNode_Impl * Impl_Factory_Manager::allocate (IMgaRegNode * ptr)
 {
-  if (0 != this->next_)
-    return this->next_->allocate (ptr);
-
-  throw Exception ("failed to allocate registry implementation");
+  for (auto impl_factory : this->impl_factories_)
+  {
+    auto ret_var = impl_factory->allocate (ptr);
+    if (0 != ret_var)
+      return ret_var;
+  }
+  return this->default_impl_.allocate (ptr);
 }
 
 //
 // allocate
 //
-Component_Impl * Impl_Factory_Base::allocate (IMgaComponent * ptr)
+Component_Impl * Impl_Factory_Manager::allocate (IMgaComponent * ptr)
 {
-  if (0 != this->next_)
-    return this->next_->allocate (ptr);
-
-  throw Exception ("failed to allocate component implementation");
+  for (auto impl_factory : this->impl_factories_)
+  {
+    auto ret_var = impl_factory->allocate (ptr);
+    if (0 != ret_var)
+      return ret_var;
+  }
+  return this->default_impl_.allocate (ptr);
 }
 
 //
 // allocate
 //
-ComponentEx_Impl * Impl_Factory_Base::allocate (IMgaComponentEx * ptr)
+ComponentEx_Impl * Impl_Factory_Manager::allocate (IMgaComponentEx * ptr)
 {
-  if (0 != this->next_)
-    return this->next_->allocate (ptr);
-
-  throw Exception ("failed to allocate extended component implementation");
+  for (auto impl_factory : this->impl_factories_)
+  {
+    auto ret_var = impl_factory->allocate (ptr);
+    if (0 != ret_var)
+      return ret_var;
+  }
+  return this->default_impl_.allocate (ptr);
 }
 
 //
 // allocate
 //
-Attribute_Impl * Impl_Factory_Base::allocate (IMgaAttribute * ptr)
+Attribute_Impl * Impl_Factory_Manager::allocate (IMgaAttribute * ptr)
 {
-  if (0 != this->next_)
-    return this->next_->allocate (ptr);
-
-  throw Exception ("failed to allocate attribute implementation");
+  for (auto impl_factory : this->impl_factories_)
+  {
+    auto ret_var = impl_factory->allocate (ptr);
+    if (0 != ret_var)
+      return ret_var;
+  }
+  return this->default_impl_.allocate (ptr);
 }
 
 //
 // allocate
 //
-ConnectionPoint_Impl * Impl_Factory_Base::allocate (IMgaConnPoint * ptr)
+ConnectionPoint_Impl * Impl_Factory_Manager::allocate (IMgaConnPoint * ptr)
 {
-  if (0 != this->next_)
-    return this->next_->allocate (ptr);
-
-  throw Exception ("failed to allocate connection point implementation");
+  for (auto impl_factory : this->impl_factories_)
+  {
+    auto ret_var = impl_factory->allocate (ptr);
+    if (0 != ret_var)
+      return ret_var;
+  }
+  return this->default_impl_.allocate (ptr);
 }
 
 //
 // allocate
 //
-Meta::Base_Impl * Impl_Factory_Base::allocate (IMgaMetaBase * ptr)
+Meta::Base_Impl * Impl_Factory_Manager::allocate (IMgaMetaBase * ptr)
 {
-  if (0 != this->next_)
-    return this->next_->allocate (ptr);
-
-  throw Exception ("failed to allocate meta object implementation");
+  for (auto impl_factory : this->impl_factories_)
+  {
+    auto ret_var = impl_factory->allocate (ptr);
+    if (0 != ret_var)
+      return ret_var;
+  }
+  return this->default_impl_.allocate (ptr);
 }
 
 //
 // allocate
 //
-Meta::Constraint_Impl * Impl_Factory_Base::allocate (IMgaConstraint * ptr)
+Meta::Constraint_Impl * Impl_Factory_Manager::allocate (IMgaConstraint * ptr)
 {
-  if (0 != this->next_)
-    return this->next_->allocate (ptr);
-
-  throw Exception ("failed to allocate constraint implementation");
+  for (auto impl_factory : this->impl_factories_)
+  {
+    auto ret_var = impl_factory->allocate (ptr);
+    if (0 != ret_var)
+      return ret_var;
+  }
+  return this->default_impl_.allocate (ptr);
 }
 
 //
 // allocate
 //
-Meta::ConnectionPoint_Impl * Impl_Factory_Base::allocate (IMgaMetaConnJoint * ptr)
+Meta::ConnectionPoint_Impl * Impl_Factory_Manager::allocate (IMgaMetaConnJoint * ptr)
 {
-  if (0 != this->next_)
-    return this->next_->allocate (ptr);
-
-  throw Exception ("failed to allocate meta connection joint implementation");
+  for (auto impl_factory : this->impl_factories_)
+  {
+    auto ret_var = impl_factory->allocate (ptr);
+    if (0 != ret_var)
+      return ret_var;
+  }
+  return this->default_impl_.allocate (ptr);
 }
 
 

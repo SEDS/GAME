@@ -17,6 +17,8 @@
 #include "ace/Singleton.h"
 #include "ace/Null_Mutex.h"
 #include "Mga_export.h"
+#include <list>
+
 
 namespace GAME
 {
@@ -112,22 +114,6 @@ public:
 
   /// Allocate a meta connection point implementation.
   virtual Meta::ConnectionPoint_Impl * allocate (IMgaMetaConnJoint * ptr) = 0;
-
-  /**
-   * Add a new implementation factory to the chain of commnd. The
-   * method updates the next pointer for this object as well as the
-   * factory being inserted into the chain.
-   *
-   * @param[in]         n         Pointer to next factory
-   */
-  void set_next (Impl_Factory * n);
-
-  /// Remove an implementation factory from the chain.
-  void remove (Impl_Factory * n);
-
-protected:
-  /// Pointer to the factory implementation.
-  Impl_Factory * next_;
 
 private:
   // Prevent the following operations.
@@ -274,6 +260,57 @@ public:
 
   /// Destructor.
   virtual ~Impl_Factory_Manager (void);
+
+  /**
+   * Allocate the implementation pointer for an object.
+   *
+   * @param[in]           ptr           Pointer to the object
+   * @return              Pointer to the implementation.
+   */
+  virtual Object_Impl * allocate (IMgaObject * ptr);
+
+  /// Allocate an registry node implementation.
+  RegistryNode_Impl * allocate (IMgaRegNode * ptr);
+
+  /// Allocate an component implementation.
+  Component_Impl * allocate (IMgaComponent * ptr);
+
+  /// Allocate an extended component implementation.
+  ComponentEx_Impl * allocate (IMgaComponentEx * ptr);
+
+  /// Allocate an attribute implementation.
+  Attribute_Impl * allocate (IMgaAttribute * ptr);
+
+  /// Allocate a connection point implementation.
+  ConnectionPoint_Impl * allocate (IMgaConnPoint * ptr);
+
+  /**
+   * Allocate the meta implementation pointer for a meta object.
+   *
+   * @param[in]           ptr           Pointer to the meta object
+   * @return              Pointer to the meta implementation.
+   */
+  virtual Meta::Base_Impl * allocate (IMgaMetaBase * ptr);
+
+  /// Allocate a constraint implementation.
+  Meta::Constraint_Impl * allocate (IMgaConstraint * ptr);
+
+  /// Allocate a meta connection point implementation.
+  Meta::ConnectionPoint_Impl * allocate (IMgaMetaConnJoint * ptr);
+  /**
+   * Registor a new implementation factory to the chain of commnd. The
+   * method updates the next pointer for this object as well as the
+   * factory being inserted into the repository.
+   *
+   * @param[in]         n         Pointer to next factory
+   */
+  void register_factory (Impl_Factory * n);
+
+  /// Unregister an implementation factory from the repository.
+  void unregister_factory (Impl_Factory * n);
+
+protected:
+  std::list<Impl_Factory *> impl_factories_;
 
 private:
   /// Default implementation factory for the manager.
