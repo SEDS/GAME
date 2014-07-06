@@ -258,29 +258,43 @@ Meta::ConnectionPoint_Impl * Default_Impl_Factory::allocate (IMgaMetaConnJoint *
 //
 // register_factory
 //
-void Impl_Factory_Manager::register_factory (Impl_Factory * n)
+void Impl_Factory_Manager::register_factory (Impl_Factory * impl_fact, std::string paradigm_name)
 {
   //Put new Factory in the beginning of the list for fast access in allocates loop
-  this->impl_factories_.push_front (n);
+  this->impl_factories_ [paradigm_name] = impl_fact;
 }
 
 //
 // unregister_factory
 //
-void Impl_Factory_Manager::unregister_factory (Impl_Factory * n)
+void Impl_Factory_Manager::unregister_factory (std::string paradigm_name)
 {
-  this->impl_factories_.remove (n);
+  this->impl_factories_.erase (paradigm_name);
 }
 //
 // allocate
 //
 Object_Impl * Impl_Factory_Manager::allocate (IMgaObject * ptr)
 {
-  for (auto impl_factory : this->impl_factories_)
+  if (ptr != 0)
   {
-    auto ret_var = impl_factory->allocate (ptr);
-    if (0 != ret_var)
-      return ret_var;
+    CComPtr <IMgaMetaBase> metabase;
+    VERIFY_HRESULT (ptr->get_MetaBase (&metabase));
+
+    CComPtr <IMgaMetaProject> metaproject;
+    VERIFY_HRESULT (metabase->get_MetaProject (&metaproject));
+
+    CComBSTR bstr;
+    VERIFY_HRESULT (metaproject->get_DisplayedName (&bstr));
+
+    CW2A paradigm_name (bstr);
+    auto it = this->impl_factories_.find (paradigm_name.m_psz);
+    if (it != this->impl_factories_.end ())
+    {
+      Object_Impl * ret_var = it->second->allocate (ptr);
+      if (0 != ret_var)
+        return ret_var;
+    }
   }
   return this->default_impl_.allocate (ptr);
 }
@@ -292,7 +306,7 @@ RegistryNode_Impl * Impl_Factory_Manager::allocate (IMgaRegNode * ptr)
 {
   for (auto impl_factory : this->impl_factories_)
   {
-    auto ret_var = impl_factory->allocate (ptr);
+    RegistryNode_Impl * ret_var = impl_factory.second->allocate (ptr);
     if (0 != ret_var)
       return ret_var;
   }
@@ -304,11 +318,19 @@ RegistryNode_Impl * Impl_Factory_Manager::allocate (IMgaRegNode * ptr)
 //
 Component_Impl * Impl_Factory_Manager::allocate (IMgaComponent * ptr)
 {
-  for (auto impl_factory : this->impl_factories_)
+  if (ptr != 0)
   {
-    auto ret_var = impl_factory->allocate (ptr);
-    if (0 != ret_var)
-      return ret_var;
+    CComBSTR bstr;
+    VERIFY_HRESULT (ptr->get_Paradigm (&bstr));
+
+    CW2A paradigm_name (bstr);
+    auto it = this->impl_factories_.find (paradigm_name.m_psz);
+    if (it != this->impl_factories_.end ())
+    {
+      Component_Impl * ret_var = it->second->allocate (ptr);
+      if (0 != ret_var)
+        return ret_var;
+    }
   }
   return this->default_impl_.allocate (ptr);
 }
@@ -318,11 +340,19 @@ Component_Impl * Impl_Factory_Manager::allocate (IMgaComponent * ptr)
 //
 ComponentEx_Impl * Impl_Factory_Manager::allocate (IMgaComponentEx * ptr)
 {
-  for (auto impl_factory : this->impl_factories_)
+  if (ptr != 0)
   {
-    auto ret_var = impl_factory->allocate (ptr);
-    if (0 != ret_var)
-      return ret_var;
+    CComBSTR bstr;
+    VERIFY_HRESULT (ptr->get_Paradigm (&bstr));
+
+    CW2A paradigm_name (bstr);
+    auto it = this->impl_factories_.find (paradigm_name.m_psz);
+    if (it != this->impl_factories_.end ())
+    {
+      ComponentEx_Impl * ret_var = it->second->allocate (ptr);
+      if (0 != ret_var)
+        return ret_var;
+    }
   }
   return this->default_impl_.allocate (ptr);
 }
@@ -332,11 +362,25 @@ ComponentEx_Impl * Impl_Factory_Manager::allocate (IMgaComponentEx * ptr)
 //
 Attribute_Impl * Impl_Factory_Manager::allocate (IMgaAttribute * ptr)
 {
-  for (auto impl_factory : this->impl_factories_)
+  if (ptr != 0)
   {
-    auto ret_var = impl_factory->allocate (ptr);
-    if (0 != ret_var)
-      return ret_var;
+    CComPtr <IMgaMetaAttribute> metaatt;
+    VERIFY_HRESULT (ptr->get_Meta (&metaatt));
+
+    CComPtr <IMgaMetaProject> metaproject;
+    VERIFY_HRESULT (metaatt->get_MetaProject (&metaproject));
+
+    CComBSTR bstr;
+    VERIFY_HRESULT (metaproject->get_DisplayedName (&bstr));
+
+    CW2A paradigm_name (bstr);
+    auto it = this->impl_factories_.find (paradigm_name.m_psz);
+    if (it != this->impl_factories_.end ())
+    {
+      Attribute_Impl * ret_var = it->second->allocate (ptr);
+      if (0 != ret_var)
+        return ret_var;
+    }
   }
   return this->default_impl_.allocate (ptr);
 }
@@ -346,11 +390,28 @@ Attribute_Impl * Impl_Factory_Manager::allocate (IMgaAttribute * ptr)
 //
 ConnectionPoint_Impl * Impl_Factory_Manager::allocate (IMgaConnPoint * ptr)
 {
-  for (auto impl_factory : this->impl_factories_)
+  if (ptr != 0)
   {
-    auto ret_var = impl_factory->allocate (ptr);
-    if (0 != ret_var)
-      return ret_var;
+    CComPtr <IMgaConnection> conn;
+    VERIFY_HRESULT (ptr->get_Owner (&conn));
+
+    CComPtr <IMgaMetaBase> metabase;
+    VERIFY_HRESULT (conn->get_MetaBase (&metabase));
+
+    CComPtr <IMgaMetaProject> metaproject;
+    VERIFY_HRESULT (metabase->get_MetaProject (&metaproject));
+
+    CComBSTR bstr;
+    VERIFY_HRESULT (metaproject->get_DisplayedName (&bstr));
+
+    CW2A paradigm_name (bstr);
+    auto it = this->impl_factories_.find (paradigm_name.m_psz);
+    if (it != this->impl_factories_.end ())
+    {
+      ConnectionPoint_Impl * ret_var = it->second->allocate (ptr);
+      if (0 != ret_var)
+        return ret_var;
+    }
   }
   return this->default_impl_.allocate (ptr);
 }
@@ -360,11 +421,22 @@ ConnectionPoint_Impl * Impl_Factory_Manager::allocate (IMgaConnPoint * ptr)
 //
 Meta::Base_Impl * Impl_Factory_Manager::allocate (IMgaMetaBase * ptr)
 {
-  for (auto impl_factory : this->impl_factories_)
+  if (ptr != 0)
   {
-    auto ret_var = impl_factory->allocate (ptr);
-    if (0 != ret_var)
-      return ret_var;
+    CComPtr <IMgaMetaProject> metaproject;
+    VERIFY_HRESULT (ptr->get_MetaProject (&metaproject));
+
+    CComBSTR bstr;
+    VERIFY_HRESULT (metaproject->get_DisplayedName (&bstr));
+
+    CW2A paradigm_name (bstr);
+    auto it = this->impl_factories_.find (paradigm_name.m_psz);
+    if (it != this->impl_factories_.end ())
+    {
+      Meta::Base_Impl * ret_var = it->second->allocate (ptr);
+      if (0 != ret_var)
+        return ret_var;
+    }
   }
   return this->default_impl_.allocate (ptr);
 }
@@ -376,7 +448,7 @@ Meta::Constraint_Impl * Impl_Factory_Manager::allocate (IMgaConstraint * ptr)
 {
   for (auto impl_factory : this->impl_factories_)
   {
-    auto ret_var = impl_factory->allocate (ptr);
+    Meta::Constraint_Impl * ret_var = impl_factory.second->allocate (ptr);
     if (0 != ret_var)
       return ret_var;
   }
@@ -388,11 +460,25 @@ Meta::Constraint_Impl * Impl_Factory_Manager::allocate (IMgaConstraint * ptr)
 //
 Meta::ConnectionPoint_Impl * Impl_Factory_Manager::allocate (IMgaMetaConnJoint * ptr)
 {
-  for (auto impl_factory : this->impl_factories_)
+  if (ptr != 0)
   {
-    auto ret_var = impl_factory->allocate (ptr);
-    if (0 != ret_var)
-      return ret_var;
+    CComPtr <IMgaMetaConnection> metaconn;
+    VERIFY_HRESULT (ptr->get_Parent (&metaconn));
+
+    CComPtr <IMgaMetaProject> metaproject;
+    VERIFY_HRESULT (metaconn->get_MetaProject (&metaproject));
+
+    CComBSTR bstr;
+    VERIFY_HRESULT (metaproject->get_DisplayedName (&bstr));
+
+    CW2A paradigm_name (bstr);
+    auto it = this->impl_factories_.find (paradigm_name.m_psz);
+    if (it != this->impl_factories_.end ())
+    {
+      Meta::ConnectionPoint_Impl * ret_var = it->second->allocate (ptr);
+      if (0 != ret_var)
+        return ret_var;
+    }
   }
   return this->default_impl_.allocate (ptr);
 }

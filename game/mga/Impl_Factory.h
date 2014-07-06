@@ -17,7 +17,7 @@
 #include "ace/Singleton.h"
 #include "ace/Null_Mutex.h"
 #include "Mga_export.h"
-#include <list>
+#include <map>
 
 
 namespace GAME
@@ -302,15 +302,16 @@ public:
    * method updates the next pointer for this object as well as the
    * factory being inserted into the repository.
    *
-   * @param[in]         n         Pointer to next factory
+   * @param[in]         impl_fact           factory
+   * @param[in]         paradigm_name       paradigm name
    */
-  void register_factory (Impl_Factory * n);
+  void register_factory (Impl_Factory * impl_fact, std::string paradigm_name);
 
   /// Unregister an implementation factory from the repository.
-  void unregister_factory (Impl_Factory * n);
+  void unregister_factory (std::string paradigm_name);
 
 protected:
-  std::list<Impl_Factory *> impl_factories_;
+  std::map < std::string , Impl_Factory * > impl_factories_;
 
 private:
   /// Default implementation factory for the manager.
