@@ -5,17 +5,15 @@
 
 namespace Library
 {
-  //
-  // Visitor
-  //
   Visitor::Visitor (void)
   {
   }
 
-  //
-  // ~Visitor
-  //
   Visitor::~Visitor (void)
+  {
+  }
+
+  void Visitor::visit_RootFolder (RootFolder_in folder)
   {
   }
 
@@ -34,16 +32,16 @@ namespace Library
   }
 
   //
-  // visit_Library
+  // visit_Book
   //
-  void Visitor::visit_Library (Library_in item)
+  void Visitor::visit_Book (Book_in item)
   {
   }
 
   //
-  // visit_Book
+  // visit_Library
   //
-  void Visitor::visit_Book (Book_in item)
+  void Visitor::visit_Library (Library_in item)
   {
   }
 }

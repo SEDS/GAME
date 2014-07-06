@@ -289,7 +289,7 @@ private:
 
     const std::string parent_type = item->metaname ();
     const std::string parent = item->name ();
-    const std::string method = parent_type == "Model" ? "create_object" : "create_root_object";
+    const std::string method = this->self_->metaname () == "Folder" ? "create_folder" : (parent_type == "Model" ? "create_object" : "create_root_object");
 
     this->hfile_
       << "static " << this->self_->name () << " _create (const " << parent << "_in parent);";
