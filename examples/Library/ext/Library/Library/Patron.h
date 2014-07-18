@@ -14,21 +14,26 @@
 #ifndef _LIBRARY_LIBRARY_PATRON_H_
 #define _LIBRARY_LIBRARY_PATRON_H_
 
-#include "game/mga/Atom.h"
-
 #include "Library/Library_fwd.h"
 #include "Library/Library_export.h"
+
+#include "game/mga/Atom.h"
 
 namespace Library
 {
   // Forward decl. and type definitions
   class Patron_Impl;
   typedef Patron_Impl * Patron_in;
-  typedef ::GAME::Mga::Smart_Ptr <Patron_Impl> Patron;
+  typedef ::GAME::Mga::Smart_Ptr < Patron_Impl > Patron;
 
   // Forward decl.
   class Visitor;
 
+  /**
+   * @class Patron_Impl
+   *
+   * Implementation for the Patron model element.
+   */
   class LIBRARY_Export Patron_Impl :
     public virtual ::GAME::Mga::Atom_Impl
   {
@@ -42,18 +47,6 @@ namespace Library
     /// Metaname for this extension class.
     static const std::string metaname;
 
-    /// Default constructor
-    Patron_Impl (void);
-
-    /// Initializing constructor
-    Patron_Impl (IMgaAtom * ptr);
-
-    /// Destructor
-    virtual ~Patron_Impl (void);
-
-    /// Accept a visitor for this project.
-    virtual void accept (::GAME::Mga::Visitor * v);
-
     /**
      * @name Factory Methods
      */
@@ -61,10 +54,41 @@ namespace Library
     static Patron _create (const Library_in parent);
     ///@}
 
+    // Default constructor.
+    Patron_Impl (void);
+
+    // Initializing constructor.
+    Patron_Impl (IMgaAtom * ptr);
+
+    // Destructor.
+    virtual ~Patron_Impl (void);
+
+    /// Accept a visitor for this model element.
+    virtual void accept (::GAME::Mga::Visitor * v);
+
+    /**
+     * @name Parent Methods
+     */
+    ///@{
+    Library parent_Library (void);
+    ///@}
+
     /**
      * @name Attribute Methods
      */
     ///@{
+
+    /// Set the value of Name
+    void Name (const std::string & val);
+
+    /// Get the value of Name
+    std::string Name (void) const;
+
+    /// Set the value of SSN
+    void SSN (double val);
+
+    /// Get the value of SSN
+    double SSN (void) const;
 
     /// Set the value of HomeAddress
     void HomeAddress (const std::string & val);
@@ -83,34 +107,21 @@ namespace Library
 
     /// Get the value of Age
     long Age (void) const;
-
-    /// Set the value of SSN
-    void SSN (double val);
-
-    /// Get the value of SSN
-    double SSN (void) const;
-
-    /// Set the value of Name
-    void Name (const std::string & val);
-
-    /// Get the value of Name
-    std::string Name (void) const;
-    ///@}
-    size_t in_Borrow_connections (std::vector <Borrow> & conns) const;
-
-    /**
-     * @name Parent Methods
-     */
-    ///@{
-    Library parent_Library (void) const;
     ///@}
 
     /**
-     * @name Reference Methods
+     * @name Destination Connection Point Methods
      */
     ///@{
+
+    /// Get the dst Borrow connection.
+    size_t dst_Borrow (std::vector <Borrow> & items) const;
     ///@}
   };
 }
 
+#if defined (__GAME_INLINE__)
+#include "Patron.inl"
 #endif
+
+#endif  // !defined _LIBRARY_LIBRARY_PATRON

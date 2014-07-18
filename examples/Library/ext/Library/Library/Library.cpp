@@ -1,68 +1,30 @@
 // $Id$
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "Library.h"
 
-#include "game/mga/Attribute.h"
-#include "game/mga/MetaModel.h"
-#include "game/mga/MetaFolder.h"
-#include "game/mga/Functional_T.h"
+#if !defined (__GAME_INLINE__)
+#include "Library.inl"
+#endif
 
 #include "Library/Visitor.h"
-#include "Library/Library/Patron.h"
 #include "Library/Library/Borrow.h"
 #include "Library/Library/Book.h"
+#include "Library/Library/Patron.h"
+#include "game/mga/Functional_T.h"
+#include "game/mga/MetaModel.h"
+#include "game/mga/MetaFolder.h"
+
 
 namespace Library
 {
   //
   // metaname
   //
-  const std::string Library_Impl::metaname = "Library";
+  const std::string Library_Impl::metaname ("Library");
 
   //
-  // Library_Impl
-  //
-  Library_Impl::Library_Impl (void)
-  {
-  }
-
-  //
-  // Library_Impl
-  //
-  Library_Impl::Library_Impl (IMgaModel * ptr)
-  {
-    this->object_ = ptr;
-  }
-
-  //
-  // ~Library_Impl
-  //
-  Library_Impl::~Library_Impl (void)
-  {
-  }
-
-  //
-  // accept
-  //
-  void Library_Impl::accept (::GAME::Mga::Visitor * v)
-  {
-    try
-    {
-      // See if this is a visitor we know.
-      Visitor * this_visitor = dynamic_cast <Visitor *> (v);
-      this_visitor->visit_Library (this);
-    }
-
-    catch (const std::bad_cast & )
-    {
-      // Fallback to the standard visit method.
-      v->visit_Model (this);
-    }
-  }
-
-  //
-  // _create
+  // _create (const ::GAME::Mga::RootFolder_in)
   //
   Library Library_Impl::_create (const ::GAME::Mga::RootFolder_in parent)
   {
@@ -70,47 +32,25 @@ namespace Library
   }
 
   //
-  // LibraryAddress
+  // accept
   //
-  void Library_Impl::LibraryAddress (const std::string & val)
+  void Library_Impl::accept (::GAME::Mga::Visitor * v)
   {
-    static const std::string attr_LibraryAddress ("LibraryAddress");
-    this->attribute (attr_LibraryAddress)->string_value (val);
+    // See if this is a visitor we know.
+    Visitor * this_visitor = dynamic_cast <Visitor *> (v);
+
+    if (0 != this_visitor)
+      this_visitor->visit_Library (this);
+    else
+      v->visit_Model (this);
   }
 
   //
-  // LibraryAddress
+  // parent_RootFolder (void)
   //
-  std::string Library_Impl::LibraryAddress (void) const
+  RootFolder Library_Impl::parent_RootFolder (void)
   {
-    static const std::string attr_LibraryAddress ("LibraryAddress");
-    return this->attribute (attr_LibraryAddress)->string_value ();
-  }
-
-  //
-  // LibraryName
-  //
-  void Library_Impl::LibraryName (const std::string & val)
-  {
-    static const std::string attr_LibraryName ("LibraryName");
-    this->attribute (attr_LibraryName)->string_value (val);
-  }
-
-  //
-  // LibraryName
-  //
-  std::string Library_Impl::LibraryName (void) const
-  {
-    static const std::string attr_LibraryName ("LibraryName");
-    return this->attribute (attr_LibraryName)->string_value ();
-  }
-
-  //
-  // get_Patrons
-  //
-  size_t Library_Impl::get_Patrons (std::vector <Patron> & items) const
-  {
-    return this->children (items);
+    return RootFolder::_narrow (this->parent ());
   }
 
   //
@@ -122,6 +62,14 @@ namespace Library
   }
 
   //
+  // get_Borrows
+  //
+  ::GAME::Mga::Collection_T <Borrow> Library_Impl::get_Borrows (void) const
+  {
+    return this->children <Borrow> ();
+  }
+
+  //
   // get_Books
   //
   size_t Library_Impl::get_Books (std::vector <Book> & items) const
@@ -129,9 +77,28 @@ namespace Library
     return this->children (items);
   }
 
-  ::GAME::Mga::RootFolder Library_Impl::parent_RootFolder (void) const
+  //
+  // get_Books
+  //
+  ::GAME::Mga::Collection_T <Book> Library_Impl::get_Books (void) const
   {
-    return ::GAME::Mga::get_parent < ::GAME::Mga::RootFolder > (this->object_.p);
+    return this->children <Book> ();
+  }
+
+  //
+  // get_Patrons
+  //
+  size_t Library_Impl::get_Patrons (std::vector <Patron> & items) const
+  {
+    return this->children (items);
+  }
+
+  //
+  // get_Patrons
+  //
+  ::GAME::Mga::Collection_T <Patron> Library_Impl::get_Patrons (void) const
+  {
+    return this->children <Patron> ();
   }
 }
 

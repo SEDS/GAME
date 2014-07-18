@@ -35,10 +35,11 @@ namespace Library
      * @name Visit Methods
      */
     ///@{
+    virtual void visit_RootFolder (RootFolder_in folder);
     virtual void visit_Patron (Patron_in item);
     virtual void visit_Borrow (Borrow_in item);
-    virtual void visit_Library (Library_in item);
     virtual void visit_Book (Book_in item);
+    virtual void visit_Library (Library_in item);
     ///@}
     private:
     // prevent the following operation(s)
