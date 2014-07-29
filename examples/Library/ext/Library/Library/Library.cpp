@@ -8,9 +8,9 @@
 #endif
 
 #include "Library/Visitor.h"
-#include "Library/Library/Borrow.h"
 #include "Library/Library/Book.h"
 #include "Library/Library/Patron.h"
+#include "Library/Library/Borrow.h"
 #include "game/mga/Functional_T.h"
 #include "game/mga/MetaModel.h"
 #include "game/mga/MetaFolder.h"
@@ -54,22 +54,6 @@ namespace Library
   }
 
   //
-  // get_Borrows
-  //
-  size_t Library_Impl::get_Borrows (std::vector <Borrow> & items) const
-  {
-    return this->children (items);
-  }
-
-  //
-  // get_Borrows
-  //
-  ::GAME::Mga::Collection_T <Borrow> Library_Impl::get_Borrows (void) const
-  {
-    return this->children <Borrow> ();
-  }
-
-  //
   // get_Books
   //
   size_t Library_Impl::get_Books (std::vector <Book> & items) const
@@ -99,6 +83,22 @@ namespace Library
   ::GAME::Mga::Collection_T <Patron> Library_Impl::get_Patrons (void) const
   {
     return this->children <Patron> ();
+  }
+
+  //
+  // get_Borrows
+  //
+  size_t Library_Impl::get_Borrows (std::vector <Borrow> & items) const
+  {
+    return this->children (items);
+  }
+
+  //
+  // get_Borrows
+  //
+  ::GAME::Mga::Collection_T <Borrow> Library_Impl::get_Borrows (void) const
+  {
+    return this->children <Borrow> ();
   }
 }
 
