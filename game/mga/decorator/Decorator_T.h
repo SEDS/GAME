@@ -66,7 +66,7 @@ public:
   STDMETHOD (Draw) (ULONG hdc);
   STDMETHOD (SaveState) (void);
 
-  //  IMgaElementDecorator
+  //  IMgaElementDecorator (not supported)
   STDMETHOD (InitializeEx) (IMgaProject* pProject, IMgaMetaPart* pPart, IMgaFCO* pFCO, IMgaCommonDecoratorEvents* eventSink, ULONGLONG parentWnd);
   STDMETHOD (DrawEx) (ULONG hdc, ULONGLONG gdipGraphics );
   STDMETHOD (SetSelected) (VARIANT_BOOL bIsSelected );
