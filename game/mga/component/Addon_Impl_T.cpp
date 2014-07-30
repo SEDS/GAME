@@ -6,6 +6,7 @@
 
 #include "Event_Sink.h"
 #include "game/mga/Project.h"
+#include "game/mga/Transaction.h"
 
 namespace GAME
 {
@@ -45,6 +46,7 @@ STDMETHODIMP Addon_Impl_T <T, SINK>::Initialize (IMgaProject * proj)
   {
     // Create a new event handler for this add-on.
     this->sink_.Attach (new CComObject <Event_Sink> ());
+
     // Register the event handler with GME. We need to make sure the
     // destoryed event is set. Otherwise, it will be hard to unregister
     // event handlers associated with an object once it has been destroyed.
@@ -53,12 +55,21 @@ STDMETHODIMP Addon_Impl_T <T, SINK>::Initialize (IMgaProject * proj)
     long mask = this->impl_.event_mask () | OBJEVENT_DESTROYED;
     VERIFY_HRESULT (this->addon_->put_EventMask (mask));
 
+    // Create a new transaction before calling the initialize method. This 
+    // is because registering the event handlers with the GAME interface may 
+    // require making calls back into GME.
+    Readonly_Transaction t (proj);
     return this->sink_->initialize (GAME::Mga::Project (proj), &this->impl_);
+  }
+  catch (const GAME::Mga::Exception & ex)
+  {
+
   }
   catch (...)
   {
-    return E_FAIL;
   }
+
+  return E_FAIL;
 }
 
 //
@@ -74,10 +85,15 @@ STDMETHODIMP Addon_Impl_T <T, SINK>::Enable (VARIANT_BOOL enable)
 
     return S_OK;
   }
+  catch (const GAME::Mga::Exception & ex)
+  {
+
+  }
   catch (...)
   {
-    return E_FAIL;
   }
+
+  return E_FAIL;
 }
 
 }
