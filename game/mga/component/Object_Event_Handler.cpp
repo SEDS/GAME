@@ -31,7 +31,7 @@ Top_Level_Event_Handler::~Top_Level_Event_Handler (void)
 
 }
 
-int Top_Level_Event_Handler::handle_project_open_finished (void)
+int Top_Level_Event_Handler::handle_notification_ready (void)
 {
   GME_CONSOLE_SERVICE->initialize (this->project_);
   return 0;

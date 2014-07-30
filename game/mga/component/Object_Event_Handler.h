@@ -101,7 +101,7 @@ public:
    *
    *  = Initializes the GME console for the add-on
    */
-  virtual int handle_project_open_finished (void);
+  virtual int handle_notification_ready (void);
 };
 
 } // namespace GAME
