@@ -81,7 +81,7 @@ public:
 
 protected:
   /// The delegate decorator for this referenced object.
-  CComPtr <IMgaElementDecorator> delegate_;
+  CComPtr <IMgaDecorator> delegate_;
 
 private:
   bool show_refers_to_;
