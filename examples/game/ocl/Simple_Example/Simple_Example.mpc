@@ -10,6 +10,10 @@ project (GAME_OCL_Simple_Example) : requires_examples, game_ocl {
     subsystem = Console
   }
 
+  specific (vc11) {
+    subsystem = Console
+  }
+
   pch_header = stdafx.h
   pch_source = stdafx.cpp
 
