@@ -16,7 +16,7 @@ and installed on your build machine:
  * [Adaptive Communcation Environment (ACE)](http://www.dre.vanderbilt.edu/ACE)
  * [Boost.Spirit](http://boost-spirit.com/home/)
  * [Makefile, Project, Workspace Creator](http://www.ociweb.com/products/mpc)
- * [GME](http://repo.isis.vanderbilt.edu/GME/old/13.11.14/)
+ * [GME](https://forge.isis.vanderbilt.edu/gme)
 
 For more information on building the above, please consult the following 
 [Wiki Page](https://github.iu.edu/SEDS/GAME/wiki/Building-Required-Middleware).
