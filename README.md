@@ -18,14 +18,19 @@ and installed on your build machine:
 
 For more information on building the above, please consult the [Wiki](../../wiki/Building-Required-Middleware).
 
-Clone the GAME repo, then set the **GAME_ROOT** environment variable to the 
-location of the GAME repo. Also, add **%GAME_ROOT%\bin** and  **%GAME_ROOT%\lib** 
-to the **PATH** environment variable. Also, be sure that the **GME_ROOT** is set
-properly. Next, build GAME using the following commands:
+Clone the GAME repo, then set the ```GAME_ROOT```  environment variable:
 
-    %> %ACE_ROOT%\bin\mwc.pl -type [buildtool] -features boost=1,xerces3=1,mfc=1 GAME_ACE.mwc 
-    %> devenv /useenv GAME_ACE.sln
+    set GAME_ROOT=location of GAME
+    
+Update your ```PATH```:
+
+    set PATH=%PATH%;%GAME_ROOT%\\bin;%GAME_ROOT%\\lib
+    
+Last, build GAME using the following commands:
+
+    %ACE_ROOT%\bin\mwc.pl -type [buildtool] -features boost=1,xerces3=1,mfc=1 GAME_ACE.mwc 
+    devenv /useenv GAME_ACE.sln
     
 Build the opened solution file. The executables will be place in 
-**%GAME_ROOT%\bin** and the shared libraries will be placed in 
-**%GAME_ROOT%\lib**.
+```%GAME_ROOT%\bin``` and the shared libraries will be placed in 
+```%GAME_ROOT%\lib```.
