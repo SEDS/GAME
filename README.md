@@ -15,12 +15,10 @@ GAME supports the following compilers:
 Building from Source
 ---------------------
 
-We assume you already have installed the latest version of GME:
-
- * [GME](https://forge.isis.vanderbilt.edu/gme)
-
-We also assume you have the following third-party middleware downloaded and installed 
-on your build machine:
+We assume you already have installed the latest version of 
+[GME](https://forge.isis.vanderbilt.edu/gme). We also assume you have 
+the following third-party middleware downloaded and installed on your 
+build machine:
 
  * [Makefile, Project, Workspace Creator](http://www.ociweb.com/products/mpc)
  * [Adaptive Communcation Environment (ACE)](http://www.dre.vanderbilt.edu/ACE)
