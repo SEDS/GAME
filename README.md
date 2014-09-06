@@ -16,7 +16,7 @@ and installed on your build machine:
  * [Makefile, Project, Workspace Creator](http://www.ociweb.com/products/mpc)
  * [GME](https://forge.isis.vanderbilt.edu/gme)
 
-For more information on building the above, please consult the Wiki.
+For more information on building the above, please consult the [Wiki](../../wiki/Building-Required-Middleware).
 
 Clone the GAME repo, then set the **GAME_ROOT** environment variable to the 
 location of the GAME repo. Also, add **%GAME_ROOT%\bin** and  **%GAME_ROOT%\lib** 
