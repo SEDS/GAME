@@ -31,6 +31,5 @@ Last, build GAME using the following commands:
     %ACE_ROOT%\bin\mwc.pl -type [buildtool] -features boost=1,xerces3=1,mfc=1 GAME_ACE.mwc 
     devenv /useenv GAME_ACE.sln
     
-Build the opened solution file. The executables will be place in 
-```%GAME_ROOT%\bin``` and the shared libraries will be placed in 
-```%GAME_ROOT%\lib```.
+Build the opened solution file. The executables will be place in ```%GAME_ROOT%\bin``` and the shared 
+libraries will be placed in ```%GAME_ROOT%\lib```.
