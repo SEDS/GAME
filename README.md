@@ -5,8 +5,6 @@ GAME is an framework that enables the development of lightweight components
 for GME. It is also designed to address many of the shortcomings of existing 
 GME component frameworks, such as BON, BON2, and UDM.
 
-See our [Wiki](https://github.iu.edu/SEDS/GAME/wiki) for uses of GAME.
-
 Building from Source
 ---------------------
 
@@ -18,8 +16,7 @@ and installed on your build machine:
  * [Makefile, Project, Workspace Creator](http://www.ociweb.com/products/mpc)
  * [GME](https://forge.isis.vanderbilt.edu/gme)
 
-For more information on building the above, please consult the following 
-[Wiki Page](https://github.iu.edu/SEDS/GAME/wiki/Building-Required-Middleware).
+For more information on building the above, please consult the Wiki.
 
 Clone the GAME repo, then set the **GAME_ROOT** environment variable to the 
 location of the GAME repo. Also, add **%GAME_ROOT%\bin** and  **%GAME_ROOT%\lib** 
