@@ -244,6 +244,8 @@ private:
 
   /// Collection of factory methods for meta objects.
   std::vector <META_FACTORY_METHOD> meta_factory_methods_;
+
+  static const std::string metaname_RootFolder;
 };
 
 /**

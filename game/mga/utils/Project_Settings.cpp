@@ -105,7 +105,7 @@ bool Project_Settings::
 get_value (const std::string & path, std::string & value)
 {
   // Get the root folder for the project.
-  Folder root = this->project_.root_folder ();
+  RootFolder root = this->project_.root_folder ();
 
   // Construct the registry value path and set its value.
   std::string fullpath = this->default_cache_loc_ + "/" + path;

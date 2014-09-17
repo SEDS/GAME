@@ -287,7 +287,7 @@ RootFolder Project::root_folder (void) const
   CComPtr <IMgaFolder> folder;
   VERIFY_HRESULT (this->project_->get_RootFolder (&folder));
 
-  return new RootFolder_Impl (folder.p);
+  return folder.p;
 }
 
 //

@@ -18,10 +18,10 @@ RootFolder_Impl::RootFolder_Impl (void)
 //
 // RootFolder_Impl
 //
+GAME_INLINE
 RootFolder_Impl::RootFolder_Impl (IMgaFolder * folder)
 : Folder_Impl (folder)
 {
-
 }
 
 //

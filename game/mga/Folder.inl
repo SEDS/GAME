@@ -20,7 +20,6 @@ Folder_Impl::Folder_Impl (void)
 //
 GAME_INLINE
 Folder_Impl::Folder_Impl (IMgaFolder * folder)
-//: Object_Impl (folder)
 {
   this->object_ = folder;
 }

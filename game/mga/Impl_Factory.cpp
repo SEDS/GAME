@@ -130,6 +130,8 @@ static Meta::Base_Impl * allocate_meta_impl (IMgaMetaBase * ptr)
   return new T (temp);
 }
 
+const std::string Default_Impl_Factory::metaname_RootFolder = "RootFolder";
+
 //
 // Default_Impl_Factory
 //
@@ -168,6 +170,22 @@ Object_Impl * Default_Impl_Factory::allocate (IMgaObject * ptr)
   // Locate the factory method for this type.
   objtype_enum type;
   VERIFY_HRESULT (ptr->get_ObjType (&type));
+
+  // RootFolder's are detected as Folder normally, manually override them to
+  // RootFolder.
+  if (type == OBJTYPE_FOLDER)
+  {
+    CComPtr <IMgaMetaBase> metabase;
+    VERIFY_HRESULT (ptr->get_MetaBase (&metabase));
+
+    CComBSTR bstr;
+    VERIFY_HRESULT (metabase->get_Name (&bstr));
+
+    CW2A metaname (bstr);
+    if (metaname_RootFolder == metaname.m_psz)
+      return allocate_impl <RootFolder_Impl> (ptr);
+  }
+
   FACTORY_METHOD fm = this->factory_methods_[type];
 
   // Debug assertion.
@@ -276,26 +294,29 @@ void Impl_Factory_Manager::unregister_factory (std::string paradigm_name)
 //
 Object_Impl * Impl_Factory_Manager::allocate (IMgaObject * ptr)
 {
-  if (ptr != 0)
+  if (ptr == 0)
+    return 0;
+  
+  CComPtr <IMgaMetaBase> metabase;
+  VERIFY_HRESULT (ptr->get_MetaBase (&metabase));
+
+  CComPtr <IMgaMetaProject> metaproject;
+  VERIFY_HRESULT (metabase->get_MetaProject (&metaproject));
+
+  CComBSTR bstr;
+  VERIFY_HRESULT (metaproject->get_DisplayedName (&bstr));
+
+  CW2A paradigm_name (bstr);
+  auto it = this->impl_factories_.find (paradigm_name.m_psz);
+
+  if (it != this->impl_factories_.end ())
   {
-    CComPtr <IMgaMetaBase> metabase;
-    VERIFY_HRESULT (ptr->get_MetaBase (&metabase));
+    Object_Impl * obj = it->second->allocate (ptr);
 
-    CComPtr <IMgaMetaProject> metaproject;
-    VERIFY_HRESULT (metabase->get_MetaProject (&metaproject));
-
-    CComBSTR bstr;
-    VERIFY_HRESULT (metaproject->get_DisplayedName (&bstr));
-
-    CW2A paradigm_name (bstr);
-    auto it = this->impl_factories_.find (paradigm_name.m_psz);
-    if (it != this->impl_factories_.end ())
-    {
-      Object_Impl * ret_var = it->second->allocate (ptr);
-      if (0 != ret_var)
-        return ret_var;
-    }
+    if (0 != obj)
+      return obj;
   }
+
   return this->default_impl_.allocate (ptr);
 }
 
