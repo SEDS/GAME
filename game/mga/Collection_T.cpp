@@ -134,6 +134,13 @@ long Collection_T <T>::count (void)
 
 template <typename T>
 GAME_INLINE
+long Collection_T <T>::estimated_count (void)
+{
+  return this->end ()->index () - this->begin ()->index ();
+}
+
+template <typename T>
+GAME_INLINE
 long Collection_T <T>::size (void) const
 {
   return this->size_;

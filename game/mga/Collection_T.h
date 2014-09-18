@@ -68,6 +68,9 @@ public:
   /// Number of valid elements in the collection
   long count (void);
 
+  /// Estimated count of valid elements in the collection
+  long estimated_count (void);
+
   /// Size of the collection (max possible elements).
   long size (void) const;
 
