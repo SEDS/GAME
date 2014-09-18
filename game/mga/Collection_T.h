@@ -65,8 +65,11 @@ public:
   /// Get the end iterator.
   iterator_type end (void);
 
-  /// Size of the collection.
-  long count (void) const;
+  /// Number of valid elements in the collection
+  long count (void);
+
+  /// Size of the collection (max possible elements).
+  long size (void) const;
 
   /// Get all the items in the collection.
   void items (std::vector <T> & out) const;
@@ -79,6 +82,9 @@ private:
   ::ATL::CComPtr <interface_type> iter_;
 
   /// Number of elements in collection.
+  long size_;
+
+  /// Number of <T> elements in the collection
   long count_;
 };
 
