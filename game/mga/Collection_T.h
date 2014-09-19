@@ -66,13 +66,13 @@ public:
   iterator_type end (void);
 
   /// Number of valid elements in the collection
-  long count (void);
+  size_t count (void);
 
   /// Estimated count of valid elements in the collection
-  long estimated_count (void);
+  size_t estimated_count (void);
 
   /// Size of the collection (max possible elements).
-  long size (void) const;
+  size_t size (void) const;
 
   /// Get all the items in the collection.
   void items (std::vector <T> & out) const;
@@ -88,7 +88,10 @@ private:
   long size_;
 
   /// Number of <T> elements in the collection
-  long count_;
+  size_t count_;
+
+  /// Initial value for count_ to trigger lazy loading
+  static const size_t NO_COUNT;
 };
 
 }
