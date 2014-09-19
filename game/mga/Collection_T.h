@@ -68,7 +68,11 @@ public:
   /// Number of valid elements in the collection
   size_t count (void);
 
-  /// Estimated count of valid elements in the collection
+  /// Estimated count of valid elements in the collection.
+  /// This method has a lower cost than count () and can
+  /// correctly identify if the collection contains any objects
+  /// of type T.  To know how many valid elements are are, count
+  /// must be used.
   size_t estimated_count (void);
 
   /// Size of the collection (max possible elements).
@@ -92,6 +96,12 @@ private:
 
   /// Initial value for count_ to trigger lazy loading
   static const size_t NO_COUNT;
+
+  /// Index of the first valid value in the collection
+  size_t begin_;
+
+  /// Index of the last valid value in the collection
+  size_t end_;
 };
 
 }

@@ -108,9 +108,16 @@ GAME_INLINE
 Collection_T <T>::Collection_T (interface_type * iter)
 : iter_ (iter),
   size_ (0),
-  count_ (Collection_T <T>::NO_COUNT)
+  count_ (Collection_T <T>::NO_COUNT),
+  begin_ (0),
+  end_ (0)
 {
   VERIFY_HRESULT (this->iter_->get_Count (&this->size_));
+
+  // Identify the location of the first and last valid values in the Collection
+  iterator_type begin = iterator_type (this->iter_.p, 1L, this->size_ + 1);
+  this->begin_ = begin.index ();
+  this->end_ = begin.end_index ();
 }
 
 template <typename T>
@@ -139,7 +146,7 @@ template <typename T>
 GAME_INLINE
 size_t Collection_T <T>::estimated_count (void)
 {
-  return this->end ()->index () - this->begin ()->index ();
+  return this->count_ == Collection_T <T>::NO_COUNT ? this->end_ - this->begin_ : this->count_;
 }
 
 template <typename T>
@@ -153,14 +160,14 @@ template <typename T>
 GAME_INLINE
 typename Collection_T <T>::iterator_type Collection_T <T>::begin (void)
 {
-  return iterator_type (this->iter_.p, 1L, this->size_ + 1);
+  return iterator_type (this->iter_.p, this->begin_, this->end_);
 }
 
 template <typename T>
 GAME_INLINE
 typename Collection_T <T>::iterator_type Collection_T <T>::end (void)
 {
-  return iterator_type (this->iter_.p, this->size_ + 1, this->size_ + 1);
+  return iterator_type (this->iter_.p, this->end_, this->end_);
 }
 
 template <typename T>
@@ -174,7 +181,7 @@ template <typename T>
 GAME_INLINE
 T Collection_T <T>::first (void) const
 {
-  return * iterator_type (this->iter_.p, 1L, this->size_ + 1);
+  return * iterator_type (this->iter_.p, this->begin_, this->end_);
 }
 
 template <typename ITER, typename T>
