@@ -95,7 +95,7 @@ private:
   size_t count_;
 
   /// Initial value for count_ to trigger lazy loading
-  static const size_t NO_COUNT;
+  static const size_t unknown_count;
 
   /// Index of the first valid value in the collection
   size_t begin_;

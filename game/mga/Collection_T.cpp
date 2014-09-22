@@ -101,14 +101,14 @@ struct collection_traits <IMgaMetaConnJoints *>
 };
 
 template <typename T>
-const size_t Collection_T <T>::NO_COUNT = -1;
+const size_t Collection_T <T>::unknown_count = -1;
 
 template <typename T>
 GAME_INLINE
 Collection_T <T>::Collection_T (interface_type * iter)
 : iter_ (iter),
   size_ (0),
-  count_ (Collection_T <T>::NO_COUNT),
+  count_ (Collection_T <T>::unknown_count),
   begin_ (0),
   end_ (0)
 {
@@ -131,7 +131,7 @@ template <typename T>
 GAME_INLINE
 size_t Collection_T <T>::count (void)
 {
-  if (this->count_ != Collection_T <T>::NO_COUNT)
+  if (this->count_ != Collection_T <T>::unknown_count)
     return this->count_;
 
   // Find out how many valid elements are in the collection
@@ -146,7 +146,7 @@ template <typename T>
 GAME_INLINE
 size_t Collection_T <T>::estimated_count (void)
 {
-  return this->count_ == Collection_T <T>::NO_COUNT ? this->end_ - this->begin_ : this->count_;
+  return this->count_ == Collection_T <T>::unknown_count ? this->end_ - this->begin_ : this->count_;
 }
 
 template <typename T>
