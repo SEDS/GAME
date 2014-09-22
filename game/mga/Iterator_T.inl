@@ -50,13 +50,6 @@ long Iterator <T>::index (void) const
   return this->index_;
 }
 
-template <typename T>
-GAME_INLINE
-long Iterator <T>::end_index (void) const
-{
-  return this->end_index_;
-}
-
 //
 // reset
 //

@@ -112,9 +112,6 @@ public:
   /// Current 1-based index of iterator.
   long index (void) const;
 
-  /// 1-based index for the end of the iterator
-  long end_index (void) const;
-
   /// Assignment/copy operator
   const Iterator & operator = (const Iterator & rhs);
 

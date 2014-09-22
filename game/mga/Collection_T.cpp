@@ -116,8 +116,12 @@ Collection_T <T>::Collection_T (interface_type * iter)
 
   // Identify the location of the first and last valid values in the Collection
   iterator_type begin = iterator_type (this->iter_.p, 1L, this->size_ + 1);
+  iterator_type end = iterator_type (this->iter_.p, this->size_ + 1, this->size_ + 1);
   this->begin_ = begin.index ();
-  this->end_ = begin.end_index ();
+  this->end_ = end.index ();
+
+  if (this->begin_ == this->end_)
+    this->count_ = 0;
 }
 
 template <typename T>
