@@ -90,8 +90,8 @@ public:
   /// Type definition of the COM iterator interface.
   typedef typename iterator_type_t < interface_type >::result_type iterator_type;
 
-  Iterator (iterator_type * iter);
-  Iterator (iterator_type * iter, long index);
+  Iterator (iterator_type * iter, long end_index);
+  Iterator (iterator_type * iter, long index, long end_index);
 
   /**
    * Copy constructor
@@ -134,11 +134,20 @@ private:
   /// Get the current item.
   void get_current_item (void);
 
+  /// Find the last valid item
+  void find_last_item (void);
+
+  /// Find the first valid item
+  void find_first_item (void);
+
   /// The underlying COM pointer.
   ::ATL::CComPtr <iterator_type> iter_;
 
   /// Current index for the iterator.
   long index_;
+
+  /// Index one element beyond the last valid type
+  long end_index_;
 
   /// The current item.
   T item_;

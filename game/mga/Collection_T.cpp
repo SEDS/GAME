@@ -101,12 +101,27 @@ struct collection_traits <IMgaMetaConnJoints *>
 };
 
 template <typename T>
+const size_t Collection_T <T>::unknown_count = -1;
+
+template <typename T>
 GAME_INLINE
 Collection_T <T>::Collection_T (interface_type * iter)
 : iter_ (iter),
-  count_ (0)
+  size_ (0),
+  count_ (Collection_T <T>::unknown_count),
+  begin_ (0),
+  end_ (0)
 {
-  VERIFY_HRESULT (this->iter_->get_Count (&this->count_));
+  VERIFY_HRESULT (this->iter_->get_Count (&this->size_));
+
+  // Identify the location of the first and last valid values in the Collection
+  iterator_type begin = iterator_type (this->iter_.p, 1L, this->size_ + 1);
+  iterator_type end = iterator_type (this->iter_.p, this->size_ + 1, this->size_ + 1);
+  this->begin_ = begin.index ();
+  this->end_ = end.index ();
+
+  if (this->begin_ == this->end_)
+    this->count_ = 0;
 }
 
 template <typename T>
@@ -118,73 +133,95 @@ Collection_T <T>::~Collection_T (void)
 
 template <typename T>
 GAME_INLINE
-long Collection_T <T>::count (void) const
+size_t Collection_T <T>::count (void)
 {
+  if (this->count_ != Collection_T <T>::unknown_count)
+    return this->count_;
+
+  // Find out how many valid elements are in the collection
+  this->count_ = 0;
+  for (auto valid : *this)
+    ++this->count_;
+
   return this->count_;
+}
+
+template <typename T>
+GAME_INLINE
+size_t Collection_T <T>::estimated_count (void)
+{
+  return this->count_ == Collection_T <T>::unknown_count ? this->end_ - this->begin_ : this->count_;
+}
+
+template <typename T>
+GAME_INLINE
+size_t Collection_T <T>::size (void) const
+{
+  return this->size_;
 }
 
 template <typename T>
 GAME_INLINE
 typename Collection_T <T>::iterator_type Collection_T <T>::begin (void)
 {
-  return iterator_type (this->iter_.p, 1L);
+  return iterator_type (this->iter_.p, this->begin_, this->end_);
 }
 
 template <typename T>
 GAME_INLINE
 typename Collection_T <T>::iterator_type Collection_T <T>::end (void)
 {
-  return iterator_type (this->iter_.p, this->count_ + 1);
+  return iterator_type (this->iter_.p, this->end_, this->end_);
 }
 
 template <typename T>
 GAME_INLINE
 void Collection_T <T>::items (std::vector <T> & out) const
 {
-  iter_to_collection (this->iter_.p, out, this->count_);
+  iter_to_collection (this->iter_.p, out, this->size_);
 }
 
 template <typename T>
 GAME_INLINE
 T Collection_T <T>::first (void) const
 {
-  return * iterator_type (this->iter_.p, 1L);
+  return * iterator_type (this->iter_.p, this->begin_, this->end_);
 }
 
 template <typename ITER, typename T>
 size_t iter_to_collection (ITER iter, std::vector <T> & coll)
 {
   // Resize the collection.
-  long count;
-  iter->get_Count (&count);
+  long size;
+  iter->get_Count (&size);
 
-  return iter_to_collection (iter, coll, count);
+  return iter_to_collection (iter, coll, size);
 }
 
 template <typename ITER, typename T>
 size_t iter_to_collection (ITER iter, std::vector <FCO> & coll)
 {
-  long count;
-  iter->get_Count (&count);
+  long size;
+  iter->get_Count (&size);
 
   // Make space for the elements, but set the collection's size
   // to zero. We will grow the collection as we insert elements.
-  coll.reserve (count);
+  coll.reserve (size);
   coll.resize (0);
 
-  if (count == 0)
+  if (size == 0)
     return 0;
 
   // Get the interface to all the members.
   typedef typename collection_traits <ITER>::interface_type interface_type;
-  ATL::CComPtr <interface_type> * arr = new ATL::CComPtr <interface_type> [count];
+  ATL::CComPtr <interface_type> * arr = new ATL::CComPtr <interface_type> [size];
 
-  VERIFY_HRESULT (iter->GetAll (count, &(*arr)));
+  VERIFY_HRESULT (iter->GetAll (size, &(*arr)));
 
   // Store the members in a collection.
   ATL::CComPtr <T::interface_type> temp;
 
-  for (long i = 0; i < count; i ++)
+  for (long i = 0; i < size; i ++)
   {
     if (FAILED (arr[i].QueryInterface (&temp)))
       continue;
@@ -201,26 +238,26 @@ size_t iter_to_collection (ITER iter, std::vector <FCO> & coll)
 }
 
 template <typename ITER, typename T>
-size_t iter_to_collection (ITER iter, std::vector <T> & coll, long count)
+size_t iter_to_collection (ITER iter, std::vector <T> & coll, long size)
 {
   // Make space for the elements, but set the collection's size
   // to zero. We will grow the collection as we insert elements.
-  coll.reserve (count);
+  coll.reserve (size);
   coll.resize (0);
 
-  if (count == 0)
+  if (size == 0)
     return 0;
 
   // Get the interface to all the members.
   typedef typename collection_traits <ITER>::interface_type interface_type;
-  ATL::CComPtr <interface_type> * arr = new ATL::CComPtr <interface_type> [count];
+  ATL::CComPtr <interface_type> * arr = new ATL::CComPtr <interface_type> [size];
 
-  VERIFY_HRESULT (iter->GetAll (count, &(*arr)));
+  VERIFY_HRESULT (iter->GetAll (size, &(*arr)));
 
   // Store the members in a collection.
   ATL::CComPtr <typename T::interface_type> temp;
 
-  for (long i = 0; i < count; i ++)
+  for (long i = 0; i < size; i ++)
   {
     if (FAILED (arr[i].QueryInterface (&temp)))
       continue;
