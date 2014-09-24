@@ -14,7 +14,6 @@
 #define _GAME_MGA_META_ASPECT_H_
 
 #include "MetaBase.h"
-#include "Collection_T.h"
 
 namespace GAME
 {
