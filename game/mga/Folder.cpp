@@ -163,6 +163,20 @@ registry (std::vector <RegistryNode> & nodes, bool virtualinterface_types) const
 }
 
 //
+// registry
+//
+Collection_T <RegistryNode> Folder_Impl::
+registry (bool virtualinterface_types) const
+{
+  // Get all the subnodes.
+  CComPtr <IMgaRegNodes> rawnodes;
+  VARIANT_BOOL vtypes = !virtualinterface_types ? VARIANT_FALSE : VARIANT_TRUE;
+  VERIFY_HRESULT (this->impl ()->get_Registry (vtypes, &rawnodes));
+
+  return Collection_T <RegistryNode> (rawnodes.p);
+}
+
+//
 // accept
 //
 void Folder_Impl::accept (Visitor * v)

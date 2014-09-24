@@ -166,6 +166,14 @@ public:
    */
   size_t registry (std::vector <RegistryNode> & nodes, bool vtypes = false) const;
 
+  /**
+   * Get the registry nodes for this object.
+   *
+   * @param[in]   vtypes    The the virtual nodes as well.
+   * @return      The collection of nodes.
+   */
+  Collection_T <RegistryNode> registry (bool vtypes = false) const;
+
   /// Accept the visitor.
   virtual void accept (Visitor * v);
 
