@@ -52,6 +52,17 @@ size_t Role_Impl::parts (std::vector <Part> & parts) const
 }
 
 //
+// parts
+//
+Collection_T <Part> Role_Impl::parts (void) const
+{
+  CComPtr <IMgaMetaParts> temps;
+  VERIFY_HRESULT (this->impl ()->get_Parts (&temps));
+
+  return Collection_T <Part> (temps.p);
+}
+
+//
 // partscount
 //
 long Role_Impl::partscount (void) const

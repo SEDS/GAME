@@ -427,7 +427,7 @@ IMgaAddOn * Project::create_addon (IMgaEventSink * sink)
 }
 
 //
-// create_addon
+// addon_components
 //
 size_t Project::addon_components (std::vector <Component> & v) const
 {
@@ -438,7 +438,18 @@ size_t Project::addon_components (std::vector <Component> & v) const
 }
 
 //
-// create_addon
+// addon_components
+//
+Collection_T <Component> Project::addon_components (void) const
+{
+  CComPtr <IMgaComponents> temp;
+  VERIFY_HRESULT (this->project_->get_AddOnComponents (&temp));
+
+  return Collection_T <Component> (temp.p);
+}
+
+//
+// addon_components
 //
 size_t Project::addon_components (std::vector <ComponentEx> & v) const
 {
@@ -446,6 +457,17 @@ size_t Project::addon_components (std::vector <ComponentEx> & v) const
   VERIFY_HRESULT (this->project_->get_AddOnComponents (&temp));
 
   return iter_to_collection (temp.p, v);
+}
+
+//
+// addon_componentexs
+//
+Collection_T <ComponentEx> Project::addon_componentexs (void) const
+{
+  CComPtr <IMgaComponents> temp;
+  VERIFY_HRESULT (this->project_->get_AddOnComponents (&temp));
+
+  return Collection_T <ComponentEx> (temp.p);
 }
 
 //
@@ -461,12 +483,12 @@ ComponentEx Project::addon_component (const std::string & progid) const
 
   // Locate the add-on with the specified program id.
   std::vector <ComponentEx>::const_iterator
-    result = std::find_if (addons.begin (),
-                           addons.end (),
-                           boost::bind (std::equal_to <std::string> (),
-                                        progid,
-                                        boost::bind (&ComponentEx::impl_type::progid,
-                                                     boost::bind (&ComponentEx::get, _1))));
+  result = std::find_if (addons.begin (),
+                         addons.end (),
+                         boost::bind (std::equal_to <std::string> (),
+                                      progid,
+                                      boost::bind (&ComponentEx::impl_type::progid,
+                                                   boost::bind (&ComponentEx::get, _1))));
 
   if (result != addons.end ())
     return *result;

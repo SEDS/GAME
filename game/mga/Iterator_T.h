@@ -134,6 +134,18 @@ struct iterator_type_t <IMgaMetaAspect>
   typedef IMgaMetaAspects result_type;
 };
 
+template < >
+struct iterator_type_t <IMgaComponent>
+{
+  typedef IMgaComponents result_type;
+};
+
+template < >
+struct iterator_type_t <IMgaComponentEx>
+{
+  typedef IMgaComponents result_type;
+};
+
 /**
  * @class Iterator
  *
