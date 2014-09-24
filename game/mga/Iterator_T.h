@@ -86,6 +86,18 @@ struct iterator_type_t <IMgaRegNode>
   typedef IMgaRegNodes result_type;
 };
 
+template < >
+struct iterator_type_t <IMgaMetaAttribute>
+{
+  typedef IMgaMetaAttributes result_type;
+};
+
+template < >
+struct iterator_type_t <IMgaMetaPart>
+{
+  typedef IMgaMetaParts result_type;
+};
+
 /**
  * @class Iterator
  *
