@@ -110,6 +110,12 @@ struct iterator_type_t <IMgaMetaConnJoint>
   typedef IMgaMetaConnJoints result_type;
 };
 
+template < >
+struct iterator_type_t <IMgaMetaRole>
+{
+  typedef IMgaMetaRoles result_type;
+};
+
 /**
  * @class Iterator
  *

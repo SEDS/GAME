@@ -75,7 +75,7 @@ attribute (const std::string & name, bool display_name) const
 //
 // used_in_roles
 //
-size_t FCO_Impl::used_in_roles(std::vector <Role> & roles) const
+size_t FCO_Impl::used_in_roles (std::vector <Role> & roles) const
 {
   CComPtr <IMgaMetaRoles> temps;
   VERIFY_HRESULT (this->impl ()->get_UsedInRoles (&temps));
@@ -83,6 +83,16 @@ size_t FCO_Impl::used_in_roles(std::vector <Role> & roles) const
   return iter_to_collection (temps.p, roles);
 }
 
+//
+// used_in_roles
+//
+Collection_T <Role> FCO_Impl::used_in_roles (void) const
+{
+  CComPtr <IMgaMetaRoles> temps;
+  VERIFY_HRESULT (this->impl ()->get_UsedInRoles (&temps));
+
+  return Collection_T <Role> (temps.p);
+}
 
 }
 }
