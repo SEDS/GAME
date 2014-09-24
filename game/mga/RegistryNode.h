@@ -17,6 +17,7 @@
 #include <vector>
 
 #include "Refcountable.h"
+#include "Collection_T.h"
 #include "GME_fwd.h"
 
 namespace GAME
@@ -138,6 +139,14 @@ public:
    */
   size_t children (std::vector <RegistryNode> & nodes,
                    bool vtypes = false) const;
+
+  /**
+   * Get all the child registry nodes of this node.
+   *
+   * @param[in]       virtualinterface_types       Include the virtual nodes.
+   * @return          Collection of child nodes.
+   */
+  Collection_T <RegistryNode> children (bool vtypes = false) const;
 
   /// Clear the current value of this node.
   void clear (void);
