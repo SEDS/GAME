@@ -74,6 +74,18 @@ struct iterator_type_t <IMgaReference>
   typedef IMgaFCOs result_type;
 };
 
+template < >
+struct iterator_type_t <IMgaAttribute>
+{
+  typedef IMgaAttributes result_type;
+};
+
+template < >
+struct iterator_type_t <IMgaRegNode>
+{
+  typedef IMgaRegNodes result_type;
+};
+
 /**
  * @class Iterator
  *

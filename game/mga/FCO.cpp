@@ -202,6 +202,17 @@ size_t FCO_Impl::attributes (std::vector <Attribute> & attrs) const
 }
 
 //
+// attributes
+//
+Collection_T <Attribute> FCO_Impl::attributes (void) const
+{
+  CComPtr <IMgaAttributes> coll;
+  VERIFY_HRESULT (this->impl ()->get_Attributes (&coll));
+
+  return Collection_T <Attribute> (coll.p);
+}
+
+//
 // parent_model
 //
 Model FCO_Impl::parent_model (void) const
@@ -271,6 +282,20 @@ registry (std::vector <RegistryNode> & nodes,
   VERIFY_HRESULT (this->impl ()->get_Registry (vtypes, &rawnodes));
 
   return iter_to_collection (rawnodes.p, nodes);
+}
+
+//
+// registry
+//
+Collection_T <RegistryNode> FCO_Impl::
+registry (bool virtual_types) const
+{
+  // Get all the subnodes.
+  CComPtr <IMgaRegNodes> rawnodes;
+  VARIANT_BOOL vtypes = !virtual_types ? VARIANT_FALSE : VARIANT_TRUE;
+  VERIFY_HRESULT (this->impl ()->get_Registry (vtypes, &rawnodes));
+
+  return Collection_T <RegistryNode> (rawnodes.p);
 }
 
 //

@@ -190,6 +190,13 @@ public:
   size_t attributes (std::vector <Attribute> & attrs) const;
 
   /**
+   * Get the attributes of the FCO_Impl.
+   *
+   * @return      The attributes of the FCO_Impl
+   */
+  Collection_T <Attribute> attributes (void) const;
+
+  /**
    * Get the parent of the FCO_Impl, which is a model.
    *
    * @return      Parent folder object.
@@ -251,6 +258,14 @@ public:
    */
   size_t registry (std::vector <RegistryNode> & nodes,
                    bool vtypes = false) const;
+
+  /**
+   * Get the registry for the FCO_Impl.
+   *
+   * @param[in]       vtypes        Include virtual registry nodes
+   * @return          nodes         The collection of registry nodes
+   */
+  Collection_T <RegistryNode> registry (bool vtypes = false) const;
 
   /**
    * Get the registry node for this folder object.
