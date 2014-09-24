@@ -116,6 +116,18 @@ struct iterator_type_t <IMgaMetaRole>
   typedef IMgaMetaRoles result_type;
 };
 
+template < >
+struct iterator_type_t <IMgaMetaFolder>
+{
+  typedef IMgaMetaFolders result_type;
+};
+
+template < >
+struct iterator_type_t <IMgaMetaFCO>
+{
+  typedef IMgaMetaFCOs result_type;
+};
+
 /**
  * @class Iterator
  *

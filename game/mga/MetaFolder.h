@@ -56,6 +56,13 @@ public:
   size_t children (std::vector <Folder> & folders) const;
 
   /**
+   * Get all the subfolders defined by this folder.
+   *
+   * @return          Collection of meta folders
+   */
+  Collection_T <Folder> subfolders (void) const;
+
+  /**
    * Get the specified meta Folder object.
    *
    * @param[in]       name            Name of the folder
@@ -70,6 +77,13 @@ public:
    * @return          Number of folders in \a metafolders.
    */
   size_t children (std::vector <FCO> & fcos) const;
+
+  /**
+   * Get all the meta FCO objects defined by this folder.
+   *
+   * @return          Collection of meta folders
+   */
+  Collection_T <FCO> children (void) const;
 
   /**
    * Get the specified meta FCO object.
