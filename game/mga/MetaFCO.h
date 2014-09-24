@@ -63,6 +63,12 @@ public:
    */
   size_t used_in_roles (std::vector <Role> & roles) const;
 
+  /**
+   * Get all the roles where this FCO_Impl is defined in.
+   *
+   * @return           All the metaroles this FCO has been used in.
+   */
+  Collection_T <Role> used_in_roles (void) const;
 
   /**
    * Get an attributes meta information by its name.

@@ -148,6 +148,13 @@ public:
    */
   size_t connectors (std::vector <ConnectionPoint> & points) const;
 
+  /**
+   * Get the connection points for this connection.*
+   *
+   * @return          Collection of connection points.
+   */
+  Collection_T <ConnectionPoint> connectors (void) const;
+
 private:
   /// Cached pointer to the implementation.
   mutable ATL::CComPtr <IMgaMetaConnection> conn_;

@@ -74,7 +74,14 @@ public:
    *
    * @param[out]      parts      All the parts this role is associated with.
    */
-  size_t parts(std::vector <Part> & parts) const;
+  size_t parts (std::vector <Part> & parts) const;
+
+  /**
+   * Get all the parts associated with the role.
+   *
+   * @return          All the parts this role is associated with.
+   */
+  Collection_T <Part> parts (void) const;
 
   /**
    * Get the count of parts.

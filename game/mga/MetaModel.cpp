@@ -63,6 +63,17 @@ size_t Model_Impl::roles (std::vector <Role> & roles) const
 }
 
 //
+// roles
+//
+Collection_T <Role> Model_Impl::roles (void) const
+{
+  CComPtr <IMgaMetaRoles> temps;
+  VERIFY_HRESULT (this->impl ()->get_Roles (&temps));
+
+  return Collection_T <Role> (temps.p);
+}
+
+//
 // children
 //
 size_t Model_Impl::
@@ -73,6 +84,19 @@ children (std::vector <Meta::FCO> & fcos) const
   VERIFY_HRESULT (this->impl ()->get_DefinedFCOs (&metas));
 
   return iter_to_collection (metas.p, fcos);
+}
+
+//
+// children
+//
+Collection_T <Meta::FCO> Model_Impl::
+children (void) const
+{
+  // Get a pointer to all the legal folders.
+  CComPtr <IMgaMetaFCOs> metas;
+  VERIFY_HRESULT (this->impl ()->get_DefinedFCOs (&metas));
+
+  return Collection_T <Meta::FCO> (metas.p);
 }
 
 //
@@ -97,6 +121,18 @@ size_t Model_Impl::aspects (std::vector <Aspect> & aspects) const
   VERIFY_HRESULT (this->impl ()->get_Aspects (&temp));
 
   return iter_to_collection (temp.p, aspects);
+}
+
+//
+// aspects
+//
+Collection_T <Aspect> Model_Impl::aspects (void) const
+{
+  // Get a pointer to all the legal folders.
+  CComPtr <IMgaMetaAspects> temp;
+  VERIFY_HRESULT (this->impl ()->get_Aspects (&temp));
+
+  return Collection_T <Aspect> (temp.p);
 }
 
 }

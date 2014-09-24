@@ -238,7 +238,9 @@ public:
   IMgaAddOn * create_addon (IMgaEventSink * sink);
 
   size_t addon_components (std::vector <Component> & v) const;
+  Collection_T <Component> addon_components (void) const;
   size_t addon_components (std::vector <ComponentEx> & v) const;
+  Collection_T <ComponentEx> addon_componentexs (void) const;
   ComponentEx addon_component (const std::string & progid) const;
 
 private:

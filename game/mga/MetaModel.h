@@ -66,6 +66,13 @@ public:
    */
   size_t roles (std::vector <Role> & roles) const;
 
+   /**
+   * Get all the roles this Model is associated with.
+   *
+   * @return          All the metaroles this Model is associated with.
+   */
+  Collection_T <Role> roles (void) const;
+
   /**
    * Get the underlying COM interface pointer.
    *
@@ -81,6 +88,13 @@ public:
   size_t children (std::vector <FCO> & fcos) const;
 
   /**
+   * Get the collection of meta FCO objects.
+   *
+   * @return          List of meta FCO objects.
+   */
+  Collection_T <FCO> children (void) const;
+
+  /**
    * Get the aspect for the specified role.
    *
    * @param[in]       name        Name of the aspect.
@@ -94,6 +108,13 @@ public:
    * @param[out]      aspects     List of aspects.
    */
   size_t aspects (std::vector <Aspect> & children) const;
+
+  /**
+   * Get a listing of all the aspects for this role.
+   *
+   * @return          Collection of aspects.
+   */
+  Collection_T <Aspect> aspects (void) const;
 
 private:
   /// Pointer to the raw COM interface.

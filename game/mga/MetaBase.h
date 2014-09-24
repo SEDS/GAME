@@ -15,6 +15,7 @@
 
 #include <string>
 #include "Refcountable.h"
+#include "Collection_T.h"
 
 #include "GME_fwd.h"
 #include "game/config.h"
@@ -107,6 +108,13 @@ public:
    * @param[out]       cons        The vector holds all the constraints
    */
   size_t constraints (std::vector <Constraint> & cons) const;
+
+  /**
+   * Get all the constraints.
+   *
+   * @return           The constraints
+   */
+  Collection_T <Constraint> constraints (void) const;
 
   /**
    * Get the object type of the meta information.

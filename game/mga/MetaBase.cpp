@@ -104,6 +104,17 @@ size_t Base_Impl::constraints (std::vector <Constraint> & cons) const
 }
 
 //
+// constraints
+//
+Collection_T <Constraint> Base_Impl::constraints () const
+{
+  CComPtr <IMgaConstraints> temps;
+  VERIFY_HRESULT (this->impl ()->get_Constraints (&temps));
+
+  return Collection_T <Constraint> (temps.p);
+}
+
+//
 // destroy
 //
 void Base_Impl::destroy (void)

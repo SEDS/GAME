@@ -10,7 +10,6 @@
 #include "MetaAspect.inl"
 #endif
 
-#include "Collection_T.h"
 #include "Exception.h"
 
 namespace GAME
@@ -48,6 +47,17 @@ size_t Aspect_Impl::attributes (std::vector <Attribute> & attrs) const
 }
 
 //
+// attributes
+//
+Collection_T <Attribute> Aspect_Impl::attributes (void) const
+{
+  CComPtr <IMgaMetaAttributes> temps;
+  VERIFY_HRESULT (this->impl ()->get_Attributes (&temps));
+
+  return Collection_T <Attribute> (temps.p);
+}
+
+//
 // parts
 //
 size_t Aspect_Impl::parts (std::vector <Part> & parts) const
@@ -56,6 +66,17 @@ size_t Aspect_Impl::parts (std::vector <Part> & parts) const
   VERIFY_HRESULT (this->impl ()->get_Parts (&temps));
 
   return iter_to_collection (temps.p, parts);
+}
+
+//
+// parts
+//
+Collection_T <Part> Aspect_Impl::parts (void) const
+{
+  CComPtr <IMgaMetaParts> temps;
+  VERIFY_HRESULT (this->impl ()->get_Parts (&temps));
+
+  return Collection_T <Part> (temps.p);
 }
 
 }

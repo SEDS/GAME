@@ -286,6 +286,17 @@ size_t Connection_Impl::connectors (std::vector <ConnectionPoint> & points) cons
   return iter_to_collection (temp.p, points);
 }
 
+//
+// points
+//
+Collection_T <ConnectionPoint> Connection_Impl::connectors (void) const
+{
+  CComPtr <IMgaMetaConnJoints> temp;
+  VERIFY_HRESULT (this->impl ()->get_Joints (&temp));
+
+  return Collection_T <ConnectionPoint> (temp.p);
+}
+
 }
 }
 }

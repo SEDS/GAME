@@ -74,6 +74,78 @@ struct iterator_type_t <IMgaReference>
   typedef IMgaFCOs result_type;
 };
 
+template < >
+struct iterator_type_t <IMgaAttribute>
+{
+  typedef IMgaAttributes result_type;
+};
+
+template < >
+struct iterator_type_t <IMgaRegNode>
+{
+  typedef IMgaRegNodes result_type;
+};
+
+template < >
+struct iterator_type_t <IMgaMetaAttribute>
+{
+  typedef IMgaMetaAttributes result_type;
+};
+
+template < >
+struct iterator_type_t <IMgaMetaPart>
+{
+  typedef IMgaMetaParts result_type;
+};
+
+template < >
+struct iterator_type_t <IMgaConstraint>
+{
+  typedef IMgaConstraints result_type;
+};
+
+template < >
+struct iterator_type_t <IMgaMetaConnJoint>
+{
+  typedef IMgaMetaConnJoints result_type;
+};
+
+template < >
+struct iterator_type_t <IMgaMetaRole>
+{
+  typedef IMgaMetaRoles result_type;
+};
+
+template < >
+struct iterator_type_t <IMgaMetaFolder>
+{
+  typedef IMgaMetaFolders result_type;
+};
+
+template < >
+struct iterator_type_t <IMgaMetaFCO>
+{
+  typedef IMgaMetaFCOs result_type;
+};
+
+template < >
+struct iterator_type_t <IMgaMetaAspect>
+{
+  typedef IMgaMetaAspects result_type;
+};
+
+template < >
+struct iterator_type_t <IMgaComponent>
+{
+  typedef IMgaComponents result_type;
+};
+
+template < >
+struct iterator_type_t <IMgaComponentEx>
+{
+  typedef IMgaComponents result_type;
+};
+
 /**
  * @class Iterator
  *

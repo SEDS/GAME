@@ -56,11 +56,25 @@ public:
   size_t attributes (std::vector <Attribute> & attrs) const;
 
   /**
+   * Get all the attributes of this aspect.
+   *
+   * @return           The attributes
+   */
+  Collection_T <Attribute> attributes (void) const;
+
+  /**
    * Get all the parts of this aspect.
    *
    * @param[out]       parts        The vector holds all the parts.
    */
   size_t parts (std::vector <Part> & parts) const;
+
+  /**
+   * Get all the parts of this aspect.
+   *
+   * @return           The parts
+   */
+  Collection_T <Part> parts (void) const;
 
 private:
   /// Cached pointer to the implementation.

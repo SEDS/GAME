@@ -98,6 +98,13 @@ public:
    */
   size_t members (std::vector <FCO> & members) const;
 
+  /**
+   * Get all the objects in the set.
+   *
+   * @return        Collection of objects in the set.
+   */
+  Collection_T <FCO> members (void) const;
+
   /// Accept the visitor.
   virtual void accept (Visitor * v);
 

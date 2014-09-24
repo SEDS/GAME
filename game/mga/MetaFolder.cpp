@@ -32,6 +32,19 @@ children (std::vector <Meta::Folder> & folders) const
 }
 
 //
+// subfolders
+//
+Collection_T <Meta::Folder> Folder_Impl::
+subfolders (void) const
+{
+  // Get a pointer to all the legal folders.
+  CComPtr <IMgaMetaFolders> metas;
+  VERIFY_HRESULT (this->impl ()->get_LegalChildFolders (&metas));
+
+  return Collection_T <Meta::Folder> (metas.p);
+}
+
+//
 // children
 //
 size_t Folder_Impl::
@@ -42,6 +55,19 @@ children (std::vector <Meta::FCO> & fcos) const
   VERIFY_HRESULT (this->impl ()->get_LegalRootObjects (&metas));
 
   return iter_to_collection (metas.p, fcos);
+}
+
+//
+// children
+//
+Collection_T <Meta::FCO> Folder_Impl::
+children (void) const
+{
+  // Get a pointer to all the legal folders.
+  CComPtr <IMgaMetaFCOs> metas;
+  VERIFY_HRESULT (this->impl ()->get_LegalRootObjects (&metas));
+
+  return Collection_T <Meta::FCO> (metas.p);
 }
 
 //

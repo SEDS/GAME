@@ -88,6 +88,18 @@ size_t Set_Impl::members (std::vector <FCO> & members) const
 }
 
 //
+// members
+//
+Collection_T <FCO> Set_Impl::members (void) const
+{
+  // Get all the members in the set.
+  CComPtr <IMgaFCOs> fcos;
+  VERIFY_HRESULT (this->impl ()->get_Members (&fcos));
+
+  return Collection_T <FCO> (fcos.p);
+}
+
+//
 // impl
 //
 IMgaSet * Set_Impl::impl (void) const

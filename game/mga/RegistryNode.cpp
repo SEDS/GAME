@@ -115,6 +115,20 @@ children (std::vector <RegistryNode> & nodes, bool types) const
 }
 
 //
+// children
+//
+Collection_T <RegistryNode> RegistryNode_Impl::
+children (bool types) const
+{
+  // Get all the subnodes.
+  CComPtr <IMgaRegNodes> rawnodes;
+  VARIANT_BOOL vtypes = !types ? VARIANT_FALSE : VARIANT_TRUE;
+  VERIFY_HRESULT (this->node_->get_SubNodes (vtypes, &rawnodes));
+
+  return Collection_T <RegistryNode> (rawnodes.p);
+}
+
+//
 // clear
 //
 void RegistryNode_Impl::clear (void)
