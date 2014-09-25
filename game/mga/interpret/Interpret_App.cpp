@@ -26,8 +26,6 @@
 #include "ace/Lib_Find.h"
 #include "ace/streams.h"
 
-#include "boost/bind.hpp"
-
 #include <sstream>
 
 static const char * __HELP__ =
@@ -65,15 +63,13 @@ int GAME_Automation_App::run_main (int argc, char * argv [])
   {
     if (this->opts_.list_)
     {
-      std::for_each (this->opts_.project_.begin (),
-                     this->opts_.project_.end (),
-                     boost::bind (&GAME_Automation_App::list_interpreters, this, _1));
+      for (const std::string & project : this->opts_.project_)
+        this->list_interpreters (project);
     }
     else
     {
-      std::for_each (this->opts_.project_.begin (),
-                     this->opts_.project_.end (),
-                     boost::bind (&GAME_Automation_App::process_file, this, _1));
+      for (const std::string & project : this->opts_.project_)
+        this->process_file (project);
     }
 
     return 0;
@@ -349,8 +345,6 @@ int GAME_Automation_App::run (const std::string & progid)
   // Load the specified interpreter.
   GAME::Mga::ComponentEx interpreter = GAME::Mga::ComponentEx_Impl::_load (progid);
   interpreter->initialize (this->project_);
-
-  // Set the interactive state.
   interpreter->interactive (this->opts_.interactive_);
 
   // Pass the parameters to the interpreter.
