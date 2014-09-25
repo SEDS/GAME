@@ -5,7 +5,6 @@
 
 #include "GME_ID_Generator.h"
 #include "ID_Generator_Repo.h"
-#include "boost/bind.hpp"
 
 namespace GAME
 {
@@ -40,17 +39,11 @@ void Library_Importer::import (Folder & folder)
   this->handle_folder (folder);
 
   // Finally, fix any unresolved references.
-  std::for_each (this->unresolved_refs_.begin (),
-                 this->unresolved_refs_.end (),
-                 boost::bind (&Library_Importer::resolve_reference,
-                              boost::ref (this),
-                              _1));
+  for (auto ref : this->unresolved_refs_)
+    this->resolve_reference (ref);
 
-  std::for_each (this->unresolved_conns_.begin (),
-                 this->unresolved_conns_.end (),
-                 boost::bind (&Library_Importer::resolved_connection,
-                              boost::ref (this),
-                              _1));
+  for (auto conn : this->unresolved_conns_)
+    this->resolved_connection (conn);
 }
 
 //
@@ -65,20 +58,15 @@ void Library_Importer::handle_folder (Folder & folder)
   std::vector <Folder> child_folders;
   folder.children (child_folders);
 
-  std::for_each (child_folders.begin (),
-                 child_folders.end (),
-                 boost::bind (&Library_Importer::handle_folder,
-                              boost::ref (this),
-                              _1));
+  for (auto folder : child_folders)
+    this->handle_folder (folder);
 
+  // Handle all the imported FCOs.
   std::vector <FCO> child_fcos;
   folder.children (child_fcos);
 
-  std::for_each (child_fcos.begin (),
-                 child_fcos.end (),
-                 boost::bind (&Library_Importer::handle_import_fco,
-                              boost::ref (this),
-                              _1));
+  for (auto child : child_fcos)
+    this->handle_import_fco (child);
 }
 
 //
@@ -147,11 +135,8 @@ void Library_Importer::handle_import_model (FCO & fco)
   std::vector <FCO> children;
   model.children (children);
 
-  std::for_each (children.begin (),
-                 children.end (),
-                 boost::bind (&Library_Importer::handle_import_fco,
-                              boost::ref (this),
-                              _1));
+  for (auto child : children)
+    this->handle_import_fco (child);
 }
 
 //

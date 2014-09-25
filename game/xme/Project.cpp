@@ -15,8 +15,6 @@
 #include "game/xml/Error_Handler.h"
 #include "game/xml/Entity_Resolver.h"
 
-#include "boost/bind.hpp"
-
 #include "ace/OS_Memory.h"
 #include "ace/OS_NS_stdio.h"
 #include "ace/OS_NS_time.h"

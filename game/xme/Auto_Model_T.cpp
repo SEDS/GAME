@@ -5,7 +5,6 @@
 #endif
 
 #include "game/xme/modelgen.h"
-#include "boost/bind.hpp"
 
 namespace GAME
 {
@@ -45,9 +44,8 @@ void Auto_Model_T <T>::purge_models (void)
 {
   using GAME::XME::Object;
 
-  std::for_each (this->purge_set_.begin (),
-                 this->purge_set_.end (),
-                 boost::bind (&Object::destroy, _1));
+  for (Object obj : this->purge_set_)
+    obj.destroy ();
 }
 
 //
