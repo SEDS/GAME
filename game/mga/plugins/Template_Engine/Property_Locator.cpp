@@ -13,7 +13,6 @@
 #include "game/mga/RootFolder.h"
 #include "game/mga/Model.h"
 
-#include "boost/bind.hpp"
 #include <algorithm>
 
 //
@@ -44,26 +43,12 @@ void Property_Locator::visit_Folder (GAME::Mga::Folder_in folder)
   this->check_name (folder);
 
   // Now, visit all the folders in this folder.
-  typedef std::vector <GAME::Mga::Folder> folder_set;
-  folder_set folders;
-
-  folder->folders (folders);
-
-  std::for_each (folders.begin (),
-                 folders.end (),
-                 boost::bind (&GAME::Mga::Folder::impl_type::accept,
-                              boost::bind (&GAME::Mga::Folder::get, _1),
-                              this));
+  for (GAME::Mga::Folder child_folder : folder->folders ())
+    child_folder->accept (this);
 
   // Then, visit all the FCOs in the folder.
-  typedef std::vector <GAME::Mga::FCO> fco_set;
-  fco_set fcos;
-
-  folder->children (fcos);
-
-  std::for_each (fcos.begin (),
-                 fcos.end (),
-                 boost::bind (&Property_Locator::visit_FCO, this, _1));
+  for (GAME::Mga::FCO fco : folder->children <GAME::Mga::FCO> ())
+    this->visit_FCO (fco);
 }
 
 //
@@ -75,15 +60,8 @@ void Property_Locator::visit_FCO (GAME::Mga::FCO_in fco)
   this->check_name (fco);
 
   // Visit all the attributes in the FCO.
-  typedef std::vector <GAME::Mga::Attribute> attribute_set;
-  attribute_set attributes;
-
-  fco->attributes (attributes);
-  std::for_each (attributes.begin (),
-                 attributes.end (),
-                 boost::bind (&Property_Locator::visit_Attribute,
-                              this,
-                              _1));
+  for (GAME::Mga::Attribute attr : fco->attributes ())
+    this->visit_Attribute (attr);
 
   // Let's visit this FCO as well.
   fco->accept (this);
@@ -116,14 +94,8 @@ void Property_Locator::check_name (GAME::Mga::Object_in obj)
 //
 void Property_Locator::visit_Model (GAME::Mga::Model_in model)
 {
-  std::vector <GAME::Mga::FCO> fcos;
-  model->children (fcos);
-
-  std::for_each (fcos.begin (),
-                 fcos.end (),
-                 boost::bind (&Property_Locator::visit_FCO,
-                              this,
-                              _1));
+  for (GAME::Mga::FCO fco : model->children <GAME::Mga::FCO> ())
+    this->visit_FCO (fco);
 }
 
 //
