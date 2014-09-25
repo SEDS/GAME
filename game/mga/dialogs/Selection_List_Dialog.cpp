@@ -3,8 +3,6 @@
 #include "Dialog_Display_Strategy.h"
 #include "resource.h"
 
-#include "boost/bind.hpp"
-
 #include <algorithm>
 
 namespace GAME

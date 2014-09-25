@@ -1,6 +1,6 @@
 // $Id$
 
-project (GAME_Dialogs) : game_mga, game_lib, boost_base {
+project (GAME_Dialogs) : game_mga, game_lib {
   sharedname    = GAME_Dialogs
   dynamicflags += GAME_DIALOGS_BUILD_DLL
 
