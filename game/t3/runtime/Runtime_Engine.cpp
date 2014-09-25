@@ -14,8 +14,6 @@
 #include "game/mga/MetaModel.h"
 #include "game/mga/modelgen.h"
 
-#include "boost/bind.hpp"
-
 #include <algorithm>
 #include <functional>
 #include <stack>
@@ -132,32 +130,6 @@ set_attribute (GAME::Mga::FCO_in fco, const std::string & name, const std::strin
     fco->attribute (name)->string_value (value);
 }
 
-/**
- * @struct set_attr_boolean
- *
- * Functor for setting a boolean attribute.
- */
-struct set_attr_boolean
-{
-  typedef T3_Runtime_Engine::FLAG_TABLE::CONST_ITERATOR const_iterator;
-
-  set_attr_boolean (GAME::Mga::FCO_in fco)
-    : fco_ (fco)
-  {
-
-  }
-
-  void operator () (const_iterator::value_type & value) const
-  {
-    // Locate the attribute and set its boolean value.
-    GAME::Mga::Attribute attr = this->fco_->attribute (value.key ().c_str ());
-    attr->bool_value (value.item ());
-  }
-
-private:
-  GAME::Mga::FCO fco_;
-};
-
 //
 // init_fco
 //
@@ -166,7 +138,11 @@ void T3_Runtime_Engine::init_fco (GAME::Mga::FCO_in fco)
   // Set any outstanding attributes
   std::for_each (this->stored_flags_.begin (),
                  this->stored_flags_.end (),
-                 set_attr_boolean (fco));
+                 [&] (T3_Runtime_Engine::FLAG_TABLE::CONST_ITERATOR::value_type value) 
+  {
+    GAME::Mga::Attribute attr = fco->attribute (value.key ().c_str ());
+    attr->bool_value (value.item ());
+  });
 
   // If applicable, set the reference for the object.
   if (!this->stored_ref_.is_nil () && fco->type () == OBJTYPE_REFERENCE)
@@ -211,14 +187,11 @@ store_predefined_reference (const GAME::Mga::Object_in obj, const char * pt)
     GAME::Mga::Folder root_folder = project.root_folder ();
     GAME::Mga::Folder predefined_types;
 
-    const char * name = "PredefinedTypes";
-    if (GAME::create_if_not <Mga_t> (root_folder, name, predefined_types,
-        GAME::contains <Mga_t> (boost::bind (std::equal_to <std::string> (),
-                                name,
-                                boost::bind (&GAME::Mga::Folder_Impl::name,
-                                             boost::bind (&GAME::Mga::Folder::get, _1))))))
+    static const std::string expected_name ("PredefinedTypes");
+    if (GAME::create_if_not <Mga_t> (root_folder, expected_name, predefined_types,
+        GAME::contains <Mga_t> ([&] (GAME::Mga::Folder_in folder) { return folder->name () == expected_name;} )))
     {
-      predefined_types->name (name);
+      predefined_types->name (expected_name);
     }
 
     // Create the new predefined type.
