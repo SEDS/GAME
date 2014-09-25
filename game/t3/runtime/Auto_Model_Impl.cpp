@@ -4,7 +4,6 @@
 #include "Auto_Model_Impl.h"
 #include "Runtime_Engine.h"
 #include "Event_Listener.h"
-#include "boost/bind.hpp"
 #include <algorithm>
 
 namespace T3
@@ -79,10 +78,8 @@ void Auto_Model_Impl::cleanup (void)
     else
     {
       // Destroy all the elements.
-      std::for_each (this->existing_.begin (),
-                     this->existing_.end (),
-                     boost::bind (&GAME::Mga::Object_Impl::destroy,
-                                  boost::bind (&GAME::Mga::Object::get, _1)));
+      for (GAME::Mga::Object obj : this->existing_)
+        obj->destroy ();
     }
   }
   catch (...)

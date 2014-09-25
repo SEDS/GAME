@@ -300,15 +300,8 @@ preprocess (GAME::Mga::Object_in parent, const std::string & include_file)
 //
 void T3_Runtime_Engine::preprocess_impl (GAME::Mga::Model_in model)
 {
-  // Go through all the packages in the file.
-  std::vector <GAME::Mga::Model> packages;
-  model->children ("Package", packages);
-
-  std::for_each (packages.begin (),
-                 packages.end (),
-                 boost::bind (&T3_Runtime_Engine::preprocess_impl,
-                              this,
-                              _1));
+  for (GAME::Mga::Model package : model->children <GAME::Mga::Model> ("Package"))
+    this->preprocess_impl (package);
 
   // Get the current scope.
   std::string scope;

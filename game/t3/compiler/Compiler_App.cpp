@@ -6,7 +6,6 @@
 #include "ace/Get_Opt.h"
 #include "ace/Log_Msg.h"
 #include "boost/spirit/include/classic_multi_pass.hpp"
-#include "boost/bind.hpp"
 #include <fstream>
 
 namespace T3
@@ -88,9 +87,8 @@ int T3_Compiler_App::run_main (int argc, char * argv [])
                        ACE_TEXT ("%T (%t) - %M - failed to parse command-line options\n")),
                        -1);
 
-  std::for_each (this->opts_.t3_files_.begin (),
-                 this->opts_.t3_files_.end (),
-                 boost::bind (&T3_Compiler_App::generate_parser, this, _1));
+  for (auto file : this->opts_.t3_files_)
+    this->generate_parser (file);
 
   return 0;
 }
