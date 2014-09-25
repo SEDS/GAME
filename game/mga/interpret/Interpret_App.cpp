@@ -348,14 +348,8 @@ int GAME_Automation_App::run (const std::string & progid)
   interpreter->interactive (this->opts_.interactive_);
 
   // Pass the parameters to the interpreter.
-  typedef GAME_Automation_App_Options::param_t param_t;
-
-  param_t::const_iterator
-    iter = this->opts_.params_.begin (),
-    iter_end = this->opts_.params_.end ();
-
-  for (; iter != iter_end; ++ iter)
-    interpreter->parameter (iter->first, iter->second );
+  for (auto param : this->opts_.params_)
+    interpreter->parameter (param.first, param.second);
 
   GAME::Mga::FCO focus;
   std::vector <GAME::Mga::FCO> selected;
