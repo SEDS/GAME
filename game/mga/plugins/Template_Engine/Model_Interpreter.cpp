@@ -10,7 +10,6 @@
 #include "game/mga/Transaction.h"
 
 #include "parser/Property_Map.h"
-#include "boost/bind.hpp"
 
 #include "ace/Arg_Shifter.h"
 #include "ace/ARGV.h"
@@ -83,10 +82,6 @@ set_parameters (const std::string & params)
   Property_Map prop_map;
   prop_map << params;
 
-  Property_Map::iterator
-    iter = prop_map.begin (),
-    iter_end = prop_map.end ();
-
-  for (; iter != iter_end; ++ iter)
-    this->interpreter_->parameter (iter->key ().c_str (), iter->item ().c_str ());
+  for (auto param : prop_map)
+    this->interpreter_->parameter (param.key ().c_str (), param.item ().c_str ());
 }
