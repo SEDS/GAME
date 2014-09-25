@@ -1,5 +1,3 @@
-// $Id$
-
 #include "stdafx.h"
 #include "Selection_List_Dialog.h"
 #include "Dialog_Display_Strategy.h"
@@ -77,34 +75,31 @@ BOOL Selection_List_Dialog::OnInitDialog (void)
   std::vector <Mga::Object>::iterator
     iter = this->items_.begin (), iter_end = this->items_.end ();
 
-  // Initialize the controls of the meta-objects listing
-  std::vector <Mga::Meta::Base>::iterator
-    metaiter = this->metaitems_.begin (), metaiter_end = this->metaitems_.end ();
-
-  // Initialize the controls of the strings listings
-  std::vector <std::string>::iterator
-    striter = this->strs_.begin (), striter_end = this->strs_.end ();
-
   if (0 == this->strategy_)
   {
-    if (this->type_ == 0)
+    // There is no display strategy for the object. Display the name
+    // of the object.
+    switch (this->type_)
     {
-      for (; iter != iter_end; ++ iter)
-        this->insert_item (iter->get (), (*iter)->name ());
-    }
-    else if (this->type_ == 1)
-    {
-      for (; metaiter != metaiter_end; ++ metaiter)
-        this->meta_insert_item (metaiter->get (), (*metaiter)->name ());
-    }
-    else if (this->type_ == 2)
-    {
-      for (; striter != striter_end; ++ striter)
-        this->string_insert_item ((*striter));
+    case 0:
+      for (const Mga::Object & obj : this->items_)
+        this->insert_item (obj, obj->name ());
+      break;
+
+    case 1:
+      for (const Mga::Meta::Base & base : this->metaitems_)
+        this->meta_insert_item (base, base->name ());
+      break;
+
+    case 2:
+      for (const std::string & str : this->strs_)
+        this->string_insert_item (str);
+      break;
     }
   }
   else
   {
+    // Use the strategy to display the name of the object.
     std::string display_name;
 
     if (this->type_ == 0)
