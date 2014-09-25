@@ -5,7 +5,6 @@
 #include "Project.h"
 #include "RootFolder.h"
 
-#include "boost/bind.hpp"
 #include <algorithm>
 #include <functional>
 
@@ -482,13 +481,11 @@ ComponentEx Project::addon_component (const std::string & progid) const
     throw Exception ();
 
   // Locate the add-on with the specified program id.
-  std::vector <ComponentEx>::const_iterator
-  result = std::find_if (addons.begin (),
-                         addons.end (),
-                         boost::bind (std::equal_to <std::string> (),
-                                      progid,
-                                      boost::bind (&ComponentEx::impl_type::progid,
-                                                   boost::bind (&ComponentEx::get, _1))));
+  std::vector <ComponentEx>::const_iterator result = 
+    std::find_if (addons.begin (), addons.end (),[&] (ComponentEx & comp)
+  {
+    return comp->progid () ==  progid;
+  });
 
   if (result != addons.end ())
     return *result;

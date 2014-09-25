@@ -1,6 +1,6 @@
 // $Id$
 
-project (GAME_Mga) : acelib, game_lib, boost_base {
+project (GAME_Mga) : acelib, game_lib {
   sharedname = GAME_Mga
 
   dynamicflags += GAME_MGA_BUILD_DLL

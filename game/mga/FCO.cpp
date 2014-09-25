@@ -19,7 +19,6 @@
 #include "MetaRole.h"
 #include "MetaModel.h"
 #include "Visitor.h"
-#include "boost/bind.hpp"
 #include <sstream>
 
 namespace GAME
@@ -354,22 +353,11 @@ in_connections (std::vector <Connection> & conns) const
 
   std::vector <ConnectionPoint> points;
 
-  if (iter_to_collection (temp.p, points) > 0)
-  {
-#if _MSC_VER < 1600
-    std::for_each (points.begin (),
-                   points.end (),
-                   boost::bind (&std::vector <Connection>::push_back,
-                                boost::ref (conns),
-                                boost::bind (&ConnectionPoint::impl_type::owner, boost::bind (&ConnectionPoint::get, _1))));
-#else
-	  std::vector <ConnectionPoint>::const_iterator
-		  iter = points.begin (), iter_end = points.end ();
+  if (iter_to_collection (temp.p, points) == 0)
+    return 0;
 
-	  for ( ; iter != iter_end; ++ iter)
-		  conns.push_back ((*iter)->owner ());
-#endif
-  }
+  for (ConnectionPoint conn_point : points)
+    conns.push_back (conn_point->owner ());
 
   return conns.size ();
 }
@@ -388,14 +376,10 @@ in_connections (const std::string & type, std::vector <Connection> & conns) cons
   if (0 == iter_to_collection (temp.p, points))
     return 0;
 
-  Connection conn;
-  std::vector <ConnectionPoint>::const_iterator
-    iter = points.begin (), iter_end = points.end ();
-
-  for (; iter != iter_end; ++ iter)
+  for (ConnectionPoint conn_point : points)
   {
     // Get the connection that own this point.
-    conn = (*iter)->owner ();
+    Connection conn = conn_point->owner ();
 
     if (conn->meta ()->name () == type)
       conns.push_back (conn);
