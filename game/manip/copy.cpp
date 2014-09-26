@@ -15,62 +15,12 @@
 #include "game/mga/modelgen.h"
 #include "game/manip/copy.h"
 
-#include "boost/bind.hpp"
-
 #include <map>
 
 namespace GAME
 {
 namespace Mga
 {
-/**
- * @struct copy_attribute_t
- *
- * Functor for copying an attribute to an FCO.
- */
-struct copy_attribute_t
-{
-  copy_attribute_t (FCO_in dst)
-    : dst_ (dst)
-  {
-
-  }
-
-  void operator () (const Attribute & src) const
-  {
-    // Locate the destination attribute.
-    Attribute dst = this->dst_->attribute (src->meta ()->name ());
-
-    switch (dst->meta ()->type ())
-    {
-    case ATTVAL_BOOLEAN:
-      if (src->bool_value () != dst->bool_value ())
-        dst->bool_value (src->bool_value ());
-      break;
-
-    case ATTVAL_DOUBLE:
-      if (dst->double_value () != src->double_value ())
-        dst->double_value (src->double_value ());
-      break;
-
-    case ATTVAL_ENUM:
-    case ATTVAL_STRING:
-      if (dst->string_value () != src->string_value ())
-        dst->string_value (src->string_value ());
-      break;
-
-    case ATTVAL_INTEGER:
-      if (dst->int_value () != src->int_value ())
-        dst->int_value (src->int_value ());
-      break;
-    }
-  }
-
-private:
-  /// Destination FCO element.
-  FCO dst_;
-};
-
 //
 // copy_attributes
 //
@@ -80,9 +30,35 @@ FCO copy_attributes (const FCO_in src, FCO_in dst)
   std::vector <Attribute> attrs;
   src->attributes (attrs);
 
-  std::for_each (attrs.begin (),
-                 attrs.end (),
-                 copy_attribute_t (dst));
+  for (Attribute src_attr : src->attributes ())
+  {
+    // Locate the destination attribute.
+    Attribute dst_attr = dst->attribute (src_attr->meta ()->name ());
+
+    switch (dst_attr->meta ()->type ())
+    {
+    case ATTVAL_BOOLEAN:
+      if (src_attr->bool_value () != dst_attr->bool_value ())
+        dst_attr->bool_value (src_attr->bool_value ());
+      break;
+
+    case ATTVAL_DOUBLE:
+      if (dst_attr->double_value () != src_attr->double_value ())
+        dst_attr->double_value (src_attr->double_value ());
+      break;
+
+    case ATTVAL_ENUM:
+    case ATTVAL_STRING:
+      if (dst_attr->string_value () != src_attr->string_value ())
+        dst_attr->string_value (src_attr->string_value ());
+      break;
+
+    case ATTVAL_INTEGER:
+      if (dst_attr->int_value () != src_attr->int_value ())
+        dst_attr->int_value (src_attr->int_value ());
+      break;
+    }
+  }
 
   return dst;
 };
@@ -137,10 +113,7 @@ public:
       using GAME::Mga_t;
 
       if (GAME::create_if_not <Mga_t> (this->parent_, metaname, new_atom,
-          GAME::contains <Mga_t> (boost::bind (std::equal_to <std::string> (),
-                                  name,
-                                  boost::bind (&GAME::Mga::Atom::impl_type::name,
-                                               boost::bind (&GAME::Mga::Atom::get, _1))))))
+          GAME::contains <Mga_t> ([&](GAME::Mga::Atom atom) { return name == atom->name (); })))
       {
         new_atom->name (name);
       }
@@ -175,10 +148,7 @@ public:
       using GAME::Mga_t;
 
       if (GAME::create_if_not <Mga_t> (this->parent_, metaname, new_model,
-          GAME::contains <Mga_t> (boost::bind (std::equal_to <std::string> (),
-                                  name,
-                                  boost::bind (&GAME::Mga::Model::impl_type::name,
-                                               boost::bind (&GAME::Mga::Model::get, _1))))))
+          GAME::contains <Mga_t> ([&](GAME::Mga::Model model) { return name == model->name (); })))
       {
         new_model->name (name);
       }
@@ -231,10 +201,7 @@ public:
       using GAME::Mga_t;
 
       if (GAME::create_if_not <Mga_t> (this->parent_, metaname, new_atom,
-          GAME::contains <Mga_t> (boost::bind (std::equal_to <std::string> (),
-                                  name,
-                                  boost::bind (&GAME::Mga::Atom::impl_type::name,
-                                               boost::bind (&GAME::Mga::Atom::get, _1))))))
+          GAME::contains <Mga_t> ([&](GAME::Mga::Atom atom) { return name == atom->name (); })))
       {
         new_atom->name (name);
       }
@@ -265,10 +232,7 @@ public:
       using GAME::Mga_t;
 
       if (GAME::create_if_not <Mga_t> (this->parent_, metaname, new_model,
-          GAME::contains <Mga_t> (boost::bind (std::equal_to <std::string> (),
-                                  name,
-                                  boost::bind (&GAME::Mga::Model::impl_type::name,
-                                               boost::bind (&GAME::Mga::Model::get, _1))))))
+        GAME::contains <Mga_t> ([&] (GAME::Mga::Model model) { return name == model->name (); })))
       {
         new_model->name (name);
       }
@@ -481,10 +445,7 @@ struct copy_reference_t
       using GAME::Mga_t;
 
       if (GAME::create_if_not <Mga_t> (this->dst_, metaname, new_ref,
-          GAME::contains <Mga_t> (boost::bind (std::equal_to <std::string> (),
-                                  name,
-                                  boost::bind (&GAME::Mga::Reference::impl_type::name,
-                                               boost::bind (&GAME::Mga::Reference::get, _1))))))
+          GAME::contains <Mga_t> ([&](GAME::Mga::Reference ref) { return name == ref->name (); } )))
       {
         new_ref->name (name);
       }
@@ -671,9 +632,8 @@ void copy_location (const FCO_in src, FCO_in dst, const std::string & aspect)
     std::vector <Meta::Aspect> aspects;
     parent->meta ()->aspects (aspects);
 
-    std::for_each (aspects.begin (),
-                   aspects.end (),
-                   boost::bind (&copy_location_i, src, dst, _1));
+    for (Meta::Aspect aspect : parent->meta ()->aspects ())
+      copy_location_i (src, dst, aspect);
   }
   else
   {
