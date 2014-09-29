@@ -2,18 +2,16 @@
 
 #include "stdafx.h"
 #include "If_Then_Else_Expr.h"
-#include "boost/bind.hpp"
 #include "Object_Value.h"
 
 //
 // Constructor
 //
-If_Then_Else_Expr::If_Then_Else_Expr (Equality_Expr * cond,
-                                      std::vector <Boolean_Expr *> & first,
-                                      std::vector <Boolean_Expr *> & second)
-:cond_ (cond),
- first_ (first),
- second_ (second)
+If_Then_Else_Expr::
+If_Then_Else_Expr (Equality_Expr * cond, std::vector <Boolean_Expr *> & first, std::vector <Boolean_Expr *> & second)
+: cond_ (cond),
+  first_ (first),
+  second_ (second)
 {
 }
 
@@ -30,23 +28,18 @@ If_Then_Else_Expr::~If_Then_Else_Expr (void)
 bool If_Then_Else_Expr::evaluate (Ocl_Context & res)
 {
   bool flag = true;
+
   if (this->cond_->evaluate (res))
   {
     // Iterating over the sub-expressions and evaluating them
-    std::vector <Boolean_Expr *>::iterator
-      it = this->first_.begin (), it_end = this->first_.end ();
-
-    for (; it != it_end; ++it)
-      flag = (*it)->evaluate (res);
+    for (Boolean_Expr * expr : this->first_)
+      flag = expr->evaluate (res);
   }
   else
   {
     // Iterating over the sub-expressions and evaluating them
-    std::vector <Boolean_Expr *>::iterator
-      it = this->second_.begin (), it_end = this->second_.end ();
-
-    for (; it != it_end; ++it)
-      flag = (*it)->evaluate (res);
+    for (Boolean_Expr * expr : this->second_)
+      flag = expr->evaluate (res);
   }
 
   return flag;
@@ -60,23 +53,18 @@ bool If_Then_Else_Expr::filter_evaluate (Ocl_Context & res,
 {
   res.cur_fco = current;
   bool flag = true;
+
   if (this->cond_->filter_evaluate (res, current))
   {
     // Iterating over the sub-expressions and evaluating them
-    std::vector <Boolean_Expr *>::iterator
-      it = this->first_.begin (), it_end = this->first_.end ();
-
-    for (; it != it_end; ++it)
-      flag = (*it)->filter_evaluate (res, current);
+    for (Boolean_Expr * expr : this->first_)
+      flag = expr->filter_evaluate (res, current);
   }
   else
   {
     // Iterating over the sub-expressions and evaluating them
-    std::vector <Boolean_Expr *>::iterator
-      it = this->second_.begin (), it_end = this->second_.end ();
-
-    for (; it != it_end; ++it)
-      flag = (*it)->filter_evaluate (res, current);
+    for (Boolean_Expr * expr : this->second_)
+      flag = expr->filter_evaluate (res, current);
   }
 
   return flag;

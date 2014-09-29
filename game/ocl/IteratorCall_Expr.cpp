@@ -2,7 +2,6 @@
 
 #include "stdafx.h"
 #include "IteratorCall_Expr.h"
-#include "boost/bind.hpp"
 #include "Object_Value.h"
 #include "Boolean_Value.h"
 #include "Collection_Value_T.h"
