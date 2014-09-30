@@ -16,7 +16,6 @@
 #include "game/mga/Reference.h"
 #include "game/mga/Visitor.h"
 
-#include "boost/bind.hpp"
 #include <algorithm>
 
 //

@@ -17,9 +17,6 @@
 #include "game/mga/Reference.h"
 #include "game/mga/Visitor.h"
 
-#include "boost/bind.hpp"
-#include <algorithm>
-
 /**
  * @class Containment_Visitor
  */
@@ -82,13 +79,12 @@ void Folder_Class_Definition::build (GAME::Mga::FCO_in fco)
   Object_Class_Definition::build (fco);
 
   // Gather all the contained elements.
-  std::vector <GAME::Mga::Connection> containment;
-  fco->in_connections ("FolderContainment", containment);
+  std::vector <GAME::Mga::Connection> containments;
+  fco->in_connections ("FolderContainment", containments);
 
   Folder_Containment_Visitor cv (this);
-  std::for_each (GAME::Mga::make_impl_iter (containment.begin ()),
-                 GAME::Mga::make_impl_iter (containment.end ()),
-                 boost::bind (&GAME::Mga::Connection::impl_type::accept, _1, &cv));
+  for (GAME::Mga::Connection containment : containments)
+    containment->accept (&cv);
 }
 
 //
@@ -97,12 +93,8 @@ void Folder_Class_Definition::build (GAME::Mga::FCO_in fco)
 void Folder_Class_Definition::
 generate_definition (const Generation_Context & ctx)
 {
-  std::for_each (this->children_.begin (),
-                 this->children_.end (),
-                 boost::bind (&Folder_Class_Definition::generate_folder_containment,
-                              this,
-                              boost::ref (ctx),
-                              _1));
+  for (Object_Class_Definition * def : this->children_)
+    this->generate_folder_containment (ctx, def);
 }
 
 //

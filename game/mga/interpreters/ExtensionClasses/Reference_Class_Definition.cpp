@@ -16,9 +16,6 @@
 #include "game/mga/Connection.h"
 #include "game/mga/Reference.h"
 
-#include "boost/bind.hpp"
-#include <algorithm>
-
 /**
  * @class RefersTo_Visitor
  */
@@ -80,13 +77,12 @@ void Reference_Class_Definition::build (GAME::Mga::FCO_in fco)
   // Pass control to the base class.
   FCO_Class_Definition::build (fco);
 
-  std::vector <GAME::Mga::Connection> refers_to;
-  fco->in_connections ("ReferTo", refers_to);
+  std::vector <GAME::Mga::Connection> refers_to_coll;
+  fco->in_connections ("ReferTo", refers_to_coll);
 
   RefersTo_Visitor refers_to_visitor (this);
-  std::for_each (GAME::Mga::make_impl_iter (refers_to.begin ()),
-                 GAME::Mga::make_impl_iter (refers_to.end ()),
-                 boost::bind (&GAME::Mga::Connection::impl_type::accept, _1, &refers_to_visitor));
+  for (GAME::Mga::Connection refers_to : refers_to_coll)
+    refers_to->accept (&refers_to_visitor);
 }
 
 //
@@ -98,12 +94,8 @@ generate_definition (const Generation_Context & ctx)
   // Pass control to the base class.
   FCO_Class_Definition::generate_definition (ctx);
 
-  std::for_each (this->refers_to_.begin (),
-                 this->refers_to_.end (),
-                 boost::bind (&Reference_Class_Definition::generate_refers_to_method,
-                              this,
-                              boost::ref (ctx),
-                              _1));
+  for (Object_Class_Definition * def : this->refers_to_)
+    this->generate_refers_to_method (ctx, def);
 }
 
 //

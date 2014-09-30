@@ -18,10 +18,6 @@
 #include "game/mga/Reference.h"
 #include "game/mga/Project.h"
 
-#include "boost/bind.hpp"
-#include "boost/lambda/lambda.hpp"
-#include "boost/lambda/bind.hpp"
-
 #include <algorithm>
 #include <iomanip>
 
@@ -111,9 +107,8 @@ private:
       std::vector <GAME::Mga::Connection> base_conns;
       fco->in_connections ("BaseInheritance", base_conns);
 
-      std::for_each (GAME::Mga::make_impl_iter (base_conns.begin ()),
-                     GAME::Mga::make_impl_iter (base_conns.end ()),
-                     boost::bind (&GAME::Mga::Connection::impl_type::accept, _1, this));
+      for (GAME::Mga::Connection base_conn : base_conns)
+        base_conn->accept (this);
     }
     else
     {
@@ -121,9 +116,8 @@ private:
       std::vector <GAME::Mga::Connection> derived_conns;
       fco->in_connections ("DerivedInheritance", derived_conns);
 
-      std::for_each (GAME::Mga::make_impl_iter (derived_conns.begin ()),
-                     GAME::Mga::make_impl_iter (derived_conns.end ()),
-                     boost::bind (&GAME::Mga::Connection::impl_type::accept, _1, this));
+      for (GAME::Mga::Connection derived_conn : derived_conns)
+        derived_conn->accept (this);
     }
   }
 
@@ -184,9 +178,10 @@ struct include_gen
     this->out_ << include_t (path + ".h");
 
     if (this->include_derived_types_)
-      std::for_each (item->derived_classes ().begin (),
-                     item->derived_classes ().end (),
-                     *this);
+    {
+      for (Object_Class_Definition * def : item->derived_classes ())
+        (*this) (def);
+    }
   }
 
 private:
@@ -209,13 +204,11 @@ struct parent_include_gen
 
   void operator () (Object_Class_Definition * item)
   {
-    std::for_each (item->parents ().begin (),
-                   item->parents ().end (),
-                   boost::bind (&parent_include_gen::generate_include, this, _1));
+    for (Object_Class_Definition * def : item->parents ())
+      this->generate_include (def);
 
-    std::for_each (item->base_classes ().begin (),
-                   item->base_classes ().end (),
-                   *this);
+    for (Object_Class_Definition * def : item->base_classes ())
+      (*this) (def);
   }
 
 private:
@@ -256,14 +249,13 @@ public:
       this->self_ = item;
 
     // Generate the factory for each one of this object's parents.
-    std::for_each (item->parents ().begin (),
-                   item->parents ().end (),
-                   boost::bind (&Factory_Method_Generator::generate, this, _1));
+    for (Object_Class_Definition * def : item->parents ())
+      this->generate (def);
 
     // Generate the factory methods for each of the base classes.
-    std::for_each (item->base_classes ().begin (),
-                   item->base_classes ().end (),
-                   Factory_Method_Generator (this->self_, this->hfile_, this->sfile_));
+    Factory_Method_Generator fmg (this->self_, this->hfile_, this->sfile_);
+    for (Object_Class_Definition * def : item->base_classes ())
+      fmg (def);
   }
 
 private:
@@ -359,9 +351,6 @@ void Object_Class_Definition::generate (const Generation_Context & ctx)
 {
   using GAME::Mga::Atom;
   using GAME::Mga::Atom_Impl;
-
-  // Write the class definition.
-  namespace lambda = boost::lambda;
 
   // Make sure we construct the correct macro definition name.
   std::string define_name = this->obj_->path ("_");
@@ -646,12 +635,8 @@ void Object_Class_Definition::generate (const Generation_Context & ctx)
   }
 
   // Write the parent getter method for each parent object type.
-  std::for_each (this->parents_.begin (),
-                 this->parents_.end (),
-                 boost::bind (&Object_Class_Definition::generate_parent_method,
-                              this,
-                              boost::ref (ctx),
-                              _1));
+  for (Object_Class_Definition * def : this->parents_)
+    this->generate_parent_method (ctx, def);
 
   ctx.hfile_
     << "///@}"

@@ -12,9 +12,6 @@
 
 #include "game/mga/Connection.h"
 
-#include "boost/bind.hpp"
-#include <algorithm>
-
 /**
  * @class SetMembership_Visitor
  */
@@ -76,13 +73,12 @@ void Set_Class_Definition::build (GAME::Mga::FCO_in fco)
   FCO_Class_Definition::build (fco);
 
   // Get all the members of this set definition.
-  std::vector <GAME::Mga::Connection> set_membership;
-  fco->in_connections ("SetMembership", set_membership);
+  std::vector <GAME::Mga::Connection> set_memberships;
+  fco->in_connections ("SetMembership", set_memberships);
 
   SetMembership_Visitor visitor (this);
-  std::for_each (GAME::Mga::make_impl_iter (set_membership.begin ()),
-                 GAME::Mga::make_impl_iter (set_membership.end ()),
-                 boost::bind (&GAME::Mga::Connection::impl_type::accept, _1, &visitor));
+  for (GAME::Mga::Connection set_membership : set_memberships)
+    set_membership->accept (&visitor);
 }
 
 //

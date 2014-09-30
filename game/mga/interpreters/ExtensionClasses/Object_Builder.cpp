@@ -12,38 +12,21 @@
 #include "game/mga/Model.h"
 #include "game/mga/RootFolder.h"
 
-#include "boost/bind.hpp"
-#include <algorithm>
-
-//
-// visit_RootFolder
-//
-void Object_Builder::
-visit_RootFolder (GAME::Mga::RootFolder_in folder)
+void Object_Builder::visit_RootFolder (GAME::Mga::RootFolder_in folder)
 {
   this->visit_Folder_i (folder);
 }
 
-//
-// visit_Folder
-//
-void Object_Builder::
-visit_Folder (GAME::Mga::Folder_in folder)
+void Object_Builder::visit_Folder (GAME::Mga::Folder_in folder)
 {
   this->visit_Folder_i (folder);
 }
 
-//
-// visit_Atom
-//
 void Object_Builder::visit_Atom (GAME::Mga::Atom_in atom)
 {
   OBJECT_MANAGER->build (atom);
 }
 
-//
-// visit_Model
-//
 void Object_Builder::visit_Model (GAME::Mga::Model_in model)
 {
   // Visit all the children in this model (or paradigm sheet).
@@ -54,16 +37,13 @@ void Object_Builder::visit_Model (GAME::Mga::Model_in model)
     fco->accept (this);
 }
 
-//
-// visit_Folder_i
-//
 void Object_Builder::visit_Folder_i (GAME::Mga::Folder_in folder)
 {
   // Visit all the SheetFolder elements in the model.
-  for (auto sheet_folder : folder->folders ())
+  for (GAME::Mga::Folder sheet_folder : folder->folders ())
     sheet_folder->accept (this);
 
   // Visit all the paradigm sheets.
-  for (auto paradigm_sheet : folder->children <GAME::Mga::Model> ())
+  for (GAME::Mga::Model paradigm_sheet : folder->children <GAME::Mga::Model> ())
     paradigm_sheet->accept (this);
 }

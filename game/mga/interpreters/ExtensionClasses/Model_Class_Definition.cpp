@@ -17,8 +17,6 @@
 #include "game/mga/Reference.h"
 #include "game/mga/Visitor.h"
 
-#include "boost/bind.hpp"
-#include <algorithm>
 #include <sstream>
 
 /**
@@ -107,13 +105,12 @@ void Model_Class_Definition::build (GAME::Mga::FCO_in fco)
   FCO_Class_Definition::build (fco);
 
   // Gather all the contained elements.
-  std::vector <GAME::Mga::Connection> containment;
-  fco->in_connections ("Containment", containment);
+  std::vector <GAME::Mga::Connection> containments;
+  fco->in_connections ("Containment", containments);
 
   Containment_Visitor cv (this);
-  std::for_each (GAME::Mga::make_impl_iter (containment.begin ()),
-                 GAME::Mga::make_impl_iter (containment.end ()),
-                 boost::bind (&GAME::Mga::Connection::impl_type::accept, _1, &cv));
+  for (GAME::Mga::Connection containment : containments)
+    containment->accept (&cv);
 }
 
 //
@@ -135,27 +132,14 @@ generate_definition (const Generation_Context & ctx)
     << " */" << std::endl
     << "///@{" << std::endl;
 
-  std::for_each (this->single_.begin (),
-                 this->single_.end (),
-                 boost::bind (&Model_Class_Definition::generate_single_definition,
-                              this,
-                              boost::ref (ctx),
-                              _1));
+  for (Object_Class_Definition * def : this->single_)
+    this->generate_single_definition (ctx, def);
 
-  std::for_each (this->optional_.begin (),
-                 this->optional_.end (),
-                 boost::bind (&Model_Class_Definition::generate_optional_definition,
-                              this,
-                              boost::ref (ctx),
-                              _1));
+  for (Object_Class_Definition * def : this->optional_)
+    this->generate_optional_definition (ctx, def);
 
-  std::for_each (this->multiple_.begin (),
-                 this->multiple_.end (),
-                 boost::bind (&Model_Class_Definition::generate_multiple_definition,
-                              this,
-                              boost::ref (ctx),
-                              _1));
-
+  for (Object_Class_Definition * def : this->multiple_)
+    this->generate_multiple_definition (ctx, def);
 
   ctx.hfile_
     << "///@}"
@@ -198,12 +182,8 @@ generate_optional_definition (const Generation_Context & ctx, Object_Class_Defin
   if (!item->derived_classes ().empty ())
   {
     // Make sure we generate getter methods for each of the derived classes.
-    std::for_each (item->derived_classes ().begin (),
-                   item->derived_classes ().end (),
-                   boost::bind (&Model_Class_Definition::generate_optional_definition,
-                                this,
-                                boost::ref (ctx),
-                                _1));
+    for (Object_Class_Definition * derived : item->derived_classes ())
+      this->generate_optional_definition (ctx, derived);
   }
 }
 
@@ -235,12 +215,8 @@ generate_single_definition (const Generation_Context & ctx, Object_Class_Definit
   if (!item->derived_classes ().empty ())
   {
     // Make sure we generate getter methods for each of the derived classes.
-    std::for_each (item->derived_classes ().begin (),
-                   item->derived_classes ().end (),
-                   boost::bind (&Model_Class_Definition::generate_single_definition,
-                                this,
-                                boost::ref (ctx),
-                                _1));
+    for (Object_Class_Definition * derived : item->derived_classes ())
+      this->generate_single_definition (ctx, derived);
   }
 }
 
@@ -280,49 +256,7 @@ generate_multiple_definition (const Generation_Context & ctx, Object_Class_Defin
   if (!item->derived_classes ().empty ())
   {
     // Make sure we generate getter methods for each of the derived classes.
-    std::for_each (item->derived_classes ().begin (),
-                   item->derived_classes ().end (),
-                   boost::bind (&Model_Class_Definition::generate_multiple_definition,
-                                this,
-                                boost::ref (ctx),
-                                _1));
+    for (Object_Class_Definition * derived : item->derived_classes ())
+      this->generate_multiple_definition (ctx, derived);
   }
 }
-
-/**
- * @struct insert_include
- *
- * Functor object that is responsible for intelligently adding the items
- * to the include list.
- */
-struct insert_include
-{
-public:
-  insert_include (std::set <Object_Class_Definition *> & includes)
-    : includes_ (includes)
-  {
-
-  }
-
-  void operator () (std::set <Object_Class_Definition *>::value_type item)
-  {
-    if (item->derived_classes ().empty ())
-    {
-      // Since this object does not have any derived classes, we need to
-      // go ahead and include this object in the include list.
-      this->includes_.insert (item);
-    }
-    else
-    {
-      // Since the object does have derived classes, we need to include all
-      // the objects derived types. We do not need to include the object itself
-      // since the subclasses will include this object.
-      std::for_each (item->derived_classes ().begin (),
-                     item->derived_classes ().end (),
-                     insert_include (this->includes_));
-    }
-  }
-
-private:
-  std::set <Object_Class_Definition *> & includes_;
-};

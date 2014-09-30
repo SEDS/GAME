@@ -20,10 +20,6 @@
 #include "game/mga/Reference.h"
 #include "game/mga/Visitor.h"
 
-#include "boost/bind.hpp"
-#include <algorithm>
-
-
 /**
  * @class Attribute_Visitor
  *
@@ -77,12 +73,11 @@ public:
   //
   void visit_Atom (GAME::Mga::Atom_in item)
   {
-    std::vector <GAME::Mga::Connection> association_class;
-    item->in_connections ("AssociationClass", association_class);
+    std::vector <GAME::Mga::Connection> association_classes;
+    item->in_connections ("AssociationClass", association_classes);
 
-    std::for_each (GAME::Mga::make_impl_iter (association_class.begin ()),
-                   GAME::Mga::make_impl_iter (association_class.end ()),
-                   boost::bind (&Connection_Point_Visitor::visit_Connection, this, _1));
+    for (GAME::Mga::Connection association : association_classes)
+      this->visit_Connection (association);
   }
 
   //
@@ -166,26 +161,23 @@ void FCO_Class_Definition::build (GAME::Mga::FCO_in fco)
   fco->in_connections ("HasAttribute", has_attributes);
 
   Attribute_Visitor has_attrs (this->obj_, this->attributes_);
-  std::for_each (GAME::Mga::make_impl_iter (has_attributes.begin ()),
-                 GAME::Mga::make_impl_iter (has_attributes.end ()),
-                 boost::bind (&GAME::Mga::Connection::impl_type::accept, _1, &has_attrs));
+  for (GAME::Mga::Connection has_attribute : has_attributes)
+    has_attribute->accept (&has_attrs);
 
   // Gather all our connection points.
-  std::vector <GAME::Mga::Connection> src_to_connector;
-  fco->in_connections ("SourceToConnector", src_to_connector);
+  std::vector <GAME::Mga::Connection> src_to_connectors;
+  fco->in_connections ("SourceToConnector", src_to_connectors);
 
   Connection_Point_Visitor cpv_src (this->src_connpoints_, this->source_includes_);
-  std::for_each (GAME::Mga::make_impl_iter (src_to_connector.begin ()),
-                 GAME::Mga::make_impl_iter (src_to_connector.end ()),
-                 boost::bind (&GAME::Mga::Connection::impl_type::accept, _1, &cpv_src));
+  for (GAME::Mga::Connection src_to_connector : src_to_connectors)
+    src_to_connector->accept (&cpv_src);
 
-  std::vector <GAME::Mga::Connection> dst_to_connector;
-  fco->in_connections ("ConnectorToDestination", dst_to_connector);
+  std::vector <GAME::Mga::Connection> dst_to_connectors;
+  fco->in_connections ("ConnectorToDestination", dst_to_connectors);
 
   Connection_Point_Visitor cpv_dst (this->dst_connpoints_, this->source_includes_);
-  std::for_each (GAME::Mga::make_impl_iter (dst_to_connector.begin ()),
-                 GAME::Mga::make_impl_iter (dst_to_connector.end ()),
-                 boost::bind (&GAME::Mga::Connection::impl_type::accept, _1, &cpv_dst));
+  for (GAME::Mga::Connection dst_to_connector : dst_to_connectors)
+    dst_to_connector->accept (&cpv_dst);
 }
 
 //
@@ -204,12 +196,8 @@ generate_definition (const Generation_Context & ctx)
       << " */" << std::endl
       << "///@{" << std::endl;
 
-    std::for_each (GAME::Mga::make_impl_iter (this->attributes_.begin ()),
-                   GAME::Mga::make_impl_iter (this->attributes_.end ()),
-                   boost::bind (&FCO_Class_Definition::generate_attribute,
-                                this,
-                                boost::ref (ctx),
-                                _1));
+    for (GAME::Mga::Atom attr : this->attributes_)
+      this->generate_attribute (ctx, attr);
 
     ctx.hfile_
       << "///@}"
@@ -226,22 +214,8 @@ generate_definition (const Generation_Context & ctx)
       << " */" << std::endl
       << "///@{" << std::endl;
 
-#if _MSC_VER < 1600
-    std::for_each (this->src_connpoints_.begin (),
-                   this->src_connpoints_.end (),
-                   boost::bind (&FCO_Class_Definition::generate_connection_point,
-                                this,
-                                boost::ref (ctx),
-                                _1));
-#else
-
-	std::set < std::pair <std::string, FCO_Class_Definition *> >::const_iterator
-		iter = this->src_connpoints_.begin (), 
-		iter_end = this->src_connpoints_.end ();
-
-	for (; iter != iter_end; ++ iter)
-		this->generate_connection_point (ctx, *iter);
-#endif
+    for (auto src_connpoint : this->src_connpoints_)
+      this->generate_connection_point (ctx, src_connpoint);
 
     ctx.hfile_
       << "///@}"
@@ -258,12 +232,8 @@ generate_definition (const Generation_Context & ctx)
       << " */" << std::endl
       << "///@{" << std::endl;
 
-    std::for_each (this->dst_connpoints_.begin (),
-                   this->dst_connpoints_.end (),
-                   boost::bind (&FCO_Class_Definition::generate_connection_point,
-                                this,
-                                boost::ref (ctx),
-                                _1));
+    for (auto dst_connpoint : this->dst_connpoints_)
+      this->generate_connection_point (ctx, dst_connpoint);
 
     ctx.hfile_
       << "///@}"
