@@ -61,7 +61,7 @@ STDMETHODIMP Addon_Impl_T <T, SINK>::Initialize (IMgaProject * proj)
     Readonly_Transaction t (proj);
     return this->sink_->initialize (GAME::Mga::Project (proj), &this->impl_);
   }
-  catch (const GAME::Mga::Exception & ex)
+  catch (const GAME::Mga::Exception &)
   {
 
   }
@@ -85,7 +85,7 @@ STDMETHODIMP Addon_Impl_T <T, SINK>::Enable (VARIANT_BOOL enable)
 
     return S_OK;
   }
-  catch (const GAME::Mga::Exception & ex)
+  catch (const GAME::Mga::Exception &)
   {
 
   }
