@@ -116,6 +116,30 @@ T * Iterator <T>::operator -> (void)
 // operator ++
 //
 template <typename T>
+Iterator <T> & Iterator <T>::operator ++ (void)
+{
+  ++ this->index_;
+  
+  while (this->index_ != this->end_index_)
+  {
+    try
+    {
+      this->get_current_item ();
+      return *this;
+    }
+    catch (GAME::Mga::Exception &)
+    {
+      ++ this->index_;
+    }
+  }
+  
+  return *this;
+}
+
+//
+// operator ++
+//
+template <typename T>
 Iterator <T> Iterator <T>::operator ++ (int)
 {
   Iterator iter (*this);
@@ -135,7 +159,7 @@ Iterator <T> Iterator <T>::operator ++ (int)
     }
     catch (GAME::Mga::Exception & e)
     {
-      ++this->index_;
+      ++ this->index_;
     }
   }
 

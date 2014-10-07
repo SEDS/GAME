@@ -69,14 +69,6 @@ void Iterator <T>::advance (void)
 
 template <typename T>
 GAME_INLINE
-Iterator <T> & Iterator <T>::operator ++ (void)
-{
-  ++ this->index_;
-  return *this;
-}
-
-template <typename T>
-GAME_INLINE
 bool Iterator <T>::operator == (const Iterator & rhs) const
 {
   return this == &rhs || (this->iter_.p == rhs.iter_.p && this->index_ == rhs.index_ && this->end_index_ == rhs.end_index_);
