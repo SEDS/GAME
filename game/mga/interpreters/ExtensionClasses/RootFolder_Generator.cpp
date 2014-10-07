@@ -203,7 +203,8 @@ generate (const std::string & location,
       << "{"
       << "}"
       << "RootFolder_Impl::RootFolder_Impl (IMgaFolder * folder)" << std::endl
-      << ": ::GAME::Mga::RootFolder_Impl (folder)"
+      << ": ::GAME::Mga::Folder_Impl (folder)," << std::endl
+      << "  ::GAME::Mga::RootFolder_Impl (folder)"
       << "{"
       << "}"
       << "RootFolder_Impl::~RootFolder_Impl (void)"

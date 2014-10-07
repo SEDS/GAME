@@ -137,6 +137,6 @@ generate_folder_containment (const Generation_Context & ctx, Object_Class_Defini
     << "::GAME::Mga::Collection_T <" << name << "> " << this->classname_ << "::"
     << method_name << " (void) const"
     << "{"
-    << "return this->" << accessor << " ();"
+    << "return this->" << accessor << " <" << name << "> ();"
     << "}";
 }
