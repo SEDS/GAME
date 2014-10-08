@@ -93,8 +93,20 @@ void Folder_Class_Definition::build (GAME::Mga::FCO_in fco)
 void Folder_Class_Definition::
 generate_definition (const Generation_Context & ctx)
 {
+  // Write the folders for this model element.
+  ctx.hfile_
+    << std::endl
+    << "/**" << std::endl
+    << " * @name Folder Getters" << std::endl
+    << " */" << std::endl
+    << "///@{" << std::endl;
+
   for (Object_Class_Definition * def : this->children_)
     this->generate_folder_containment (ctx, def);
+
+  ctx.hfile_
+    << "///@}"
+    << std::endl;
 }
 
 //
@@ -107,17 +119,24 @@ generate_folder_containment (const Generation_Context & ctx, Object_Class_Defini
   const std::string method_name = "get_" + name + "s";
   const std::string accessor = item->metaname () == "Folder" ? "folders" : "children";
 
-  // Declare the function.
+  // Declare the functions.
   ctx.hfile_
     << std::endl
-    << "size_t " << method_name << " (std::vector <" << name << "> & items) const;";
+    << "size_t " << method_name << " (std::vector <" << name << "> & items) const;" << std::endl
+    << "::GAME::Mga::Collection_T <" << name << "> " << method_name << " (void) const;";
 
-  // Implement the function.
+  // Implement the functions.
   ctx.sfile_
     << function_header_t (method_name)
     << "size_t " << this->classname_ << "::"
     << method_name << " (std::vector <" << name << "> & items) const"
     << "{"
     << "return this->" << accessor << " (items);"
+    << "}"
+    << function_header_t (method_name)
+    << "::GAME::Mga::Collection_T <" << name << "> " << this->classname_ << "::"
+    << method_name << " (void) const"
+    << "{"
+    << "return this->" << accessor << " <" << name << "> ();"
     << "}";
 }
