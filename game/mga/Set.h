@@ -105,6 +105,12 @@ public:
    */
   Collection_T <FCO> members (void) const;
 
+  /**
+   * @overload
+   */
+  template <typename T>
+  Collection_T <T> members (void) const;
+
   /// Accept the visitor.
   virtual void accept (Visitor * v);
 

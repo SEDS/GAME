@@ -246,17 +246,6 @@ size_t FCO_Impl::in_connection_points (ConnectionPoints & points) const
 }
 
 //
-// in_connection_points
-//
-Collection_T <ConnectionPoints> FCO_Impl::in_connection_points (void) const
-{
-  CComPtr <IMgaConnPoints> temp;
-  VERIFY_HRESULT (this->impl ()->get_PartOfConns (&temp));
-
-  return Collection_T <ConnectionPoints> (temp.p);
-}
-
-//
 // derived_from
 //
 FCO FCO_Impl::derived_from (void) const

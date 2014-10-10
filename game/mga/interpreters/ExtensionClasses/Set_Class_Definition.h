@@ -38,6 +38,11 @@ public:
   void insert_member (Object_Class_Definition * member);
 
 private:
+  // Generate set members containment definition.
+  void generate_member_containment (
+    const Generation_Context & ctx,
+    Object_Class_Definition *);
+
   /// Member of the set definition.
   std::set <Object_Class_Definition *> members_;
 };

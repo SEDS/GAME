@@ -219,7 +219,6 @@ public:
    * @return          Number of items in \a points
    */
   size_t in_connection_points (ConnectionPoints & points) const;
-  Collection_T <ConnectionPoints> in_connection_points (void) const;
 
   size_t in_connections (std::vector <Connection> & conns) const;
   size_t in_connections (const std::string & type, std::vector <Connection> & conns) const;
