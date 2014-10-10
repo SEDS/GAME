@@ -84,6 +84,7 @@ project (GAME_Mga) : acelib, game_lib {
     modelgen.cpp
     Smart_Ptr.cpp
     Iterator_T.cpp
+    Set_T.cpp
   }
 
   Header_Files {

@@ -105,6 +105,12 @@ public:
    */
   Collection_T <FCO> members (void) const;
 
+  /**
+   * @overload
+   */
+  template <typename T>
+  Collection_T <T> members (void) const;
+
   /// Accept the visitor.
   virtual void accept (Visitor * v);
 
@@ -136,5 +142,7 @@ struct object_type_t <Set_Impl>
 #if defined (__GAME_INLINE__)
 #include "Set.inl"
 #endif
+
+#include "Set_T.cpp"
 
 #endif  // !defined _GME_SET_H_
