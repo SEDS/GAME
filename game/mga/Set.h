@@ -143,4 +143,6 @@ struct object_type_t <Set_Impl>
 #include "Set.inl"
 #endif
 
+#include "Set_T.cpp"
+
 #endif  // !defined _GME_SET_H_
