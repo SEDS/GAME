@@ -44,8 +44,8 @@ def generate_mpc_file (filename, pathname, comp_guid, paradigm, has_icon):
     #Creating string template for .mpc file
     temp_mpc = string.Template ("""// $$Id$$
 
-project (${project_name}) : game_mga_interpreter, game_lib {
-  sharedname = $project_name
+project (${paradigm}_${project_name}) : game_mga_interpreter, game_lib {
+  sharedname = ${paradigm}_${project_name}
 
   pch_header = StdAfx.h
   pch_source = StdAfx.cpp
@@ -482,9 +482,9 @@ GAME_DECLARE_INTERPRETER (${filename}_Component, ${classname});
 //$classname
 //
 ${classname}::${classname} (void)
-: GAME::Mga::Interpreter_Impl_Base ("GAME ${filename} Generator",
+: GAME::Mga::Interpreter_Impl_Base ("${paradigm} ${filename} Generator",
                                     "${paradigm}",
-                                    "GAME.Interpreter.${filename}")
+                                    "${paradigm}.Interpreter.${filename}")
 {
 
 }
@@ -536,7 +536,7 @@ def validity_check (guid):
 # generate_reg_file
 #
 def generate_reg_file (filename, pathname, comp_guid, paradigm, has_icon):
-    filename_reg = filename + '_Component.reg'
+    filename_reg = paradigm + '_' + filename + '_Component.reg'
 
     ico = ""
     if has_icon:
@@ -550,21 +550,21 @@ def generate_reg_file (filename, pathname, comp_guid, paradigm, has_icon):
 [HKEY_CURRENT_USER\Software\Classes\CLSID]
 
 [HKEY_CURRENT_USER\Software\Classes\CLSID\{${comp_guid}}]
-@="GAME.Interpreter.${filename}"
+@="${paradigm}.Interpreter.${filename}"
 
 [HKEY_CURRENT_USER\Software\Classes\CLSID\{${comp_guid}}\ProgID]
-@="GAME.Interpreter.${filename}"
+@="${paradigm}.Interpreter.${filename}"
 
 [HKEY_CURRENT_USER\Software\Classes\CLSID\{${comp_guid}}\InProcServer32]
-@="${filename}_Component.dll"
+@="${paradigm}_${filename}_Component.dll"
 
-[HKEY_CURRENT_USER\Software\Classes\GAME.Interpreter.${filename}]
-@="GAME.Interpreter.${filename}"
+[HKEY_CURRENT_USER\Software\Classes\${paradigm}.Interpreter.${filename}]
+@="${paradigm}.Interpreter.${filename}"
 
-[HKEY_CURRENT_USER\Software\Classes\GAME.Interpreter.${filename}\CLSID]
+[HKEY_CURRENT_USER\Software\Classes\${paradigm}.Interpreter.${filename}\CLSID]
 @="{${comp_guid}}"
 
-[HKEY_CURRENT_USER\Software\GME\Components\GAME.Interpreter.${filename}]
+[HKEY_CURRENT_USER\Software\GME\Components\${paradigm}.Interpreter.${filename}]
 "Tooltip"="${filename} Interpreter"
 "Paradigm"="${paradigm}"
 "Type"=dword:00000001
@@ -590,8 +590,8 @@ $icon
 # generate_dreg_file
 #
 def generate_dreg_file (filename, pathname, comp_guid, paradigm, has_icon):
-    filename_dreg = filename + '_Componentd.reg'
-
+    filename_dreg = paradigm + '_' + filename + '_Componentd.reg'
+    
     ico = ""
     if has_icon:
         ico = "\"Icon\"=\",IDI_COMPICON\""
@@ -604,28 +604,28 @@ def generate_dreg_file (filename, pathname, comp_guid, paradigm, has_icon):
 [HKEY_CURRENT_USER\Software\Classes\CLSID]
 
 [HKEY_CURRENT_USER\Software\Classes\CLSID\{${comp_guid}}]
-@="GAME.Interpreter.${filename}"
+@="${paradigm}.Interpreter.${filename}"
 
 [HKEY_CURRENT_USER\Software\Classes\CLSID\{${comp_guid}}\ProgID]
-@="GAME.Interpreter.${filename}"
+@="${paradigm}.Interpreter.${filename}"
 
 [HKEY_CURRENT_USER\Software\Classes\CLSID\{${comp_guid}}\InProcServer32]
-@="${filename}_Componentd.dll"
+@="${paradigm}_${filename}_Componentd.dll"
 
-[HKEY_CURRENT_USER\Software\Classes\GAME.Interpreter.${filename}]
-@="GAME.Interpreter.${filename}"
+[HKEY_CURRENT_USER\Software\Classes\${paradigm}.Interpreter.${filename}]
+@="${paradigm}.Interpreter.${filename}"
 
-[HKEY_CURRENT_USER\Software\Classes\GAME.Interpreter.${filename}\CLSID]
+[HKEY_CURRENT_USER\Software\Classes\${paradigm}.Interpreter.${filename}\CLSID]
 @="{${comp_guid}}"
 
-[HKEY_CURRENT_USER\Software\GME\Components\GAME.Interpreter.${filename}]
-"Tooltip"="${filename} Interpreter"
+[HKEY_CURRENT_USER\Software\GME\Components\${paradigm}.Interpreter.${filename}]
+"Tooltip"="${paradigm} ${filename} Interpreter"
 "Paradigm"="${paradigm}"
 "Type"=dword:00000001
 "Description"="${filename}"
 $icon
 
-[HKEY_CURRENT_USER\Software\GME\Components\GAME.Interpreter.${filename}\Associated]
+[HKEY_CURRENT_USER\Software\GME\Components\${paradigm}.Interpreter.${filename}\Associated]
 "${paradigm}"=""
 
 """)
