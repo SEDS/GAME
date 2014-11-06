@@ -239,7 +239,6 @@ public:
    * @param[out]      sets        Collection of sets
    * @return          Number of items in \a sets
    */
-  size_t in_sets (std::vector <Set> & sets) const;
   Collection_T <Set> in_sets (void) const;
 
   /**

@@ -312,17 +312,6 @@ RegistryNode FCO_Impl::registry_node (const std::string & path) const
 //
 // in_sets
 //
-size_t FCO_Impl::in_sets (std::vector <Set> & sets) const
-{
-  CComPtr <IMgaFCOs> temp;
-  VERIFY_HRESULT (this->impl ()->get_MemberOfSets (&temp));
-
-  return iter_to_collection (temp.p, sets);
-}
-
-//
-// in_sets
-//
 Collection_T <Set> FCO_Impl::in_sets (void) const
 {
   CComPtr <IMgaFCOs> temp;
