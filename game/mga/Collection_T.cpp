@@ -162,6 +162,13 @@ size_t Collection_T <T>::size (void) const
 
 template <typename T>
 GAME_INLINE
+bool Collection_T <T>::is_empty (void) const
+{
+  return this->size_ == 0;
+}
+
+template <typename T>
+GAME_INLINE
 typename Collection_T <T>::iterator_type Collection_T <T>::begin (void)
 {
   return iterator_type (this->iter_.p, this->begin_, this->end_);

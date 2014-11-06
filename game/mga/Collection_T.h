@@ -84,6 +84,9 @@ public:
   /// Get the first element in the collection.
   T first (void) const;
 
+  /// Test if the collection is empty.
+  bool is_empty (void) const;
+
 private:
   /// Pointer to the collection.
   ::ATL::CComPtr <interface_type> iter_;
