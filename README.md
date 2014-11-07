@@ -11,6 +11,7 @@ Supported Compilers
 GAME supports the following compilers:
 
  * Visual Studio 2012 (vc11)
+ * Visual Studio 2014 (vc12)
 
 Building from Source
 ---------------------
@@ -42,3 +43,11 @@ Last, build GAME using the following commands:
     
 Build the opened solution file. The executables will be place in ```%GAME_ROOT%\bin``` and the shared 
 libraries will be placed in ```%GAME_ROOT%\lib```.
+
+Contributing
+---------------------
+Contributions to GAME are always welcome. We, however, ask that if you plan to 
+contribute that you following the coding standards used throughout the source
+code. This way, the code looks as if it is written by a single person, making it
+much easier to understand and maintain.
+
