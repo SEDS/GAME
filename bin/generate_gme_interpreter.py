@@ -7,6 +7,7 @@ import string
 import uuid
 import os
 import re
+import argparse
 
 #
 # generate_mwc_file
@@ -647,45 +648,44 @@ def main (*argv):
     #Initializing the variable values
     comp_guid = uuid.uuid4 ()
     lib_guid = uuid.uuid4 ()
-    pathname = os.getcwd () + '/'
+    pathname = os.getcwd () + os.sep
     filename = 'Default'
     has_icon = False
     paradigm = None
     filename = None
     
     #setting options and corresponding argument values
-    options, remainder = getopt.getopt (sys.argv[1:], 'o:',['name=',
-                                                            'component-guid=',
-                                                            'library-guid=',
-                                                            'paradigm=',
-                                                            'has-icon'])
+    parser = argparse.ArgumentParser ()
+    parser.add_argument ('--name', type=str, required=True, help='Name of the interpreter')
+    parser.add_argument ('--paradigm', type=str, required=True, help='Paradigms the interpreter works with ("*" for all paradigms)')
+    parser.add_argument ('-o', '--directory', type=str, help='Output directory')
+    parser.add_argument ('--component-guid', type=str, help='Component GUID to use (avoids automatic GUID generation)')
+    parser.add_argument ('--library-guid', type=str, help='Library GUID to use (avoids automatic GUID generation)')
+    parser.add_argument ('--has-icon', action='store_true', help='Flag to control icon support generation')
 
-    for opt, arg in options:
-        if opt == '--name' :
-            filename = arg
-        elif opt == '-o' :
-            pathname = arg
-        elif opt == '--paradigm' :
-            paradigm = arg
-        elif opt == '--has-icon' :
-            has_icon = True
-        elif opt == '--component-guid' :
-            if (not validity_check (arg)):
-                return 1
-            comp_guid = arg
-        elif opt == '--library-guid' :
-            if (not validity_check (arg)):
-                return 1
-            lib_guid = arg
-            
-    if filename is None:
-        print ('*** error: missing --name argument')
-        sys.exit (1)
-    
-    if paradigm is None:
-        print ('*** error: missing --paradigm argument')
-        sys.exit (1)
-                        
+    args = parser.parse_args (sys.argv[1:])
+
+    filename = args.name
+    paradigm = args.paradigm
+
+    if args.directory:
+        pathname = os.path.join (os.getcwd (), args.directory + os.sep)
+        if not os.path.isdir (pathname):
+            os.makedirs (pathname)
+
+    if args.component_guid:
+        if not validity_check (args.component_guid):
+            return 1
+        comp_guid = args.component_guid
+
+    if args.library_guid:
+        if not validity_check (args.library_guid):
+            return 1
+        lib_guid = args.library_guid
+
+    if args.has_icon:
+        has_icon = True
+
     #Calling respective function for creating .mwc file
     generate_mwc_file (filename, pathname)
 
