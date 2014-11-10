@@ -7,6 +7,7 @@ import string
 import uuid
 import os
 import re
+import argparse
 
 #
 # generate_mwc_file
@@ -464,30 +465,27 @@ def main (*argv):
     #Initializing the variable values
     comp_guid = uuid.uuid4 ()
     lib_guid = uuid.uuid4 ()
-    pathname = os.getcwd () + '/'
+    pathname = os.getcwd () + os.sep
     name = 'Default'
     has_icon = False
     name = None
     project = 'GAME'
-    
-    #setting options and corresponding argument values
-    options, remainder = getopt.getopt (sys.argv[1:], 'o:',['name=', 'project='])
 
-    for opt, arg in options:
-        if opt == '--name' :
-            name = arg
-        elif opt == '-o' :
-            pathname = arg
-        elif opt == '--project' :
-            project = arg
-            
-    if name is None:
-        print ('*** error: missing --name argument')
-        sys.exit (1)
-    
-    if project is None:
-        print ('*** error: missing --project argument')
-        sys.exit (1)
+    #setting options and corresponding argument values
+    parser = argparse.ArgumentParser ()
+    parser.add_argument ('--name', type=str, required=True, help='Name of the decorator')
+    parser.add_argument ('--project', type=str, required=True, help='Name of the project')
+    parser.add_argument ('-o', '--directory', type=str, help='Output directory')
+
+    args = parser.parse_args (sys.argv[1:])
+
+    name = args.name
+    project = args.project
+
+    if args.directory:
+        pathname = os.path.join (os.getcwd (), args.directory + os.sep)
+        if not os.path.isdir (pathname):
+            os.makedirs (pathname)
                         
     #Calling respective function for creating .mwc file
     generate_mwc_file (name, pathname)
