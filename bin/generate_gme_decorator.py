@@ -474,13 +474,15 @@ def main (*argv):
     #setting options and corresponding argument values
     parser = argparse.ArgumentParser ()
     parser.add_argument ('--name', type=str, required=True, help='Name of the decorator')
-    parser.add_argument ('--project', type=str, required=True, help='Name of the project')
+    parser.add_argument ('--project', type=str, help='Name of the project, defaults to GAME')
     parser.add_argument ('-o', '--directory', type=str, help='Output directory')
 
     args = parser.parse_args (sys.argv[1:])
 
     name = args.name
-    project = args.project
+
+    if args.project:
+        project = args.project
 
     if args.directory:
         pathname = os.path.join (os.getcwd (), args.directory + os.sep)

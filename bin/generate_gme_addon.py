@@ -710,7 +710,7 @@ def main (*argv):
     #setting options and corresponding argument values
     parser = argparse.ArgumentParser ()
     parser.add_argument ('--name', type=str, required=True, help='Name of the addon')
-    parser.add_argument ('--paradigm', type=str, required=True, help='Paradigms the interpreter works with ("*" for all paradigms)')
+    parser.add_argument ('--paradigm', type=str, help='Paradigms the interpreter works with ("*" for all paradigms)')
     parser.add_argument ('-o', '--directory', type=str, help='Output directory')
     parser.add_argument ('--component-guid', type=str, help='Component GUID to use (avoids automatic GUID generation)')
     parser.add_argument ('--library-guid', type=str, help='Library GUID to use (avoids automatic GUID generation)')
@@ -719,7 +719,9 @@ def main (*argv):
     args = parser.parse_args (sys.argv[1:])
 
     filename = args.name
-    paradigm = args.paradigm
+
+    if args.paradigm:
+        paradigm = args.paradigm
 
     if args.directory:
         pathname = os.path.join (os.getcwd (), args.directory + os.sep)
