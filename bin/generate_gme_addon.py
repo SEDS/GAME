@@ -715,6 +715,7 @@ def main (*argv):
     parser.add_argument ('--component-guid', type=str, help='Component GUID to use (avoids automatic GUID generation)')
     parser.add_argument ('--library-guid', type=str, help='Library GUID to use (avoids automatic GUID generation)')
     parser.add_argument ('--has-icon', action='store_true', help='Flag to control icon support generation')
+    parser.add_argument ('--no-workspace', action='store_true', help='Prevents generating a MWC file for this addon')
 
     args = parser.parse_args (sys.argv[1:])
 
@@ -742,7 +743,8 @@ def main (*argv):
         has_icon = True
 
     #Calling respective function for creating .mwc file
-    generate_mwc_file (filename, pathname)
+    if not args.no_workspace:
+        generate_mwc_file (filename, pathname)
 
     #Calling respective function for creating .mpc file
     generate_mpc_file (filename, pathname, comp_guid, paradigm)
