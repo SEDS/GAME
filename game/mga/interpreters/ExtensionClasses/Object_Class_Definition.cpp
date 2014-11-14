@@ -290,8 +290,7 @@ private:
       << function_header_t ("_create (const " + parent + "_in)")
       << this->self_->name () << " " << this->self_->classname () << "::_create (const " << parent << "_in parent)"
       << "{"
-      << "return ::GAME::Mga::" << method
-      << " < " << this->self_->name () << " > (parent, " << this->self_->name () << "_Impl::metaname);"
+      << "return ::GAME::Mga::create < " << this->self_->name () << " > (parent, " << this->self_->name () << "_Impl::metaname);"
       << "}";
 
     if (this->self_->metaname () == "Connection")
