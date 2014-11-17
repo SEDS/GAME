@@ -476,6 +476,7 @@ def main (*argv):
     parser.add_argument ('--name', type=str, required=True, help='Name of the decorator')
     parser.add_argument ('--project', type=str, help='Name of the project, defaults to GAME')
     parser.add_argument ('-o', '--directory', type=str, help='Output directory')
+    parser.add_argument ('--no-workspace', action='store_true', help='Prevents generating a MWC file for this decorator')
 
     args = parser.parse_args (sys.argv[1:])
 
@@ -490,7 +491,8 @@ def main (*argv):
             os.makedirs (pathname)
                         
     #Calling respective function for creating .mwc file
-    generate_mwc_file (name, pathname)
+    if not args.no_workspace:
+        generate_mwc_file (name, pathname)
 
     #Calling respective function for creating .mpc file
     generate_mpc_file (name, pathname, project, comp_guid)
