@@ -3,6 +3,7 @@
 #include "StdAfx.h"
 #include "Extension_Classes_Component.h"
 #include "Extension_Classes_Component_Impl.h"
+#include "Main_Dialog.h"
 
 #include "Export_File_Generator.h"
 #include "Extension_Classes_Visitor.h"
@@ -79,11 +80,19 @@ invoke_ex (GAME::Mga::Project project,
 
     if (this->is_interactive_)
     {
-      // Get the output directory for the extension classes.
-      bool retval = GAME::Utils::get_path ("Select target output directory...", this->output_, this->output_);
+      Main_Dialog dialog (::AfxGetMainWnd ());
 
-      if (!retval)
+      // Initialize the dialog before showing it.
+      dialog.opts_.output_dir_ = this->output_.c_str ();
+      dialog.opts_.exclude_mwc_ = this->exclude_mwc_;
+
+      // Show the dialog.
+      if (dialog.DoModal () == IDCANCEL)
         return 0;
+
+      // Store the selected values.
+      this->output_ = dialog.opts_.output_dir_.GetBuffer ();
+      this->exclude_mwc_ = dialog.opts_.exclude_mwc_;
     }
 
     const std::string pch_basename = "stdafx";
@@ -108,8 +117,11 @@ invoke_ex (GAME::Mga::Project project,
       ecv.generate (entry.item ());
 
     // Generate workspace, project, and precompiled header files.
-    GAME::Mga::Mwc_File_Generator mwc_gen;
-    mwc_gen.generate (this->output_, project);
+    if (!this->exclude_mwc_)
+    {
+      GAME::Mga::Mwc_File_Generator mwc_gen;
+      mwc_gen.generate (this->output_, project);
+    }
 
     GAME::Mga::Mpc_File_Generator mpc_gen;
     mpc_gen.generate (this->output_, project, pch_basename, OBJECT_MANAGER);
@@ -176,6 +188,8 @@ load_project_settings (GAME::Mga::Project proj)
 
   if (this->output_.empty ())
     settings.get_value ("OutputPath", this->output_);
+
+  settings.get_value ("ExcludeMWC", this->exclude_mwc_);
 }
 
 //
@@ -186,4 +200,5 @@ save_project_settings (GAME::Mga::Project proj)
 {
   GAME::Mga::Project_Settings settings (proj, "GAME/ExtensionClasses");
   settings.set_value ("OutputPath", this->output_);
+  settings.set_value ("ExcludeMWC", this->exclude_mwc_);
 }

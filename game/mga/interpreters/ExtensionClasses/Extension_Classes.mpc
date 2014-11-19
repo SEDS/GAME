@@ -7,6 +7,7 @@ project (GAME_ExtensionClassesComponent) : game_codegenerationkit, game_mga_inte
   pch_source = StdAfx.cpp
 
   Source_Files {
+    Main_Dialog.cpp
     Atom_Class_Definition.cpp
     Class_Definition.cpp
     Connection_Class_Definition.cpp
