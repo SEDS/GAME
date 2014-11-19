@@ -65,43 +65,36 @@ T create_root_object (P parent, const Meta::FCO_in metafco)
   return mga_type.p;
 }
 
-template <typename TAG_TYPE>
-struct is_folder_type
-{
-  static const bool result_type = false;
+template <typename TARGET_TAG, typename PARENT_TAG>
+struct factory_t { 
+  template <typename T, typename P>
+  T operator () (P parent, const std::string & metaname) { 
+    return create_root_object <T> (parent, metaname); 
+  }
 };
 
-template < >
-struct is_folder_type <GAME::Mga::folder_tag_t>
-{
-  static const bool result_type = true;
+template <typename PARENT_TAG>
+struct factory_t <folder_tag_t, PARENT_TAG> {
+  template <typename T, typename P>
+  T operator () (P parent, const std::string & metaname) { 
+    return create_folder <T> (parent, metaname); 
+  }
 };
 
-template <typename TAG_TYPE>
-struct is_model_type
-{
-  static const bool result_type = false;
-};
-
-template < >
-struct is_model_type <GAME::Mga::model_tag_t>
-{
-  static const bool result_type = true;
+template <typename TARGET_TAG>
+struct factory_t <TARGET_TAG, model_tag_t> {
+  template <typename T, typename P>
+  T operator () (P parent, const std::string & metaname) { 
+    return create_object <T> (parent, metaname); 
+  }
 };
 
 template <typename T, typename P>
 T create (P * parent, const std::string & metaname)
 {
-  // If the type we want to create is a Folder, use create_folder
-  if (is_folder_type <T::impl_type::type_tag>::result_type)
-    return create_folder <T> (parent, metaname);
-
-  // If the parent is a Model, use create_object
-  if (is_model_type <P::type_tag>::result_type)
-    return create_object <T> (parent, metaname);
-
-  // Otherwise, use create_root_object
-  return create_root_object <T> (parent, metaname);
+  factory_t <typename T::impl_type::type_tag, typename P::type_tag> factory;
+  // Not sure why I can't just call factory <T> (...) here, get C2275 compilation errors
+  return factory.operator() <T> (parent, metaname);
 }
 
 //

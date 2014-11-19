@@ -279,79 +279,8 @@ private:
     // Insert the item into the seen list.
     this->seen_.insert (item);
 
-    const std::string parent_type = item->metaname ();
-    const std::string parent = item->name ();
-    const std::string method = this->self_->metaname () == "Folder" ? "create_folder" : (parent_type == "Model" ? "create_object" : "create_root_object");
-
-    this->hfile_
-      << "static " << this->self_->name () << " _create (const " << parent << "_in parent);";
-
-    this->sfile_
-      << function_header_t ("_create (const " + parent + "_in)")
-      << this->self_->name () << " " << this->self_->classname () << "::_create (const " << parent << "_in parent)"
-      << "{"
-      << "return ::GAME::Mga::create < " << this->self_->name () << " > (parent, " << this->self_->name () << "_Impl::metaname);"
-      << "}";
-
-    if (this->self_->metaname () == "Connection")
-      this->generate_connection_overload (item);
-  }
-
-  //
-  // generate_connection_overload
-  //
-  void generate_connection_overload (Object_Class_Definition * item)
-  {
-    // Since we know that we're a Connection, we need to identify the src and dst types
-    GAME::Mga::FCO fco = this->self_->get_object ();
-    std::vector <GAME::Mga::Connection> association_class;
-
-    if (!fco->in_connections ("AssociationClass", association_class))
-      return;
-
-    // Get the Connector element from the association class. It can be
-    // either the source or the destination of the connection.
-    GAME::Mga::Connection ac = association_class.front ();
-    GAME::Mga::FCO connector;
-
-    if (ac->src ()->is_equal_to (fco))
-      connector = ac->dst ();
-    else
-      connector = ac->src ();
-
-    // Get the source model element for the connection.
-    std::vector <GAME::Mga::Connection> src_to_connector;
-    if (0 == connector->in_connections ("SourceToConnector", src_to_connector))
-      return;
-
-    GAME::Mga::FCO src = src_to_connector.front ()->src ();
-
-    while (src->type () == OBJTYPE_REFERENCE)
-      src = GAME::Mga::Reference::_narrow (src)->refers_to ();
-
-    // Get the destination model element for the connection.
-    std::vector <GAME::Mga::Connection> connector_to_dst;
-    if (0 == connector->in_connections ("ConnectorToDestination", connector_to_dst))
-      return;
-
-    GAME::Mga::FCO dst = connector_to_dst.front ()->dst ();
-    while (dst->type () == OBJTYPE_REFERENCE)
-      dst = GAME::Mga::Reference::_narrow (dst)->refers_to ();
-
-    // Now we know the src and dst types, so lets generate the _create signature
-    const std::string parent = item->name ();
-    const std::string src_name = src->name ();
-    const std::string dst_name = dst->name ();
-
-    this->hfile_
-      << "static " << this->self_->name () << " _create (const " << parent << "_in parent, " << src_name << "_in src, " << dst_name << "_in dst);";
-
-    this->sfile_
-      << function_header_t ("_create (const " + parent + "_in, " + src_name + "_in src, " + dst_name + "_in dst)")
-      << this->self_->name () << " " << this->self_->classname () << "::_create (const " << parent << "_in parent, " << src_name << "_in src, " << dst_name << "_in dst)"
-      << "{"
-      << "return ::GAME::Mga::Connection_Impl::_create (parent, " << this->self_->name () << "_Impl::metaname, src, dst);"
-      << "}";
+    // Use the Template Method pattern to generate the appropriate _create implementation
+    this->self_->generate_create_method (this->hfile_, this->sfile_, item);
   }
 
   std::ostream & hfile_;
@@ -744,5 +673,24 @@ generate_parent_method (const Generation_Context & ctx, Object_Class_Definition 
     << parent << " " << this->classname_ << "::" << parent_method << " (void)"
     << "{"
     << "return " << parent << "::_narrow (this->parent ());"
+    << "}";
+}
+
+//
+// generate_create
+//
+void Object_Class_Definition::
+generate_create_method (std::ostream & hfile, std::ostream & sfile, Object_Class_Definition * item)
+{
+  const std::string name = item->name ();
+
+  hfile
+    << "static " << this->name () << " _create (const " << name << "_in parent);";
+
+  sfile
+    << function_header_t ("_create (const " + name + "_in)")
+    << this->name () << " " << this->classname () << "::_create (const " << name << "_in parent)"
+    << "{"
+    << "return ::GAME::Mga::create < " << this->name () << " > (parent, " << this->name () << "_Impl::metaname);"
     << "}";
 }
