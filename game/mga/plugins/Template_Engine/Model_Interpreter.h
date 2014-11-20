@@ -47,7 +47,7 @@ public:
    */
   void interpret (GAME::Mga::Project project,
                   GAME::Mga::FCO target,
-                  const std::vector <GAME::Mga::FCO> & selected,
+                  GAME::Mga::Collection_T <GAME::Mga::FCO> & selected,
                   long flags);
 
 private:

@@ -71,7 +71,7 @@ public:
    */
   void invoke (Project project,
                FCO_in current,
-               const std::vector <FCO> & selected,
+               Collection_T <FCO> & selected,
                long param);
 
   /**

@@ -66,7 +66,7 @@ Gme_Model_Interpreter (const std::string & progid)
 void Gme_Model_Interpreter::
 interpret (GAME::Mga::Project project,
            GAME::Mga::FCO target,
-           const std::vector <GAME::Mga::FCO> & selected,
+           GAME::Mga::Collection_T <GAME::Mga::FCO> & selected,
            long flags)
 {
   this->interpreter_->initialize (project);
