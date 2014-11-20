@@ -190,6 +190,15 @@ void Collection_T <T>::items (std::vector <T> & out) const
 
 template <typename T>
 GAME_INLINE
+std::vector <T> Collection_T <T>::items (void) const
+{
+  std::vector <T> out;
+  iter_to_collection (this->iter_.p, out, this->size_);
+  return out;
+}
+
+template <typename T>
+GAME_INLINE
 T Collection_T <T>::first (void) const
 {
   return * iterator_type (this->iter_.p, this->begin_, this->end_);
