@@ -68,8 +68,7 @@ Invoke (IMgaProject * proj, IMgaFCOs * fcos, long flags)
 
   try
   {
-    std::vector <FCO> selected;
-    GAME::Mga::iter_to_collection (fcos, selected);
+    GAME::Mga::Collection_T <FCO> selected (fcos);
 
     return this->impl_.invoke (Project (proj), selected, flags);
   }
@@ -99,8 +98,7 @@ InvokeEx (IMgaProject * proj, IMgaFCO * current, IMgaFCOs * fcos, long flags)
 
     FCO curr (current);
 
-    std::vector <FCO> selected;
-    GAME::Mga::iter_to_collection (fcos, selected);
+    GAME::Mga::Collection_T <FCO> selected (fcos);
 
     // We need to commit this transaction so the implementation can
     // create its own transaction. In the future, the implementation
