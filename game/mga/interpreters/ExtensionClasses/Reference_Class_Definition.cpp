@@ -106,8 +106,7 @@ generate_refers_to_method (const Generation_Context & ctx, Object_Class_Definiti
 {
   const std::string type_name = item->name ();
   const std::string test_method_name = type_name + "_is_nil";
-  const std::string get_method_name = "get_" + type_name;
-  const std::string set_method_name = "set_" + type_name;
+  const std::string method = "refers_to_" + type_name;
 
   ctx.hfile_
     << std::endl
@@ -116,8 +115,8 @@ generate_refers_to_method (const Generation_Context & ctx, Object_Class_Definiti
     << " */" << std::endl
     << "///@{" << std::endl
     << "bool " << test_method_name << " (void) const;"
-    << type_name << " " << get_method_name << " (void) const;"
-    << "void " << set_method_name << " (" << type_name << "_in item);"
+    << type_name << " " << method << " (void) const;"
+    << "void " << method << " (" << type_name << "_in item);"
     << "///@}" << std::endl;
 
   ctx.sfile_
@@ -126,13 +125,13 @@ generate_refers_to_method (const Generation_Context & ctx, Object_Class_Definiti
     << "{"
     << "return !this->refers_to ().is_nil ();"
     << "}"
-    << function_header_t (set_method_name)
-    << "void " << this->classname_ << "::" << set_method_name << " (" << type_name << "_in item)"
+    << function_header_t (method)
+    << "void " << this->classname_ << "::" << method << " (" << type_name << "_in item)"
     << "{"
     << "this->refers_to (item);"
     << "}"
-    << function_header_t (get_method_name)
-    << type_name << " " << this->classname_ << "::" << get_method_name << " (void) const"
+    << function_header_t (method)
+    << type_name << " " << this->classname_ << "::" << method << " (void) const"
     << "{"
     << "return " << type_name << "::_narrow (this->refers_to ());"
     << "}";
