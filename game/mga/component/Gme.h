@@ -4,9 +4,9 @@
 
 
  /* File created by MIDL compiler version 8.00.0595 */
-/* at Thu Sep 25 18:27:32 2014
+/* at Thu Nov 20 10:58:54 2014
  */
-/* Compiler settings for C:\Program Files\GME\\Interfaces\Gme.idl:
+/* Compiler settings for C:\Program Files (x86)\GME\Interfaces\Gme.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0595 
     protocol : dce , ms_ext, c_ext, robust
     error checks: allocation ref bounds_check enum stub_data 
