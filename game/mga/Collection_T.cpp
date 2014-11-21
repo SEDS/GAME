@@ -194,6 +194,7 @@ std::vector <T> Collection_T <T>::items (void) const
 {
   std::vector <T> out;
   iter_to_collection (this->iter_.p, out, this->size_);
+  
   return out;
 }
 
