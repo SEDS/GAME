@@ -66,33 +66,41 @@ T create_root_object (P parent, const Meta::FCO_in metafco)
 }
 
 template <typename TARGET_TAG, typename PARENT_TAG>
-struct factory_t { 
+struct factory_t
+{ 
   template <typename T, typename P>
-  T operator () (P parent, const std::string & metaname) { 
+  T operator () (P parent, const std::string & metaname)
+  { 
     return create_root_object <T> (parent, metaname); 
   }
 };
 
 template <typename PARENT_TAG>
-struct factory_t <folder_tag_t, PARENT_TAG> {
+struct factory_t <folder_tag_t, PARENT_TAG>
+{
   template <typename T, typename P>
-  T operator () (P parent, const std::string & metaname) { 
+  T operator () (P parent, const std::string & metaname)
+  { 
     return create_folder <T> (parent, metaname); 
   }
 };
 
 template < >
-struct factory_t <folder_tag_t, model_tag_t> {
+struct factory_t <folder_tag_t, model_tag_t>
+{
   template <typename T, typename P>
-  T operator () (P parent, const std::string & metaname) { 
+  T operator () (P parent, const std::string & metaname)
+  { 
     return create_folder <T> (parent, metaname); 
   }
 };
 
 template <typename TARGET_TAG>
-struct factory_t <TARGET_TAG, model_tag_t> {
+struct factory_t <TARGET_TAG, model_tag_t>
+{
   template <typename T, typename P>
-  T operator () (P parent, const std::string & metaname) { 
+  T operator () (P parent, const std::string & metaname)
+  { 
     return create_object <T> (parent, metaname); 
   }
 };
