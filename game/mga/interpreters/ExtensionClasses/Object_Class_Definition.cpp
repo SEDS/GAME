@@ -279,20 +279,8 @@ private:
     // Insert the item into the seen list.
     this->seen_.insert (item);
 
-    const std::string parent_type = item->metaname ();
-    const std::string parent = item->name ();
-    const std::string method = this->self_->metaname () == "Folder" ? "create_folder" : (parent_type == "Model" ? "create_object" : "create_root_object");
-
-    this->hfile_
-      << "static " << this->self_->name () << " _create (const " << parent << "_in parent);";
-
-    this->sfile_
-      << function_header_t ("_create (const " + parent + "_in)")
-      << this->self_->name () << " " << this->self_->classname () << "::_create (const " << parent << "_in parent)"
-      << "{"
-      << "return ::GAME::Mga::" << method
-      << " < " << this->self_->name () << " > (parent, " << this->self_->name () << "_Impl::metaname);"
-      << "}";
+    // Use the Template Method pattern to generate the appropriate _create implementation
+    this->self_->generate_create_method (this->hfile_, this->sfile_, item);
   }
 
   std::ostream & hfile_;
@@ -685,5 +673,24 @@ generate_parent_method (const Generation_Context & ctx, Object_Class_Definition 
     << parent << " " << this->classname_ << "::" << parent_method << " (void)"
     << "{"
     << "return " << parent << "::_narrow (this->parent ());"
+    << "}";
+}
+
+//
+// generate_create
+//
+void Object_Class_Definition::
+generate_create_method (std::ostream & hfile, std::ostream & sfile, Object_Class_Definition * item)
+{
+  const std::string name = item->name ();
+
+  hfile
+    << "static " << this->name () << " _create (const " << name << "_in parent);";
+
+  sfile
+    << function_header_t ("_create (const " + name + "_in)")
+    << this->name () << " " << this->classname () << "::_create (const " << name << "_in parent)"
+    << "{"
+    << "return ::GAME::Mga::create < " << this->name () << " > (parent, " << this->name () << "_Impl::metaname);"
     << "}";
 }

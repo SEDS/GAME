@@ -40,6 +40,9 @@ public:
   // Generate the definition for this model element.
   virtual void generate_definition (const Generation_Context & ctx);
 
+  // Generate the _create method.
+  virtual void generate_create_method (std::ostream & hfile, std::ostream & sfile, Object_Class_Definition * parent);
+
 private:
   /// Source model element for the connection.
   FCO_Class_Definition * src_;

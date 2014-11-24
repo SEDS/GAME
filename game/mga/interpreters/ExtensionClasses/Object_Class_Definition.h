@@ -64,6 +64,11 @@ public:
    */
   virtual void generate_definition (const Generation_Context & ctx) = 0;
 
+  /**
+   * Template method to generate the appropriate _create methods.
+   */
+  virtual void generate_create_method (std::ostream & hfile, std::ostream & sfile, Object_Class_Definition * parent);
+
   /// Test if the object is abstract.
   bool is_abstract (void) const;
 

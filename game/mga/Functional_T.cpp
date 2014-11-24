@@ -65,6 +65,54 @@ T create_root_object (P parent, const Meta::FCO_in metafco)
   return mga_type.p;
 }
 
+template <typename TARGET_TAG, typename PARENT_TAG>
+struct factory_t
+{ 
+  template <typename T, typename P>
+  T operator () (P parent, const std::string & metaname)
+  { 
+    return create_root_object <T> (parent, metaname); 
+  }
+};
+
+template <typename PARENT_TAG>
+struct factory_t <folder_tag_t, PARENT_TAG>
+{
+  template <typename T, typename P>
+  T operator () (P parent, const std::string & metaname)
+  { 
+    return create_folder <T> (parent, metaname); 
+  }
+};
+
+template < >
+struct factory_t <folder_tag_t, model_tag_t>
+{
+  template <typename T, typename P>
+  T operator () (P parent, const std::string & metaname)
+  { 
+    return create_folder <T> (parent, metaname); 
+  }
+};
+
+template <typename TARGET_TAG>
+struct factory_t <TARGET_TAG, model_tag_t>
+{
+  template <typename T, typename P>
+  T operator () (P parent, const std::string & metaname)
+  { 
+    return create_object <T> (parent, metaname); 
+  }
+};
+
+template <typename T, typename P>
+T create (P * parent, const std::string & metaname)
+{
+  factory_t <typename T::impl_type::type_tag, typename P::type_tag> factory;
+  // Not sure why I can't just call factory <T> (...) here, get C2275 compilation errors
+  return factory.operator() <T> (parent, metaname);
+}
+
 //
 // create_object
 //

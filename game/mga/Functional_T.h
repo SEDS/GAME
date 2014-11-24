@@ -21,6 +21,9 @@ namespace Mga
 {
 
 template <typename T, typename P>
+T create (P * parent, const std::string & metaname);
+
+template <typename T, typename P>
 T create_root_folder (P parent, const Meta::Folder_in meta);
 
 template <typename T, typename P>
