@@ -17,6 +17,7 @@
 #include "Object_Manager.h"
 #include "Object_Builder.h"
 #include "RootFolder_Generator.h"
+#include "Include_Header_Visitor.h"
 
 #include "game/mga/Atom.h"
 #include "game/mga/Model.h"
@@ -107,6 +108,10 @@ invoke_ex (GAME::Mga::Project project,
     for (const auto & entry : OBJECT_MANAGER->objects ())
       ecv.generate (entry.item ());
 
+    // Generate the include files for the extension classes
+    Include_Header_Visitor include_visitor (this->output_);
+    root->accept (&include_visitor);
+
     // Generate workspace, project, and precompiled header files.
     GAME::Mga::Mwc_File_Generator mwc_gen;
     mwc_gen.generate (this->output_, project);
@@ -129,8 +134,8 @@ invoke_ex (GAME::Mga::Project project,
     GAME::Mga::Impl_Factory_Generator impl_factory_gen;
     impl_factory_gen.generate (this->output_, project, pch_basename, OBJECT_MANAGER);
 
-    GAME::Mga::Top_Level_File_Generator top_level_gen;
-    top_level_gen.generate (this->output_, project, OBJECT_MANAGER);
+    //GAME::Mga::Top_Level_File_Generator top_level_gen;
+    //top_level_gen.generate (this->output_, project, OBJECT_MANAGER);
     
     GAME::Mga::Export_File_Generator export_file_gen;
     export_file_gen.generate (this->output_, project);
