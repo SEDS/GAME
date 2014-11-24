@@ -108,10 +108,6 @@ invoke_ex (GAME::Mga::Project project,
     for (const auto & entry : OBJECT_MANAGER->objects ())
       ecv.generate (entry.item ());
 
-    // Generate the include files for the extension classes
-    //Include_Header_Visitor include_visitor (this->output_);
-    //root->accept (&include_visitor);
-
     // Generate workspace, project, and precompiled header files.
     GAME::Mga::Mwc_File_Generator mwc_gen;
     mwc_gen.generate (this->output_, project);

@@ -34,7 +34,7 @@ project (GAME_ExtensionClassesComponent) : game_codegenerationkit, game_mga_inte
     RootFolder_Generator.cpp
     Set_Class_Definition.cpp
     Visitor_Generator.cpp
-    Include_Header_Visitor.cpp
+    Top_Level_File_Generator.cpp
   }
 
   Resource_Files {
