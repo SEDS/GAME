@@ -15,10 +15,17 @@
 
 #include <set>
 #include <string>
+#include <iostream>
 #include "game/mga/Project.h"
+
+#include "ace/RW_Thread_Mutex.h"
+#include "ace/Hash_Map_Manager_T.h"
+#include "ace/Null_Mutex.h"
+
 
 // Forward decl.
 class Object_Manager;
+class Object_Class_Definition;
 
 namespace GAME
 {
@@ -51,6 +58,21 @@ public:
                  const Project & proj,
                  const Object_Manager * obj_mgr);
 
+private:
+  std::ofstream * allocate_stream (const Object_in item,
+                                   const std::string & location);
+
+  void finialize_stream (std::ofstream * hfile);
+
+  void generate_top (const std::string & location,
+                     const Project & proj,
+                     const Object_Manager * obj_mgr);
+
+  typedef
+    ACE_Hash_Map_Manager <std::string,
+                          std::ofstream *,
+                          ACE_RW_Thread_Mutex> map_type;
+  map_type streams_;
 };
 
 }
