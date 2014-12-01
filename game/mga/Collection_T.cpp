@@ -133,6 +133,14 @@ Collection_T <T>::~Collection_T (void)
 
 template <typename T>
 GAME_INLINE
+::ATL::CComPtr <typename Collection_T <T>::interface_type>
+Collection_T <T>::impl (void)
+{
+  return this->iter_;
+}
+
+template <typename T>
+GAME_INLINE
 size_t Collection_T <T>::count (void)
 {
   if (this->count_ != Collection_T <T>::unknown_count)
