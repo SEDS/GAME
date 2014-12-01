@@ -70,9 +70,28 @@ std::ofstream * Top_Level_File_Generator::
 allocate_stream (const Object_in item,
                  const std::string & location)
 {
-  const std::string filename = location + "/" + item->path ("/", false) + "/" + item->name () + ".h";
+  std::string filename = location + "/" + item->path ("/", false) + "/";
+  std::string macro_guard = "_" + item->path ("_", false);
+  const std::string suffix = "ParadigmSheet";
 
-  std::string macro_guard = "_" + item->path ("_", false) + "_H_";
+  // If we have a sheet folder or a paradigm sheet ending in "ParadigmSheet",
+  // use the names as-is.  Otherwise, append "ParadigmSheet" to the filename.
+  if (item->type () == OBJTYPE_FOLDER)
+  {
+    filename += item->name () + ".h";
+    macro_guard += "_H_";
+  }
+  else if (std::equal (suffix.rbegin (), suffix.rend (), item->name ().rbegin ()))
+  {
+    filename += item->name () + ".h";
+    macro_guard += "_H_";
+  }
+  else
+  {
+    filename += item->name () + suffix + ".h";
+    macro_guard += suffix + "_H_";
+  }
+
   std::transform (macro_guard.begin (),
                   macro_guard.end (),
                   macro_guard.begin (),
