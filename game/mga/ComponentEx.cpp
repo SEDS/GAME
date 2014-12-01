@@ -44,25 +44,12 @@ parameter (const std::string & param, const std::string & value)
 //
 void ComponentEx_Impl::invoke (Project project,
                                FCO_in current,
-                               const std::vector <FCO> & selected,
+                               Collection_T <FCO> & selected,
                                long param)
 {
-  // Allocate a collection of MgaFCOs.
-  CComBSTR progid ("Mga.MgaFCOs");
-
-  CComPtr <IMgaFCOs> selected_raw;
-  VERIFY_HRESULT (selected_raw.CoCreateInstance (progid));
-
-  // Insert the selected FCOs into the collection.
-  std::vector <FCO>::const_iterator
-    iter = selected.begin (), iter_end = selected.end ();
-
-  for ( ; iter != iter_end; ++ iter)
-    VERIFY_HRESULT (selected_raw->Insert ((*iter)->impl (), 0));
-
   VERIFY_HRESULT (this->impl ()->InvokeEx (project.impl (),
                                            current != 0 ? current->impl () : 0,
-                                           selected_raw,
+                                           selected.impl (),
                                            param));
 }
 

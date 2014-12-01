@@ -47,7 +47,7 @@ GAME_Template_Engine::~GAME_Template_Engine (void)
 int GAME_Template_Engine::
 invoke_ex (GAME::Mga::Project project,
            GAME::Mga::FCO_in focus,
-           std::vector <GAME::Mga::FCO> & selected,
+           GAME::Mga::Collection_T <GAME::Mga::FCO> & selected,
            long flags)
 {
   try
@@ -119,7 +119,7 @@ invoke_ex (GAME::Mga::Project project,
 int GAME_Template_Engine::
 handle_interpret (GAME::Mga::Project project,
                   GAME::Mga::FCO_in focus,
-                  std::vector <GAME::Mga::FCO> & selected,
+                  GAME::Mga::Collection_T <GAME::Mga::FCO> & selected,
                   long flags,
                   const char * config_file,
                   const char * prog_id,
@@ -189,7 +189,7 @@ handle_interpret (GAME::Mga::Project project,
 int GAME_Template_Engine::
 handle_generate (GAME::Mga::Project project,
                  GAME::Mga::FCO_in fco,
-                 std::vector <GAME::Mga::FCO> & selected,
+                 GAME::Mga::Collection_T <GAME::Mga::FCO> & selected,
                  long flags,
                  const char * config_file)
 {

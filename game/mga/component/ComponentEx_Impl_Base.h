@@ -20,6 +20,7 @@
 #include "game/config.h"
 
 #include "Component_export.h"
+#include "Collection_T.h"
 
 namespace GAME
 {
@@ -45,12 +46,12 @@ public:
   int initialize (Project project);
 
   int invoke (Project project,
-              std::vector <FCO> & selected,
+              Collection_T <FCO> & selected,
               long flags);
 
   int invoke_ex (Project project,
                  FCO_in fco,
-                 std::vector <FCO> & selected,
+                 Collection_T <FCO> & selected,
                  long flags);
 
   int invoke_object_ex (Project project,

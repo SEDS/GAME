@@ -88,6 +88,9 @@ public:
   /// Test if the collection is empty.
   bool is_empty (void) const;
 
+  /// Get the underlying pointer to the collection
+  ::ATL::CComPtr <interface_type> impl (void);
+
 private:
   /// Pointer to the collection.
   ::ATL::CComPtr <interface_type> iter_;

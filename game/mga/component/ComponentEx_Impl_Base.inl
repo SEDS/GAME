@@ -48,7 +48,7 @@ int ComponentEx_Impl_Base::initialize (Project project)
 GAME_INLINE
 int ComponentEx_Impl_Base::
 invoke (Project project,
-        std::vector <FCO> & selected,
+        Collection_T <FCO> & selected,
         long flags)
 {
   return 0;
@@ -61,7 +61,7 @@ GAME_INLINE
 int ComponentEx_Impl_Base::
 invoke_ex (Project project,
            FCO_in fco,
-           std::vector <FCO> & selected,
+           Collection_T <FCO> & selected,
            long flags)
 {
   return 0;
