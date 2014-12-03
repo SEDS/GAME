@@ -72,7 +72,7 @@ allocate_stream (const Object_in item,
 {
   std::string filename = location + "/" + item->path ("/", false) + "/";
   std::string macro_guard = "_" + item->path ("_", false);
-  const std::string suffix = "ParadigmSheet";
+  static const std::string suffix = "ParadigmSheet";
 
   // If we have a sheet folder or a paradigm sheet ending in "ParadigmSheet",
   // use the names as-is.  Otherwise, append "ParadigmSheet" to the filename.
