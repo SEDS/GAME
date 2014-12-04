@@ -7,12 +7,7 @@
 #include "Object_Manager.h"
 #include "Model.h"
 
-#include "game/mga/component/Console_Service.h"
-
 #include <fstream>
-#include <iostream>
-#include <string>
-#include <sstream>
 
 namespace GAME
 {

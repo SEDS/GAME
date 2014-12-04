@@ -15,13 +15,7 @@
 
 #include <set>
 #include <string>
-#include <iostream>
 #include "game/mga/Project.h"
-
-#include "ace/RW_Thread_Mutex.h"
-#include "ace/Hash_Map_Manager_T.h"
-#include "ace/Null_Mutex.h"
-
 
 // Forward decl.
 class Object_Manager;
