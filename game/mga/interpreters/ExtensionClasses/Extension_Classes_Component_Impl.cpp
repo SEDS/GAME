@@ -17,7 +17,6 @@
 #include "Object_Manager.h"
 #include "Object_Builder.h"
 #include "RootFolder_Generator.h"
-#include "Include_Header_Visitor.h"
 
 #include "game/mga/Atom.h"
 #include "game/mga/Model.h"
