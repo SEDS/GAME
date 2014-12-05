@@ -51,6 +51,26 @@ public:
                  const Project & proj,
                  const Object_Manager * obj_mgr);
 
+private:
+  // Walk folders/sheets to write the include statements
+  void walk (const Folder_in folder, const Object_Manager * obj_mgr, std::ofstream & outfile);
+  void walk (const Model_in sheet, const Object_Manager * obj_mgr, std::ofstream & outfile);
+
+  // Generate a new include header
+  void generate (const Folder_in root, const Object_Manager * obj_mgr, const std::string & location);
+  void generate (const Model_in sheet, const Object_Manager * obj_mgr, const std::string & location);
+
+  std::string get_filename (const Object_in item, const std::string & location);
+  std::string get_macro_guard (const Object_in item);
+  bool needs_suffix (const Object_in item);
+
+  void init_stream (std::ofstream & outfile,
+                    const std::string & macro_guard);
+
+  void fini_stream (std::ofstream & outfile,
+                    const std::string & macro_guard);
+
+  static const std::string suffix_;
 };
 
 }
