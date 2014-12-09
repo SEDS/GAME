@@ -47,6 +47,9 @@ private:
 
   /// The target location for the generation.
   std::string output_;
+
+  /// Flag to control excluding the MWC file generation
+  bool exclude_mwc_;
 };
 
 #endif  // !defined _EXTENSION_CLASSES_COMPONENT_IMPL_H_
