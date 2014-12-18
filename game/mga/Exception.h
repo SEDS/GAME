@@ -112,6 +112,22 @@ public:
   virtual ~Invalid_Cast (void);
 };
 
+/**
+ * @class Invalid_Extraction
+ *
+ * Thrown when trying to get an element type from a collection
+ * fails.
+ **/
+class GAME_MGA_Export Invalid_Extraction : public Exception
+{
+public:
+  /// Default constructor.
+  Invalid_Extraction (void);
+
+  /// Destructor.
+  virtual ~Invalid_Extraction (void);
+};
+
 }
 }
 

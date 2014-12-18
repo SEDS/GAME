@@ -75,6 +75,7 @@ project (GAME_Mga) : acelib, game_lib {
 
   Template_Files {
     Collection_T.cpp
+    Collection_T_Impl.cpp
     Factory_T.cpp
     FCO_T.cpp
     Object_Filter_T.cpp
