@@ -13,7 +13,6 @@
 #ifndef _GAME_MGA_COLLECTION_T_IMPL_H_
 #define _GAME_MGA_COLLECTION_T_IMPL_H_
 
-#include "Gme_fwd.h"
 #include <string>
 
 namespace GAME
@@ -37,7 +36,7 @@ public:
   /// Destructor.
   ~Collection_T_Impl (void);
 
-  ATL::CComPtr <T> get (long index);
+  ::ATL::CComPtr <T> get (long index);
 
 private:
   /// Identify if the provided element has the right role
