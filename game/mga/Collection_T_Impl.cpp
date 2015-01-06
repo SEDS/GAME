@@ -9,6 +9,14 @@ namespace Mga
 
 template <typename T, typename ITER>
 GAME_INLINE
+Collection_T_Impl <T, ITER>::Collection_T_Impl (void)
+:  role_ ("")
+{
+
+}
+
+template <typename T, typename ITER>
+GAME_INLINE
 Collection_T_Impl <T, ITER>::Collection_T_Impl (ITER * iter)
 : iter_ (iter),
   role_ ("")

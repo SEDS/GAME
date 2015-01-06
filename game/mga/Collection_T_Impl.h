@@ -30,6 +30,7 @@ template <typename T, typename ITER>
 class Collection_T_Impl
 {
 public:
+  Collection_T_Impl (void);
   Collection_T_Impl (ITER * iter);
   Collection_T_Impl (ITER * iter, const std::string & role);
 
