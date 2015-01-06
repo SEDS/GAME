@@ -10,12 +10,10 @@ namespace Mga
 //
 template <typename T>
 GAME_INLINE
-Collection_T_Impl_Proxy <T>::Collection_T_Impl_Proxy (void)
+Collection_T_Impl_Proxy <T>::Collection_T_Impl_Proxy (impl_type & impl)
+: impl_ (impl)
 {
-  // The default implementation should never be called,
-  // since there is no way to know what template parameters
-  // should be provided to the underlying Collection_T_Impl
-  static_assert (false);
+
 }
 
 //
@@ -28,23 +26,43 @@ Collection_T_Impl_Proxy <T>::~Collection_T_Impl_Proxy (void)
 
 }
 
+template <typename T>
 GAME_INLINE
-Collection_T_Impl_Proxy <IMgaModel>::Collection_T_Impl_Proxy (Collection_T_Impl <IMgaModel, IMgaFCOs> & impl)
-: impl_ (impl)
-{
-
-}
-
-GAME_INLINE
-Collection_T_Impl_Proxy <IMgaModel>::~Collection_T_Impl_Proxy (void)
-{
-
-}
-
-::ATL::CComPtr <IMgaModel>
-Collection_T_Impl_Proxy <IMgaModel>::get (long length)
+::ATL::CComPtr <T>
+Collection_T_Impl_Proxy <T>::get (long length)
 {
   return this->impl_.get (length);
+}
+
+GAME_INLINE
+Collection_T_Impl_Proxy <IMgaConnection>::Collection_T_Impl_Proxy (Collection_T_Impl <IMgaConnection, IMgaFCOs> & impl)
+: fco_impl_ (impl),
+  use_fco_ (true)
+{
+
+}
+
+GAME_INLINE
+Collection_T_Impl_Proxy <IMgaConnection>::Collection_T_Impl_Proxy (Collection_T_Impl <IMgaConnection, IMgaConnPoints> & impl)
+: point_impl_ (impl),
+  use_fco_ (false)
+{
+
+}
+
+GAME_INLINE
+Collection_T_Impl_Proxy <IMgaConnection>::~Collection_T_Impl_Proxy (void)
+{
+
+}
+
+GAME_INLINE
+::ATL::CComPtr <IMgaConnection>
+Collection_T_Impl_Proxy <IMgaConnection>::get (long length)
+{
+  if (this->use_fco_)
+    return this->fco_impl_.get (length);
+  return this->point_impl_.get (length);
 }
 
 } // namespace GAME
