@@ -59,7 +59,10 @@ Collection_T <Part> Role_Impl::parts (void) const
   CComPtr <IMgaMetaParts> temps;
   VERIFY_HRESULT (this->impl ()->get_Parts (&temps));
 
-  return Collection_T <Part> (temps.p);
+  Collection_T_Impl <Part::interface_type, IMgaMetaParts> impl (temps.p);
+  Collection_T_Impl_Proxy <Part::interface_type> proxy (impl);
+
+  return Collection_T <Part> (proxy);
 }
 
 //

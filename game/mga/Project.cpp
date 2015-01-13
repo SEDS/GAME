@@ -444,7 +444,10 @@ Collection_T <Component> Project::addon_components (void) const
   CComPtr <IMgaComponents> temp;
   VERIFY_HRESULT (this->project_->get_AddOnComponents (&temp));
 
-  return Collection_T <Component> (temp.p);
+  Collection_T_Impl <Component::interface_type, IMgaComponents> impl (temp.p);
+  Collection_T_Impl_Proxy <Component::interface_type> proxy (impl);
+
+  return Collection_T <Component> (proxy);
 }
 
 //
@@ -466,7 +469,10 @@ Collection_T <ComponentEx> Project::addon_componentexs (void) const
   CComPtr <IMgaComponents> temp;
   VERIFY_HRESULT (this->project_->get_AddOnComponents (&temp));
 
-  return Collection_T <ComponentEx> (temp.p);
+  Collection_T_Impl <ComponentEx::interface_type, IMgaComponents> impl (temp.p);
+  Collection_T_Impl_Proxy <ComponentEx::interface_type> proxy (impl);
+
+  return Collection_T <ComponentEx> (proxy);
 }
 
 //

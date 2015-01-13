@@ -38,11 +38,12 @@ public:
   ~Collection_T_Impl (void);
 
   ::ATL::CComPtr <T> get (long index);
+  long count (void);
+
+  bool operator == (const Collection_T_Impl & rhs) const;
+  bool operator != (const Collection_T_Impl & rhs) const;
 
 private:
-  /// Identify if the provided element has the right role
-  bool correct_role (T * obj);
-
   /// The underlying COM pointer.
   ::ATL::CComPtr <ITER> iter_;
 

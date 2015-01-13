@@ -28,14 +28,7 @@ const Iterator <T> & Iterator <T>::operator = (const Iterator <T> & rhs)
 template <typename T>
 void Iterator <T>::get_current_item (void)
 {
-  ATL::CComPtr <typename collection_traits <iterator_type *>::interface_type> temp;
-  VERIFY_HRESULT (this->iter_->get_Item (this->index_, &temp));
-
-  // Store the members in a collection.
-  ATL::CComPtr <typename T::interface_type> item;
-  VERIFY_HRESULT (temp.QueryInterface (&item));
-
-  this->item_ = item.p;
+  this->item_ = this->iter_.get (this->index_).p;
 }
 
 template <typename T>
@@ -66,7 +59,7 @@ void Iterator <T>::find_last_item (void)
       // Now the state is correct, so break out of this function
       return;
     }
-    catch (GAME::Mga::Invalid_Cast &)
+    catch (GAME::Mga::Exception &)
     {
       --this->index_;
     }
@@ -87,7 +80,7 @@ void Iterator <T>::find_first_item (void)
       this->get_current_item ();
       return;
     }
-    catch (GAME::Mga::Invalid_Cast &)
+    catch (GAME::Mga::Exception &)
     {
       ++this->index_;
     }

@@ -70,7 +70,10 @@ Collection_T <Role> Model_Impl::roles (void) const
   CComPtr <IMgaMetaRoles> temps;
   VERIFY_HRESULT (this->impl ()->get_Roles (&temps));
 
-  return Collection_T <Role> (temps.p);
+  Collection_T_Impl <Role::interface_type, IMgaMetaRoles> impl (temps.p);
+  Collection_T_Impl_Proxy <Role::interface_type> proxy (impl);
+
+  return Collection_T <Role> (proxy);
 }
 
 //
@@ -96,7 +99,10 @@ children (void) const
   CComPtr <IMgaMetaFCOs> metas;
   VERIFY_HRESULT (this->impl ()->get_DefinedFCOs (&metas));
 
-  return Collection_T <Meta::FCO> (metas.p);
+  Collection_T_Impl <Meta::FCO::interface_type, IMgaMetaFCOs> impl (metas.p);
+  Collection_T_Impl_Proxy <Meta::FCO::interface_type> proxy (impl);
+
+  return Collection_T <Meta::FCO> (proxy);
 }
 
 //
@@ -132,7 +138,10 @@ Collection_T <Aspect> Model_Impl::aspects (void) const
   CComPtr <IMgaMetaAspects> temp;
   VERIFY_HRESULT (this->impl ()->get_Aspects (&temp));
 
-  return Collection_T <Aspect> (temp.p);
+  Collection_T_Impl <Aspect::interface_type, IMgaMetaAspects> impl (temp.p);
+  Collection_T_Impl_Proxy <Aspect::interface_type> proxy (impl);
+
+  return Collection_T <Aspect> (proxy);
 }
 
 }

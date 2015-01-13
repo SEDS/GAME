@@ -13,7 +13,10 @@ Collection_T <T> Set_Impl::members (void) const
   CComPtr <IMgaFCOs> fcos;
   VERIFY_HRESULT (this->impl ()->get_Members (&fcos));
 
-  return Collection_T <T> (fcos.p);
+  Collection_T_Impl <typename T::interface_type, IMgaFCOs> impl (fcos.p);
+  Collection_T_Impl_Proxy <typename T::interface_type> proxy (impl);
+
+  return Collection_T <T> (proxy);
 }
 
 }

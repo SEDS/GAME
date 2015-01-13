@@ -20,6 +20,7 @@
 #include "MetaModel.h"
 #include "Visitor.h"
 #include <sstream>
+#include "game/mga/Collection_T_Impl_Proxy.h"
 
 namespace GAME
 {
@@ -208,7 +209,10 @@ Collection_T <Attribute> FCO_Impl::attributes (void) const
   CComPtr <IMgaAttributes> coll;
   VERIFY_HRESULT (this->impl ()->get_Attributes (&coll));
 
-  return Collection_T <Attribute> (coll.p);
+  Collection_T_Impl <Attribute::interface_type, IMgaAttributes> impl (coll.p);
+  Collection_T_Impl_Proxy <Attribute::interface_type> proxy (impl);
+
+  return Collection_T <Attribute> (proxy);
 }
 
 //
@@ -294,7 +298,10 @@ registry (bool virtual_types) const
   VARIANT_BOOL vtypes = !virtual_types ? VARIANT_FALSE : VARIANT_TRUE;
   VERIFY_HRESULT (this->impl ()->get_Registry (vtypes, &rawnodes));
 
-  return Collection_T <RegistryNode> (rawnodes.p);
+  Collection_T_Impl <RegistryNode::interface_type, IMgaRegNodes> impl (rawnodes.p);
+  Collection_T_Impl_Proxy <RegistryNode::interface_type> proxy (impl);
+
+  return Collection_T <RegistryNode> (proxy);
 }
 
 //
@@ -317,7 +324,10 @@ Collection_T <Set> FCO_Impl::in_sets (void) const
   CComPtr <IMgaFCOs> temp;
   VERIFY_HRESULT (this->impl ()->get_MemberOfSets (&temp));
 
-  return Collection_T <Set> (temp.p);
+  Collection_T_Impl <Set::interface_type, IMgaFCOs> impl (temp.p);
+  Collection_T_Impl_Proxy <Set::interface_type> proxy (impl);
+
+  return Collection_T <Set> (proxy);
 }
 
 //
@@ -396,7 +406,10 @@ Collection_T <Reference> FCO_Impl::referenced_by (void) const
   CComPtr <IMgaFCOs> temp;
   VERIFY_HRESULT (this->impl ()->get_ReferencedBy (&temp));
 
-  return Collection_T <Reference> (temp.p);
+  Collection_T_Impl <Reference::interface_type, IMgaFCOs> impl (temp.p);
+  Collection_T_Impl_Proxy <Reference::interface_type> proxy (impl);
+
+  return Collection_T <Reference> (proxy);
 }
 
 }

@@ -54,7 +54,10 @@ Collection_T <Attribute> Aspect_Impl::attributes (void) const
   CComPtr <IMgaMetaAttributes> temps;
   VERIFY_HRESULT (this->impl ()->get_Attributes (&temps));
 
-  return Collection_T <Attribute> (temps.p);
+  Collection_T_Impl <Attribute::interface_type, IMgaMetaAttributes> impl (temps.p);
+  Collection_T_Impl_Proxy <Attribute::interface_type> proxy (impl);
+
+  return Collection_T <Attribute> (proxy);
 }
 
 //
@@ -76,7 +79,10 @@ Collection_T <Part> Aspect_Impl::parts (void) const
   CComPtr <IMgaMetaParts> temps;
   VERIFY_HRESULT (this->impl ()->get_Parts (&temps));
 
-  return Collection_T <Part> (temps.p);
+  Collection_T_Impl <Part::interface_type, IMgaMetaParts> impl (temps.p);
+  Collection_T_Impl_Proxy <Part::interface_type> proxy (impl);
+
+  return Collection_T <Part> (proxy);
 }
 
 }

@@ -69,9 +69,19 @@ public:
    * @param[in]     selected      Collection of selected FCOs.
    * @param[in]     param         User-defined parameter.
    */
+/*
   void invoke (Project project,
                FCO_in current,
                Collection_T <FCO> & selected,
+               long param);
+*/
+
+  /**
+   * Wrapper to create a collection_t correctly
+   */
+  void invoke (Project project,
+               FCO_in current,
+               IMgaFCOs * selected,
                long param);
 
   /**

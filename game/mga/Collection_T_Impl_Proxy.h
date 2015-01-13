@@ -13,8 +13,9 @@
 #ifndef _GAME_MGA_COLLECTION_T_IMPL_PROXY_H_
 #define _GAME_MGA_COLLECTION_T_IMPL_PROXY_H_
 
-//#include "game/mga/Mga.h"
+#include "game/mga/Mga.h"
 #include "game/mga/Collection_T_Impl.h"
+#include "Gme_fwd.h"
 
 namespace GAME
 {
@@ -159,7 +160,7 @@ public:
   typedef typename impl_type_t <T>::result_type impl_type;
 
   /// Default constructor.
-  Collection_T_Impl_Proxy (impl_type & impl);
+  Collection_T_Impl_Proxy (impl_type impl);
 
   /// Destructor.
   ~Collection_T_Impl_Proxy (void);
@@ -167,8 +168,13 @@ public:
   // The get method, passthrough to underlying Collection_T_Impl
   ::ATL::CComPtr <T> get (long length);
 
+  long count (void);
+
+  bool operator == (const Collection_T_Impl_Proxy & rhs) const;
+  bool operator != (const Collection_T_Impl_Proxy & rhs) const;
+
 private:
-  impl_type & impl_;
+  impl_type impl_;
 };
 
 /**
@@ -180,10 +186,16 @@ template < >
 class Collection_T_Impl_Proxy <IMgaConnection>
 {
 public:
-  Collection_T_Impl_Proxy (Collection_T_Impl <IMgaConnection, IMgaFCOs> & impl);
-  Collection_T_Impl_Proxy (Collection_T_Impl <IMgaConnection, IMgaConnPoints> & impl);
+  Collection_T_Impl_Proxy (Collection_T_Impl <IMgaConnection, IMgaFCOs> impl);
+  Collection_T_Impl_Proxy (Collection_T_Impl <IMgaConnection, IMgaConnPoints> impl);
   ~Collection_T_Impl_Proxy (void);
   ::ATL::CComPtr <IMgaConnection> get (long length);
+
+  long count (void);
+
+  bool operator == (const Collection_T_Impl_Proxy & rhs) const;
+  bool operator != (const Collection_T_Impl_Proxy & rhs) const;
+
 private:
   bool use_fco_;
   Collection_T_Impl <IMgaConnection, IMgaFCOs> fco_impl_;

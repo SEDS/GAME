@@ -91,7 +91,10 @@ Collection_T <Role> FCO_Impl::used_in_roles (void) const
   CComPtr <IMgaMetaRoles> temps;
   VERIFY_HRESULT (this->impl ()->get_UsedInRoles (&temps));
 
-  return Collection_T <Role> (temps.p);
+  Collection_T_Impl <Role::interface_type, IMgaMetaRoles> impl (temps.p);
+  Collection_T_Impl_Proxy <Role::interface_type> proxy (impl);
+
+  return Collection_T <Role> (proxy);
 }
 
 }
