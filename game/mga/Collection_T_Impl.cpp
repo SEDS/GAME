@@ -239,7 +239,7 @@ Collection_T_Impl <IMgaConnection, IMgaConnPoints>::get (long index)
     VERIFY_HRESULT (temp->get_ConnRole (&bstr));
 
     CW2A connrole (bstr);
-    if (!this->role_.compare (connrole.m_psz))
+    if (this->role_.compare (connrole.m_psz) != 0)
       throw Invalid_Extraction ();
   }
 
