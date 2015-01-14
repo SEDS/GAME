@@ -98,7 +98,7 @@ struct get_folder_children_t <T, false>
     Collection_T_Impl <typename T::interface_type, IMgaFCOs> impl (fcos.p);
     Collection_T_Impl_Proxy <typename T::interface_type> proxy (impl);
 
-    return Collection_T <T> (fcos.p);
+    return Collection_T <T> (proxy);
   }
 };
 
