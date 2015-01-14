@@ -351,13 +351,10 @@ int GAME_Automation_App::run (const std::string & progid)
   for (auto param : this->opts_.params_)
     interpreter->parameter (param.first, param.second);
 
-  GAME::Mga::FCO focus;
-  std::vector <GAME::Mga::FCO> selected;
-
   // Initialize the interpreter and then invoke it.
   interpreter->invoke (this->project_,
-                       focus.get (),
-                       selected,
+                       0,
+                       0,
                        0);
 
   return 0;
