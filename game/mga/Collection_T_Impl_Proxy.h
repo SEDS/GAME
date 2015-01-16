@@ -168,6 +168,9 @@ public:
   // The get method, passthrough to underlying Collection_T_Impl
   ::ATL::CComPtr <T> get (long length);
 
+  // Get the underlying collection
+  void * impl (void);
+
   long count (void);
 
   bool operator == (const Collection_T_Impl_Proxy & rhs) const;
@@ -192,6 +195,9 @@ public:
   ::ATL::CComPtr <IMgaConnection> get (long length);
 
   long count (void);
+
+  // Get the underlying collection
+  void * impl (void);
 
   bool operator == (const Collection_T_Impl_Proxy & rhs) const;
   bool operator != (const Collection_T_Impl_Proxy & rhs) const;

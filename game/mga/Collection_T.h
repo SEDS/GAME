@@ -91,10 +91,10 @@ public:
   /// Test if the collection is empty.
   bool is_empty (void) const;
 
-/*
   /// Get the underlying pointer to the collection
-  ::ATL::CComPtr <interface_type> impl (void);
-*/
+  /// Since it is abstracted by the proxy, the collection_t
+  /// does not know the concrete type
+  void * impl (void);
 
 private:
   /// The collection proxy

@@ -36,6 +36,14 @@ Collection_T_Impl_Proxy <T>::get (long length)
 
 template <typename T>
 inline
+void *
+Collection_T_Impl_Proxy <T>::impl (void)
+{
+  return this->impl_.impl ();
+}
+
+template <typename T>
+inline
 long
 Collection_T_Impl_Proxy <T>::count (void)
 {
@@ -95,6 +103,15 @@ Collection_T_Impl_Proxy <IMgaConnection>::count (void)
   if (this->use_fco_)
     return this->fco_impl_.count ();
   return this->point_impl_.count ();
+}
+
+inline
+void *
+Collection_T_Impl_Proxy <IMgaConnection>::impl (void)
+{
+  if (this->use_fco_)
+    return this->fco_impl_.impl ();
+  return this->point_impl_.impl ();
 }
 
 inline

@@ -131,15 +131,13 @@ Collection_T <T>::~Collection_T (void)
 
 }
 
-/*
 template <typename T>
 GAME_INLINE
-::ATL::CComPtr <typename Collection_T <T>::interface_type>
+void *
 Collection_T <T>::impl (void)
 {
-  return this->iter_;
+  return this->iter_.impl ();
 }
-*/
 
 template <typename T>
 GAME_INLINE

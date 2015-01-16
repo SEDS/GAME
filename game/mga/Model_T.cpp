@@ -158,8 +158,8 @@ Collection_T <T> Model_Impl::children (const std::string & type) const
   CComBSTR bstr (type.length (), type.c_str ());
   VERIFY_HRESULT (this->impl ()->GetChildrenOfKind (bstr, &fcos));
 
-  Collection_T_Impl <typname T::interface_type, IMgaFCOs> impl (fcos.p);
-  Collection_T_Impl_Proxy <typaname T::interface_type> proxy (impl);
+  Collection_T_Impl <typename T::interface_type, IMgaFCOs> impl (fcos.p);
+  Collection_T_Impl_Proxy <typename T::interface_type> proxy (impl);
 
   return Collection_T <T> (proxy);
 }

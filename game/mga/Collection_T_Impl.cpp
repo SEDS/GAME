@@ -201,6 +201,14 @@ Collection_T_Impl <T, ITER>::get (long index)
 
 template <typename T, typename ITER>
 inline
+ITER *
+Collection_T_Impl <T, ITER>::impl (void)
+{
+  return this->iter_.p;
+}
+
+template <typename T, typename ITER>
+inline
 long
 Collection_T_Impl <T, ITER>::count (void)
 {

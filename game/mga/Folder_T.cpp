@@ -145,7 +145,10 @@ Collection_T <T> Folder_Impl::children (const std::string & type) const
   CComBSTR bstr (type.length (), type.c_str ());
   VERIFY_HRESULT (this->impl ()->GetChildrenOfKind (bstr, &fcos));
 
-  return Collection_T <T> (fcos.p);
+  Collection_T_Impl <typename T::interface_type, IMgaFCOs> impl (fcos.p);
+  Collection_T_Impl_Proxy <typename T::interface_type> proxy (impl);
+
+  return Collection_T <T> (proxy);
 }
 
 //
@@ -224,13 +227,16 @@ folders (const std::string & type, std::vector <T> & children) const
   CComPtr <IMgaFolders> folders;
   VERIFY_HRESULT (this->impl ()->get_ChildFolders (&folders));
 
-  for (Folder folder : Collection_T <Folder> (folders.p))
+  Collection_T_Impl <typename T::interface_type, IMgaFolders> impl (folders.p);
+  Collection_T_Impl_Proxy <typename T::interface_type> proxy (impl);
+
+  for (Folder folder : Collection_T <Folder> (proxy))
   {
     try
     {
       children.push_back (T::_narrow (folder));
     }
-    catch (GAME::Mga::Invalid_Cast &)
+    catch (GAME::Mga::Exception &)
     {
     }
   }

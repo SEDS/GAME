@@ -42,7 +42,6 @@ parameter (const std::string & param, const std::string & value)
 //
 // invoke
 //
-/*
 void ComponentEx_Impl::invoke (Project project,
                                FCO_in current,
                                Collection_T <FCO> & selected,
@@ -50,19 +49,7 @@ void ComponentEx_Impl::invoke (Project project,
 {
   VERIFY_HRESULT (this->impl ()->InvokeEx (project.impl (),
                                            current != 0 ? current->impl () : 0,
-                                           selected.impl (),
-                                           param));
-}
-*/
-
-void ComponentEx_Impl::invoke (Project project,
-                               FCO_in current,
-                               IMgaFCOs * selected,
-                               long param)
-{
-  VERIFY_HRESULT (this->impl ()->InvokeEx (project.impl (),
-                                           current != 0 ? current->impl () : 0,
-                                           selected,
+                                           (IMgaFCOs *) selected.impl (),
                                            param));
 }
 

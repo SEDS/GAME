@@ -39,6 +39,7 @@ public:
 
   ::ATL::CComPtr <T> get (long index);
   long count (void);
+  ITER * impl (void);
 
   bool operator == (const Collection_T_Impl & rhs) const;
   bool operator != (const Collection_T_Impl & rhs) const;

@@ -351,10 +351,14 @@ int GAME_Automation_App::run (const std::string & progid)
   for (auto param : this->opts_.params_)
     interpreter->parameter (param.first, param.second);
 
+  GAME::Mga::Collection_T_Impl <GAME::Mga::FCO::interface_type, IMgaFCOs> impl;
+  GAME::Mga::Collection_T_Impl_Proxy <GAME::Mga::FCO::interface_type> proxy (impl);
+  GAME::Mga::Collection_T <GAME::Mga::FCO> selected (impl);
+
   // Initialize the interpreter and then invoke it.
   interpreter->invoke (this->project_,
                        0,
-                       0,
+                       selected,
                        0);
 
   return 0;
