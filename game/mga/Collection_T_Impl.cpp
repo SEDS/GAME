@@ -152,7 +152,8 @@ struct correct_role <IMgaComponentEx>
 template <typename T, typename ITER>
 inline
 Collection_T_Impl <T, ITER>::Collection_T_Impl (void)
-:  role_ ("")
+:  iter_ (0),
+   role_ ("")
 {
 
 }
@@ -187,6 +188,9 @@ inline
 ::ATL::CComPtr <T>
 Collection_T_Impl <T, ITER>::get (long index)
 {
+  if (!this->iter_)
+    throw Invalid_Extraction ();
+
   ATL::CComPtr <typename collection_traits <ITER *>::interface_type> temp;
   VERIFY_HRESULT (this->iter_->get_Item (index, &temp));
 
@@ -212,6 +216,9 @@ inline
 long
 Collection_T_Impl <T, ITER>::count (void)
 {
+  if (!this->iter_)
+    return 0;
+
   long count = 0;
   VERIFY_HRESULT (this->iter_.p->get_Count (&count));
   return count;
@@ -236,6 +243,9 @@ inline
 ATL::CComPtr <IMgaConnection>
 Collection_T_Impl <IMgaConnection, IMgaConnPoints>::get (long index)
 {
+  if (!this->iter_)
+    throw Invalid_Extraction ();
+
   // Template specalization for getting Connections from ConnPoints
   ATL::CComPtr <IMgaConnPoint> temp;
   VERIFY_HRESULT (this->iter_->get_Item (index, &temp));
