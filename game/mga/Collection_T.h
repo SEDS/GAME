@@ -79,12 +79,6 @@ public:
   /// Size of the collection (max possible elements).
   size_t size (void) const;
 
-  /// Get all the items in the collection.
-/*
-  void items (std::vector <T> & out) const;
-  std::vector <T> items (void) const;
-*/
-
   /// Get the first element in the collection.
   T first (void) const;
 

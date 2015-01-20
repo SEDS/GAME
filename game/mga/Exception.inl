@@ -90,7 +90,7 @@ Invalid_Cast::~Invalid_Cast (void)
 }
 
 //
-// Invalid_Cast
+// Invalid_Extraction
 //
 GAME_INLINE
 Invalid_Extraction::Invalid_Extraction (void)
@@ -100,7 +100,7 @@ Invalid_Extraction::Invalid_Extraction (void)
 }
 
 //
-// Invalid_Cast
+// Invalid_Extraction
 //
 GAME_INLINE
 Invalid_Extraction::~Invalid_Extraction (void)
