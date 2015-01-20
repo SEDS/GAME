@@ -29,6 +29,35 @@ typedef std::map <std::string,
                   Property_Map *>
                   Property_Configuration_Map;
 
+namespace qi = boost::spirit::qi;
+
+namespace actors
+{
+struct lookup_bind
+{
+  template <typename Context>
+  void operator()(const std::string & cmd, Context ctx, qi::unused_type) const
+  {
+    // Extract the variables from the Context
+    Property_Map * map = boost::fusion::at_c <1> (ctx.attributes); // _r1
+    const Property_Configuration_Map & config_map = boost::fusion::at_c <2> (ctx.attributes); // _r2
+    const std::string & name = boost::fusion::at_c <0> (ctx.locals); // _a
+
+    // If we found the same name as an entry in the property configuration map
+    // join that property map to the current one we are working with.
+    typedef Property_Configuration_Map::const_iterator const_iterator;
+    const_iterator end = config_map.end ();
+    const_iterator iter = std::find_if (config_map.begin (),
+                                        end,
+                                        [&name] (const Property_Configuration_Map::value_type & entry) -> bool {return entry.first == name;}
+                                       );
+
+    if (iter != end)
+      map->join (*iter->second, true);
+  }
+};
+};
+
 /**
  * @class Property_Configuration
  *
@@ -45,43 +74,6 @@ struct Property_Configuration :
                                      std::pair <std::string, Property_Map *> (const Property_Configuration_Map &),
                                      boost::spirit::qi::ascii::space_type>
 {
-  /**
-   * @struct lookup_impl
-   *
-   * Phoenix function object that will lookup a configuration in the
-   * configuration map. I would like to do this inline within the grammar,
-   * but I was not able to figure it out. So, we have this function
-   * object as a consolation prize! :-(
-   */
-  struct lookup_impl
-  {
-    //typedef boost::mpl::false_ no_nullary;
-
-    template <typename Arg1, typename Arg2, typename Arg3>
-    struct result
-    {
-      typedef bool type;
-    };
-
-    template <typename Arg1, typename Arg2, typename Arg3>
-    typename result <Arg1, Arg2, Arg3>::type operator () (const Arg1 & map, const Arg2 & name, Arg3 & ret) const
-    {
-      namespace phoenix = boost::phoenix;
-      using phoenix::arg_names::arg1;
-
-      typedef Property_Configuration_Map::const_iterator const_iterator;
-      const_iterator iter = std::find_if (map.begin (), map.end (), phoenix::at_c <0> (arg1) == name);
-
-      if (iter == map.end ())
-        return false;
-
-      ret = iter->second;
-      return true;
-    }
-  };
-
-  boost::phoenix::function <lookup_impl> lookup;
-
   /**
    * Initializing constructor.
    *
@@ -113,21 +105,11 @@ struct Property_Configuration :
       qi::lit ('}');
 
     this->base_list_ =
-      this->ident_[
-        // First, lookup the base property map in the configuration.
-        // map. Then, we can join it with the current property map.
-        phoenix::if_ (lookup (_r2, _1, _a))
-        [
-          phoenix::bind (&Property_Map::join, _r1, *_a, true)
-        ]] >>
+      this->ident_[_a = _1][actors::lookup_bind ()]
+      >>
       *(qi::lit (',') >>
-      this->ident_[
-        // First, lookup the base property map in the configuration.
-        // map. Then, we can join it with the current property map.
-        phoenix::if_ (lookup (_r2, _1, _a))
-        [
-          phoenix::bind (&Property_Map::join, _r1, *_a, true)
-        ]]);
+        this->ident_[_a = _1][actors::lookup_bind ()]
+      );
 
     this->assignments_ =
       *(this->assign_[phoenix::bind (&Property_Map::set, _r1, _1)]);
@@ -172,7 +154,7 @@ private:
 
   ::boost::spirit::qi::rule <IteratorT,
                              void (Property_Map *, const Property_Configuration_Map &),
-                             ::boost::spirit::qi::locals <Property_Map *>,
+                             ::boost::spirit::qi::locals <std::string>,
                              SpaceT> base_list_;
 
   ::boost::spirit::qi::rule <IteratorT,
