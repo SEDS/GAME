@@ -102,7 +102,7 @@ Visitor_Test_Impl::~Visitor_Test_Impl (void)
 int Visitor_Test_Impl::
 invoke_ex (GAME::Mga::Project project,
            GAME::Mga::FCO_in focus,
-           std::vector <GAME::Mga::FCO> & selected,
+           GAME::Mga::Collection_T <GAME::Mga::FCO> & selected,
            long flags)
 {
   GAME::Mga::Transaction t (project, TRANSACTION_READ_ONLY);
@@ -112,29 +112,15 @@ invoke_ex (GAME::Mga::Project project,
     std::bitset <4> bits (0);
     Test_Visitor tv (bits);
 
-    GAME::Mga::Folder root = project.root_folder ();
+    GAME::Mga::RootFolder root = project.root_folder ();
 
     // Get all the FCOs in this folder.
-    std::vector <GAME::Mga::FCO> fcos;
-    root->children (fcos);
-
-    // Visit each of the FCOs.
-    std::for_each (fcos.begin (),
-                   fcos.end (),
-                   boost::bind (&GAME::Mga::FCO::impl_type::accept,
-                                boost::bind (&GAME::Mga::FCO::get, _1),
-                                &tv));
+    for (GAME::Mga::FCO fco : root->children <GAME::Mga::FCO> ())
+      fco->accept (&tv);
 
     // Get all the folders in this root folder.
-    std::vector <GAME::Mga::Folder> folders;
-    root->children (folders);
-
-    // Visit all the folders.
-    std::for_each (folders.begin (),
-                   folders.end (),
-                   boost::bind (&GAME::Mga::Folder::impl_type::accept,
-                                boost::bind (&GAME::Mga::Folder::get, _1),
-                                &tv));
+    for (GAME::Mga::Folder folder : root->folders ())
+      folder->accept (&tv);
 
     if (this->interactive ())
     {

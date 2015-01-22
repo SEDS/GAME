@@ -80,7 +80,10 @@ struct get_model_children_t
     CComBSTR bstr (T::impl_type::metaname.length (), T::impl_type::metaname.c_str ());
     VERIFY_HRESULT (m->impl ()->GetChildrenOfKind (bstr, &fcos));
 
-    return Collection_T <T> (fcos.p);
+    Collection_T_Impl <typename T::interface_type, IMgaFCOs> impl (fcos.p);
+    Collection_T_Impl_Proxy <typename T::interface_type> proxy (impl);
+
+    return Collection_T <T> (proxy);
   }
 };
 
@@ -100,7 +103,10 @@ struct get_model_children_t <T, false>
     CComPtr <IMgaFCOs> fcos;
     VERIFY_HRESULT (m->impl ()->get_ChildFCOs (&fcos));
 
-    return Collection_T <T> (fcos.p);
+    Collection_T_Impl <typename T::interface_type, IMgaFCOs> impl (fcos.p);
+    Collection_T_Impl_Proxy <typename T::interface_type> proxy (impl);
+
+    return Collection_T <T> (proxy);
   }
 };
 
@@ -152,7 +158,10 @@ Collection_T <T> Model_Impl::children (const std::string & type) const
   CComBSTR bstr (type.length (), type.c_str ());
   VERIFY_HRESULT (this->impl ()->GetChildrenOfKind (bstr, &fcos));
 
-  return Collection_T <T> (fcos.p);
+  Collection_T_Impl <typename T::interface_type, IMgaFCOs> impl (fcos.p);
+  Collection_T_Impl_Proxy <typename T::interface_type> proxy (impl);
+
+  return Collection_T <T> (proxy);
 }
 
 //

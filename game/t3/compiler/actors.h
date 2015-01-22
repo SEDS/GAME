@@ -43,8 +43,10 @@ namespace T3
   struct begin_rule_impl
   {
     // Type definition of the result for the function.
-    template <typename Arg1, typename Arg2>
-    struct result { typedef T3_Rule_Node * type; };
+    template <class> struct result;
+
+    template <typename T, typename Arg1, typename Arg2>
+    struct result <T (Arg1, Arg2)> { typedef T3_Rule_Node * type; };
 
     /**
      * Functor operation.
@@ -94,8 +96,10 @@ namespace T3
    */
   struct append_node_impl
   {
-    template <typename Arg1, typename Arg2>
-    struct result { typedef void type; };
+    template <class> struct result;
+
+    template <typename T, typename Arg1, typename Arg2>
+    struct result <T (Arg1, Arg2)> { typedef void type; };
 
     template <typename Arg1, typename Arg2>
     void operator () (Arg1 & definition, Arg2 item) const
@@ -266,8 +270,10 @@ namespace T3
    */
   struct alloc_substitution_node_impl
   {
-    template <typename Arg1, typename Arg2>
-    struct result { typedef T3_Substitution_Node * type; };
+    template <class> struct result;
+
+    template <typename T, typename Arg1, typename Arg2>
+    struct result <T (Arg1, Arg2)> { typedef T3_Substitution_Node * type; };
 
     template <typename Arg1, typename Arg2>
     T3_Substitution_Node * operator () (Arg1 & parse_tree, const Arg2 & rule_name) const
@@ -294,8 +300,10 @@ namespace T3
    */
   struct alloc_optional_node_impl
   {
-    template <typename Arg1, typename Arg2>
-    struct result { typedef T3_Optional_Node * type; };
+    template <class> struct result;
+
+    template <typename T, typename Arg1, typename Arg2>
+    struct result <T (Arg1, Arg2)> { typedef T3_Optional_Node * type; };
 
     template <typename Arg1, typename Arg2>
     T3_Optional_Node * operator () (Arg1 & parse_tree, const Arg2 & def) const
@@ -313,8 +321,10 @@ namespace T3
    */
   struct insert_option_impl
   {
-    template <typename Arg1, typename Arg2>
-    struct result { typedef void type; };
+    template <class> struct result;
+
+    template <typename T, typename Arg1, typename Arg2>
+    struct result <T (Arg1, Arg2)> { typedef void type; };
 
     template <typename Arg1, typename Arg2>
     void operator () (Arg1 selection, const Arg2 & definition) const
@@ -333,8 +343,10 @@ namespace T3
    */
   struct set_definition_impl
   {
-    template <typename Arg1, typename Arg2>
-    struct result { typedef void type; };
+    template <class> struct result;
+
+    template <typename T, typename Arg1, typename Arg2>
+    struct result <T (Arg1, Arg2)> { typedef void type; };
 
     template <typename Arg1, typename Arg2>
     void operator () (Arg1 rule, const Arg2 & definition) const

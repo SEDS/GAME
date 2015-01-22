@@ -68,7 +68,9 @@ Invoke (IMgaProject * proj, IMgaFCOs * fcos, long flags)
 
   try
   {
-    GAME::Mga::Collection_T <FCO> selected (fcos);
+    Collection_T_Impl <FCO::interface_type, IMgaFCOs> collection_impl (fcos);
+    Collection_T_Impl_Proxy <FCO::interface_type> proxy (collection_impl);
+    GAME::Mga::Collection_T <FCO> selected (proxy);
 
     return this->impl_.invoke (Project (proj), selected, flags);
   }
@@ -98,7 +100,10 @@ InvokeEx (IMgaProject * proj, IMgaFCO * current, IMgaFCOs * fcos, long flags)
 
     FCO curr (current);
 
-    GAME::Mga::Collection_T <FCO> selected (fcos);
+    Collection_T_Impl <FCO::interface_type, IMgaFCOs> collection_impl (fcos);
+    Collection_T_Impl_Proxy <FCO::interface_type> proxy (collection_impl);
+
+    GAME::Mga::Collection_T <FCO> selected (proxy);
 
     // We need to commit this transaction so the implementation can
     // create its own transaction. In the future, the implementation

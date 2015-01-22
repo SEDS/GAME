@@ -334,13 +334,14 @@ generate_connection_point (const Generation_Context & ctx,
 {
   const std::string role_name = item.first;
   const std::string type_name = item.second->name ();
-  const std::string func_name = item.first + "_" + type_name;
+  const std::string func_name = item.first + "_of_" + type_name;
 
   // Write the connection point method.
   ctx.hfile_
     << std::endl
     << "/// Get the " << role_name << " " << type_name << " connection." << std::endl
-    << "size_t " << func_name << " (std::vector <" << type_name << "> & items) const;";
+    << "size_t " << func_name << " (std::vector <" << type_name << "> & items) const;"
+    << "GAME::Mga::Collection_T <" << type_name << "> " << func_name << " (void) const;";
 
   ctx.sfile_
     << function_header_t (func_name)
@@ -348,5 +349,14 @@ generate_connection_point (const Generation_Context & ctx,
     << func_name << " (std::vector <" << type_name << "> & items) const"
     << "{"
     << "return this->in_connections <" << type_name << "> (items);"
+    << "}";
+
+  ctx.sfile_
+    << function_header_t (func_name)
+    << "GAME::Mga::Collection_T <" << type_name << "> "
+    << this->classname_ << "::"
+    << func_name << " (void) const"
+    << "{"
+    << "return this->in_connections <" << type_name << "> (\"" << role_name << "\");"
     << "}";
 }

@@ -111,7 +111,10 @@ Collection_T <Constraint> Base_Impl::constraints () const
   CComPtr <IMgaConstraints> temps;
   VERIFY_HRESULT (this->impl ()->get_Constraints (&temps));
 
-  return Collection_T <Constraint> (temps.p);
+  Collection_T_Impl <Constraint::interface_type, IMgaConstraints> impl (temps.p);
+  Collection_T_Impl_Proxy <Constraint::interface_type> proxy (impl);
+
+  return Collection_T <Constraint> (proxy);
 }
 
 //

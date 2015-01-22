@@ -117,10 +117,10 @@ public:
   /// Get the meta information for this object.
   Meta::Set meta (void) const;
 
-protected:
   /// Helper method for getting the correct implemenation.
   IMgaSet * impl (void) const;
 
+protected:
   /// The underlying COM interface pointer.
   mutable ATL::CComPtr <IMgaSet> set_;
 };

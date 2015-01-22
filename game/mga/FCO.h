@@ -224,6 +224,9 @@ public:
   size_t in_connections (const std::string & type, std::vector <Connection> & conns) const;
 
   template <typename T>
+  Collection_T <T> in_connections (const std::string & role) const;
+
+  template <typename T>
   size_t in_connections (std::vector <T> & conns) const;
 
   /**

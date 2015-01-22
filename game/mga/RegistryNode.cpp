@@ -125,7 +125,10 @@ children (bool types) const
   VARIANT_BOOL vtypes = !types ? VARIANT_FALSE : VARIANT_TRUE;
   VERIFY_HRESULT (this->node_->get_SubNodes (vtypes, &rawnodes));
 
-  return Collection_T <RegistryNode> (rawnodes.p);
+  Collection_T_Impl <RegistryNode::interface_type, IMgaRegNodes> impl (rawnodes.p);
+  Collection_T_Impl_Proxy <RegistryNode::interface_type> proxy (impl);
+
+  return Collection_T <RegistryNode> (proxy);
 }
 
 //

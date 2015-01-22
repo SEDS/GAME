@@ -14,137 +14,12 @@
 #define _GAME_MGA_ITERATOR_T_H_
 
 #include <iterator>
+#include "game/mga/Collection_T_Impl_Proxy.h"
 
 namespace GAME
 {
 namespace Mga
 {
-
-template <typename T>
-struct iterator_type_t
-{
-  typedef T result_type;
-};
-
-template < >
-struct iterator_type_t <IMgaObject>
-{
-  typedef IMgaObjects result_type;
-};
-
-template < >
-struct iterator_type_t <IMgaFolder>
-{
-  typedef IMgaFolders result_type;
-};
-
-template < >
-struct iterator_type_t <IMgaFCO>
-{
-  typedef IMgaFCOs result_type;
-};
-
-template < >
-struct iterator_type_t <IMgaAtom>
-{
-  typedef IMgaFCOs result_type;
-};
-
-template < >
-struct iterator_type_t <IMgaModel>
-{
-  typedef IMgaFCOs result_type;
-};
-
-template < >
-struct iterator_type_t <IMgaSet>
-{
-  typedef IMgaFCOs result_type;
-};
-
-template < >
-struct iterator_type_t <IMgaConnection>
-{
-  typedef IMgaFCOs result_type;
-};
-
-template < >
-struct iterator_type_t <IMgaReference>
-{
-  typedef IMgaFCOs result_type;
-};
-
-template < >
-struct iterator_type_t <IMgaAttribute>
-{
-  typedef IMgaAttributes result_type;
-};
-
-template < >
-struct iterator_type_t <IMgaRegNode>
-{
-  typedef IMgaRegNodes result_type;
-};
-
-template < >
-struct iterator_type_t <IMgaMetaAttribute>
-{
-  typedef IMgaMetaAttributes result_type;
-};
-
-template < >
-struct iterator_type_t <IMgaMetaPart>
-{
-  typedef IMgaMetaParts result_type;
-};
-
-template < >
-struct iterator_type_t <IMgaConstraint>
-{
-  typedef IMgaConstraints result_type;
-};
-
-template < >
-struct iterator_type_t <IMgaMetaConnJoint>
-{
-  typedef IMgaMetaConnJoints result_type;
-};
-
-template < >
-struct iterator_type_t <IMgaMetaRole>
-{
-  typedef IMgaMetaRoles result_type;
-};
-
-template < >
-struct iterator_type_t <IMgaMetaFolder>
-{
-  typedef IMgaMetaFolders result_type;
-};
-
-template < >
-struct iterator_type_t <IMgaMetaFCO>
-{
-  typedef IMgaMetaFCOs result_type;
-};
-
-template < >
-struct iterator_type_t <IMgaMetaAspect>
-{
-  typedef IMgaMetaAspects result_type;
-};
-
-template < >
-struct iterator_type_t <IMgaComponent>
-{
-  typedef IMgaComponents result_type;
-};
-
-template < >
-struct iterator_type_t <IMgaComponentEx>
-{
-  typedef IMgaComponents result_type;
-};
 
 /**
  * @class Iterator
@@ -159,11 +34,11 @@ public:
   /// Type definition of the iterator's element interface type.
   typedef typename T::interface_type interface_type;
 
-  /// Type definition of the COM iterator interface.
-  typedef typename iterator_type_t < interface_type >::result_type iterator_type;
+  /// Type definition of the impl proxy
+  typedef typename Collection_T_Impl_Proxy <interface_type> iterator_type;
 
-  Iterator (iterator_type * iter, long end_index);
-  Iterator (iterator_type * iter, long index, long end_index);
+  Iterator (iterator_type iter, long end_index);
+  Iterator (iterator_type iter, long index, long end_index);
 
   /**
    * Copy constructor
@@ -212,8 +87,8 @@ private:
   /// Find the first valid item
   void find_first_item (void);
 
-  /// The underlying COM pointer.
-  ::ATL::CComPtr <iterator_type> iter_;
+  /// The Collection_Impl_Proxy the iterator uses
+  iterator_type iter_;
 
   /// Current index for the iterator.
   long index_;
@@ -244,8 +119,8 @@ public:
   /// Type definition of the implementation type.
   typedef typename value_type::impl_type impl_type;
 
-  /// Type definition of the COM iterator interface.
-  typedef typename iterator_type_t < interface_type >::result_type iterator_type;
+  /// Type definition of the impl proxy
+  typedef typename Collection_T_Impl_Proxy <interface_type> iterator_type;
 
   /// Default constructor.
   Impl_Iterator (void);

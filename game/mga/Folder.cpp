@@ -85,7 +85,10 @@ Collection_T <Folder> Folder_Impl::folders (void) const
   CComPtr <IMgaFolders> folders;
   VERIFY_HRESULT (this->impl ()->get_ChildFolders (&folders));
 
-  return Collection_T <Folder> (folders.p);
+  Collection_T_Impl <Folder::interface_type, IMgaFolders> impl (folders.p);
+  Collection_T_Impl_Proxy <Folder::interface_type> proxy (impl);
+
+  return Collection_T <Folder> (proxy);
 }
 
 //
@@ -173,7 +176,10 @@ registry (bool virtualinterface_types) const
   VARIANT_BOOL vtypes = !virtualinterface_types ? VARIANT_FALSE : VARIANT_TRUE;
   VERIFY_HRESULT (this->impl ()->get_Registry (vtypes, &rawnodes));
 
-  return Collection_T <RegistryNode> (rawnodes.p);
+  Collection_T_Impl <RegistryNode::interface_type, IMgaRegNodes> impl (rawnodes.p);
+  Collection_T_Impl_Proxy <RegistryNode::interface_type> proxy (impl);
+
+  return Collection_T <RegistryNode> (proxy);
 }
 
 //

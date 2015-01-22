@@ -11,14 +11,14 @@ namespace Mga
 
 template <typename T>
 GAME_INLINE
-Iterator <T>::Iterator (iterator_type * iter, long end_index)
+Iterator <T>::Iterator (iterator_type iter, long end_index)
 : Iterator <T> (iter, 1, end_index)
 {
 }
 
 template <typename T>
 GAME_INLINE
-Iterator <T>::Iterator (iterator_type * iter, long index, long end_index)
+Iterator <T>::Iterator (iterator_type iter, long index, long end_index)
 : iter_ (iter),
   index_ (index),
   end_index_ (end_index)
@@ -71,7 +71,7 @@ template <typename T>
 GAME_INLINE
 bool Iterator <T>::operator == (const Iterator & rhs) const
 {
-  return this == &rhs || (this->iter_.p == rhs.iter_.p && this->index_ == rhs.index_ && this->end_index_ == rhs.end_index_);
+  return this == &rhs || (this->iter_ == rhs.iter_ && this->index_ == rhs.index_ && this->end_index_ == rhs.end_index_);
 }
 
 template <typename T>

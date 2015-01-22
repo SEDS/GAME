@@ -89,5 +89,24 @@ Invalid_Cast::~Invalid_Cast (void)
 
 }
 
+//
+// Invalid_Extraction
+//
+GAME_INLINE
+Invalid_Extraction::Invalid_Extraction (void)
+: Exception ("invalid extraction")
+{
+
+}
+
+//
+// Invalid_Extraction
+//
+GAME_INLINE
+Invalid_Extraction::~Invalid_Extraction (void)
+{
+
+}
+
 }
 }

@@ -294,7 +294,10 @@ Collection_T <ConnectionPoint> Connection_Impl::connectors (void) const
   CComPtr <IMgaMetaConnJoints> temp;
   VERIFY_HRESULT (this->impl ()->get_Joints (&temp));
 
-  return Collection_T <ConnectionPoint> (temp.p);
+  Collection_T_Impl <ConnectionPoint::interface_type, IMgaMetaConnJoints> impl (temp.p);
+  Collection_T_Impl_Proxy <ConnectionPoint::interface_type> proxy (impl);
+
+  return Collection_T <ConnectionPoint> (proxy);
 }
 
 }

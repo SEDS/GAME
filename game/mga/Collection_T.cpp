@@ -105,18 +105,18 @@ const size_t Collection_T <T>::unknown_count = -1;
 
 template <typename T>
 GAME_INLINE
-Collection_T <T>::Collection_T (interface_type * iter)
+Collection_T <T>::Collection_T (proxy_type iter)
 : iter_ (iter),
   size_ (0),
   count_ (Collection_T <T>::unknown_count),
   begin_ (0),
   end_ (0)
 {
-  VERIFY_HRESULT (this->iter_->get_Count (&this->size_));
+  this->size_ = this->iter_.count ();
 
   // Identify the location of the first and last valid values in the Collection
-  iterator_type begin = iterator_type (this->iter_.p, 1L, this->size_ + 1);
-  iterator_type end = iterator_type (this->iter_.p, this->size_ + 1, this->size_ + 1);
+  iterator_type begin = iterator_type (this->iter_, 1L, this->size_ + 1);
+  iterator_type end = iterator_type (this->iter_, this->size_ + 1, this->size_ + 1);
   this->begin_ = begin.index ();
   this->end_ = end.index ();
 
@@ -133,10 +133,10 @@ Collection_T <T>::~Collection_T (void)
 
 template <typename T>
 GAME_INLINE
-::ATL::CComPtr <typename Collection_T <T>::interface_type>
+void *
 Collection_T <T>::impl (void)
 {
-  return this->iter_;
+  return this->iter_.impl ();
 }
 
 template <typename T>
@@ -179,38 +179,21 @@ template <typename T>
 GAME_INLINE
 typename Collection_T <T>::iterator_type Collection_T <T>::begin (void)
 {
-  return iterator_type (this->iter_.p, this->begin_, this->end_);
+  return iterator_type (this->iter_, this->begin_, this->end_);
 }
 
 template <typename T>
 GAME_INLINE
 typename Collection_T <T>::iterator_type Collection_T <T>::end (void)
 {
-  return iterator_type (this->iter_.p, this->end_, this->end_);
-}
-
-template <typename T>
-GAME_INLINE
-void Collection_T <T>::items (std::vector <T> & out) const
-{
-  iter_to_collection (this->iter_.p, out, this->size_);
-}
-
-template <typename T>
-GAME_INLINE
-std::vector <T> Collection_T <T>::items (void) const
-{
-  std::vector <T> out;
-  iter_to_collection (this->iter_.p, out, this->size_);
-  
-  return out;
+  return iterator_type (this->iter_, this->end_, this->end_);
 }
 
 template <typename T>
 GAME_INLINE
 T Collection_T <T>::first (void) const
 {
-  return * iterator_type (this->iter_.p, this->begin_, this->end_);
+  return * iterator_type (this->iter_, this->begin_, this->end_);
 }
 
 template <typename ITER, typename T>

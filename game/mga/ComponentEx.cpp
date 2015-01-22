@@ -49,7 +49,7 @@ void ComponentEx_Impl::invoke (Project project,
 {
   VERIFY_HRESULT (this->impl ()->InvokeEx (project.impl (),
                                            current != 0 ? current->impl () : 0,
-                                           selected.impl (),
+                                           (IMgaFCOs *) selected.impl (),
                                            param));
 }
 

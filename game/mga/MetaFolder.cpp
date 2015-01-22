@@ -41,7 +41,10 @@ subfolders (void) const
   CComPtr <IMgaMetaFolders> metas;
   VERIFY_HRESULT (this->impl ()->get_LegalChildFolders (&metas));
 
-  return Collection_T <Meta::Folder> (metas.p);
+  Collection_T_Impl <Meta::Folder::interface_type, IMgaMetaFolders> impl (metas.p);
+  Collection_T_Impl_Proxy <Meta::Folder::interface_type> proxy (impl);
+
+  return Collection_T <Meta::Folder> (proxy);
 }
 
 //
@@ -67,7 +70,10 @@ children (void) const
   CComPtr <IMgaMetaFCOs> metas;
   VERIFY_HRESULT (this->impl ()->get_LegalRootObjects (&metas));
 
-  return Collection_T <Meta::FCO> (metas.p);
+  Collection_T_Impl <Meta::FCO::interface_type, IMgaMetaFCOs> impl (metas.p);
+  Collection_T_Impl_Proxy <Meta::FCO::interface_type> proxy (impl);
+
+  return Collection_T <Meta::FCO> (proxy);
 }
 
 //

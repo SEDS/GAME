@@ -61,5 +61,21 @@ size_t FCO_Impl::in_connections (std::vector <T> & conns) const
   return conns.size ();
 }
 
+template <typename T>
+Collection_T <T>
+FCO_Impl::in_connections (const std::string & role) const
+{
+  typedef typename T::impl_type impl_type;
+  assert::element_not_in_connection <impl_type::type_tag>::result_type;
+
+  CComPtr <IMgaConnPoints> temp;
+  VERIFY_HRESULT (this->impl ()->get_PartOfConns (&temp));
+
+  Collection_T_Impl <T::interface_type, IMgaConnPoints> impl (temp.p, role);
+  Collection_T_Impl_Proxy <T::interface_type> proxy (impl);
+
+  return Collection_T <T> (proxy);
+}
+
 }
 }

@@ -46,15 +46,16 @@ public:
   /// Type definition of the iterator type.
   typedef Iterator <T> iterator_type;
 
-  /// Type definition of the COM interface.
-  typedef typename iterator_type::iterator_type interface_type;
+  /// Type definition of expected proxy
+  typedef typename iterator_type::iterator_type proxy_type;
+  typedef typename iterator_type::interface_type interface_type;
 
   /**
    * Initializing constructor
    *
    * @param[in]     iter        COM collection
    */
-  Collection_T (interface_type * iter);
+  Collection_T (proxy_type iter);
 
   /// Destructor.
   ~Collection_T (void);
@@ -78,10 +79,6 @@ public:
   /// Size of the collection (max possible elements).
   size_t size (void) const;
 
-  /// Get all the items in the collection.
-  void items (std::vector <T> & out) const;
-  std::vector <T> items (void) const;
-
   /// Get the first element in the collection.
   T first (void) const;
 
@@ -89,11 +86,13 @@ public:
   bool is_empty (void) const;
 
   /// Get the underlying pointer to the collection
-  ::ATL::CComPtr <interface_type> impl (void);
+  /// Since it is abstracted by the proxy, the collection_t
+  /// does not know the concrete type
+  void * impl (void);
 
 private:
-  /// Pointer to the collection.
-  ::ATL::CComPtr <interface_type> iter_;
+  /// The collection proxy
+  proxy_type iter_;
 
   /// Number of elements in collection.
   long size_;

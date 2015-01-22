@@ -80,7 +80,10 @@ struct get_folder_children_t
     CComBSTR bstr (impl_type::metaname.length (), impl_type::metaname.c_str ());
     VERIFY_HRESULT (m->impl ()->GetChildrenOfKind (bstr, &fcos));
 
-    return Collection_T <T> (fcos.p);
+    Collection_T_Impl <typename T::interface_type, IMgaFCOs> impl (fcos.p);
+    Collection_T_Impl_Proxy <typename T::interface_type> proxy (impl);
+
+    return Collection_T <T> (proxy);
   }
 };
 
@@ -92,7 +95,10 @@ struct get_folder_children_t <T, false>
     CComPtr <IMgaFCOs> fcos;
     VERIFY_HRESULT (m->impl ()->get_ChildFCOs (&fcos));
 
-    return Collection_T <T> (fcos.p);
+    Collection_T_Impl <typename T::interface_type, IMgaFCOs> impl (fcos.p);
+    Collection_T_Impl_Proxy <typename T::interface_type> proxy (impl);
+
+    return Collection_T <T> (proxy);
   }
 };
 
@@ -139,7 +145,10 @@ Collection_T <T> Folder_Impl::children (const std::string & type) const
   CComBSTR bstr (type.length (), type.c_str ());
   VERIFY_HRESULT (this->impl ()->GetChildrenOfKind (bstr, &fcos));
 
-  return Collection_T <T> (fcos.p);
+  Collection_T_Impl <typename T::interface_type, IMgaFCOs> impl (fcos.p);
+  Collection_T_Impl_Proxy <typename T::interface_type> proxy (impl);
+
+  return Collection_T <T> (proxy);
 }
 
 //
@@ -172,7 +181,10 @@ Collection_T <T> Folder_Impl::folders (void) const
   CComPtr <IMgaFolders> folders;
   VERIFY_HRESULT (this->impl ()->get_ChildFolders (&folders));
 
-  return Collection_T <T> (folders.p);
+  Collection_T_Impl <typename T::interface_type, IMgaFolders> impl (folders.p);
+  Collection_T_Impl_Proxy <typename T::interface_type> proxy (impl);
+
+  return Collection_T <T> (proxy);
 }
 
 //
@@ -186,13 +198,16 @@ size_t Folder_Impl::folders (std::vector <T> & children) const
 
   CComPtr <IMgaFolders> folders;
   VERIFY_HRESULT (this->impl ()->get_ChildFolders (&folders));
-  for (Folder folder : Collection_T <Folder> (folders.p))
+  Collection_T_Impl <typename T::interface_type, IMgaFolders> impl (folders.p);
+  Collection_T_Impl_Proxy <typename T::interface_type> proxy (impl);
+
+  for (Folder folder : Collection_T <Folder> (proxy))
   {
     try
     {
       children.push_back (T::_narrow (folder));
     }
-    catch (GAME::Mga::Invalid_Cast &)
+    catch (GAME::Mga::Exception &)
     {
     }
   }
@@ -212,13 +227,16 @@ folders (const std::string & type, std::vector <T> & children) const
   CComPtr <IMgaFolders> folders;
   VERIFY_HRESULT (this->impl ()->get_ChildFolders (&folders));
 
-  for (Folder folder : Collection_T <Folder> (folders.p))
+  Collection_T_Impl <typename T::interface_type, IMgaFolders> impl (folders.p);
+  Collection_T_Impl_Proxy <typename T::interface_type> proxy (impl);
+
+  for (Folder folder : Collection_T <Folder> (proxy))
   {
     try
     {
       children.push_back (T::_narrow (folder));
     }
-    catch (GAME::Mga::Invalid_Cast &)
+    catch (GAME::Mga::Exception &)
     {
     }
   }
