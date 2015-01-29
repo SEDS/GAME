@@ -17,7 +17,6 @@
 #include "ace/Null_Mutex.h"
 
 #include "MetaFCO.h"
-#include "stlace.h"
 #include "Refcountable.h"
 
 

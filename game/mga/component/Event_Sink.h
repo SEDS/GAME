@@ -20,7 +20,6 @@
 
 #include "Component_export.h"
 #include "game/mga/Project.h"
-#include "game/mga/stlace.h"
 
 #include "ace/Hash_Map_Manager.h"
 #include "ace/Unbounded_Set.h"

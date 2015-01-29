@@ -66,11 +66,8 @@ project (GAME_Mga) : acelib, game_lib {
     MetaRole.cpp
     MetaReference.cpp
     MetaSet.cpp
-
-    stlace.cpp
-    Visitor.cpp
-
     Utils.cpp
+    Visitor.cpp
   }
 
   Template_Files {

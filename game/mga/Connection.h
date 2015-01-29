@@ -19,7 +19,6 @@
 #include "ace/Null_Mutex.h"
 
 #include "FCO.h"
-#include "stlace.h"
 #include "Refcountable.h"
 
 namespace GAME
