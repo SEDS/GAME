@@ -77,8 +77,15 @@ struct get_model_children_t
   Collection_T <T> operator () (const Model_Impl * m) const
   {
     CComPtr <IMgaFCOs> fcos;
-    CComBSTR bstr (T::impl_type::metaname.length (), T::impl_type::metaname.c_str ());
-    VERIFY_HRESULT (m->impl ()->GetChildrenOfKind (bstr, &fcos));
+
+    // Abstract types cannot be retrieved with GetChildrenOfKind from Mga
+    if (!T::impl_type::is_abstract)
+    {
+      CComBSTR bstr (T::impl_type::metaname.length (), T::impl_type::metaname.c_str ());
+      VERIFY_HRESULT (m->impl ()->GetChildrenOfKind (bstr, &fcos));
+    }
+    else
+      VERIFY_HRESULT (m->impl ()->get_ChildFCOs (&fcos));
 
     Collection_T_Impl <typename T::interface_type, IMgaFCOs> impl (fcos.p);
     Collection_T_Impl_Proxy <typename T::interface_type> proxy (impl);
