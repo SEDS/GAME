@@ -483,11 +483,17 @@ void Object_Class_Definition::generate (const Generation_Context & ctx)
     << "typedef IMga" << this->metaname_ << " interface_type;"
     << std::endl
     << "/// Metaname for this extension class." << std::endl
-    << "static const std::string metaname;";
+    << "static const std::string metaname;"
+    << std::endl
+    << "/// Identifier if this class is an abstract type in GME" << std::endl
+    << "static const bool is_abstract;";
 
   ctx.sfile_
     << function_header_t ("metaname")
     << "const std::string " << this->classname_ << "::metaname (\"" << this->name_ << "\");"
+    << std::endl
+    << function_header_t ("is_abstract")
+    << "const bool " << this->classname_ << "::is_abstract (" << this->is_abstract_ << ");"
     << std::endl;
 
   if (!this->is_abstract_)
