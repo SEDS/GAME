@@ -89,12 +89,15 @@ public:
 
   operator xercesc::DOMElement * (void);
 
-  void operator = (xercesc::DOMElement * e);
+  const Fragment & operator = (xercesc::DOMElement * e);
+  const Fragment & operator = (const Fragment &);
 
   void set_attribute (const String & name, const String & value);
   void set_attribute (const String & name, bool value);
   void set_attribute (const String & name, double value);
   void set_attribute (const String & name, long value);
+
+  Fragment clone (void);
 
 protected:
   /// Pointer to the current fragment.
