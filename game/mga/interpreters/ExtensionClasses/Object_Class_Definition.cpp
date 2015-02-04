@@ -493,7 +493,7 @@ void Object_Class_Definition::generate (const Generation_Context & ctx)
     << "const std::string " << this->classname_ << "::metaname (\"" << this->name_ << "\");"
     << std::endl
     << function_header_t ("is_abstract")
-    << "const bool " << this->classname_ << "::is_abstract (" << this->is_abstract_ << ");"
+    << "const bool " << this->classname_ << "::is_abstract = " << ((this->is_abstract_) ? "true" : "false") << ";"
     << std::endl;
 
   if (!this->is_abstract_)
