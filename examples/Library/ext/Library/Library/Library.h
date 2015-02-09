@@ -48,6 +48,9 @@ namespace Library
     /// Metaname for this extension class.
     static const std::string metaname;
 
+    /// Identifier if this class is an abstract type in GME
+    static const bool is_abstract;
+
     /**
      * @name Factory Methods
      */
@@ -96,11 +99,11 @@ namespace Library
      * @name Containment Methods
      */
     ///@{
-    size_t get_Books (std::vector <Book> & items) const;
-    ::GAME::Mga::Collection_T <Book> get_Books (void) const;
-
     size_t get_Patrons (std::vector <Patron> & items) const;
     ::GAME::Mga::Collection_T <Patron> get_Patrons (void) const;
+
+    size_t get_Books (std::vector <Book> & items) const;
+    ::GAME::Mga::Collection_T <Book> get_Books (void) const;
 
     size_t get_Borrows (std::vector <Borrow> & items) const;
     ::GAME::Mga::Collection_T <Borrow> get_Borrows (void) const;

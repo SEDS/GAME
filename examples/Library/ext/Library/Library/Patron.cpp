@@ -23,11 +23,16 @@ namespace Library
   const std::string Patron_Impl::metaname ("Patron");
 
   //
+  // is_abstract
+  //
+  const bool Patron_Impl::is_abstract = false;
+
+  //
   // _create (const Library_in)
   //
   Patron Patron_Impl::_create (const Library_in parent)
   {
-    return ::GAME::Mga::create_object < Patron > (parent, Patron_Impl::metaname);
+    return ::GAME::Mga::create < Patron > (parent, Patron_Impl::metaname);
   }
 
   //
@@ -53,11 +58,19 @@ namespace Library
   }
 
   //
-  // dst_Borrow
+  // dst_of_Borrow
   //
-  size_t Patron_Impl::dst_Borrow (std::vector <Borrow> & items) const
+  size_t Patron_Impl::dst_of_Borrow (std::vector <Borrow> & items) const
   {
     return this->in_connections <Borrow> (items);
+  }
+
+  //
+  // dst_of_Borrow
+  //
+  GAME::Mga::Collection_T <Borrow> Patron_Impl::dst_of_Borrow (void) const
+  {
+    return this->in_connections <Borrow> ("dst");
   }
 }
 
