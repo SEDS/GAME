@@ -15,6 +15,33 @@
 
 #include "Object_Class_Definition.h"
 
+// Forward decl.
+class FCO_Class_Definition;
+
+/**
+ * Helper struct for connection point information used
+ * during generation
+ */
+struct ConnPoint_Info
+{
+  std::string end;
+  FCO_Class_Definition * target;
+  int min_cardinality;
+  int max_cardinality;
+
+  ConnPoint_Info (std::string end,
+                  FCO_Class_Definition * target,
+                  int min_cardinality,
+                  int max_cardinality)
+  : end (end),
+    target (target),
+    min_cardinality (min_cardinality),
+    max_cardinality (max_cardinality)
+  {
+
+  }
+};
+
 /**
  * @class FCO_Class_Definition
  *
@@ -40,16 +67,25 @@ private:
                            GAME::Mga::Atom_in item);
 
   void generate_connection_point (const Generation_Context & ctx,
-                                  const std::pair < std::string, FCO_Class_Definition * > & item);
+                                  const ConnPoint_Info & info);
+
+  void generate_optional_connection (const Generation_Context & ctx,
+                                     const ConnPoint_Info & info);
+
+  void generate_single_connection (const Generation_Context & ctx,
+                                   const ConnPoint_Info & info);
+
+  void generate_multiple_connection (const Generation_Context & ctx,
+                                     const ConnPoint_Info & info);
 
   /// Attribute connections for this object.
   std::set <GAME::Mga::Atom> attributes_;
 
   /// Source connection points for the element.
-  std::set < std::pair <std::string, FCO_Class_Definition *> > src_connpoints_;
+  std::set < ConnPoint_Info > src_connpoints_;
 
   /// Destination connection points for the element.
-  std::set < std::pair <std::string, FCO_Class_Definition *> > dst_connpoints_;
+  std::set < ConnPoint_Info > dst_connpoints_;
 };
 
 #if defined (__GAME_INLINE__)
