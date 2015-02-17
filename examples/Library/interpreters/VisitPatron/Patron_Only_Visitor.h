@@ -28,7 +28,7 @@ public:
   virtual ~Patron_Only_Visitor (void);
 
   // Visit a RootFolder element.
-  virtual void visit_RootFolder (GAME::Mga::RootFolder_in r);
+  virtual void visit_RootFolder (Library::RootFolder_in r);
 
   // Visit a Library element.
   virtual void visit_Library (Library::Library_in l);
