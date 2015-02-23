@@ -101,14 +101,16 @@ public:
     {
       // Store the role name, then visit the connector.
       this->role_name_ = item->attribute ("srcRolename")->string_value ();
-      this->get_cardinality (item);
+      GAME::Mga::Connection opposite_end = this->get_opposite_end (item);
+      this->get_cardinality (opposite_end);
       item->dst ()->accept (this);
     }
     else if (metaname == "ConnectorToDestination")
     {
       // Store the role name, then visit the connector.
       this->role_name_ = item->attribute ("dstRolename")->string_value ();
-      this->get_cardinality (item);
+      GAME::Mga::Connection opposite_end = this->get_opposite_end (item);
+      this->get_cardinality (opposite_end);
       item->src ()->accept (this);
     }
     else if (metaname == "AssociationClass")
@@ -157,6 +159,25 @@ public:
         this->includes_.insert (fco_definition);
       }
     }
+  }
+
+  GAME::Mga::Connection get_opposite_end (GAME::Mga::Connection_in conn)
+  {
+    const std::string provided_role = conn->meta ()->name ();
+    const std::string desired_role = (provided_role == "SourceToConnector" ? "ConnectorToDestination" : "SourceToConnector");
+
+    // Get the connector from the provided connection
+    GAME::Mga::FCO connector;
+    if (provided_role == "SourceToConnector")
+      connector = conn->dst ();
+    else
+      connector = conn->src ();
+
+    // Get the opposite side of the connector
+    std::vector <GAME::Mga::Connection> opposite_end;
+    connector->in_connections (desired_role, opposite_end);
+
+    return opposite_end.front ();
   }
 
   void get_cardinality (GAME::Mga::Connection_in conn)
