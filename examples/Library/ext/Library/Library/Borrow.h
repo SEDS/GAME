@@ -47,11 +47,14 @@ namespace Library
     /// Metaname for this extension class.
     static const std::string metaname;
 
+    /// Identifier if this class is an abstract type in GME
+    static const bool is_abstract;
+
     /**
      * @name Factory Methods
      */
     ///@{
-    static Borrow _create (const Library_in parent);
+    static Borrow _create (const Library_in parent, Book_in src, Patron_in dst);
     ///@}
 
     // Default constructor.

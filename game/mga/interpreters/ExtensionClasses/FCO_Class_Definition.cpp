@@ -20,6 +20,14 @@
 #include "game/mga/Reference.h"
 #include "game/mga/Visitor.h"
 
+#include <sstream>
+
+// ConnPoint_Info < operator
+bool operator < (const ConnPoint_Info & lhs, const ConnPoint_Info & rhs)
+{
+  return (lhs.target < rhs.target) || (lhs.end < rhs.end);
+}
+
 /**
  * @class Attribute_Visitor
  *
@@ -60,10 +68,12 @@ public:
   //
   // SourceToConnector_Visitor
   //
-  Connection_Point_Visitor (std::set < std::pair <std::string, FCO_Class_Definition *> > & points,
+  Connection_Point_Visitor (std::set < ConnPoint_Info > & points,
                             Unique_Object_Class_Definitions & includes)
     : points_ (points),
-      includes_ (includes)
+      includes_ (includes),
+      min_cardinality_ (0),
+      max_cardinality_ (0)
   {
 
   }
@@ -91,12 +101,16 @@ public:
     {
       // Store the role name, then visit the connector.
       this->role_name_ = item->attribute ("srcRolename")->string_value ();
+      GAME::Mga::Connection opposite_end = this->get_opposite_end (item);
+      this->get_cardinality (opposite_end);
       item->dst ()->accept (this);
     }
     else if (metaname == "ConnectorToDestination")
     {
       // Store the role name, then visit the connector.
       this->role_name_ = item->attribute ("dstRolename")->string_value ();
+      GAME::Mga::Connection opposite_end = this->get_opposite_end (item);
+      this->get_cardinality (opposite_end);
       item->src ()->accept (this);
     }
     else if (metaname == "AssociationClass")
@@ -121,7 +135,10 @@ public:
           dynamic_cast <FCO_Class_Definition *> (definition);
 
         assert (0 != fco_definition);
-        this->points_.insert (std::make_pair (this->role_name_, fco_definition));
+        this->points_.insert (ConnPoint_Info (this->role_name_,
+                                              fco_definition,
+                                              this->min_cardinality_,
+                                              this->max_cardinality_));
 
         this->includes_.insert (fco_definition);
       }
@@ -134,16 +151,59 @@ public:
           dynamic_cast <FCO_Class_Definition *> (definition);
 
         assert (0 != fco_definition);
-        this->points_.insert (std::make_pair (this->role_name_, fco_definition));
+        this->points_.insert (ConnPoint_Info (this->role_name_,
+                                              fco_definition,
+                                              this->min_cardinality_,
+                                              this->max_cardinality_));
 
         this->includes_.insert (fco_definition);
       }
     }
   }
 
+  GAME::Mga::Connection get_opposite_end (GAME::Mga::Connection_in conn)
+  {
+    const std::string provided_role = conn->meta ()->name ();
+    const std::string desired_role = (provided_role == "SourceToConnector" ? "ConnectorToDestination" : "SourceToConnector");
+
+    // Get the connector from the provided connection
+    GAME::Mga::FCO connector;
+    if (provided_role == "SourceToConnector")
+      connector = conn->dst ();
+    else
+      connector = conn->src ();
+
+    // Get the opposite side of the connector
+    std::vector <GAME::Mga::Connection> opposite_end;
+    connector->in_connections (desired_role, opposite_end);
+
+    return opposite_end.front ();
+  }
+
+  void get_cardinality (GAME::Mga::Connection_in conn)
+  {
+    // Extract the concrete values for the cardinality.
+    std::string cardinality = conn->attribute ("Cardinality")->string_value ();
+    std::istringstream istr (cardinality);
+
+    istr >> this->min_cardinality_;
+
+    if (!istr.eof ())
+    {
+      istr.ignore (2);
+      istr >> this->max_cardinality_;
+    }
+    else
+    {
+      this->max_cardinality_ = this->min_cardinality_;
+    }
+  }
+
 private:
-  std::set < std::pair <std::string, FCO_Class_Definition *> > & points_;
+  std::set < ConnPoint_Info > & points_;
   Unique_Object_Class_Definitions & includes_;
+  int min_cardinality_;
+  int max_cardinality_;
 
   std::string role_name_;
 };
@@ -330,18 +390,18 @@ generate_attribute (const Generation_Context & ctx, GAME::Mga::Atom_in item)
 //
 void FCO_Class_Definition::
 generate_connection_point (const Generation_Context & ctx,
-                           const std::pair < std::string, FCO_Class_Definition * > & item)
+                           const ConnPoint_Info & info)
 {
-  const std::string role_name = item.first;
-  const std::string type_name = item.second->name ();
-  const std::string func_name = item.first + "_of_" + type_name;
+  // Generate the vector getter
+  const std::string role_name = info.end;
+  const std::string type_name = info.target->name ();
+  const std::string func_name = role_name + "_of_" + type_name;
 
   // Write the connection point method.
   ctx.hfile_
     << std::endl
     << "/// Get the " << role_name << " " << type_name << " connection." << std::endl
-    << "size_t " << func_name << " (std::vector <" << type_name << "> & items) const;"
-    << "GAME::Mga::Collection_T <" << type_name << "> " << func_name << " (void) const;";
+    << "size_t " << func_name << " (std::vector <" << type_name << "> & items) const;";
 
   ctx.sfile_
     << function_header_t (func_name)
@@ -350,6 +410,89 @@ generate_connection_point (const Generation_Context & ctx,
     << "{"
     << "return this->in_connections <" << type_name << "> (items);"
     << "}";
+
+  // Generate the cardinality-specific methods
+  if (info.min_cardinality == 0 && info.max_cardinality == 1)
+    this->generate_optional_connection (ctx, info);
+  else if (info.min_cardinality == 1 && info.max_cardinality == 1)
+    this->generate_single_connection (ctx, info);
+  else
+    this->generate_multiple_connection (ctx, info);
+}
+
+//
+// generate_optional_connection
+//
+void FCO_Class_Definition::
+generate_optional_connection (const Generation_Context & ctx,
+                              const ConnPoint_Info & info)
+{
+  const std::string role_name = info.end;
+  const std::string type_name = info.target->name ();
+  const std::string func_name = role_name + "_of_" + type_name;
+
+  // Write the connection point method.
+  ctx.hfile_
+    << "bool has_" << func_name << " (void) const;"
+    << type_name << " " << func_name << " (void) const;";
+
+  ctx.sfile_
+    << function_header_t ("has_" + func_name)
+    << "bool " << this->classname_ << "::"
+    << "has_" << func_name << " (void) const"
+    << "{"
+    << "return this->in_connections <" << type_name << "> (\"" << role_name << "\").count () == 1;"
+    << "}";
+
+  ctx.sfile_
+    << function_header_t (func_name)
+    << type_name << " "
+    << this->classname_ << "::"
+    << func_name << " (void) const"
+    << "{"
+    << "return this->in_connections <" << type_name << "> (\"" << role_name << "\").first ();"
+    << "}";
+}
+
+//
+// generate_single_connection
+//
+void FCO_Class_Definition::
+generate_single_connection (const Generation_Context & ctx,
+                            const ConnPoint_Info & info)
+{
+  const std::string role_name = info.end;
+  const std::string type_name = info.target->name ();
+  const std::string func_name = role_name + "_of_" + type_name;
+
+  // Write the connection point method.
+  ctx.hfile_
+    << type_name << " " << func_name << " (void) const;";
+
+  ctx.sfile_
+    << function_header_t (func_name)
+    << type_name << " "
+    << this->classname_ << "::"
+    << func_name << " (void) const"
+    << "{"
+    << "return this->in_connections <" << type_name << "> (\"" << role_name << "\").first ();"
+    << "}";
+}
+
+//
+// generate_multiple_connection
+//
+void FCO_Class_Definition::
+generate_multiple_connection (const Generation_Context & ctx,
+                              const ConnPoint_Info & info)
+{
+  const std::string role_name = info.end;
+  const std::string type_name = info.target->name ();
+  const std::string func_name = role_name + "_of_" + type_name;
+
+  // Write the connection point method.
+  ctx.hfile_
+    << "GAME::Mga::Collection_T <" << type_name << "> " << func_name << " (void) const;";
 
   ctx.sfile_
     << function_header_t (func_name)

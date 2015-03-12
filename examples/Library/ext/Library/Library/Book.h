@@ -47,6 +47,9 @@ namespace Library
     /// Metaname for this extension class.
     static const std::string metaname;
 
+    /// Identifier if this class is an abstract type in GME
+    static const bool is_abstract;
+
     /**
      * @name Factory Methods
      */
@@ -115,7 +118,8 @@ namespace Library
     ///@{
 
     /// Get the src Borrow connection.
-    size_t src_Borrow (std::vector <Borrow> & items) const;
+    size_t src_of_Borrow (std::vector <Borrow> & items) const;
+    GAME::Mga::Collection_T <Borrow> src_of_Borrow (void) const;
     ///@}
   };
 }

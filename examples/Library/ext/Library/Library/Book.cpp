@@ -23,11 +23,16 @@ namespace Library
   const std::string Book_Impl::metaname ("Book");
 
   //
+  // is_abstract
+  //
+  const bool Book_Impl::is_abstract = false;
+
+  //
   // _create (const Library_in)
   //
   Book Book_Impl::_create (const Library_in parent)
   {
-    return ::GAME::Mga::create_object < Book > (parent, Book_Impl::metaname);
+    return ::GAME::Mga::create < Book > (parent, Book_Impl::metaname);
   }
 
   //
@@ -53,11 +58,19 @@ namespace Library
   }
 
   //
-  // src_Borrow
+  // src_of_Borrow
   //
-  size_t Book_Impl::src_Borrow (std::vector <Borrow> & items) const
+  size_t Book_Impl::src_of_Borrow (std::vector <Borrow> & items) const
   {
     return this->in_connections <Borrow> (items);
+  }
+
+  //
+  // src_of_Borrow
+  //
+  GAME::Mga::Collection_T <Borrow> Book_Impl::src_of_Borrow (void) const
+  {
+    return this->in_connections <Borrow> ("src");
   }
 }
 

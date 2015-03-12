@@ -123,7 +123,7 @@ generate_refers_to_method (const Generation_Context & ctx, Object_Class_Definiti
     << function_header_t (test_method_name)
     << "bool " << this->classname_ << "::" << test_method_name << " (void) const"
     << "{"
-    << "return !this->refers_to ().is_nil ();"
+    << "return this->refers_to ().is_nil ();"
     << "}"
     << function_header_t (method)
     << "void " << this->classname_ << "::" << method << " (" << type_name << "_in item)"

@@ -8,8 +8,8 @@
 #endif
 
 #include "Library/Visitor.h"
-#include "Library/Library/Book.h"
 #include "Library/Library/Patron.h"
+#include "Library/Library/Book.h"
 #include "Library/Library/Library.h"
 #include "game/mga/Functional_T.h"
 #include "game/mga/MetaModel.h"
@@ -24,11 +24,16 @@ namespace Library
   const std::string Borrow_Impl::metaname ("Borrow");
 
   //
-  // _create (const Library_in)
+  // is_abstract
   //
-  Borrow Borrow_Impl::_create (const Library_in parent)
+  const bool Borrow_Impl::is_abstract = false;
+
+  //
+  // _create (const Library_in, Book_in src, Patron_in dst)
+  //
+  Borrow Borrow_Impl::_create (const Library_in parent, Book_in src, Patron_in dst)
   {
-    return ::GAME::Mga::create_object < Borrow > (parent, Borrow_Impl::metaname);
+    return ::GAME::Mga::Connection_Impl::_create (parent, Borrow_Impl::metaname, src, dst);
   }
 
   //

@@ -8,8 +8,8 @@
 #endif
 
 #include "Library/Visitor.h"
-#include "Library/Library/Book.h"
 #include "Library/Library/Patron.h"
+#include "Library/Library/Book.h"
 #include "Library/Library/Borrow.h"
 #include "game/mga/Functional_T.h"
 #include "game/mga/MetaModel.h"
@@ -22,6 +22,11 @@ namespace Library
   // metaname
   //
   const std::string Library_Impl::metaname ("Library");
+
+  //
+  // is_abstract
+  //
+  const bool Library_Impl::is_abstract = false;
 
   //
   // _create (const ::GAME::Mga::RootFolder_in)
@@ -54,22 +59,6 @@ namespace Library
   }
 
   //
-  // get_Books
-  //
-  size_t Library_Impl::get_Books (std::vector <Book> & items) const
-  {
-    return this->children (items);
-  }
-
-  //
-  // get_Books
-  //
-  ::GAME::Mga::Collection_T <Book> Library_Impl::get_Books (void) const
-  {
-    return this->children <Book> ();
-  }
-
-  //
   // get_Patrons
   //
   size_t Library_Impl::get_Patrons (std::vector <Patron> & items) const
@@ -83,6 +72,22 @@ namespace Library
   ::GAME::Mga::Collection_T <Patron> Library_Impl::get_Patrons (void) const
   {
     return this->children <Patron> ();
+  }
+
+  //
+  // get_Books
+  //
+  size_t Library_Impl::get_Books (std::vector <Book> & items) const
+  {
+    return this->children (items);
+  }
+
+  //
+  // get_Books
+  //
+  ::GAME::Mga::Collection_T <Book> Library_Impl::get_Books (void) const
+  {
+    return this->children <Book> ();
   }
 
   //
