@@ -6,7 +6,8 @@
 #include "Fragment.inl"
 #endif
 
-#include "xercesc/dom/DOMDocument.hpp"
+#include "Document.h"
+
 #include <sstream>
 
 namespace GAME
@@ -14,52 +15,43 @@ namespace GAME
 namespace Xml
 {
 
-//
-// create_element
-//
-xercesc::DOMElement * Fragment::
-create_element (xercesc::DOMElement * parent, const String & name)
+Document Fragment::owner_document (void) const
+{
+  return this->fragment_->getOwnerDocument ();
+}
+
+Fragment Fragment::append_element (const String & name)
 {
   using xercesc::DOMElement;
   using xercesc::DOMDocument;
 
   // Create the new element.
-  DOMDocument * doc = parent->getOwnerDocument ();
-  DOMElement * element = doc->createElement (name);
+  DOMDocument * doc = this->fragment_->getOwnerDocument ();
+  Fragment fragment = doc->createElement (name);
 
-  // Attach the element to the parent.
-  parent->appendChild (element);
+  // Append the fragment, and return.
+  this->append (fragment);
 
-  return element;
+  return fragment;
 }
 
-//
-// create_element
-//
-xercesc::DOMElement * Fragment::
-create_element (xercesc::DOMElement * parent,
-                const String & ns,
-                const String & name)
+Fragment Fragment::append_element (const String & ns, const String & name)
 {
   using xercesc::DOMElement;
   using xercesc::DOMDocument;
 
   // Create the new element.
-  DOMDocument * doc = parent->getOwnerDocument ();
-  DOMElement * element = doc->createElementNS (ns, name);
+  DOMDocument * doc = this->fragment_->getOwnerDocument ();
+  Fragment fragment = doc->createElementNS (ns, name);
 
-  // Attach the element to the parent.
-  parent->appendChild (element);
+  // Append the fragment, and return.
+  this->append (fragment);
 
-  return element;
+  return fragment;
 }
 
-//
-// create_simple_content
-//
-xercesc::DOMElement * Fragment::
-create_simple_content (xercesc::DOMElement * parent,
-                       const String & ns,
+Fragment Fragment::
+append_simple_content (const String & ns,
                        const String & name,
                        const String & value)
 {
@@ -67,7 +59,7 @@ create_simple_content (xercesc::DOMElement * parent,
   using xercesc::DOMElement;
 
   // Create the element.
-  DOMElement * child = Fragment::create_element (parent, ns, name);
+  Fragment child = this->append_element (ns, name);
 
   // Create the text inside the child element.
   if (!value.empty ())
@@ -76,19 +68,14 @@ create_simple_content (xercesc::DOMElement * parent,
   return child;
 }
 
-//
-// create_simple_content
-//
-xercesc::DOMElement * Fragment::
-create_simple_content (xercesc::DOMElement * parent,
-                       const String & name,
-                       const String & value)
+Fragment Fragment::
+append_simple_content (const String & name, const String & value)
 {
   using xercesc::DOMDocument;
   using xercesc::DOMElement;
 
   // Create the element.
-  DOMElement * child = Fragment::create_element (parent, name);
+  Fragment child = this->append_element (name);
 
   // Create the text inside the child element.
   if (!value.empty ())
@@ -97,9 +84,6 @@ create_simple_content (xercesc::DOMElement * parent,
   return child;
 }
 
-//
-// set_attribute
-//
 void Fragment::set_attribute (const String & name, long value)
 {
   std::ostringstream ostr;

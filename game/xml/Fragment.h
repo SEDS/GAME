@@ -4,8 +4,6 @@
 /**
  *  @file         Fragment.h
  *
- *  $Id$
- *
  *  @author       James H. Hill
  */
 //=============================================================================
@@ -20,6 +18,9 @@ namespace GAME
 {
 namespace Xml
 {
+
+class Document;
+
 /**
  * @class Fragment
  *
@@ -38,40 +39,15 @@ public:
   virtual ~Fragment (void);
 
   /**
-   * Helper class for creating a DOM element that has simple
-   * content. Simple content is defined as <name>value</name>.
-   */
-  static
-    xercesc::DOMElement *
-    create_simple_content (xercesc::DOMElement * parent,
-                           const String & name,
-                           const String & value);
-
-  static
-    xercesc::DOMElement *
-    create_simple_content (xercesc::DOMElement * parent,
-                           const String & ns,
-                           const String & name,
-                           const String & value);
-
-  static
-    xercesc::DOMElement *
-    create_element (xercesc::DOMElement * parent,
-                    const String & name);
-
-  static
-    xercesc::DOMElement *
-    create_element (xercesc::DOMElement * parent,
-                    const String & ns,
-                    const String & name);
-
-  /**
-   * Create an element at the end of the current fragment.
+   * Append an element at the end of the current fragment.
    *
    * @param[in]       name        Name of the element.
    */
-  xercesc::DOMElement * create_element (const String & name);
-  xercesc::DOMElement * create_element (const String & ns, const String & name);
+  Fragment append_element (const String & name);
+  Fragment append_element (const String & ns, const String & name);
+
+  /// Get the owner document.
+  Document owner_document (void) const;
 
   /**
    * Create a simple content element at the end of the current
@@ -80,12 +56,14 @@ public:
    * @param[in]       name        Name of the element.
    * @param[in]       value       Text value of the content.
    */
-  xercesc::DOMElement * create_simple_content (const String & name, const String & value);
-  xercesc::DOMElement * create_simple_content (const String & ns, const String & name, const String & value);
+  Fragment append_simple_content (const String & name, const String & value);
+  Fragment append_simple_content (const String & ns, const String & name, const String & value);
 
   /// Get a pointer to the fragment.
   xercesc::DOMElement * operator -> (void);
-  xercesc::DOMElement * ptr (void);
+
+  /// Get a pointer to the fragment.
+  xercesc::DOMElement * ptr (void) const;
 
   operator xercesc::DOMElement * (void);
 
@@ -97,7 +75,24 @@ public:
   void set_attribute (const String & name, double value);
   void set_attribute (const String & name, long value);
 
-  Fragment clone (void);
+  /// Do a deep clone of the fragment.
+  Fragment clone (void) const;
+
+  /**
+   * Append an existing fragment to this fragment.
+   *
+   * @param[in]       fragment        Fragment to append
+   */
+  void append (const Fragment & fragment);
+
+  bool operator < (const GAME::Xml::Fragment & rhs) const;
+  bool operator <= (const GAME::Xml::Fragment & rhs) const;
+
+  bool operator > (const GAME::Xml::Fragment & rhs) const;
+  bool operator >= (const GAME::Xml::Fragment & rhs) const;
+
+  bool operator == (const GAME::Xml::Fragment & rhs) const;
+  bool operator != (const GAME::Xml::Fragment & rhs) const;
 
 protected:
   /// Pointer to the current fragment.
@@ -111,4 +106,4 @@ protected:
 #include "Fragment.inl"
 #endif
 
-#endif  // !defined _GAME_XML_DOCUMENT_H_
+#endif  // !defined _GAME_XML_FRAGMENT_H_
