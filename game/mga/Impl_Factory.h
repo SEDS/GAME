@@ -18,7 +18,7 @@
 #include "ace/Null_Mutex.h"
 #include "Mga_export.h"
 #include <map>
-
+#include "Mga.h"
 
 namespace GAME
 {
