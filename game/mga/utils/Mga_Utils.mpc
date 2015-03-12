@@ -29,5 +29,6 @@ project (GAME_Mga_Utils) : boost_base, acelib, game_mga, game_lib {
     modelgen.cpp
     Parser.hpp
     Position_Sort_T.cpp
+	Name_Sort_T.cpp
   }
 }
