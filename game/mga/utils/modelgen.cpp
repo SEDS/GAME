@@ -7,6 +7,34 @@ namespace GAME
 {
 
 //
+// visit_all::operator ()
+//
+template <typename T, typename V>
+void visit_all::operator () (T & collection, V * visitor)
+{
+  for (auto item : collection)
+    item->accept (visitor);
+}
+
+//
+// derives_from::operator ()
+//
+template <typename BASE>
+template <typename T>
+bool derives_from <BASE>::operator () (const T & derived)
+{
+  try
+  {
+    BASE base = BASE::_narrow (derived);
+    return true;
+  }
+  catch (GAME::Mga::Exception &)
+  {
+    return false;
+  }
+}
+
+//
 // contains_t::operator ()
 //
 template <typename ARCH, typename PRED>
