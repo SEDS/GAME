@@ -1,5 +1,4 @@
 // -*- C++ -*-
-// $Id$
 
 namespace GAME
 {
@@ -13,6 +12,7 @@ Fragment::Fragment (xercesc::DOMElement * e)
 
 }
 
+GAME_INLINE
 Fragment::Fragment (const Fragment & f)
 : fragment_ (f.fragment_)
 {
@@ -26,40 +26,13 @@ Fragment::~Fragment (void)
 }
 
 GAME_INLINE
-xercesc::DOMElement * Fragment::create_element (const String & name)
-{
-  return Fragment::create_element (this->fragment_, name);
-}
-
-GAME_INLINE
-xercesc::DOMElement * Fragment::
-create_element (const String & ns, const String & name)
-{
-  return Fragment::create_element (this->fragment_, ns, name);
-}
-
-GAME_INLINE
-xercesc::DOMElement * Fragment::
-create_simple_content (const String & name, const String & value)
-{
-  return Fragment::create_simple_content (this->fragment_, name, value);
-}
-
-GAME_INLINE
-xercesc::DOMElement * Fragment::
-create_simple_content (const String & ns, const String & name, const String & value)
-{
-  return Fragment::create_simple_content (this->fragment_, ns, name, value);
-}
-
-GAME_INLINE
 xercesc::DOMElement * Fragment::operator -> (void)
 {
   return this->fragment_;
 }
 
 GAME_INLINE
-xercesc::DOMElement * Fragment::ptr (void)
+xercesc::DOMElement * Fragment::ptr (void) const
 {
   return this->fragment_;
 }
@@ -99,9 +72,51 @@ void Fragment::set_attribute (const String & name, bool value)
 }
 
 GAME_INLINE
-Fragment Fragment::clone (void)
+Fragment Fragment::clone (void) const
 {
   return dynamic_cast <xercesc::DOMElement *> (this->fragment_->cloneNode (true));
+}
+
+GAME_INLINE
+void Fragment::append (const Fragment & fragment)
+{
+  this->fragment_->appendChild (fragment.fragment_);
+}
+
+GAME_INLINE
+bool Fragment::operator < (const GAME::Xml::Fragment & rhs) const
+{
+  return this->fragment_ < rhs.fragment_;
+}
+
+GAME_INLINE
+bool Fragment::operator <= (const GAME::Xml::Fragment & rhs) const
+{
+  return this->fragment_ <= rhs.fragment_;
+}
+
+GAME_INLINE
+bool Fragment::operator > (const GAME::Xml::Fragment & rhs) const
+{
+  return this->fragment_ > rhs.fragment_;
+}
+
+GAME_INLINE
+bool Fragment::operator >= (const GAME::Xml::Fragment & rhs) const
+{
+  return this->fragment_ >= rhs.fragment_;
+}
+
+GAME_INLINE
+bool Fragment::operator == (const GAME::Xml::Fragment & rhs) const
+{
+  return this->fragment_ == rhs.fragment_;
+}
+
+GAME_INLINE
+bool Fragment::operator != (const GAME::Xml::Fragment & rhs) const
+{
+  return this->fragment_ != rhs.fragment_;
 }
 
 }
