@@ -32,6 +32,19 @@ struct create_element
   T operator () (P parent, const META & metaname);
 };
 
+struct visit_all
+{
+  template <typename T, typename V>
+  void operator () (T & collection, V * visitor);
+};
+
+template <typename BASE>
+struct derives_from
+{
+  template <typename T>
+  bool operator () (const T & derived);
+};
+
 /**
  * @class contains_t
  *
