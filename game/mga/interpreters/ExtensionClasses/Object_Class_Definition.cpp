@@ -360,8 +360,6 @@ void Object_Class_Definition::generate (const Generation_Context & ctx)
     << "/**" << std::endl
     << " * @file    " << this->name_ << ".h" << std::endl
     << " *" << std::endl
-    << " * $" << "Id" << "$" << std::endl
-    << " *" << std::endl
     << " * @author  Alhad Mokashi <amokashi at iupui dot edu>" << std::endl
     << " *          James H. Hill <hillj at cs dot iupui dot edu>" << std::endl
     << " */" << std::endl
@@ -375,8 +373,6 @@ void Object_Class_Definition::generate (const Generation_Context & ctx)
     << std::endl;
 
   ctx.sfile_
-    << "// $" << "Id" << "$" << std::endl
-    << std::endl
     << include_t (ctx.pch_basename_ + ".h")
     << include_t (this->name_ + ".h")
     << std::endl
@@ -410,7 +406,6 @@ void Object_Class_Definition::generate (const Generation_Context & ctx)
 
   ctx.ifile_
     << "// -*- C++ -*-" << std::endl
-    << "// $" << "Id" << "$" << std::endl
     << std::endl;
 
   if (!this->is_abstract_)
