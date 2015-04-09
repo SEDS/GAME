@@ -4,6 +4,14 @@ namespace GAME
 {
 namespace Mga
 {
+
+template <typename T>
+inline
+Collection_T_Impl_Proxy <T>::Collection_T_Impl_Proxy (void)
+: impl_ (0)
+{
+
+}
        
 //
 // Collection_T_Impl_Proxy

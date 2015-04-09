@@ -105,6 +105,16 @@ const size_t Collection_T <T>::unknown_count = -1;
 
 template <typename T>
 GAME_INLINE
+Collection_T <T>::Collection_T (void)
+: size_ (0),
+  count_ (0),
+  begin_ (0),
+  end_ (0)
+{
+}
+
+template <typename T>
+GAME_INLINE
 Collection_T <T>::Collection_T (proxy_type iter)
 : iter_ (iter),
   size_ (0),
