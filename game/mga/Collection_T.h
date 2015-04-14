@@ -49,6 +49,12 @@ public:
   /// Type definition of expected proxy
   typedef typename iterator_type::iterator_type proxy_type;
   typedef typename iterator_type::interface_type interface_type;
+  typedef typename T value_type;
+
+  /**
+   * Default constructor.  Size is 0.
+   */
+  Collection_T (void);
 
   /**
    * Initializing constructor
