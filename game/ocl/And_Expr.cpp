@@ -1,5 +1,7 @@
 // $Id: And_Expr.cpp 2902 2012-05-07 03:08:44Z tpati $
 
+#include <memory>
+
 #include "stdafx.h"
 #include "And_Expr.h"
 
@@ -31,6 +33,7 @@ bool And_Expr::evaluate (Ocl_Context & res)
   if (left && right)
     return true;
 
+  res.failures.push_back(std::make_shared<And_Failure_Object>(res));
   return false;
 }
 

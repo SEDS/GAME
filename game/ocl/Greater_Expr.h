@@ -15,6 +15,7 @@
 
 #include "Comparison_Expr.h"
 #include "Value_Expr.h"
+#include "Greater_Than_Failure_Object.h"
 
 /**
  * @class Greater_Expr

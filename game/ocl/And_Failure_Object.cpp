@@ -5,6 +5,11 @@ And_Failure_Object::And_Failure_Object()
 {
 }
 
+And_Failure_Object::And_Failure_Object()
+	:res_(res)
+{
+}
+
 And_Failure_Object::~And_Failure_Object()
 {
 }

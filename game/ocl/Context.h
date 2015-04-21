@@ -14,6 +14,7 @@
 #define _GAME_OCL_CONTEXT_H_
 
 #include <map>
+#include <memory>
 
 #include "game/mga/MetaRole.h"
 #include "game/mga/Model.h"
@@ -21,6 +22,7 @@
 #include "game/mga/Reference.h"
 
 #include "Value.h"
+#include "Failure_Object.h"
 
 /**
  * @struct Ocl_Context
@@ -55,6 +57,8 @@ struct GAME_OCL_Export Ocl_Context
 
   // Current FCO being worked on
   GAME::Mga::FCO cur_fco;
+
+  std::vector <std::shared_ptr<Failure_Object>> failures;
 
   // Containment Constraint checker
   bool checker;

@@ -1,5 +1,7 @@
 // $Id: Equal_Expr.cpp 2905 2012-05-17 21:55:36Z tpati $
 
+#include <memory>
+
 #include "stdafx.h"
 #include "Equal_Expr.h"
 
@@ -25,6 +27,10 @@ Equal_Expr::~Equal_Expr (void)
 
 bool Equal_Expr::evaluate (Ocl_Context & res)
 {
+	if (this->lhs_->evaluate (res)->is_equal (this->rhs_->evaluate (res)))
+	{
+		res.failures.push_back(std::make_shared<Equal_Failure_Object>());
+	}
   return this->lhs_->evaluate (res)->is_equal (this->rhs_->evaluate (res));
 }
 

@@ -15,6 +15,7 @@
 
 #include "Conjunction_Expr.h"
 #include "Comparison_Expr.h"
+#include "And_Failure_Object.h"
 
 /**
  * @class And_Expr

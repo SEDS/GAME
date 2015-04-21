@@ -15,6 +15,7 @@
 
 #include "Conjunction_Expr.h"
 #include "Comparison_Expr.h"
+#include "Or_Failure_Object.h"
 
 /**
  * @class Or_Expr

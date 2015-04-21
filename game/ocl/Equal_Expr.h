@@ -15,6 +15,7 @@
 
 #include "Comparison_Expr.h"
 #include "Value_Expr.h"
+#include "Equal_Failure_Object.h"
 
 /**
  * @class Equal_Expr
