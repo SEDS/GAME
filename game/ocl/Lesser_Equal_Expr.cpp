@@ -33,7 +33,7 @@ Lesser_Equal_Expr::~Lesser_Equal_Expr (void)
 //
 bool Lesser_Equal_Expr::evaluate (Ocl_Context & res)
 {
-	if (this->lhs_->evaluate (res)->is_lesser_equal (this->rhs_->evaluate (res)))
+	if (!(this->lhs_->evaluate (res)->is_lesser_equal (this->rhs_->evaluate (res))))
 	{
 		res.failures.push_back(std::make_shared<Lesser_Than_Equal_Failure_Object>());
 	}

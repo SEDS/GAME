@@ -27,7 +27,7 @@ Equal_Expr::~Equal_Expr (void)
 
 bool Equal_Expr::evaluate (Ocl_Context & res)
 {
-	if (this->lhs_->evaluate (res)->is_equal (this->rhs_->evaluate (res)))
+	if (!(this->lhs_->evaluate (res)->is_equal (this->rhs_->evaluate (res))))
 	{
 		res.failures.push_back(std::make_shared<Equal_Failure_Object>());
 	}
