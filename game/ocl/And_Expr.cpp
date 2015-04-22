@@ -33,6 +33,7 @@ bool And_Expr::evaluate (Ocl_Context & res)
   if (left && right)
     return true;
 
+  // doubt in passing value.
   res.failures.push_back(std::make_shared<And_Failure_Object>(res));
   return false;
 }

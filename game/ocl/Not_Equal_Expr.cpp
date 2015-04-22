@@ -31,11 +31,12 @@ Not_Equal_Expr::~Not_Equal_Expr (void)
 //
 bool Not_Equal_Expr::evaluate (Ocl_Context & res)
 {
-	if (!(!this->lhs_->evaluate (res)->is_equal (this->rhs_->evaluate (res))))
+	if ((!this->lhs_->evaluate (res)->is_equal (this->rhs_->evaluate (res)))==false)
 	{
 		res.failures.push_back(std::make_shared<Inequal_Failure_Object>());
+		return false;
 	}
-  return !this->lhs_->evaluate (res)->is_equal (this->rhs_->evaluate (res));
+  return true;
 }
 
 //

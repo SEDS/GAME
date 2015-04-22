@@ -32,11 +32,12 @@ Lesser_Expr::~Lesser_Expr (void)
 //
 bool Lesser_Expr::evaluate (Ocl_Context & res)
 {
-	if (!(this->lhs_->evaluate (res)->is_lesser (this->rhs_->evaluate (res))))
+	if ((this->lhs_->evaluate (res)->is_lesser (this->rhs_->evaluate (res)))==false)
 	{
 		res.failures.push_back(std::make_shared<Lesser_Than_Failure_Object>());
+		return false;
 	}
-  return this->lhs_->evaluate (res)->is_lesser (this->rhs_->evaluate (res));
+  return true;
 }
 
 //
