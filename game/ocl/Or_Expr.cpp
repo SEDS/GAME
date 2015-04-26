@@ -1,7 +1,5 @@
 // $Id: And_Expr.cpp 2902 2012-05-07 03:08:44Z tpati $
 
-#include <memory>
-
 #include "stdafx.h"
 #include "Or_Expr.h"
 
@@ -32,7 +30,7 @@ bool Or_Expr::evaluate (Ocl_Context & res)
   if (left || right)
     return true;
 
-  res.failures.push_back(std::make_shared<Or_Failure_Object>());
+  res.failures.push_back(std::make_shared<Or_Failure_Object>(this));
   return false;
 }
 

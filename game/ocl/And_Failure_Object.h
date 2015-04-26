@@ -2,17 +2,20 @@
 #define _MODEL_INTELLIGENCE_AND_FAILURE_OBJECT_H_
 
 #include "Conjunction_Failure_Object.h"
-#include "Context.h"
+#include "Boolean_Expr.h"
+
+class And_Expr;
 
 class And_Failure_Object : public Conjunction_Failure_Object
 {
 public:
 	And_Failure_Object();
-	And_Failure_Object(Ocl_Context res);
+	And_Failure_Object(Boolean_Expr * expr);
 	~And_Failure_Object();
+	virtual void accept (Failure_Visitor & v);
 
 private:
-	Ocl_Context res_;
+	And_Expr * expr_;
 
 };
 

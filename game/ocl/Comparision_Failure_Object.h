@@ -8,6 +8,7 @@ class Comparision_Failure_Object : public Failure_Object
 public:
 	Comparision_Failure_Object();
 	~Comparision_Failure_Object();
+	virtual void accept (Failure_Visitor & v)=0;
 
 private:
 

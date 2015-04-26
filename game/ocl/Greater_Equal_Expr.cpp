@@ -1,7 +1,5 @@
 // $Id: Greater_Equal_Expr.cpp 2905 2012-05-17 21:55:36Z tpati $
 
-#include <memory>
-
 #include "stdafx.h"
 #include "Greater_Equal_Expr.h"
 #include "Attribute_Expr.h"
@@ -34,7 +32,7 @@ bool Greater_Equal_Expr::evaluate (Ocl_Context & res)
 {
 	if ((this->lhs_->evaluate (res)->is_greater_equal (this->rhs_->evaluate (res)))==false)
 	{
-		res.failures.push_back(std::make_shared<Greater_Than_Equal_Failure_Object>());
+		res.failures.push_back(std::make_shared<Greater_Than_Equal_Failure_Object>(this));
 		return false;
 	}
 	return true;

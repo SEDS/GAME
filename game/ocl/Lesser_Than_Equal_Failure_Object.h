@@ -2,14 +2,20 @@
 #define _MODEL_INTELLIGENCE_LESSER_THAN_EQUAL_FAILURE_OBJECT_H_
 
 #include "Comparision_Failure_Object.h"
+#include "Boolean_Expr.h"
 
-class Lesser_Than_Equal_Failure_Object : Comparision_Failure_Object
+class Lesser_Equal_Expr;
+
+class Lesser_Than_Equal_Failure_Object : public Comparision_Failure_Object
 {
 public:
 	Lesser_Than_Equal_Failure_Object();
+	Lesser_Than_Equal_Failure_Object(Boolean_Expr * expr);
 	~Lesser_Than_Equal_Failure_Object();
+	virtual void accept (Failure_Visitor & v);
 
 private:
+	Lesser_Equal_Expr * expr_;
 
 };
 

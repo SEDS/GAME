@@ -8,6 +8,7 @@ class Conjunction_Failure_Object : public Failure_Object
 public:
 	Conjunction_Failure_Object();
 	~Conjunction_Failure_Object();
+	virtual void accept (Failure_Visitor & v)=0;
 
 private:
 
