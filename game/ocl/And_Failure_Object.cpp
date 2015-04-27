@@ -4,6 +4,7 @@
 #include "And_Expr.h"
 
 And_Failure_Object::And_Failure_Object()
+	:expr_(0)
 {
 }
 

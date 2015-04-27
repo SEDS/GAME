@@ -102,6 +102,7 @@ project (GAME_OCL): boost_base, game_mga, game_lib {
 	Failure_Visitor.cpp
 	Greater_Than_Equal_Failure_Object.cpp
 	Greater_Than_Failure_Object.cpp
+	If_Then_Else_Failure_Object.cpp
 	Inequal_Failure_Object.cpp
 	Lesser_Than_Equal_Failure_Object.cpp
 	Lesser_Than_Failure_Object.cpp

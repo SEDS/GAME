@@ -4,6 +4,7 @@
 #include "Not_Equal_Expr.h"
 
 Inequal_Failure_Object::Inequal_Failure_Object()
+	:expr_(0)
 {
 }
 

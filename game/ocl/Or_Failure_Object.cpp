@@ -4,6 +4,7 @@
 #include "Or_Expr.h"
 
 Or_Failure_Object ::Or_Failure_Object ()
+	:expr_(0)
 {
 }
 

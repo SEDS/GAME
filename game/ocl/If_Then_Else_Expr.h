@@ -15,6 +15,7 @@
 
 #include "Boolean_Expr.h"
 #include "Equality_Expr.h"
+#include "If_Then_Else_Failure_Object.h"
 
 /**
  * @class If_Then_Else_Expr

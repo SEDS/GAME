@@ -4,6 +4,7 @@
 #include "Equal_Expr.h"
 
 Equal_Failure_Object::Equal_Failure_Object()
+	:expr_(0)
 {
 }
 

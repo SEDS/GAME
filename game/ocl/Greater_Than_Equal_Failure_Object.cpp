@@ -4,6 +4,7 @@
 #include "Greater_Equal_Expr.h"
 
 Greater_Than_Equal_Failure_Object::Greater_Than_Equal_Failure_Object()
+	:expr_(0)
 {
 }
 

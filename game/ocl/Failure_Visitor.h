@@ -9,6 +9,7 @@
 #include "Greater_Than_Failure_Object.h"
 #include "Lesser_Than_Equal_Failure_Object.h"
 #include "Lesser_Than_Failure_Object.h"
+#include "If_Then_Else_Failure_Object.h"
 
 class Failure_Visitor
 {
@@ -23,6 +24,7 @@ public:
 	virtual void Visit_Greater_Than_Failure_Object (const Greater_Than_Failure_Object & object)=0;
 	virtual void Visit_Lesser_Than_Equal_Failure_Object (const Lesser_Than_Equal_Failure_Object & object)=0;
 	virtual void Visit_Lesser_Than_Failure_Object (const Lesser_Than_Failure_Object & object)=0;
+	virtual void Visit_If_Then_Else_Failure_Object (const If_Then_Else_Failure_Object & object)=0;
 
 private:
 

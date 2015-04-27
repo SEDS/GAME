@@ -4,6 +4,7 @@
 #include "Lesser_Expr.h"
 
 Lesser_Than_Failure_Object::Lesser_Than_Failure_Object()
+	:expr_(0)
 {
 }
 
