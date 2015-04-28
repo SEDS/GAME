@@ -32,7 +32,7 @@ public:
 	Not_Equal_Expr (Value_Expr * left, Value_Expr * right);
 
 	/// Destructor.
-	~Not_Equal_Expr (void);
+	virtual ~Not_Equal_Expr (void);
 
   /**
    * evaluate method for evaluating the respective expression

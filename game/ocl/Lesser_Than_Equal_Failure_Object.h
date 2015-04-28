@@ -13,6 +13,7 @@ public:
 	Lesser_Than_Equal_Failure_Object(Boolean_Expr * expr);
 	~Lesser_Than_Equal_Failure_Object();
 	virtual void accept (Failure_Visitor & v);
+	virtual Boolean_Expr * get_origin();
 
 private:
 	Lesser_Equal_Expr * expr_;

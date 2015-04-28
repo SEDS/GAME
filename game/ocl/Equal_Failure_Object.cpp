@@ -21,3 +21,8 @@ void Equal_Failure_Object::accept (Failure_Visitor & v)
 {
 	v.Visit_Equal_Failure_Object(*this);
 }
+
+Boolean_Expr * Equal_Failure_Object::get_origin()
+{
+	return expr_;
+}

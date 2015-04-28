@@ -29,7 +29,7 @@ public:
   Equality_Expr (void);
 
   ///Destructor
-  ~Equality_Expr (void);
+  virtual ~Equality_Expr (void);
 
   /**
    * evaluate method for evaluating the respective expression

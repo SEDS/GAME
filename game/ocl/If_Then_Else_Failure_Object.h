@@ -13,6 +13,7 @@ public:
 	If_Then_Else_Failure_Object(Boolean_Expr * expr);
 	~If_Then_Else_Failure_Object();
 	virtual void accept (Failure_Visitor & v);
+	virtual Boolean_Expr * get_origin();
 
 private:
 	If_Then_Else_Expr * expr_;

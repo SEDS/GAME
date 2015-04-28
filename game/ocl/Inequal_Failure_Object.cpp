@@ -21,3 +21,8 @@ void Inequal_Failure_Object::accept (Failure_Visitor & v)
 {
 	v.Visit_Inequal_Failure_Object(*this);
 }
+
+Boolean_Expr * Inequal_Failure_Object::get_origin()
+{
+	return expr_;
+}

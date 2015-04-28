@@ -22,3 +22,8 @@ void If_Then_Else_Failure_Object::accept (Failure_Visitor & v)
 {
 	v.Visit_If_Then_Else_Failure_Object(*this);
 }
+
+ Boolean_Expr * If_Then_Else_Failure_Object::get_origin()
+ {
+	 return expr_;
+ }

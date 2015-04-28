@@ -98,6 +98,7 @@ project (GAME_OCL): boost_base, game_mga, game_lib {
 	Comparision_Failure_Object.cpp
 	Conjunction_Failure_Object.cpp
 	Equal_Failure_Object.cpp
+	Equality_Failure_Object.cpp
 	Failure_Object.cpp
 	Failure_Visitor.cpp
 	Greater_Than_Equal_Failure_Object.cpp

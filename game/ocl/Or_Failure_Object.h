@@ -13,6 +13,7 @@ public:
 	Or_Failure_Object (Boolean_Expr * expr);
 	~Or_Failure_Object ();
 	virtual void accept (Failure_Visitor & v);
+	virtual Boolean_Expr * get_origin();
 
 private:
 	Or_Expr * expr_;

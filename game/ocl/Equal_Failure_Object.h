@@ -13,6 +13,7 @@ public:
 	Equal_Failure_Object(Boolean_Expr * expr);
 	~Equal_Failure_Object();
 	virtual void accept (Failure_Visitor & v);
+	virtual Boolean_Expr * get_origin();
 
 private:
 	Equal_Expr * expr_;
