@@ -94,20 +94,20 @@ project (GAME_OCL): boost_base, game_mga, game_lib {
     Double_Value.cpp
     Object_Value.cpp
 
-	And_Failure_Object.cpp
-	Comparision_Failure_Object.cpp
-	Conjunction_Failure_Object.cpp
-	Equal_Failure_Object.cpp
-	Equality_Failure_Object.cpp
-	Failure_Object.cpp
-	Failure_Visitor.cpp
-	Greater_Than_Equal_Failure_Object.cpp
-	Greater_Than_Failure_Object.cpp
-	If_Then_Else_Failure_Object.cpp
-	Inequal_Failure_Object.cpp
-	Lesser_Than_Equal_Failure_Object.cpp
-	Lesser_Than_Failure_Object.cpp
-	Or_Failure_Object.cpp
+	And_Expr_Failure.cpp
+	Comparison_Expr_Failure.cpp
+	Conjunction_Expr_Failure.cpp
+	Equal_Expr_Failure.cpp
+	Equality_Expr_Failure.cpp
+	Expr_Failure.cpp
+	Expr_Failure_Visitor.cpp
+	Greater_Equal_Expr_Failure.cpp
+	Greater_Expr_Failure.cpp
+	If_Then_Else_Expr_Failure.cpp
+	Not_Equal_Expr_Failure.cpp
+	Lesser_Equal_Expr_Failure.cpp
+	Lesser_Expr_Failure.cpp
+	Or_Expr_Failure.cpp
   }
 
   Header_Files {

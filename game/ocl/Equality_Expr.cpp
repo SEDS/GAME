@@ -22,7 +22,7 @@ Equality_Expr::~Equality_Expr (void)
 //
 bool Equality_Expr::evaluate (Ocl_Context &res)
 {
-  return true;
+	return true;
 }
 
 //
@@ -30,7 +30,7 @@ bool Equality_Expr::evaluate (Ocl_Context &res)
 //
 bool Equality_Expr::filter_evaluate (Ocl_Context &res, GAME::Mga::FCO &current)
 {
-  return true;
+	return true;
 }
 
 //
@@ -38,7 +38,7 @@ bool Equality_Expr::filter_evaluate (Ocl_Context &res, GAME::Mga::FCO &current)
 //
 bool Equality_Expr::is_association (void)
 {
-  return true;
+	return true;
 }
 
 //
@@ -46,7 +46,7 @@ bool Equality_Expr::is_association (void)
 //
 bool Equality_Expr::is_containment (void)
 {
-  return true;
+	return true;
 }
 
 //
@@ -54,5 +54,5 @@ bool Equality_Expr::is_containment (void)
 //
 bool Equality_Expr::is_reference (void)
 {
-  return true;
+	return true;
 }

@@ -22,7 +22,8 @@
 #include "game/mga/Reference.h"
 
 #include "Value.h"
-#include "Failure_Object.h"
+
+class Expr_Failure;
 
 /**
  * @struct Ocl_Context
@@ -58,7 +59,7 @@ struct GAME_OCL_Export Ocl_Context
   // Current FCO being worked on
   GAME::Mga::FCO cur_fco;
 
-  std::vector <std::shared_ptr<Failure_Object>> failures;
+  std::vector <std::shared_ptr<Expr_Failure>> failures;
 
   // Containment Constraint checker
   bool checker;

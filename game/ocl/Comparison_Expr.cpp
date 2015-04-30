@@ -22,16 +22,16 @@ Comparison_Expr::~Comparison_Expr (void)
 //
 bool Comparison_Expr::evaluate (Ocl_Context & res)
 {
-  return true;
+	return true;
 }
 
 //
 // dummy method
 //
 bool Comparison_Expr::filter_evaluate (Ocl_Context & res,
-                                       GAME::Mga::FCO & current)
+									   GAME::Mga::FCO & current)
 {
-  return true;
+	return true;
 }
 
 //
@@ -39,7 +39,7 @@ bool Comparison_Expr::filter_evaluate (Ocl_Context & res,
 //
 bool Comparison_Expr::is_association (void)
 {
-  return true;
+	return true;
 }
 
 //
@@ -47,7 +47,7 @@ bool Comparison_Expr::is_association (void)
 //
 bool Comparison_Expr::is_containment (void)
 {
-  return true;
+	return true;
 }
 
 //
@@ -55,5 +55,5 @@ bool Comparison_Expr::is_containment (void)
 //
 bool Comparison_Expr::is_reference (void)
 {
-  return true;
+	return true;
 }
