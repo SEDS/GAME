@@ -25,7 +25,7 @@ public:
 	Expr_Failure_Visitor();
 
 	/// Destructor.
-	~Expr_Failure_Visitor();
+	virtual ~Expr_Failure_Visitor();
 
 	/**
 	* Pure virtual visit_and_expr_failure method to visiting the 

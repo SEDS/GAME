@@ -25,7 +25,7 @@ public:
 	Equal_Expr_Failure (Equal_Expr * expr);
 
 	/// Destructor.
-	~Equal_Expr_Failure (void);
+	virtual ~Equal_Expr_Failure (void);
 
 	/**
 	* accept method for visiting the Equal Expression failures.

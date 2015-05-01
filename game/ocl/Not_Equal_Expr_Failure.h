@@ -25,7 +25,7 @@ public:
 	Not_Equal_Expr_Failure (Not_Equal_Expr * expr);
 
 	/// Destructor.
-	~Not_Equal_Expr_Failure (void);
+	virtual ~Not_Equal_Expr_Failure (void);
 
 	/**
 	* accept method for visiting the Not Equal Expression failures.

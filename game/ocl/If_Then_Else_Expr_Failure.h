@@ -25,7 +25,7 @@ public:
 	If_Then_Else_Expr_Failure (Boolean_Expr * expr);
 
 	/// Destructor.
-	~If_Then_Else_Expr_Failure (void);
+	virtual ~If_Then_Else_Expr_Failure (void);
 
 	/**
 	* accept method for visiting the If Then Else Expression failures.

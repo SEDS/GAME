@@ -24,7 +24,7 @@ public:
 	Comparison_Expr_Failure (Comparison_Expr * expr);
 
 	/// Destructor.
-	~Comparison_Expr_Failure (void);
+	virtual ~Comparison_Expr_Failure (void);
 
 private:
 

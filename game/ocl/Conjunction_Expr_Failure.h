@@ -24,7 +24,7 @@ public:
 	Conjunction_Expr_Failure (Conjunction_Expr * expr);
 
 	/// Destructor
-	~Conjunction_Expr_Failure (void);
+	virtual ~Conjunction_Expr_Failure (void);
 
 private:
 

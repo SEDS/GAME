@@ -25,7 +25,7 @@ public:
 	Greater_Equal_Expr_Failure (Greater_Equal_Expr * expr);
 
 	/// Destructor.
-	~Greater_Equal_Expr_Failure (void);
+	virtual ~Greater_Equal_Expr_Failure (void);
 
 	/**
 	* accept method for visiting the Greater Equal Expression failures.

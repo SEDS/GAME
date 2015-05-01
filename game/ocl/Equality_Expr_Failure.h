@@ -26,7 +26,7 @@ public:
 	Equality_Expr_Failure (Equality_Expr * expr);
 
 	/// Destructor.
-	~Equality_Expr_Failure (void);
+	virtual ~Equality_Expr_Failure (void);
 
 	/**
 	* Pure virtual accept method used by derived classes for visiting 

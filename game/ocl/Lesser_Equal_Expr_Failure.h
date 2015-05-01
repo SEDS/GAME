@@ -25,7 +25,7 @@ public:
 	Lesser_Equal_Expr_Failure (Lesser_Equal_Expr * expr);
 
 	/// Destructor.
-	~Lesser_Equal_Expr_Failure (void);
+	virtual ~Lesser_Equal_Expr_Failure (void);
 
 	/**
 	* accept method for visiting the Lesser Equal Expression failures.

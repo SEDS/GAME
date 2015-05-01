@@ -25,7 +25,7 @@ public:
 	Or_Expr_Failure (Or_Expr * expr);
 
 	/// Destructor.
-	~Or_Expr_Failure (void);
+	virtual ~Or_Expr_Failure (void);
 
 	/**
 	* accept method for visiting the Or Expression failures.

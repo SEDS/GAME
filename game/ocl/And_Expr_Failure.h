@@ -25,7 +25,7 @@ public:
 	And_Expr_Failure (And_Expr * expr);
 
 	/// Destructor.
-	~And_Expr_Failure (void);
+	virtual ~And_Expr_Failure (void);
 
 	/**
 	* accept method for visiting the And Expression failures.

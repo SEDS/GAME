@@ -23,7 +23,7 @@ public:
 	Expr_Failure (Boolean_Expr * expr);
 
 	/// Destructor.
-	~Expr_Failure (void);
+	virtual ~Expr_Failure (void);
 
 	/**
 	* Pure virtual accept method used by derived classes for visiting 

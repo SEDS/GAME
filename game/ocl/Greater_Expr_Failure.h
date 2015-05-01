@@ -25,7 +25,7 @@ public:
 	Greater_Expr_Failure (Greater_Expr * expr);
 
 	/// Destructor.
-	~Greater_Expr_Failure (void);
+	virtual ~Greater_Expr_Failure (void);
 
 	/**
 	* accept method for visiting the Greater Expression failures.

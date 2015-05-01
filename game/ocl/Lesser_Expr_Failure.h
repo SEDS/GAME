@@ -25,7 +25,7 @@ public:
 	Lesser_Expr_Failure (Lesser_Expr * expr);
 
 	/// Destructor.
-	~Lesser_Expr_Failure (void);
+	virtual ~Lesser_Expr_Failure (void);
 
 	/**
 	* accept method for visiting the Lesser Expression failures.
