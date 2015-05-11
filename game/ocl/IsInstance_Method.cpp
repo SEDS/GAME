@@ -5,77 +5,85 @@
 #include "Boolean_Value.h"
 #include "Object_Value.h"
 
-//
-// Constructor
-//
-IsInstance_Method::IsInstance_Method (void)
+namespace GAME
 {
-}
+	namespace Ocl
+	{
 
-//
-// Destructor
-//
-IsInstance_Method::~IsInstance_Method (void)
-{
-}
+		//
+		// Constructor
+		//
+		IsInstance_Method::IsInstance_Method (void)
+		{
+		}
 
-//
-// evaluate
-//
-Value * IsInstance_Method::evaluate (Ocl_Context & res, GAME::Mga::Object caller)
-{
-  GAME::Mga::FCO obj = GAME::Mga::FCO::_narrow (caller);
-  bool type = obj->is_instance ();
-  return new Boolean_Value (type);
-}
+		//
+		// Destructor
+		//
+		IsInstance_Method::~IsInstance_Method (void)
+		{
+		}
 
-//
-// evaluate
-//
-Value * IsInstance_Method::evaluate (Ocl_Context & res, Value * caller)
-{
-  Object_Value * iv = dynamic_cast <Object_Value *> (caller);
-  bool type = false;
+		//
+		// evaluate
+		//
+		Value * IsInstance_Method::evaluate (Ocl_Context & res, GAME::Mga::Object caller)
+		{
+			GAME::Mga::FCO obj = GAME::Mga::FCO::_narrow (caller);
+			bool type = obj->is_instance ();
+			return new Boolean_Value (type);
+		}
 
-  if (iv != 0)
-  {
-    GAME::Mga::Object val = iv->value ();
-    GAME::Mga::FCO obj = GAME::Mga::FCO::_narrow (caller);
+		//
+		// evaluate
+		//
+		Value * IsInstance_Method::evaluate (Ocl_Context & res, Value * caller)
+		{
+			Object_Value * iv = dynamic_cast <Object_Value *> (caller);
+			bool type = false;
 
-    type = obj->is_instance ();
-  }
+			if (iv != 0)
+			{
+				GAME::Mga::Object val = iv->value ();
+				GAME::Mga::FCO obj = GAME::Mga::FCO::_narrow (caller);
 
-  return new Boolean_Value (type);
-}
+				type = obj->is_instance ();
+			}
 
-//
-// is_filter
-//
-bool IsInstance_Method::is_filter (void)
-{
-  return false;
-}
+			return new Boolean_Value (type);
+		}
 
-//
-// is_association
-//
-bool IsInstance_Method::is_association (void)
-{
-  return false;
-}
+		//
+		// is_filter
+		//
+		bool IsInstance_Method::is_filter (void)
+		{
+			return false;
+		}
 
-//
-// is_containment
-//
-bool IsInstance_Method::is_containment (void)
-{
-  return false;
-}
+		//
+		// is_association
+		//
+		bool IsInstance_Method::is_association (void)
+		{
+			return false;
+		}
 
-//
-// is_reference
-//
-bool IsInstance_Method::is_reference (void)
-{
-  return false;
+		//
+		// is_containment
+		//
+		bool IsInstance_Method::is_containment (void)
+		{
+			return false;
+		}
+
+		//
+		// is_reference
+		//
+		bool IsInstance_Method::is_reference (void)
+		{
+			return false;
+		}
+
+	}
 }

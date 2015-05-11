@@ -19,24 +19,33 @@
 namespace qi = boost::spirit::qi;
 namespace ascii = boost::spirit::ascii; 
 
-/**
- * @class Constant_Value_Parser_Grammar
- *
- * Underlying grammer for the ocl expression parser.
- */
-template <typename IteratorT>
-class declaratorlist : public qi::grammar <IteratorT,
-                                           std::vector <std::string> (),
-                                           ascii::space_type>
-{  
-public:
-  declaratorlist ();
+namespace GAME
+{
+	namespace Ocl
+	{
 
-private:
-  qi::rule <IteratorT,
-            std::vector <std::string> (),
-            ascii::space_type> declarator_list_;
+		/**
+		* @class Constant_Value_Parser_Grammar
+		*
+		* Underlying grammer for the ocl expression parser.
+		*/
+		template <typename IteratorT>
+		class declaratorlist : public qi::grammar <IteratorT,
+			std::vector <std::string> (),
+			ascii::space_type>
+		{  
+		public:
+			declaratorlist ();
 
-  ident <IteratorT> ident_;
-};
+		private:
+			qi::rule <IteratorT,
+				std::vector <std::string> (),
+				ascii::space_type> declarator_list_;
+
+			ident <IteratorT> ident_;
+		};
+
+	}
+}
+
 #endif

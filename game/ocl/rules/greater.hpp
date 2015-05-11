@@ -21,26 +21,35 @@
 namespace qi = boost::spirit::qi;
 namespace ascii = boost::spirit::ascii; 
 
-/**
- * @class Greater_Parser_Grammar
- *
- * Underlying grammer for the ocl expression parser.
- */
-template <typename IteratorT>
-class greater : public qi::grammar <IteratorT,
-                                    Greater_Expr * (),
-                                    ascii::space_type,
-                                    qi::locals <Value_Expr *> >
-{  
-public:
-  greater ();
+namespace GAME
+{
+	namespace Ocl
+	{
 
-private:
-   qi::rule <IteratorT,
-             Greater_Expr * (),
-             ascii::space_type,
-             qi::locals <Value_Expr *>> greater_expr_;
+		/**
+		* @class Greater_Parser_Grammar
+		*
+		* Underlying grammer for the ocl expression parser.
+		*/
+		template <typename IteratorT>
+		class greater : public qi::grammar <IteratorT,
+			Greater_Expr * (),
+			ascii::space_type,
+			qi::locals <Value_Expr *> >
+		{  
+		public:
+			greater ();
 
-  value <IteratorT> value_expr_;
-};
+		private:
+			qi::rule <IteratorT,
+				Greater_Expr * (),
+				ascii::space_type,
+				qi::locals <Value_Expr *>> greater_expr_;
+
+			value <IteratorT> value_expr_;
+		};
+
+	}
+}
+
 #endif

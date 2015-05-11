@@ -7,78 +7,86 @@
 
 #include "game/mga/Connection.h"
 
-//
-// Constructor
-//
-Owner_Method::Owner_Method (void)
+namespace GAME
 {
-}
+	namespace Ocl
+	{
 
-//
-// Destructor
-//
-Owner_Method::~Owner_Method (void)
-{
-}
+		//
+		// Constructor
+		//
+		Owner_Method::Owner_Method (void)
+		{
+		}
 
-//
-// evaluate
-//
-Value * Owner_Method::evaluate (Ocl_Context & res, GAME::Mga::Object caller)
-{
-  GAME::Mga::ConnectionPoint cpt = GAME::Mga::ConnectionPoint::_narrow (caller);
-  GAME::Mga::Connection owner = cpt->owner ();
-  return new Object_Value (owner);
-}
+		//
+		// Destructor
+		//
+		Owner_Method::~Owner_Method (void)
+		{
+		}
 
-//
-// evaluate
-//
-Value * Owner_Method::evaluate (Ocl_Context & res,
-                                Value * caller)
-{
-  Object_Value * iv = dynamic_cast <Object_Value *> (caller);
-  std::string name = "";
-  GAME::Mga::FCO owner;
+		//
+		// evaluate
+		//
+		Value * Owner_Method::evaluate (Ocl_Context & res, GAME::Mga::Object caller)
+		{
+			GAME::Mga::ConnectionPoint cpt = GAME::Mga::ConnectionPoint::_narrow (caller);
+			GAME::Mga::Connection owner = cpt->owner ();
+			return new Object_Value (owner);
+		}
 
-  if (iv != 0)
-  {
-    GAME::Mga::Object obj = iv->value ();
-    GAME::Mga::ConnectionPoint cpt = GAME::Mga::ConnectionPoint::_narrow (obj);
-    owner = cpt->owner ();
-  }
+		//
+		// evaluate
+		//
+		Value * Owner_Method::evaluate (Ocl_Context & res,
+			Value * caller)
+		{
+			Object_Value * iv = dynamic_cast <Object_Value *> (caller);
+			std::string name = "";
+			GAME::Mga::FCO owner;
 
-  return new Object_Value (owner);
-}
+			if (iv != 0)
+			{
+				GAME::Mga::Object obj = iv->value ();
+				GAME::Mga::ConnectionPoint cpt = GAME::Mga::ConnectionPoint::_narrow (obj);
+				owner = cpt->owner ();
+			}
 
-//
-// is_filter
-//
-bool Owner_Method::is_filter (void)
-{
-  return false;
-}
+			return new Object_Value (owner);
+		}
 
-//
-// is_association
-//
-bool Owner_Method::is_association (void)
-{
-  return false;
-}
+		//
+		// is_filter
+		//
+		bool Owner_Method::is_filter (void)
+		{
+			return false;
+		}
 
-//
-// is_containment
-//
-bool Owner_Method::is_containment (void)
-{
-  return false;
-}
+		//
+		// is_association
+		//
+		bool Owner_Method::is_association (void)
+		{
+			return false;
+		}
 
-//
-// is_reference
-//
-bool Owner_Method::is_reference (void)
-{
-  return false;
+		//
+		// is_containment
+		//
+		bool Owner_Method::is_containment (void)
+		{
+			return false;
+		}
+
+		//
+		// is_reference
+		//
+		bool Owner_Method::is_reference (void)
+		{
+			return false;
+		}
+
+	}
 }

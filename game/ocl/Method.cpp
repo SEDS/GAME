@@ -3,16 +3,24 @@
 #include "stdafx.h"
 #include "Method.h"
 
-//
-// Constructor
-//
-Method::Method (void)
+namespace GAME
 {
-}
+	namespace Ocl
+	{
 
-//
-// Destructor
-//
-Method::~Method (void)
-{
+		//
+		// Constructor
+		//
+		Method::Method (void)
+		{
+		}
+
+		//
+		// Destructor
+		//
+		Method::~Method (void)
+		{
+		}
+
+	}
 }

@@ -18,28 +18,37 @@
 namespace qi = boost::spirit::qi;
 namespace ascii = boost::spirit::ascii; 
 
-/**
- * @class Constant_Value_Parser_Grammar
- *
- * Underlying grammer for the ocl expression parser.
- */
-template <typename IteratorT>
-class constant_value : public qi::grammar <IteratorT,
-                                           Constant_Value_Expr * (),
-                                           ascii::space_type>
-{  
-public:
-  constant_value ();
+namespace GAME
+{
+	namespace Ocl
+	{
 
-private:
-  qi::rule <IteratorT,
-            Constant_Value_Expr * (),
-            ascii::space_type> cv_expr_;
+		/**
+		* @class Constant_Value_Parser_Grammar
+		*
+		* Underlying grammer for the ocl expression parser.
+		*/
+		template <typename IteratorT>
+		class constant_value : public qi::grammar <IteratorT,
+			Constant_Value_Expr * (),
+			ascii::space_type>
+		{  
+		public:
+			constant_value ();
 
-  qi::rule <IteratorT,
-            unsigned int (),
-            ascii::space_type> integer_;
+		private:
+			qi::rule <IteratorT,
+				Constant_Value_Expr * (),
+				ascii::space_type> cv_expr_;
 
-  quoted_string <IteratorT> quoted_string_;
-};
+			qi::rule <IteratorT,
+				unsigned int (),
+				ascii::space_type> integer_;
+
+			quoted_string <IteratorT> quoted_string_;
+		};
+
+	}
+}
+
 #endif

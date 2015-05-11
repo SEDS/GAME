@@ -7,142 +7,150 @@
 
 #include "game/mga/Folder.h"
 
-//
-// Default constructor
-//
-Models_Method::Models_Method (void)
+namespace GAME
 {
-  flag = 1;
-}
+	namespace Ocl
+	{
 
-//
-// Constructor
-//
-Models_Method::Models_Method (std::string & kind)
-: kind_ (kind)
-{
-  flag = 2;
-}
+		//
+		// Default constructor
+		//
+		Models_Method::Models_Method (void)
+		{
+			flag = 1;
+		}
 
-//
-// Destructor
-//
-Models_Method::~Models_Method (void)
-{
-}
+		//
+		// Constructor
+		//
+		Models_Method::Models_Method (std::string & kind)
+			: kind_ (kind)
+		{
+			flag = 2;
+		}
 
-//
-// evaluate
-//
-Value * Models_Method::evaluate (Ocl_Context & res,
-                                 GAME::Mga::Object caller)
-{
-  GAME::Mga::Folder fld = GAME::Mga::Folder::_narrow (caller);
-  std::vector <GAME::Mga::Model> models;
+		//
+		// Destructor
+		//
+		Models_Method::~Models_Method (void)
+		{
+		}
 
-  // Collecting the Models contained in the Folder
-  if (flag == 1)
-    fld->children (models);
-  else if (flag == 2)
-    fld->children (this->kind_, models);
+		//
+		// evaluate
+		//
+		Value * Models_Method::evaluate (Ocl_Context & res,
+			GAME::Mga::Object caller)
+		{
+			GAME::Mga::Folder fld = GAME::Mga::Folder::_narrow (caller);
+			std::vector <GAME::Mga::Model> models;
 
-  // Collecting the Models contained by Subfolders
-  std::vector <GAME::Mga::Folder> kids;
-  fld->folders (kids);
+			// Collecting the Models contained in the Folder
+			if (flag == 1)
+				fld->children (models);
+			else if (flag == 2)
+				fld->children (this->kind_, models);
 
-  std::vector <GAME::Mga::Folder>::iterator
-    it = kids.begin (), it_end = kids.end ();
+			// Collecting the Models contained by Subfolders
+			std::vector <GAME::Mga::Folder> kids;
+			fld->folders (kids);
 
-  for (; it != it_end; ++it)
-  {
-    std::vector <GAME::Mga::Model> temp;
-    (*it)->children (this->kind_, temp);
+			std::vector <GAME::Mga::Folder>::iterator
+				it = kids.begin (), it_end = kids.end ();
 
-    std::vector <GAME::Mga::Model>::iterator
-      mit = temp.begin (), mit_end = temp.end ();
+			for (; it != it_end; ++it)
+			{
+				std::vector <GAME::Mga::Model> temp;
+				(*it)->children (this->kind_, temp);
 
-    for (; mit != mit_end; ++mit)
-      models.push_back ((*mit));
-  }
+				std::vector <GAME::Mga::Model>::iterator
+					mit = temp.begin (), mit_end = temp.end ();
 
-  return new Collection_Value_T <GAME::Mga::Model> (models);
-}
+				for (; mit != mit_end; ++mit)
+					models.push_back ((*mit));
+			}
 
-//
-// evaluate
-//
-Value * Models_Method::evaluate (Ocl_Context & res,
-                                 Value * caller)
-{
-  Object_Value * iv = dynamic_cast <Object_Value *> (caller);
-  std::vector <GAME::Mga::Model> models;
+			return new Collection_Value_T <GAME::Mga::Model> (models);
+		}
 
-  if (iv != 0)
-  {
-    GAME::Mga::Object obj = iv->value ();
-    GAME::Mga::Folder fld = GAME::Mga::Folder::_narrow (obj);
+		//
+		// evaluate
+		//
+		Value * Models_Method::evaluate (Ocl_Context & res,
+			Value * caller)
+		{
+			Object_Value * iv = dynamic_cast <Object_Value *> (caller);
+			std::vector <GAME::Mga::Model> models;
 
-    // Collecting the Models contained in the Folder
-    if (flag == 1)
-      fld->children (models);
-    else if (flag == 2)
-      fld->children (this->kind_, models);
+			if (iv != 0)
+			{
+				GAME::Mga::Object obj = iv->value ();
+				GAME::Mga::Folder fld = GAME::Mga::Folder::_narrow (obj);
 
-    // Collecting the Models contained by Subfolders
-    std::vector <GAME::Mga::Folder> kids;
-    fld->folders (kids);
+				// Collecting the Models contained in the Folder
+				if (flag == 1)
+					fld->children (models);
+				else if (flag == 2)
+					fld->children (this->kind_, models);
 
-    std::vector<GAME::Mga::Folder>::iterator
-      it = kids.begin (), it_end = kids.end ();
+				// Collecting the Models contained by Subfolders
+				std::vector <GAME::Mga::Folder> kids;
+				fld->folders (kids);
 
-    for (; it!=it_end; ++it)
-    {
-      std::vector <GAME::Mga::Model> temp;
+				std::vector<GAME::Mga::Folder>::iterator
+					it = kids.begin (), it_end = kids.end ();
 
-      if (flag == 1)
-        (*it)->children (temp);
-      else if (flag == 2)
-        (*it)->children (this->kind_, temp);
+				for (; it!=it_end; ++it)
+				{
+					std::vector <GAME::Mga::Model> temp;
 
-      std::vector <GAME::Mga::Model>::iterator
-        mit = temp.begin (), mit_end = temp.end ();
+					if (flag == 1)
+						(*it)->children (temp);
+					else if (flag == 2)
+						(*it)->children (this->kind_, temp);
 
-      for (; mit != mit_end; ++mit)
-        models.push_back ((*mit));
-    }
-  }
+					std::vector <GAME::Mga::Model>::iterator
+						mit = temp.begin (), mit_end = temp.end ();
 
-  return new Collection_Value_T <GAME::Mga::Model> (models);
-}
+					for (; mit != mit_end; ++mit)
+						models.push_back ((*mit));
+				}
+			}
 
-//
-// is_filter
-//
-bool Models_Method::is_filter (void)
-{
-  return false;
-}
+			return new Collection_Value_T <GAME::Mga::Model> (models);
+		}
 
-//
-// is_association
-//
-bool Models_Method::is_association (void)
-{
-  return false;
-}
+		//
+		// is_filter
+		//
+		bool Models_Method::is_filter (void)
+		{
+			return false;
+		}
 
-//
-// is_containment
-//
-bool Models_Method::is_containment (void)
-{
-  return false;
-}
+		//
+		// is_association
+		//
+		bool Models_Method::is_association (void)
+		{
+			return false;
+		}
 
-//
-// is_reference
-//
-bool Models_Method::is_reference (void)
-{
-  return false;
+		//
+		// is_containment
+		//
+		bool Models_Method::is_containment (void)
+		{
+			return false;
+		}
+
+		//
+		// is_reference
+		//
+		bool Models_Method::is_reference (void)
+		{
+			return false;
+		}
+
+	}
 }

@@ -24,39 +24,48 @@
 namespace qi = boost::spirit::qi;
 namespace ascii = boost::spirit::ascii; 
 
-/**
- * @class Iterator_Parser_Grammar
- *
- * Underlying grammer for the ocl expression parser.
- */
-template <typename IteratorT>
-class iterator : public qi::grammar <IteratorT,
-                                     Iterator * (),
-                                     ascii::space_type>
-{  
-public:
-  iterator ();
+namespace GAME
+{
+	namespace Ocl
+	{
 
-private:
-  qi::rule <IteratorT,
-            Iterator * (),
-            ascii::space_type> iterator_;
+		/**
+		* @class Iterator_Parser_Grammar
+		*
+		* Underlying grammer for the ocl expression parser.
+		*/
+		template <typename IteratorT>
+		class iterator : public qi::grammar <IteratorT,
+			Iterator * (),
+			ascii::space_type>
+		{  
+		public:
+			iterator ();
 
-  qi::rule <IteratorT,
-            ForAll_Iterator * (),
-            ascii::space_type> forall_iterator_;
+		private:
+			qi::rule <IteratorT,
+				Iterator * (),
+				ascii::space_type> iterator_;
 
-  qi::rule <IteratorT,
-            IsUnique_Iterator * (),
-            ascii::space_type> isunique_iterator_;
+			qi::rule <IteratorT,
+				ForAll_Iterator * (),
+				ascii::space_type> forall_iterator_;
 
-  qi::rule <IteratorT,
-            Exists_Iterator * (),
-            ascii::space_type> exists_iterator_;
+			qi::rule <IteratorT,
+				IsUnique_Iterator * (),
+				ascii::space_type> isunique_iterator_;
 
-  qi::rule <IteratorT,
-            One_Iterator * (),
-            ascii::space_type> one_iterator_;
+			qi::rule <IteratorT,
+				Exists_Iterator * (),
+				ascii::space_type> exists_iterator_;
 
-};
+			qi::rule <IteratorT,
+				One_Iterator * (),
+				ascii::space_type> one_iterator_;
+
+		};
+
+	}
+}
+
 #endif

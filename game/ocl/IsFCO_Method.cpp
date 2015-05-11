@@ -5,89 +5,97 @@
 #include "Boolean_Value.h"
 #include "Object_Value.h"
 
-//
-// Constructor
-//
-IsFCO_Method::IsFCO_Method (void)
+namespace GAME
 {
-}
+	namespace Ocl
+	{
 
-//
-// Destructor
-//
-IsFCO_Method::~IsFCO_Method (void)
-{
-}
+		//
+		// Constructor
+		//
+		IsFCO_Method::IsFCO_Method (void)
+		{
+		}
 
-//
-// evaluate
-//
-Value * IsFCO_Method::evaluate (Ocl_Context & res, GAME::Mga::Object caller)
-{
-  size_t val = caller->meta ()->type ();
+		//
+		// Destructor
+		//
+		IsFCO_Method::~IsFCO_Method (void)
+		{
+		}
 
-  // Returning true if the invoking object is a FCO
-  bool result =
-    val == OBJTYPE_MODEL ||
-    val == OBJTYPE_ATOM  ||
-    val == OBJTYPE_REFERENCE ||
-    val == OBJTYPE_CONNECTION;
+		//
+		// evaluate
+		//
+		Value * IsFCO_Method::evaluate (Ocl_Context & res, GAME::Mga::Object caller)
+		{
+			size_t val = caller->meta ()->type ();
 
-  return new Boolean_Value (result);
-}
+			// Returning true if the invoking object is a FCO
+			bool result =
+				val == OBJTYPE_MODEL ||
+				val == OBJTYPE_ATOM  ||
+				val == OBJTYPE_REFERENCE ||
+				val == OBJTYPE_CONNECTION;
 
-//
-// evaluate
-//
-Value * IsFCO_Method::evaluate (Ocl_Context & res, Value * caller)
-{
-  Object_Value * iv = dynamic_cast <Object_Value *> (caller);
+			return new Boolean_Value (result);
+		}
 
-  if (iv != 0)
-  {
-    GAME::Mga::Object obj = iv->value ();
-    size_t val = obj->meta ()->type ();
+		//
+		// evaluate
+		//
+		Value * IsFCO_Method::evaluate (Ocl_Context & res, Value * caller)
+		{
+			Object_Value * iv = dynamic_cast <Object_Value *> (caller);
 
-    bool result =
-      val == OBJTYPE_MODEL ||
-      val == OBJTYPE_ATOM ||
-      val == OBJTYPE_REFERENCE ||
-      val == OBJTYPE_CONNECTION;
+			if (iv != 0)
+			{
+				GAME::Mga::Object obj = iv->value ();
+				size_t val = obj->meta ()->type ();
 
-    return new Boolean_Value (result);
-  }
+				bool result =
+					val == OBJTYPE_MODEL ||
+					val == OBJTYPE_ATOM ||
+					val == OBJTYPE_REFERENCE ||
+					val == OBJTYPE_CONNECTION;
 
-  return new Boolean_Value (false);
-}
+				return new Boolean_Value (result);
+			}
 
-//
-// is_filter
-//
-bool IsFCO_Method::is_filter (void)
-{
-  return false;
-}
+			return new Boolean_Value (false);
+		}
 
-//
-// is_association
-//
-bool IsFCO_Method::is_association (void)
-{
-  return false;
-}
+		//
+		// is_filter
+		//
+		bool IsFCO_Method::is_filter (void)
+		{
+			return false;
+		}
 
-//
-// is_containment
-//
-bool IsFCO_Method::is_containment (void)
-{
-  return false;
-}
+		//
+		// is_association
+		//
+		bool IsFCO_Method::is_association (void)
+		{
+			return false;
+		}
 
-//
-// is_reference
-//
-bool IsFCO_Method::is_reference (void)
-{
-  return false;
+		//
+		// is_containment
+		//
+		bool IsFCO_Method::is_containment (void)
+		{
+			return false;
+		}
+
+		//
+		// is_reference
+		//
+		bool IsFCO_Method::is_reference (void)
+		{
+			return false;
+		}
+
+	}
 }

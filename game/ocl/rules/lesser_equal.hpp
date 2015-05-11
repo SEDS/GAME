@@ -21,26 +21,35 @@
 namespace qi = boost::spirit::qi;
 namespace ascii = boost::spirit::ascii;
 
-/**
- * @class Lesser_Equal_Parser_Grammar
- *
- * Underlying grammer for the ocl expression parser.
- */
-template <typename IteratorT>
-class lesser_equal : public qi::grammar <IteratorT,
-                                         Lesser_Equal_Expr * (),
-                                         ascii::space_type,
-                                         qi::locals <Value_Expr *>>
+namespace GAME
 {
-public:
-  lesser_equal ();
+	namespace Ocl
+	{
 
-private:
-   qi::rule <IteratorT,
-             Lesser_Equal_Expr * (),
-             ascii::space_type,
-             qi::locals <Value_Expr *>> lesser_equal_expr_;
+		/**
+		* @class Lesser_Equal_Parser_Grammar
+		*
+		* Underlying grammer for the ocl expression parser.
+		*/
+		template <typename IteratorT>
+		class lesser_equal : public qi::grammar <IteratorT,
+			Lesser_Equal_Expr * (),
+			ascii::space_type,
+			qi::locals <Value_Expr *>>
+		{
+		public:
+			lesser_equal ();
 
-  value <IteratorT> value_expr_;
-};
+		private:
+			qi::rule <IteratorT,
+				Lesser_Equal_Expr * (),
+				ascii::space_type,
+				qi::locals <Value_Expr *>> lesser_equal_expr_;
+
+			value <IteratorT> value_expr_;
+		};
+
+	}
+}
+
 #endif

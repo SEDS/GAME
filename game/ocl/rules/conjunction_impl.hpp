@@ -3,11 +3,19 @@
 
 #include "conjunction.hpp"
 
-template <typename IteratorT>
-conjunction <IteratorT>::conjunction (void)
-: conjunction::base_type (conjunction_)
+namespace GAME
 {
-  this->conjunction_ = ascii::string ("and") | ascii::string ("or");
+	namespace Ocl
+	{
+
+		template <typename IteratorT>
+		conjunction <IteratorT>::conjunction (void)
+			: conjunction::base_type (conjunction_)
+		{
+			this->conjunction_ = ascii::string ("and") | ascii::string ("or");
+		}
+
+	}
 }
 
 #endif

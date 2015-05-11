@@ -3,17 +3,24 @@
 #include "stdafx.h"
 #include "Boolean_Expr.h"
 
-//
-// Constructor
-//
-Boolean_Expr::Boolean_Expr (void)
+namespace GAME
 {
-}
+	namespace Ocl
+	{
 
-//
-// Destructor
-//
-Boolean_Expr::~Boolean_Expr (void)
-{
-}
+		//
+		// Constructor
+		//
+		Boolean_Expr::Boolean_Expr (void)
+		{
+		}
 
+		//
+		// Destructor
+		//
+		Boolean_Expr::~Boolean_Expr (void)
+		{
+		}
+
+	}
+}

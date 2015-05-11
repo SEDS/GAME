@@ -17,22 +17,31 @@
 namespace qi = boost::spirit::qi;
 namespace ascii = boost::spirit::ascii; 
 
-/**
- * @class Conjunction_Parser_Grammar
- *
- * Underlying grammer for the ocl expression parser.
- */
-template <typename IteratorT>
-class conjunction : public qi::grammar <IteratorT,
-                                        std::string (),
-                                        ascii::space_type>
+namespace GAME
 {
-public:
-  conjunction ();
+	namespace Ocl
+	{
 
-private:
-  qi::rule <IteratorT,
-            std::string (),
-            ascii::space_type> conjunction_;
-};
+		/**
+		* @class Conjunction_Parser_Grammar
+		*
+		* Underlying grammer for the ocl expression parser.
+		*/
+		template <typename IteratorT>
+		class conjunction : public qi::grammar <IteratorT,
+			std::string (),
+			ascii::space_type>
+		{
+		public:
+			conjunction ();
+
+		private:
+			qi::rule <IteratorT,
+				std::string (),
+				ascii::space_type> conjunction_;
+		};
+
+	}
+}
+
 #endif

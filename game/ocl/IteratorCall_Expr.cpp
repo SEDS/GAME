@@ -9,139 +9,146 @@
 #include "game/mga/MetaFCO.h"
 #include "game/mga/FCO.h"
 
-
-//
-// Constructor
-//
-IteratorCall_Expr::IteratorCall_Expr (Value_Expr * obj,
-                                      Iterator * name,
-                                      Boolean_Expr * expr)
-:obj_ (obj),
- name_ (name),
- expr_ (expr)
+namespace GAME
 {
-  flag = 1;
-}
+	namespace Ocl
+	{
 
-//
-// Constructor
-//
-IteratorCall_Expr::IteratorCall_Expr (Value_Expr * obj,
-                                      Iterator * name,
-                                      Value_Expr * valexpr)
-:obj_ (obj),
- name_ (name),
- valexpr_ (valexpr)
-{
-  flag = 2;
-}
+		//
+		// Constructor
+		//
+		IteratorCall_Expr::IteratorCall_Expr (Value_Expr * obj,
+			Iterator * name,
+			Boolean_Expr * expr)
+			:obj_ (obj),
+			name_ (name),
+			expr_ (expr)
+		{
+			flag = 1;
+		}
 
-//
-// Destructor
-//
-IteratorCall_Expr::~IteratorCall_Expr (void)
-{
-}
+		//
+		// Constructor
+		//
+		IteratorCall_Expr::IteratorCall_Expr (Value_Expr * obj,
+			Iterator * name,
+			Value_Expr * valexpr)
+			:obj_ (obj),
+			name_ (name),
+			valexpr_ (valexpr)
+		{
+			flag = 2;
+		}
 
-//
-// evaluate
-//
-bool IteratorCall_Expr::evaluate (Ocl_Context & res)
-{
-  Value * result;
+		//
+		// Destructor
+		//
+		IteratorCall_Expr::~IteratorCall_Expr (void)
+		{
+		}
 
-  // Collect the value for the invoking collection
-  Collection_Value_T <GAME::Mga::FCO> * cv =
-    dynamic_cast <Collection_Value_T<GAME::Mga::FCO> *> (this->obj_->evaluate (res));
+		//
+		// evaluate
+		//
+		bool IteratorCall_Expr::evaluate (Ocl_Context & res)
+		{
+			Value * result;
 
-  if (cv != 0)
-  {
-    std::vector <GAME::Mga::FCO> collection = cv->value ();
+			// Collect the value for the invoking collection
+			Collection_Value_T <GAME::Mga::FCO> * cv =
+				dynamic_cast <Collection_Value_T<GAME::Mga::FCO> *> (this->obj_->evaluate (res));
 
-    if (flag == 1)
-      result = this->name_->evaluate (res, collection, this->next_, this->dec_type_, this->expr_);
-    else if (flag == 2)
-      result = this->name_->evaluate (res, collection, this->next_, this->dec_type_, this->valexpr_);
-  }
+			if (cv != 0)
+			{
+				std::vector <GAME::Mga::FCO> collection = cv->value ();
 
-  Boolean_Value * iv = dynamic_cast <Boolean_Value *> (result);
+				if (flag == 1)
+					result = this->name_->evaluate (res, collection, this->next_, this->dec_type_, this->expr_);
+				else if (flag == 2)
+					result = this->name_->evaluate (res, collection, this->next_, this->dec_type_, this->valexpr_);
+			}
 
-  return iv->value ();
-}
+			Boolean_Value * iv = dynamic_cast <Boolean_Value *> (result);
 
-//
-// filter_evaluate
-//
-bool IteratorCall_Expr::filter_evaluate (Ocl_Context & res,
-                                         GAME::Mga::FCO &current)
-{
-  bool result = false;
+			return iv->value ();
+		}
 
-  std::string name = current->name ();
+		//
+		// filter_evaluate
+		//
+		bool IteratorCall_Expr::filter_evaluate (Ocl_Context & res,
+			GAME::Mga::FCO &current)
+		{
+			bool result = false;
 
-  switch (this->next_.size ()) {
-    case 0:
-    {
-      result = this->expr_->filter_evaluate (res, current);
-      break;
-    }
-    case 1:
-    {
-      result = this->expr_->filter_evaluate (res, current);
-      break;
-    }
-    default:
-      result = false;
-  }
+			std::string name = current->name ();
 
-  return result;
-}
+			switch (this->next_.size ()) {
+			case 0:
+				{
+					result = this->expr_->filter_evaluate (res, current);
+					break;
+				}
+			case 1:
+				{
+					result = this->expr_->filter_evaluate (res, current);
+					break;
+				}
+			default:
+				result = false;
+			}
 
-//
-// set_declarators
-//
-void IteratorCall_Expr::set_declarators (std::vector <std::string> & next)
-{
-  this->next_ = next;
-}
+			return result;
+		}
 
-//
-// set_dec_type
-//
-void IteratorCall_Expr::set_dec_type (std::string & type)
-{
-  this->dec_type_ = type;
-}
+		//
+		// set_declarators
+		//
+		void IteratorCall_Expr::set_declarators (std::vector <std::string> & next)
+		{
+			this->next_ = next;
+		}
 
-//
-// is_association
-//
-bool IteratorCall_Expr::is_association (void)
-{
-  if (this->expr_->is_association ())
-    return true;
+		//
+		// set_dec_type
+		//
+		void IteratorCall_Expr::set_dec_type (std::string & type)
+		{
+			this->dec_type_ = type;
+		}
 
-  return false;
-}
+		//
+		// is_association
+		//
+		bool IteratorCall_Expr::is_association (void)
+		{
+			if (this->expr_->is_association ())
+				return true;
 
-//
-// is_containment
-//
-bool IteratorCall_Expr::is_containment (void)
-{
-  if (this->expr_->is_containment ())
-    return true;
+			return false;
+		}
 
-  return false;
-}
+		//
+		// is_containment
+		//
+		bool IteratorCall_Expr::is_containment (void)
+		{
+			if (this->expr_->is_containment ())
+				return true;
 
-//
-// is_reference
-//
-bool IteratorCall_Expr::is_reference (void)
-{
-  if (this->expr_->is_reference ())
-    return true;
+			return false;
+		}
 
-  return false;
+		//
+		// is_reference
+		//
+		bool IteratorCall_Expr::is_reference (void)
+		{
+			if (this->expr_->is_reference ())
+				return true;
+
+			return false;
+		}
+
+	}
 }

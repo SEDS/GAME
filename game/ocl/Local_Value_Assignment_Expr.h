@@ -2,12 +2,12 @@
 
 //=============================================================================
 /**
- * @file          Local_Value_Assignment_Expr.h
- *
- * $Id: Local_Value_Assignment_Expr.h 2902 2012-05-07 03:08:44Z tpati $
- *
- * @author        Tanumoy Pati
- */
+* @file          Local_Value_Assignment_Expr.h
+*
+* $Id: Local_Value_Assignment_Expr.h 2902 2012-05-07 03:08:44Z tpati $
+*
+* @author        Tanumoy Pati
+*/
 //=============================================================================
 
 #ifndef _GAME_MODEL_INTELLIGENCE_LOCAL_VALUE_ASSIGNMENT_EXPR_H_
@@ -17,80 +17,87 @@
 #include "Value_Expr.h"
 #include "Value.h"
 
-/**
- * @class Local_Value_Assignment_Expr
- *
- * Class derived from Boolean_Expr. This class deals with the
- * local value assignment expressions which further may contain
- * sub-expression. The syntax being "let <identifier> = <sub-exprs> in"
- */
-class Local_Value_Assignment_Expr : public Boolean_Expr
+namespace GAME
 {
-public:
+	namespace Ocl
+	{
 
-  /// Default constructor.
-  Local_Value_Assignment_Expr (std::string & var, Value_Expr * right);
+		/**
+		* @class Local_Value_Assignment_Expr
+		*
+		* Class derived from Boolean_Expr. This class deals with the
+		* local value assignment expressions which further may contain
+		* sub-expression. The syntax being "let <identifier> = <sub-exprs> in"
+		*/
+		class Local_Value_Assignment_Expr : public Boolean_Expr
+		{
+		public:
 
-	/// Destructor.
-	~Local_Value_Assignment_Expr (void);
+			/// Default constructor.
+			Local_Value_Assignment_Expr (std::string & var, Value_Expr * right);
 
-  /**
-   * evaluate method for evaluating the respective expression
-   *
-   * @param[in]     res        Object of model intelligence context.
-   * @return        bool       True/False
-   */
-  bool evaluate (Ocl_Context & res);
+			/// Destructor.
+			~Local_Value_Assignment_Expr (void);
 
-  /**
-   * filter_evaluate method for evaluating the respective expression
-   *
-   * @param[in]     res        Object of model intelligence context.
-   * @param[in]     current    The current FCO being worked with.
-   * @return        bool       True/False
-   */
-  bool filter_evaluate (Ocl_Context & res, GAME::Mga::FCO & current);
+			/**
+			* evaluate method for evaluating the respective expression
+			*
+			* @param[in]     res        Object of model intelligence context.
+			* @return        bool       True/False
+			*/
+			bool evaluate (Ocl_Context & res);
 
-  /**
-   * Value method for getting the value of the local variable
-   * @return        value object of the local variable
-   */
-  Value * value (void);
+			/**
+			* filter_evaluate method for evaluating the respective expression
+			*
+			* @param[in]     res        Object of model intelligence context.
+			* @param[in]     current    The current FCO being worked with.
+			* @return        bool       True/False
+			*/
+			bool filter_evaluate (Ocl_Context & res, GAME::Mga::FCO & current);
 
-  /**
-   * is_association method for determining if this expression
-   * can be used for association constraints
-   *
-   * @return       bool       True/False
-   */
-  bool is_association (void);
+			/**
+			* Value method for getting the value of the local variable
+			* @return        value object of the local variable
+			*/
+			Value * value (void);
 
-  /**
-   * is_containment method for determining if this expression
-   * can be used for containment constraints
-   *
-   * @return       bool       True/False
-   */
-  bool is_containment (void);
+			/**
+			* is_association method for determining if this expression
+			* can be used for association constraints
+			*
+			* @return       bool       True/False
+			*/
+			bool is_association (void);
 
-  /**
-   * is_reference method for determining if this expression
-   * can be used for reference constraints
-   *
-   * @return       bool       True/False
-   */
-  bool is_reference (void);
+			/**
+			* is_containment method for determining if this expression
+			* can be used for containment constraints
+			*
+			* @return       bool       True/False
+			*/
+			bool is_containment (void);
 
-private:
-  // Variable for storing the local variable name
-  std::string varname_;
+			/**
+			* is_reference method for determining if this expression
+			* can be used for reference constraints
+			*
+			* @return       bool       True/False
+			*/
+			bool is_reference (void);
 
-  // The right hand side of the expression
-  Value_Expr * rhs_;
+		private:
+			// Variable for storing the local variable name
+			std::string varname_;
 
-  // Value of the local variable
-  Value * value_;
-};
+			// The right hand side of the expression
+			Value_Expr * rhs_;
 
+			// Value of the local variable
+			Value * value_;
+		};
+
+	}
+}
 
 #endif

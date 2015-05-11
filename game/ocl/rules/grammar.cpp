@@ -3,8 +3,16 @@
 #include "StdAfx.h"
 #include "grammar_impl.hpp"
 
-void instantiate_grammar (void)
+namespace GAME
 {
-  typedef std::string::const_iterator iterator_type;
-  OCL_Parser_Grammar <iterator_type> g;
+	namespace Ocl
+	{
+
+		void instantiate_grammar (void)
+		{
+			typedef std::string::const_iterator iterator_type;
+			OCL_Parser_Grammar <iterator_type> g;
+		}
+
+	}
 }

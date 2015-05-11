@@ -24,34 +24,43 @@
 namespace qi = boost::spirit::qi;
 namespace ascii = boost::spirit::ascii; 
 
-/**
- * @class Comparison_Parser_Grammar
- *
- * Underlying grammer for the ocl expression parser.
- */
-template <typename IteratorT>
-class comparison : public qi::grammar <IteratorT,
-                                       Comparison_Expr * (),
-                                       ascii::space_type>
+namespace GAME
 {
-public:
-  comparison ();
+	namespace Ocl
+	{
 
-private:
-  qi::rule <IteratorT,
-            Comparison_Expr * (),
-            ascii::space_type> comp_expr_;
+		/**
+		* @class Comparison_Parser_Grammar
+		*
+		* Underlying grammer for the ocl expression parser.
+		*/
+		template <typename IteratorT>
+		class comparison : public qi::grammar <IteratorT,
+			Comparison_Expr * (),
+			ascii::space_type>
+		{
+		public:
+			comparison ();
 
-  equal <IteratorT> equal_expr_;
+		private:
+			qi::rule <IteratorT,
+				Comparison_Expr * (),
+				ascii::space_type> comp_expr_;
 
-  greater_equal <IteratorT> greater_equal_expr_;
+			equal <IteratorT> equal_expr_;
 
-  greater <IteratorT> greater_expr_;
+			greater_equal <IteratorT> greater_equal_expr_;
 
-  not_equal <IteratorT> not_equal_expr_;
+			greater <IteratorT> greater_expr_;
 
-  lesser_equal <IteratorT> lesser_equal_expr_;
+			not_equal <IteratorT> not_equal_expr_;
 
-  lesser <IteratorT> lesser_expr_;
-};
+			lesser_equal <IteratorT> lesser_equal_expr_;
+
+			lesser <IteratorT> lesser_expr_;
+		};
+
+	}
+}
+
 #endif

@@ -18,26 +18,35 @@
 namespace qi = boost::spirit::qi;
 namespace ascii = boost::spirit::ascii; 
 
-/**
- * @class Equal_Parser_Grammar
- *
- * Underlying grammer for the ocl expression parser.
- */
-template <typename IteratorT>
-class equal : public qi::grammar <IteratorT,
-                                  Equal_Expr * (),
-                                  ascii::space_type,
-                                  qi::locals <Value_Expr *>>
-{  
-public:
-  equal ();
+namespace GAME
+{
+	namespace Ocl
+	{
 
-private:
-  qi::rule <IteratorT,
-            Equal_Expr * (),
-            ascii::space_type,
-            qi::locals <Value_Expr *>> equal_expr_;
+		/**
+		* @class Equal_Parser_Grammar
+		*
+		* Underlying grammer for the ocl expression parser.
+		*/
+		template <typename IteratorT>
+		class equal : public qi::grammar <IteratorT,
+			Equal_Expr * (),
+			ascii::space_type,
+			qi::locals <Value_Expr *>>
+		{  
+		public:
+			equal ();
 
-  value <IteratorT> value_expr_;
-};
+		private:
+			qi::rule <IteratorT,
+				Equal_Expr * (),
+				ascii::space_type,
+				qi::locals <Value_Expr *>> equal_expr_;
+
+			value <IteratorT> value_expr_;
+		};
+
+	}
+}
+
 #endif

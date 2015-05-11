@@ -3,94 +3,102 @@
 #include "stdafx.h"
 #include "Local_Value_Assignment_Expr.h"
 
-//
-// Constructor
-//
-Local_Value_Assignment_Expr::
-Local_Value_Assignment_Expr (std::string & var, Value_Expr * right)
-: varname_ (var),
-  rhs_ (right)
+namespace GAME
 {
-}
+	namespace Ocl
+	{
 
-//
-// Destructor
-//
-Local_Value_Assignment_Expr::~Local_Value_Assignment_Expr (void)
-{
-}
+		//
+		// Constructor
+		//
+		Local_Value_Assignment_Expr::
+			Local_Value_Assignment_Expr (std::string & var, Value_Expr * right)
+			: varname_ (var),
+			rhs_ (right)
+		{
+		}
 
-//
-// evaluate
-//
-bool Local_Value_Assignment_Expr::evaluate (Ocl_Context & res)
-{
-  this->value_ = this->rhs_->evaluate (res);
+		//
+		// Destructor
+		//
+		Local_Value_Assignment_Expr::~Local_Value_Assignment_Expr (void)
+		{
+		}
 
-  // Storing it in the map
-  res.locals[this->varname_] = this->value_;
+		//
+		// evaluate
+		//
+		bool Local_Value_Assignment_Expr::evaluate (Ocl_Context & res)
+		{
+			this->value_ = this->rhs_->evaluate (res);
 
-  return true;
-}
+			// Storing it in the map
+			res.locals[this->varname_] = this->value_;
 
-//
-// filter_evaluate
-//
-bool Local_Value_Assignment_Expr::filter_evaluate (Ocl_Context & res,
-                                                   GAME::Mga::FCO & current)
-{
-  res.cur_fco = current;
+			return true;
+		}
 
-  if (this->rhs_->is_filter ())
-  {
-    this->value_ = this->rhs_->filter_evaluate (res);
+		//
+		// filter_evaluate
+		//
+		bool Local_Value_Assignment_Expr::filter_evaluate (Ocl_Context & res,
+			GAME::Mga::FCO & current)
+		{
+			res.cur_fco = current;
 
-    // Storing it in the map
-    res.locals[this->varname_] = this->value_;
+			if (this->rhs_->is_filter ())
+			{
+				this->value_ = this->rhs_->filter_evaluate (res);
 
-    return true;
-  }
+				// Storing it in the map
+				res.locals[this->varname_] = this->value_;
 
-  return false;
-}
+				return true;
+			}
 
-//
-// value
-//
-Value * Local_Value_Assignment_Expr::value (void)
-{
-  return this->value_;
-}
+			return false;
+		}
 
-//
-// is_association
-//
-bool Local_Value_Assignment_Expr::is_association (void)
-{
-  if (this->rhs_->is_association ())
-    return true;
+		//
+		// value
+		//
+		Value * Local_Value_Assignment_Expr::value (void)
+		{
+			return this->value_;
+		}
 
-  return false;
-}
+		//
+		// is_association
+		//
+		bool Local_Value_Assignment_Expr::is_association (void)
+		{
+			if (this->rhs_->is_association ())
+				return true;
 
-//
-// is_containment
-//
-bool Local_Value_Assignment_Expr::is_containment (void)
-{
-  if (this->rhs_->is_containment ())
-    return true;
+			return false;
+		}
 
-  return false;
-}
+		//
+		// is_containment
+		//
+		bool Local_Value_Assignment_Expr::is_containment (void)
+		{
+			if (this->rhs_->is_containment ())
+				return true;
 
-//
-// is_reference
-//
-bool Local_Value_Assignment_Expr::is_reference (void)
-{
-  if (this->rhs_->is_reference ())
-    return true;
+			return false;
+		}
 
-  return false;
+		//
+		// is_reference
+		//
+		bool Local_Value_Assignment_Expr::is_reference (void)
+		{
+			if (this->rhs_->is_reference ())
+				return true;
+
+			return false;
+		}
+
+	}
 }

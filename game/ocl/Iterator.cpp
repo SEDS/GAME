@@ -3,16 +3,24 @@
 #include "stdafx.h"
 #include "Iterator.h"
 
-//
-// Constructor
-//
-Iterator::Iterator (void)
+namespace GAME
 {
-}
+	namespace Ocl
+	{
 
-//
-// Destructor
-//
-Iterator::~Iterator (void)
-{
+		//
+		// Constructor
+		//
+		Iterator::Iterator (void)
+		{
+		}
+
+		//
+		// Destructor
+		//
+		Iterator::~Iterator (void)
+		{
+		}
+
+	}
 }

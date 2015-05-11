@@ -7,134 +7,142 @@
 
 #include "game/mga/Connection.h"
 
-//
-// Default Constructor
-//
-ConnectionPoints_Method::ConnectionPoints_Method (void)
+namespace GAME
 {
-  flag = 1;
-}
+	namespace Ocl
+	{
 
-//
-// Constructor
-//
-ConnectionPoints_Method::ConnectionPoints_Method (std::string & role)
-: role_ (role)
-{
-  flag = 2;
-}
+		//
+		// Default Constructor
+		//
+		ConnectionPoints_Method::ConnectionPoints_Method (void)
+		{
+			flag = 1;
+		}
 
-//
-// Destructor
-//
-ConnectionPoints_Method::~ConnectionPoints_Method (void)
-{
-}
+		//
+		// Constructor
+		//
+		ConnectionPoints_Method::ConnectionPoints_Method (std::string & role)
+			: role_ (role)
+		{
+			flag = 2;
+		}
 
-//
-// evaluate
-//
-Value * ConnectionPoints_Method::evaluate (Ocl_Context & res,
-                                           GAME::Mga::Object caller)
-{
-  GAME::Mga::Connection conn = GAME::Mga::Connection::_narrow (caller);
-  std::vector <GAME::Mga::ConnectionPoint> temp;
+		//
+		// Destructor
+		//
+		ConnectionPoints_Method::~ConnectionPoints_Method (void)
+		{
+		}
 
-  // Collecting the connection points of the connection
-  GAME::Mga::ConnectionPoints conpts;
+		//
+		// evaluate
+		//
+		Value * ConnectionPoints_Method::evaluate (Ocl_Context & res,
+			GAME::Mga::Object caller)
+		{
+			GAME::Mga::Connection conn = GAME::Mga::Connection::_narrow (caller);
+			std::vector <GAME::Mga::ConnectionPoint> temp;
 
-  conn->connection_points (conpts);
+			// Collecting the connection points of the connection
+			GAME::Mga::ConnectionPoints conpts;
 
-  GAME::Mga::ConnectionPoints::iterator
-      cit = conpts.begin (), cit_end = conpts.end ();
+			conn->connection_points (conpts);
 
-  // Filtering out the connection points based on their role (if present)
-  for (; cit != cit_end; ++cit)
-  {
-    if (flag == 1)
-      temp.push_back (cit->item ());
-    else if (flag == 2)
-    {
-      if (cit->item ()->role () == this->role_)
-        temp.push_back (cit->item ());
-    }
-  }
+			GAME::Mga::ConnectionPoints::iterator
+				cit = conpts.begin (), cit_end = conpts.end ();
 
-  return new Collection_Value_T <GAME::Mga::ConnectionPoint> (temp);
-}
+			// Filtering out the connection points based on their role (if present)
+			for (; cit != cit_end; ++cit)
+			{
+				if (flag == 1)
+					temp.push_back (cit->item ());
+				else if (flag == 2)
+				{
+					if (cit->item ()->role () == this->role_)
+						temp.push_back (cit->item ());
+				}
+			}
 
-//
-// evaluate
-//
-Value * ConnectionPoints_Method::evaluate (Ocl_Context &res, Value *caller)
-{
-  Object_Value * iv = dynamic_cast <Object_Value *> (caller);
+			return new Collection_Value_T <GAME::Mga::ConnectionPoint> (temp);
+		}
 
-  if (iv != 0)
-  {
-    GAME::Mga::Object obj = iv->value ();
+		//
+		// evaluate
+		//
+		Value * ConnectionPoints_Method::evaluate (Ocl_Context &res, Value *caller)
+		{
+			Object_Value * iv = dynamic_cast <Object_Value *> (caller);
 
-    GAME::Mga::Connection conn = GAME::Mga::Connection::_narrow (obj);
+			if (iv != 0)
+			{
+				GAME::Mga::Object obj = iv->value ();
 
-    std::vector <GAME::Mga::ConnectionPoint> temp;
+				GAME::Mga::Connection conn = GAME::Mga::Connection::_narrow (obj);
 
-    // Collecting the connection points of the connection
-    GAME::Mga::ConnectionPoints conpts;
+				std::vector <GAME::Mga::ConnectionPoint> temp;
 
-    conn->connection_points (conpts);
+				// Collecting the connection points of the connection
+				GAME::Mga::ConnectionPoints conpts;
 
-    GAME::Mga::ConnectionPoints::iterator
-        cit = conpts.begin (), cit_end = conpts.end ();
+				conn->connection_points (conpts);
 
-    // Filtering out the connection points based on their role (if present)
-    for (; cit != cit_end; ++cit)
-    {
-      if (flag == 1)
-        temp.push_back (cit->item ());
-      else if (flag == 2)
-      {
-        if (cit->item ()->role () == this->role_)
-          temp.push_back (cit->item ());
-      }
-    }
+				GAME::Mga::ConnectionPoints::iterator
+					cit = conpts.begin (), cit_end = conpts.end ();
 
-    return new Collection_Value_T <GAME::Mga::ConnectionPoint> (temp);
-  }
-  else
-  {
-    std::vector <GAME::Mga::ConnectionPoint> temp;
-    return new Collection_Value_T <GAME::Mga::ConnectionPoint> (temp);
-  }
-}
+				// Filtering out the connection points based on their role (if present)
+				for (; cit != cit_end; ++cit)
+				{
+					if (flag == 1)
+						temp.push_back (cit->item ());
+					else if (flag == 2)
+					{
+						if (cit->item ()->role () == this->role_)
+							temp.push_back (cit->item ());
+					}
+				}
 
-//
-// is_filter
-//
-bool ConnectionPoints_Method::is_filter (void)
-{
-  return false;
-}
+				return new Collection_Value_T <GAME::Mga::ConnectionPoint> (temp);
+			}
+			else
+			{
+				std::vector <GAME::Mga::ConnectionPoint> temp;
+				return new Collection_Value_T <GAME::Mga::ConnectionPoint> (temp);
+			}
+		}
 
-//
-// is_association
-//
-bool ConnectionPoints_Method::is_association (void)
-{
-  return false;
-}
+		//
+		// is_filter
+		//
+		bool ConnectionPoints_Method::is_filter (void)
+		{
+			return false;
+		}
 
-//
-// is_containment
-//
-bool ConnectionPoints_Method::is_containment (void)
-{
-  return false;
-}
+		//
+		// is_association
+		//
+		bool ConnectionPoints_Method::is_association (void)
+		{
+			return false;
+		}
 
-//
-// is_reference
-//
-bool ConnectionPoints_Method::is_reference (void)
-{
-  return false;
+		//
+		// is_containment
+		//
+		bool ConnectionPoints_Method::is_containment (void)
+		{
+			return false;
+		}
+
+		//
+		// is_reference
+		//
+		bool ConnectionPoints_Method::is_reference (void)
+		{
+			return false;
+		}
+
+	}
 }

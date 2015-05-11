@@ -6,83 +6,91 @@
 
 #include "game/mga/MetaModel.h"
 
-//
-// Constructor
-//
-Basetype_Method::Basetype_Method (void)
+namespace GAME
 {
-}
+	namespace Ocl
+	{
 
-//
-// Destructor
-//
-Basetype_Method::~Basetype_Method (void)
-{
-}
+		//
+		// Constructor
+		//
+		Basetype_Method::Basetype_Method (void)
+		{
+		}
 
-//
-// evaluate
-//
-Value * Basetype_Method::evaluate (Ocl_Context & res,
-                                   GAME::Mga::Object caller)
-{
-  GAME::Mga::FCO obj = GAME::Mga::FCO::_narrow (caller);
+		//
+		// Destructor
+		//
+		Basetype_Method::~Basetype_Method (void)
+		{
+		}
 
-  // Collecting the basetype of the object
-  GAME::Mga::FCO type = obj->basetype ();
+		//
+		// evaluate
+		//
+		Value * Basetype_Method::evaluate (Ocl_Context & res,
+			GAME::Mga::Object caller)
+		{
+			GAME::Mga::FCO obj = GAME::Mga::FCO::_narrow (caller);
 
-  return new Object_Value (type);
-}
+			// Collecting the basetype of the object
+			GAME::Mga::FCO type = obj->basetype ();
 
-//
-// evaluate
-//
-Value * Basetype_Method::evaluate (Ocl_Context & res,
-                                   Value * caller)
-{
-  Object_Value * iv = dynamic_cast <Object_Value *> (caller);
+			return new Object_Value (type);
+		}
 
-  GAME::Mga::FCO type;
+		//
+		// evaluate
+		//
+		Value * Basetype_Method::evaluate (Ocl_Context & res,
+			Value * caller)
+		{
+			Object_Value * iv = dynamic_cast <Object_Value *> (caller);
 
-  if (iv != 0)
-  {
-    GAME::Mga::Object val = iv->value ();
-    GAME::Mga::FCO obj = GAME::Mga::FCO::_narrow (caller);
+			GAME::Mga::FCO type;
 
-    type = obj->basetype ();
-  }
+			if (iv != 0)
+			{
+				GAME::Mga::Object val = iv->value ();
+				GAME::Mga::FCO obj = GAME::Mga::FCO::_narrow (caller);
 
-  return new Object_Value (type);
-}
+				type = obj->basetype ();
+			}
 
-//
-// is_filter
-//
-bool Basetype_Method::is_filter (void)
-{
-  return false;
-}
+			return new Object_Value (type);
+		}
 
-//
-// is_association
-//
-bool Basetype_Method::is_association (void)
-{
-  return false;
-}
+		//
+		// is_filter
+		//
+		bool Basetype_Method::is_filter (void)
+		{
+			return false;
+		}
 
-//
-// is_containment
-//
-bool Basetype_Method::is_containment (void)
-{
-  return false;
-}
+		//
+		// is_association
+		//
+		bool Basetype_Method::is_association (void)
+		{
+			return false;
+		}
 
-//
-// is_reference
-//
-bool Basetype_Method::is_reference (void)
-{
-  return false;
+		//
+		// is_containment
+		//
+		bool Basetype_Method::is_containment (void)
+		{
+			return false;
+		}
+
+		//
+		// is_reference
+		//
+		bool Basetype_Method::is_reference (void)
+		{
+			return false;
+		}
+
+	}
 }

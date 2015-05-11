@@ -3,93 +3,101 @@
 #include "stdafx.h"
 #include "Self_Method_Call.h"
 
-//
-// constructor
-//
-Self_Method_Call::Self_Method_Call (Method * meth)
-: meth_ (meth)
+namespace GAME
 {
-}
+	namespace Ocl
+	{
 
-//
-// Destructor
-//
-Self_Method_Call::~Self_Method_Call (void)
-{
-}
+		//
+		// constructor
+		//
+		Self_Method_Call::Self_Method_Call (Method * meth)
+			: meth_ (meth)
+		{
+		}
 
-//
-// evaluate
-//
-Value * Self_Method_Call::evaluate (Ocl_Context & res)
-{
-	this->base_meth_ = this->meth_;
-	this->caller_ = res.self;
+		//
+		// Destructor
+		//
+		Self_Method_Call::~Self_Method_Call (void)
+		{
+		}
 
-  // Invoking the evaluate method in Method_Call class
-	Value * v = Method_Call::evaluate (res);
+		//
+		// evaluate
+		//
+		Value * Self_Method_Call::evaluate (Ocl_Context & res)
+		{
+			this->base_meth_ = this->meth_;
+			this->caller_ = res.self;
 
-	return v;
-}
+			// Invoking the evaluate method in Method_Call class
+			Value * v = Method_Call::evaluate (res);
 
-//
-// filter_evaluate
-//
-Value * Self_Method_Call::filter_evaluate (Ocl_Context & res)
-{
-	this->base_meth_ = this->meth_;
-	this->caller_ = res.self;
+			return v;
+		}
 
-  // Invoking the filter_evaluate method in Method_Call class
-  Value * v = Method_Call::filter_evaluate (res);
+		//
+		// filter_evaluate
+		//
+		Value * Self_Method_Call::filter_evaluate (Ocl_Context & res)
+		{
+			this->base_meth_ = this->meth_;
+			this->caller_ = res.self;
 
-	return v;
-}
+			// Invoking the filter_evaluate method in Method_Call class
+			Value * v = Method_Call::filter_evaluate (res);
 
-//
-// is_filter
-//
-bool Self_Method_Call::is_filter (void)
-{
-  this->base_meth_ = this->meth_;
+			return v;
+		}
 
-  // Invoking the is_filter method in Method_Call class
-  bool flag = Method_Call::is_filter ();
-  return flag;
-}
+		//
+		// is_filter
+		//
+		bool Self_Method_Call::is_filter (void)
+		{
+			this->base_meth_ = this->meth_;
 
-//
-// is_association
-//
-bool Self_Method_Call::is_association (void)
-{
-  this->base_meth_ = this->meth_;
+			// Invoking the is_filter method in Method_Call class
+			bool flag = Method_Call::is_filter ();
+			return flag;
+		}
 
-  // Invoking the is_association method in Method_Call class
-  bool flag = Method_Call::is_association ();
-  return flag;
-}
+		//
+		// is_association
+		//
+		bool Self_Method_Call::is_association (void)
+		{
+			this->base_meth_ = this->meth_;
 
-//
-// is_containment
-//
-bool Self_Method_Call::is_containment (void)
-{
-  this->base_meth_ = this->meth_;
+			// Invoking the is_association method in Method_Call class
+			bool flag = Method_Call::is_association ();
+			return flag;
+		}
 
-  // Invoking the is_containment method in Method_Call class
-  bool flag = Method_Call::is_containment ();
-  return flag;
-}
+		//
+		// is_containment
+		//
+		bool Self_Method_Call::is_containment (void)
+		{
+			this->base_meth_ = this->meth_;
 
-//
-// is_reference
-//
-bool Self_Method_Call::is_reference (void)
-{
-  this->base_meth_ = this->meth_;
+			// Invoking the is_containment method in Method_Call class
+			bool flag = Method_Call::is_containment ();
+			return flag;
+		}
 
-  // Invoking the is_reference method in Method_Call class
-  bool flag = Method_Call::is_reference ();
-  return flag;
+		//
+		// is_reference
+		//
+		bool Self_Method_Call::is_reference (void)
+		{
+			this->base_meth_ = this->meth_;
+
+			// Invoking the is_reference method in Method_Call class
+			bool flag = Method_Call::is_reference ();
+			return flag;
+		}
+
+	}
 }
