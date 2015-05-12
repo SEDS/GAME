@@ -32,7 +32,7 @@ public:
   Value_Expr (void);
 
   /// Destructor.
-  ~Value_Expr (void);
+  virtual ~Value_Expr (void);
 
   // Pure virtual method for evaluating respective expression
   virtual Value * evaluate (Ocl_Context &res) = 0;

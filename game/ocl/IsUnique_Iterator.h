@@ -30,7 +30,7 @@ public:
 	IsUnique_Iterator (void);
 
 	/// Destructor.
-	~IsUnique_Iterator (void);
+	virtual ~IsUnique_Iterator (void);
 
   /**
    * evaluate method for evaluating the exists iterator method
@@ -42,7 +42,7 @@ public:
    * @param[in]     expr          Boolean expression applied to the iterator
    * @return        Object        Value object
    */
-  Value * evaluate (Ocl_Context & res,
+  virtual Value * evaluate (Ocl_Context & res,
                     std::vector <GAME::Mga::FCO> & coll,
                     std::vector <std::string> & decl,
                     std::string & decl_type,
@@ -58,7 +58,7 @@ public:
    * @param[in]     valexpr       Value expression applied to the iterator
    * @return        Object        Value object
    */
-  Value * evaluate (Ocl_Context & res,
+  virtual Value * evaluate (Ocl_Context & res,
                     std::vector <GAME::Mga::FCO> & coll,
                     std::vector <std::string> & decl,
                     std::string & decl_type,
@@ -70,7 +70,7 @@ public:
    *
    * @return       bool       True/False
    */
-  bool is_association (void);
+  virtual bool is_association (void);
 
   /**
    * is_containment method for determining if this expression
@@ -78,7 +78,7 @@ public:
    *
    * @return       bool       True/False
    */
-  bool is_containment (void);
+  virtual bool is_containment (void);
 
   /**
    * is_reference method for determining if this expression
@@ -86,7 +86,7 @@ public:
    *
    * @return       bool       True/False
    */
-  bool is_reference (void);
+  virtual bool is_reference (void);
 
 };
 

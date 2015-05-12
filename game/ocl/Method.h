@@ -28,7 +28,7 @@ public:
 	Method (void);
 
 	/// Destructor.
-	~Method (void);
+	virtual ~Method (void);
 
   /// Virtual method evaluate which gets invoked by the first caller
 	virtual Value * evaluate (Ocl_Context & res, GAME::Mga::Object caller) = 0;

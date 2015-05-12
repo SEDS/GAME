@@ -43,7 +43,7 @@ public:
                      Value_Expr * valexpr);
 
 	/// Destructor.
-	~IteratorCall_Expr (void);
+	virtual ~IteratorCall_Expr (void);
 
   /**
    * evaluate method for evaluating the respective expression
@@ -51,7 +51,7 @@ public:
    * @param[in]     res        Object of model intelligence context.
    * @return        bool       True/False
    */
-  bool evaluate (Ocl_Context & res);
+  virtual bool evaluate (Ocl_Context & res);
 
   /**
    * filter_evaluate method for evaluating the respective expression
@@ -60,21 +60,21 @@ public:
    * @param[in]     current    The current FCO being worked with.
    * @return        bool       True/False
    */
-  bool filter_evaluate (Ocl_Context & res, GAME::Mga::FCO & current);
+  virtual bool filter_evaluate (Ocl_Context & res, GAME::Mga::FCO & current);
 
   /**
    * set_declarators method for setting the value of next method
    *
 	 * @param[in]         m          declarator to be placed in next
    */
-  void set_declarators (std::vector <std::string> & next);
+  virtual void set_declarators (std::vector <std::string> & next);
 
   /**
    * set_dec_type for setting the value of next method
    *
 	 * @param[in]         m          declarator type
    */
-  void set_dec_type (std::string & type);
+  virtual void set_dec_type (std::string & type);
 
   /**
    * Value method for getting the value of the local variable
@@ -88,7 +88,7 @@ public:
    *
    * @return       bool       True/False
    */
-  bool is_association (void);
+  virtual bool is_association (void);
 
   /**
    * is_containment method for determining if this expression
@@ -96,7 +96,7 @@ public:
    *
    * @return       bool       True/False
    */
-  bool is_containment (void);
+  virtual bool is_containment (void);
 
   /**
    * is_reference method for determining if this expression
@@ -104,7 +104,7 @@ public:
    *
    * @return       bool       True/False
    */
-  bool is_reference (void);
+  virtual bool is_reference (void);
 
 private:
 	// The expression on which the iterator is invoked.

@@ -31,7 +31,7 @@ public:
 	Constant_Value_Expr (std::string & str);
 
 	/// Destructor.
-	~Constant_Value_Expr (void);
+	virtual ~Constant_Value_Expr (void);
 
   /**
    * evaluate method for evaluating the respective expression
@@ -39,7 +39,7 @@ public:
    * @param[in]     res           Object of model intelligence context
    * @return        Object        Value Object of the constant
    */
-  Value * evaluate (Ocl_Context & res);
+  virtual Value * evaluate (Ocl_Context & res);
 
   /**
    * filter_evaluate method for evaluating the respective expression
@@ -47,7 +47,7 @@ public:
    * @param[in]     res        Object of model intelligence context.
    * @return        Object     Value object of the local variable
    */
-  Value * filter_evaluate (Ocl_Context & res);
+  virtual Value * filter_evaluate (Ocl_Context & res);
 
   /**
    * Determines if the object is mutable or not.
@@ -55,7 +55,7 @@ public:
    * @return        bool          true if the object is mutable
    *                              false if the object is non-mutable
    */
-  bool is_mutable (void);
+  virtual bool is_mutable (void);
 
   /**
    * Determines if the object is for filtration or not.
@@ -63,7 +63,7 @@ public:
    * @return        bool          true if the object is for filtration
    *                              false if the object is not for filtration
    */
-  bool is_filter (void);
+  virtual bool is_filter (void);
 
   /**
    * is_association method for determining if this expression
@@ -71,7 +71,7 @@ public:
    *
    * @return       bool       True/False
    */
-  bool is_association (void);
+  virtual bool is_association (void);
 
   /**
    * is_containment method for determining if this expression
@@ -79,7 +79,7 @@ public:
    *
    * @return       bool       True/False
    */
-  bool is_containment (void);
+  virtual bool is_containment (void);
 
   /**
    * is_reference method for determining if this expression
@@ -87,7 +87,7 @@ public:
    *
    * @return       bool       True/False
    */
-  bool is_reference (void);
+  virtual bool is_reference (void);
 private:
   // Integer value of the constant
   unsigned int value_;
