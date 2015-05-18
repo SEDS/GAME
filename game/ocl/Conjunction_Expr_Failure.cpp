@@ -5,7 +5,6 @@
 // Default Constructor
 //
 Conjunction_Expr_Failure::Conjunction_Expr_Failure (void)
-	: Equality_Expr_Failure ()
 {
 }
 
@@ -13,7 +12,7 @@ Conjunction_Expr_Failure::Conjunction_Expr_Failure (void)
 // Conjunction_Expr_Failure (Conjunction_Expr *)
 //
 Conjunction_Expr_Failure::Conjunction_Expr_Failure (Conjunction_Expr * expr)
-	: Equality_Expr_Failure (expr)
+: Equality_Expr_Failure (expr)
 {
 }
 

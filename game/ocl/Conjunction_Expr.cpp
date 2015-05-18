@@ -22,16 +22,16 @@ Conjunction_Expr::~Conjunction_Expr (void)
 //
 bool Conjunction_Expr::evaluate (Ocl_Context & res)
 {
-	return true;
+  return true;
 }
 
 //
 // dummy method
 //
 bool Conjunction_Expr::filter_evaluate (Ocl_Context & res,
-										GAME::Mga::FCO & current)
+                                        GAME::Mga::FCO & current)
 {
-	return true;
+  return true;
 }
 
 //
@@ -39,7 +39,7 @@ bool Conjunction_Expr::filter_evaluate (Ocl_Context & res,
 //
 bool Conjunction_Expr::is_association (void)
 {
-	return true;
+  return true;
 }
 
 //
@@ -47,7 +47,7 @@ bool Conjunction_Expr::is_association (void)
 //
 bool Conjunction_Expr::is_containment (void)
 {
-	return true;
+  return true;
 }
 
 //
@@ -55,5 +55,5 @@ bool Conjunction_Expr::is_containment (void)
 //
 bool Conjunction_Expr::is_reference (void)
 {
-	return true;
+  return true;
 }

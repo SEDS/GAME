@@ -39,7 +39,7 @@ public:
    */
   virtual Value * evaluate (Ocl_Context & res, GAME::Mga::Object caller);
 
-	/**
+  /**
    * evaluate method for evaluating the child folders method
    *
    * @param[in]     res           Object of model intelligence context
@@ -56,7 +56,7 @@ public:
    */
   virtual bool is_filter (void);
 
- /**
+  /**
    * is_association method for determining if this expression
    * can be used for association constraints
    *

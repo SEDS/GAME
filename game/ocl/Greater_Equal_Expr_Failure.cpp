@@ -5,7 +5,6 @@
 // Default Constructor
 //
 Greater_Equal_Expr_Failure::Greater_Equal_Expr_Failure (void)
-	: Comparison_Expr_Failure ()
 {
 }
 
@@ -13,7 +12,7 @@ Greater_Equal_Expr_Failure::Greater_Equal_Expr_Failure (void)
 // Greater_Equal_Expr_Failure (Greater_Equal_Expr *)
 //
 Greater_Equal_Expr_Failure::Greater_Equal_Expr_Failure (Greater_Equal_Expr * expr)
-	: Comparison_Expr_Failure (expr)
+: Comparison_Expr_Failure (expr)
 {
 }
 
@@ -29,13 +28,13 @@ Greater_Equal_Expr_Failure::~Greater_Equal_Expr_Failure (void)
 //
 void Greater_Equal_Expr_Failure::accept (Expr_Failure_Visitor & v)
 {
-	v.Visit_Greater_Equal_Expr_Failure(*this);
+  v.Visit_Greater_Equal_Expr_Failure(*this);
 }
 
 //
 // get_origin (void)
 //
-Greater_Equal_Expr * Greater_Equal_Expr_Failure::get_origin (void)
+Greater_Equal_Expr * Greater_Equal_Expr_Failure::get_origin (void) const
 {
-	return dynamic_cast <Greater_Equal_Expr *> (expr_);
+  return dynamic_cast <Greater_Equal_Expr *> (expr_);
 }

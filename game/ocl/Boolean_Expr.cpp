@@ -16,4 +16,3 @@ Boolean_Expr::Boolean_Expr (void)
 Boolean_Expr::~Boolean_Expr (void)
 {
 }
-

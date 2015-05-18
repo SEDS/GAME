@@ -5,7 +5,6 @@
 // Default Constructor
 //
 And_Expr_Failure::And_Expr_Failure (void)
-	: Conjunction_Expr_Failure ()
 {
 }
 
@@ -13,7 +12,7 @@ And_Expr_Failure::And_Expr_Failure (void)
 // And_Expr_Failure (And_Expr *)
 //
 And_Expr_Failure::And_Expr_Failure (And_Expr * expr)
-	: Conjunction_Expr_Failure (expr)
+: Conjunction_Expr_Failure (expr)
 {
 }
 
@@ -29,13 +28,13 @@ And_Expr_Failure::~And_Expr_Failure (void)
 //
 void And_Expr_Failure::accept (Expr_Failure_Visitor & v)
 {
-	v.Visit_And_Expr_Failure (*this);
+  v.Visit_And_Expr_Failure (*this);
 }
 
 //
 // get_origin (void)
 //
-And_Expr * And_Expr_Failure::get_origin (void)
+And_Expr * And_Expr_Failure::get_origin (void) const
 {
-	return dynamic_cast <And_Expr *> (expr_);
+  return dynamic_cast <And_Expr *> (expr_);
 }

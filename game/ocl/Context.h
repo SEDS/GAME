@@ -60,7 +60,7 @@ struct GAME_OCL_Export Ocl_Context
   GAME::Mga::FCO cur_fco;
 
   // Stores the Failure Objects.
-  std::vector <std::shared_ptr<Expr_Failure>> failures;
+  std::vector <std::shared_ptr <Expr_Failure>> failures;
 
   // Containment Constraint checker
   bool checker;

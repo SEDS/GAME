@@ -8,8 +8,8 @@
 // Constructor
 //
 Or_Expr::Or_Expr (Equality_Expr * left, Equality_Expr * right)
-	: lhs_ (left),
-	rhs_ (right)
+: lhs_ (left),
+  rhs_ (right)
 {
 }
 
@@ -25,14 +25,14 @@ Or_Expr::~Or_Expr (void)
 //
 bool Or_Expr::evaluate (Ocl_Context & res)
 {
-	bool left = this->lhs_->evaluate (res);
-	bool right = this->rhs_->evaluate (res);
+  bool left = this->lhs_->evaluate (res);
+  bool right = this->rhs_->evaluate (res);
 
-	if (left || right)
-		return true;
+  if (left || right)
+    return true;
 
-	res.failures.push_back (std::make_shared <Or_Expr_Failure> (this));
-	return false;
+  res.failures.push_back (std::make_shared <Or_Expr_Failure> (this));
+  return false;
 }
 
 //
@@ -40,15 +40,15 @@ bool Or_Expr::evaluate (Ocl_Context & res)
 //
 bool Or_Expr::filter_evaluate (Ocl_Context & res, GAME::Mga::FCO & current)
 {
-	// Setting the current FCO in model intelligence context
-	res.cur_fco = current;
-	bool left = this->lhs_->filter_evaluate (res, current);
-	bool right = this->rhs_->filter_evaluate (res, current);
+  // Setting the current FCO in model intelligence context
+  res.cur_fco = current;
+  bool left = this->lhs_->filter_evaluate (res, current);
+  bool right = this->rhs_->filter_evaluate (res, current);
 
-	if (left || right)
-		return true;
+  if (left || right)
+    return true;
 
-	return false;
+  return false;
 }
 
 //
@@ -56,10 +56,10 @@ bool Or_Expr::filter_evaluate (Ocl_Context & res, GAME::Mga::FCO & current)
 //
 bool Or_Expr::is_containment (void)
 {
-	if (this->lhs_->is_containment () && this->rhs_->is_containment ())
-		return true;
+  if (this->lhs_->is_containment () && this->rhs_->is_containment ())
+    return true;
 
-	return false;
+  return false;
 }
 
 //
@@ -67,10 +67,10 @@ bool Or_Expr::is_containment (void)
 //
 bool Or_Expr::is_association (void)
 {
-	if (this->lhs_->is_association () && this->rhs_->is_association ())
-		return true;
+  if (this->lhs_->is_association () && this->rhs_->is_association ())
+    return true;
 
-	return false;
+  return false;
 }
 
 //
@@ -78,9 +78,8 @@ bool Or_Expr::is_association (void)
 //
 bool Or_Expr::is_reference (void)
 {
-	if (this->lhs_->is_reference () && this->rhs_->is_reference ())
-		return true;
+  if (this->lhs_->is_reference () && this->rhs_->is_reference ())
+    return true;
 
-	return false;
+  return false;
 }
-

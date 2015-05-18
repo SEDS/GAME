@@ -12,8 +12,8 @@
 // Constructor
 //
 Equal_Expr::Equal_Expr (Value_Expr * left, Value_Expr * right)
-	: lhs_ (left),
-	rhs_ (right)
+: lhs_ (left),
+  rhs_ (right)
 {
 }
 
@@ -26,12 +26,12 @@ Equal_Expr::~Equal_Expr (void)
 
 bool Equal_Expr::evaluate (Ocl_Context & res)
 {
-	if (this->lhs_->evaluate (res)->is_equal (this->rhs_->evaluate (res)) == false)
-	{
-		res.failures.push_back (std::make_shared <Equal_Expr_Failure> (this));
-		return false;
-	}
-	return true;
+  if (this->lhs_->evaluate (res)->is_equal (this->rhs_->evaluate (res)) == false)
+  {
+    res.failures.push_back (std::make_shared <Equal_Expr_Failure> (this));
+    return false;
+  }
+  return true;
 }
 
 //
@@ -39,43 +39,43 @@ bool Equal_Expr::evaluate (Ocl_Context & res)
 //
 bool Equal_Expr::filter_evaluate (Ocl_Context & res, GAME::Mga::FCO & current)
 {
-	res.cur_fco = current;
-	bool ret = false;
+  res.cur_fco = current;
+  bool ret = false;
 
-	if (this->lhs_->is_filter () || this->rhs_->is_filter ())
-	{
-		if (this->lhs_->is_filter ())
-		{
-			double count;
+  if (this->lhs_->is_filter () || this->rhs_->is_filter ())
+  {
+    if (this->lhs_->is_filter ())
+    {
+      double count;
 
-			// Increment the value by one as the object being added is also considered
-			Int_Value * lv = dynamic_cast <Int_Value *> (this->lhs_->filter_evaluate (res));
-			if (lv != 0)
-			{
-				lv->get_sum (new Int_Value (1), count);
-				Int_Value * left = new Int_Value (static_cast <int> (count));
-				ret = left->is_equal (this->rhs_->filter_evaluate (res));
-			}
-			else
-				ret = this->lhs_->filter_evaluate (res)->is_equal (this->rhs_->filter_evaluate (res));
-		}
-		else if (this->rhs_->is_filter ())
-		{
-			double count;
-			// Increment the value by one as the object being added is also considered
-			Int_Value * rv = dynamic_cast <Int_Value *> (this->rhs_->filter_evaluate (res));
-			if (rv != 0)
-			{
-				rv->get_sum (new Int_Value (1), count);
-				Int_Value * right = new Int_Value (static_cast <int> (count));
-				ret = right->is_equal (this->lhs_->filter_evaluate (res));
-			}
-			else
-				ret = this->lhs_->filter_evaluate (res)->is_equal (this->rhs_->filter_evaluate (res));
-		}
-	}
+      // Increment the value by one as the object being added is also considered
+      Int_Value * lv = dynamic_cast <Int_Value *> (this->lhs_->filter_evaluate (res));
+      if (lv != 0)
+      {
+        lv->get_sum (new Int_Value (1), count);
+        Int_Value * left = new Int_Value (static_cast <int> (count));
+        ret = left->is_equal (this->rhs_->filter_evaluate (res));
+      }
+      else
+        ret = this->lhs_->filter_evaluate (res)->is_equal (this->rhs_->filter_evaluate (res));
+    }
+    else if (this->rhs_->is_filter ())
+    {
+      double count;
+      // Increment the value by one as the object being added is also considered
+      Int_Value * rv = dynamic_cast <Int_Value *> (this->rhs_->filter_evaluate (res));
+      if (rv != 0)
+      {
+        rv->get_sum (new Int_Value (1), count);
+        Int_Value * right = new Int_Value (static_cast <int> (count));
+        ret = right->is_equal (this->lhs_->filter_evaluate (res));
+      }
+      else
+        ret = this->lhs_->filter_evaluate (res)->is_equal (this->rhs_->filter_evaluate (res));
+    }
+  }
 
-	return ret;
+  return ret;
 }
 
 //
@@ -83,7 +83,7 @@ bool Equal_Expr::filter_evaluate (Ocl_Context & res, GAME::Mga::FCO & current)
 //
 bool Equal_Expr::is_association (void)
 {
-	return (this->lhs_->is_association () && this->rhs_->is_association ());
+  return (this->lhs_->is_association () && this->rhs_->is_association ());
 }
 
 //
@@ -91,7 +91,7 @@ bool Equal_Expr::is_association (void)
 //
 bool Equal_Expr::is_containment (void)
 {
-	return (this->lhs_->is_containment () && this->rhs_->is_containment ());
+  return (this->lhs_->is_containment () && this->rhs_->is_containment ());
 }
 
 //
@@ -99,5 +99,5 @@ bool Equal_Expr::is_containment (void)
 //
 bool Equal_Expr::is_reference (void)
 {
-	return (this->lhs_->is_reference () && this->rhs_->is_reference ());
+  return (this->lhs_->is_reference () && this->rhs_->is_reference ());
 }

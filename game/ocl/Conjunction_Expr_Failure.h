@@ -25,9 +25,6 @@ public:
 
 	/// Destructor
 	virtual ~Conjunction_Expr_Failure (void);
-
-private:
-
 };
 
 #endif // !_MODEL_INTELLIGENCE_CONJUNCTION_EXPR_FAILURE_H_

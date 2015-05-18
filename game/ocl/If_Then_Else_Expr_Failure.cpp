@@ -5,7 +5,6 @@
 // Default Constructor
 //
 If_Then_Else_Expr_Failure::If_Then_Else_Expr_Failure (void)
-	: Expr_Failure ()
 {
 }
 
@@ -13,7 +12,7 @@ If_Then_Else_Expr_Failure::If_Then_Else_Expr_Failure (void)
 // If_Then_Else_Expr_Failure (Boolean_Expr *)
 //
 If_Then_Else_Expr_Failure::If_Then_Else_Expr_Failure (Boolean_Expr * expr)
-	: Expr_Failure (expr)
+: Expr_Failure (expr)
 {
 }
 
@@ -29,13 +28,13 @@ If_Then_Else_Expr_Failure::~If_Then_Else_Expr_Failure (void)
 //
 void If_Then_Else_Expr_Failure::accept (Expr_Failure_Visitor & v)
 {
-	v.Visit_If_Then_Else_Expr_Failure (*this);
+  v.Visit_If_Then_Else_Expr_Failure (*this);
 }
 
 //
 // get_origin (void)
 //
-If_Then_Else_Expr * If_Then_Else_Expr_Failure::get_origin (void)
+If_Then_Else_Expr * If_Then_Else_Expr_Failure::get_origin (void) const
 {
-	return dynamic_cast <If_Then_Else_Expr *> (expr_);
+  return dynamic_cast <If_Then_Else_Expr *> (expr_);
 }

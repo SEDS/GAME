@@ -5,7 +5,6 @@
 // Default Constructor
 //
 Or_Expr_Failure ::Or_Expr_Failure (void)
-	: Conjunction_Expr_Failure ()
 {
 }
 
@@ -13,7 +12,7 @@ Or_Expr_Failure ::Or_Expr_Failure (void)
 // Or_Expr_Failure (Or_Expr *)
 //
 Or_Expr_Failure ::Or_Expr_Failure (Or_Expr * expr)
-	: Conjunction_Expr_Failure (expr)
+: Conjunction_Expr_Failure (expr)
 {
 }
 
@@ -29,13 +28,13 @@ Or_Expr_Failure ::~Or_Expr_Failure (void)
 //
 void Or_Expr_Failure::accept (Expr_Failure_Visitor & v)
 {
-	v.Visit_Or_Expr_Failure (*this);
+  v.Visit_Or_Expr_Failure (*this);
 }
 
 //
 // get_origin (void)
 //
-Or_Expr * Or_Expr_Failure::get_origin (void)
+Or_Expr * Or_Expr_Failure::get_origin (void) const
 {
-	return dynamic_cast <Or_Expr *> (expr_);
+  return dynamic_cast <Or_Expr *> (expr_);
 }

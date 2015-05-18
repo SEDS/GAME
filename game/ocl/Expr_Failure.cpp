@@ -6,7 +6,7 @@
 // Default Constructor
 //
 Expr_Failure::Expr_Failure (void)
-	: expr_ (0)
+: expr_ (0)
 {
 }
 
@@ -14,7 +14,7 @@ Expr_Failure::Expr_Failure (void)
 // Expr_Failure (Boolean_Expr *)
 //
 Expr_Failure::Expr_Failure (Boolean_Expr * expr)
-	: expr_ (expr)
+: expr_ (expr)
 {
 }
 
@@ -28,7 +28,7 @@ Expr_Failure::~Expr_Failure (void)
 //
 // get_origin (void)
 //
-Boolean_Expr * Expr_Failure::get_origin (void)
+Boolean_Expr * Expr_Failure::get_origin (void) const
 {
-	return expr_;
+  return expr_;
 }
