@@ -30,8 +30,8 @@ public:
 
   /// Default constructor.
   If_Then_Else_Expr (Equality_Expr * cond,
-    std::vector <Boolean_Expr *> & first,
-    std::vector <Boolean_Expr *> & second);
+                     std::vector <Boolean_Expr *> & first,
+                     std::vector <Boolean_Expr *> & second);
 
   /// Destructor.
   virtual ~If_Then_Else_Expr (void);
