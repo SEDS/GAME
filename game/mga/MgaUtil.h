@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0595 */
-/* at Mon May 11 12:55:24 2015
+/* at Tue May 19 14:48:01 2015
  */
 /* Compiler settings for C:\Program Files (x86)\GME\Interfaces\MgaUtil.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0595 
