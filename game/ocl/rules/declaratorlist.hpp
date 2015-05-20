@@ -21,31 +21,31 @@ namespace ascii = boost::spirit::ascii;
 
 namespace GAME
 {
-	namespace Ocl
-	{
+namespace Ocl
+{
 
-		/**
-		* @class Constant_Value_Parser_Grammar
-		*
-		* Underlying grammer for the ocl expression parser.
-		*/
-		template <typename IteratorT>
-		class declaratorlist : public qi::grammar <IteratorT,
-			std::vector <std::string> (),
-			ascii::space_type>
-		{  
-		public:
-			declaratorlist ();
+/**
+* @class Constant_Value_Parser_Grammar
+*
+* Underlying grammer for the ocl expression parser.
+*/
+template <typename IteratorT>
+class declaratorlist : public qi::grammar <IteratorT,
+                                           std::vector <std::string> (),
+                                           ascii::space_type>
+{  
+public:
+  declaratorlist ();
 
-		private:
-			qi::rule <IteratorT,
-				std::vector <std::string> (),
-				ascii::space_type> declarator_list_;
+private:
+  qi::rule <IteratorT,
+            std::vector <std::string> (),
+            ascii::space_type> declarator_list_;
 
-			ident <IteratorT> ident_;
-		};
+  ident <IteratorT> ident_;
+};
 
-	}
+}
 }
 
 #endif

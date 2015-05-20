@@ -3,14 +3,14 @@
 
 namespace GAME
 {
-	namespace Ocl
-	{
+namespace Ocl
+{
 
-		void instantiate_folder_method_grammar (void)
-		{
-			typedef std::string::const_iterator iterator_type;
-			folder_method <iterator_type> g;
-		}
+void instantiate_folder_method_grammar (void)
+{
+  typedef std::string::const_iterator iterator_type;
+  folder_method <iterator_type> g;
+}
 
-	}
+}
 }

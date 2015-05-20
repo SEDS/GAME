@@ -27,37 +27,37 @@ namespace ascii = boost::spirit::ascii;
 
 namespace GAME
 {
-	namespace Ocl
-	{
+namespace Ocl
+{
 
-		/**
-		* @class Constant_Value_Parser_Grammar
-		*
-		* Underlying grammer for the ocl expression parser.
-		*/
-		template <typename IteratorT>
-		class equality : public qi::grammar <IteratorT,
-			Equality_Expr * (),
-			ascii::space_type,
-			qi::locals <std::deque <std::string>, 
-			std::deque <Equality_Expr *> > >
-		{  
-		public:
-			equality ();
+/**
+* @class Constant_Value_Parser_Grammar
+*
+* Underlying grammer for the ocl expression parser.
+*/
+template <typename IteratorT>
+class equality : public qi::grammar <IteratorT,
+                                     Equality_Expr * (),
+                                     ascii::space_type,
+                                     qi::locals <std::deque <std::string>, 
+                                                 std::deque <Equality_Expr *> > >
+{  
+public:
+  equality ();
 
-		private:
-			qi::rule <IteratorT,
-				Equality_Expr * (),
-				ascii::space_type,
-				qi::locals <std::deque <std::string>, 
-				std::deque <Equality_Expr *> > > eq_expr_;
+private:
+  qi::rule <IteratorT,
+            Equality_Expr * (),
+            ascii::space_type,
+            qi::locals <std::deque <std::string>, 
+                        std::deque <Equality_Expr *> > > eq_expr_;
 
-			comparison <IteratorT> comp_expr_;
+  comparison <IteratorT> comp_expr_;
 
-			conjunction <IteratorT> conjunction_;
-		};
+  conjunction <IteratorT> conjunction_;
+};
 
-	}
+}
 }
 
 #endif

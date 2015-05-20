@@ -23,33 +23,33 @@ namespace ascii = boost::spirit::ascii;
 
 namespace GAME
 {
-	namespace Ocl
-	{
+namespace Ocl
+{
 
-		/**
-		* @class Not_Equal_Parser_Grammar
-		*
-		* Underlying grammer for the ocl expression parser.
-		*/
-		template <typename IteratorT>
-		class not_equal : public qi::grammar <IteratorT,
-			Not_Equal_Expr * (),
-			ascii::space_type,
-			qi::locals <Value_Expr *>>
-		{  
-		public:
-			not_equal ();
+/**
+* @class Not_Equal_Parser_Grammar
+*
+* Underlying grammer for the ocl expression parser.
+*/
+template <typename IteratorT>
+class not_equal : public qi::grammar <IteratorT,
+                                      Not_Equal_Expr * (),
+                                      ascii::space_type,
+                                      qi::locals <Value_Expr *>>
+{  
+public:
+  not_equal ();
 
-		private:
-			qi::rule <IteratorT,
-				Not_Equal_Expr * (),
-				ascii::space_type,
-				qi::locals <Value_Expr *>> not_equal_expr_;
+private:
+  qi::rule <IteratorT,
+            Not_Equal_Expr * (),
+            ascii::space_type,
+            qi::locals <Value_Expr *>> not_equal_expr_;
 
-			value <IteratorT> value_expr_;
-		};
+  value <IteratorT> value_expr_;
+};
 
-	}
+}
 }
 
 #endif

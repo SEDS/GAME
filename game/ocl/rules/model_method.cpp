@@ -3,14 +3,14 @@
 
 namespace GAME
 {
-	namespace Ocl
-	{
+namespace Ocl
+{
 
-		void instantiate_model_method_grammar (void)
-		{
-			typedef std::string::const_iterator iterator_type;
-			model_method <iterator_type> g;
-		}
+void instantiate_model_method_grammar (void)
+{
+  typedef std::string::const_iterator iterator_type;
+  model_method <iterator_type> g;
+}
 
-	}
+}
 }

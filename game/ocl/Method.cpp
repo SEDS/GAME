@@ -5,22 +5,22 @@
 
 namespace GAME
 {
-	namespace Ocl
-	{
+namespace Ocl
+{
 
-		//
-		// Constructor
-		//
-		Method::Method (void)
-		{
-		}
+//
+// Constructor
+//
+Method::Method (void)
+{
+}
 
-		//
-		// Destructor
-		//
-		Method::~Method (void)
-		{
-		}
+//
+// Destructor
+//
+Method::~Method (void)
+{
+}
 
-	}
+}
 }

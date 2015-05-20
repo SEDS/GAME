@@ -5,14 +5,14 @@
 
 namespace GAME
 {
-	namespace Ocl
-	{
+namespace Ocl
+{
 
-		void instantiate_grammar (void)
-		{
-			typedef std::string::const_iterator iterator_type;
-			OCL_Parser_Grammar <iterator_type> g;
-		}
+void instantiate_grammar (void)
+{
+  typedef std::string::const_iterator iterator_type;
+  OCL_Parser_Grammar <iterator_type> g;
+}
 
-	}
+}
 }

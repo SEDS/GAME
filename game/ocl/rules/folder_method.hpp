@@ -60,44 +60,44 @@ namespace ascii = boost::spirit::ascii;
 
 namespace GAME
 {
-	namespace Ocl
-	{
+namespace Ocl
+{
 
-		/**
-		* @class folder_method
-		*
-		* Underlying grammer for the ocl expression parser.
-		*/
-		template <typename IteratorT>
-		class folder_method :
-			public qi::grammar <IteratorT, Method * (), ascii::space_type>
-		{
-		public:
-			folder_method (void);
+/**
+* @class folder_method
+*
+* Underlying grammer for the ocl expression parser.
+*/
+template <typename IteratorT>
+class folder_method :
+  public qi::grammar <IteratorT, Method * (), ascii::space_type>
+{
+public:
+  folder_method (void);
 
-		private:
-			qi::rule <IteratorT,
-				Method * (),
-				ascii::space_type> method_;
+private:
+  qi::rule <IteratorT,
+            Method * (),
+            ascii::space_type> method_;
 
-			qi::rule <IteratorT,
-				Models_Method * (),
-				ascii::space_type> models_method_;
+  qi::rule <IteratorT,
+            Models_Method * (),
+            ascii::space_type> models_method_;
 
-			qi::rule <IteratorT,
-				Atoms_Method * (),
-				ascii::space_type> atoms_method_;
+  qi::rule <IteratorT,
+            Atoms_Method * (),
+            ascii::space_type> atoms_method_;
 
-			qi::rule <IteratorT,
-				ChildFolders_Method * (),
-				ascii::space_type> childfolders_method_;
+  qi::rule <IteratorT,
+            ChildFolders_Method * (),
+            ascii::space_type> childfolders_method_;
 
-			ident <IteratorT> id_;
+  ident <IteratorT> id_;
 
-			quoted_string <IteratorT> qs_;
-		};
+  quoted_string <IteratorT> qs_;
+};
 
-	}
+}
 }
 
 #endif

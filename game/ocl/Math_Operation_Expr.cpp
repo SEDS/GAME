@@ -6,78 +6,78 @@
 
 namespace GAME
 {
-	namespace Ocl
-	{
+namespace Ocl
+{
 
-		//
-		// Constructor
-		//
-		Math_Operation_Expr::Math_Operation_Expr (void)
-		{
-		}
+//
+// Constructor
+//
+Math_Operation_Expr::Math_Operation_Expr (void)
+{
+}
 
-		//
-		// Destructor
-		//
-		Math_Operation_Expr::~Math_Operation_Expr (void)
-		{
-		}
+//
+// Destructor
+//
+Math_Operation_Expr::~Math_Operation_Expr (void)
+{
+}
 
-		//
-		// dummy evaluate method
-		//
-		Value * Math_Operation_Expr::evaluate (Ocl_Context & res)
-		{
-			return new Int_Value (0);
-		}
+//
+// dummy evaluate method
+//
+Value * Math_Operation_Expr::evaluate (Ocl_Context & res)
+{
+  return new Int_Value (0);
+}
 
-		//
-		// dummy filter evaluate method
-		//
-		Value * Math_Operation_Expr::filter_evaluate (Ocl_Context & res)
-		{
-			return new Int_Value (0);
-		}
+//
+// dummy filter evaluate method
+//
+Value * Math_Operation_Expr::filter_evaluate (Ocl_Context & res)
+{
+  return new Int_Value (0);
+}
 
-		//
-		// dummy is_mutable method
-		//
-		bool Math_Operation_Expr::is_mutable (void)
-		{
-			return true;
-		}
+//
+// dummy is_mutable method
+//
+bool Math_Operation_Expr::is_mutable (void)
+{
+  return true;
+}
 
-		//
-		// dummy is_filter method
-		//
-		bool Math_Operation_Expr::is_filter (void)
-		{
-			return true;
-		}
+//
+// dummy is_filter method
+//
+bool Math_Operation_Expr::is_filter (void)
+{
+  return true;
+}
 
-		//
-		// dummy method
-		//
-		bool Math_Operation_Expr::is_association (void)
-		{
-			return true;
-		}
+//
+// dummy method
+//
+bool Math_Operation_Expr::is_association (void)
+{
+  return true;
+}
 
-		//
-		// dummy method
-		//
-		bool Math_Operation_Expr::is_containment (void)
-		{
-			return true;
-		}
+//
+// dummy method
+//
+bool Math_Operation_Expr::is_containment (void)
+{
+  return true;
+}
 
-		//
-		// dummy method
-		//
-		bool Math_Operation_Expr::is_reference (void)
-		{
-			return true;
-		}
+//
+// dummy method
+//
+bool Math_Operation_Expr::is_reference (void)
+{
+  return true;
+}
 
-	}
+}
 }

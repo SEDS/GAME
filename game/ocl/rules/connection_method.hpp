@@ -59,46 +59,46 @@ namespace ascii = boost::spirit::ascii;
 
 namespace GAME
 {
-	namespace Ocl
-	{
+namespace Ocl
+{
 
-		/**
-		* @class object_method
-		*
-		* Underlying grammer for the ocl expression parser.
-		*/
-		template <typename IteratorT>
-		class connection_method :
-			public qi::grammar <IteratorT, Method * (), ascii::space_type>
-		{
-		public:
-			connection_method (void);
+/**
+* @class object_method
+*
+* Underlying grammer for the ocl expression parser.
+*/
+template <typename IteratorT>
+class connection_method :
+  public qi::grammar <IteratorT, Method * (), ascii::space_type>
+{
+public:
+  connection_method (void);
 
-		private:
-			qi::rule <IteratorT,
-				Method * (),
-				ascii::space_type> method_;
+private:
+  qi::rule <IteratorT,
+            Method * (),
+            ascii::space_type> method_;
 
-			qi::rule <IteratorT,
-				ConnectionPoints_Method * (),
-				ascii::space_type> connectionpoints_method_;
+  qi::rule <IteratorT,
+            ConnectionPoints_Method * (),
+            ascii::space_type> connectionpoints_method_;
 
-			qi::rule <IteratorT,
-				ConnectionPoint_Method * (),
-				ascii::space_type> connectionpoint_method_;
+  qi::rule <IteratorT,
+            ConnectionPoint_Method * (),
+            ascii::space_type> connectionpoint_method_;
 
-			qi::rule <IteratorT,
-				Target_Method * (),
-				ascii::space_type> target_method_;
+  qi::rule <IteratorT,
+            Target_Method * (),
+            ascii::space_type> target_method_;
 
-			qi::rule <IteratorT,
-				Owner_Method * (),
-				ascii::space_type> owner_method_;
+  qi::rule <IteratorT,
+            Owner_Method * (),
+            ascii::space_type> owner_method_;
 
-			quoted_string <IteratorT> qs_;
-		};
+  quoted_string <IteratorT> qs_;
+};
 
-	}
+}
 }
 
 #endif

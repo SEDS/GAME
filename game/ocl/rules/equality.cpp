@@ -3,14 +3,14 @@
 
 namespace GAME
 {
-	namespace Ocl
-	{
+namespace Ocl
+{
 
-		void instantiate_equality_grammar (void)
-		{
-			typedef std::string::const_iterator iterator_type;
-			equality <iterator_type> g;
-		}
+void instantiate_equality_grammar (void)
+{
+  typedef std::string::const_iterator iterator_type;
+  equality <iterator_type> g;
+}
 
-	}
+}
 }

@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0595 */
-/* at Tue May 19 14:47:59 2015
+/* at Wed May 20 14:57:01 2015
  */
 /* Compiler settings for C:\Program Files (x86)\GME\Interfaces\Meta.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0595 

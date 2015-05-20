@@ -60,61 +60,61 @@ namespace ascii = boost::spirit::ascii;
 
 namespace GAME
 {
-	namespace Ocl
-	{
+namespace Ocl
+{
 
-		/**
-		* @class Method_Parser_Grammar
-		*
-		* Underlying grammer for the ocl expression parser.
-		*/
-		template <typename IteratorT>
-		class model_method :
-			public qi::grammar <IteratorT, Method * (), ascii::space_type>
-		{
-		public:
-			model_method (void);
+/**
+* @class Method_Parser_Grammar
+*
+* Underlying grammer for the ocl expression parser.
+*/
+template <typename IteratorT>
+class model_method :
+  public qi::grammar <IteratorT, Method * (), ascii::space_type>
+{
+public:
+  model_method (void);
 
-		private:
-			qi::rule <IteratorT,
-				Method * (),
-				ascii::space_type> model_method_;
+private:
+  qi::rule <IteratorT,
+            Method * (),
+            ascii::space_type> model_method_;
 
-			qi::rule <IteratorT,
-				Parts_Method * (),
-				ascii::space_type,
-				qi::locals <std::string>> parts_method_;
+  qi::rule <IteratorT,
+            Parts_Method * (),
+            ascii::space_type,
+            qi::locals <std::string>> parts_method_;
 
-			qi::rule <IteratorT,
-				AtomParts_Method * (),
-				ascii::space_type,
-				qi::locals <std::string>> atomparts_method_;
+  qi::rule <IteratorT,
+            AtomParts_Method * (),
+            ascii::space_type,
+            qi::locals <std::string>> atomparts_method_;
 
-			qi::rule <IteratorT,
-				ModelParts_Method * (),
-				ascii::space_type,
-				qi::locals <std::string>> modelparts_method_;
+  qi::rule <IteratorT,
+            ModelParts_Method * (),
+            ascii::space_type,
+            qi::locals <std::string>> modelparts_method_;
 
-			qi::rule <IteratorT,
-				ReferenceParts_Method * (),
-				ascii::space_type,
-				qi::locals <std::string>> referenceparts_method_;
+  qi::rule <IteratorT,
+            ReferenceParts_Method * (),
+            ascii::space_type,
+            qi::locals <std::string>> referenceparts_method_;
 
-			qi::rule <IteratorT,
-				ConnectionParts_Method * (),
-				ascii::space_type,
-				qi::locals <std::string>> connectionparts_method_;
+  qi::rule <IteratorT,
+            ConnectionParts_Method * (),
+            ascii::space_type,
+            qi::locals <std::string>> connectionparts_method_;
 
-			qi::rule <IteratorT,
-				Size_Method * (),
-				ascii::space_type> size_method_;
+  qi::rule <IteratorT,
+            Size_Method * (),
+            ascii::space_type> size_method_;
 
-			ident <IteratorT> id_;
+  ident <IteratorT> id_;
 
-			quoted_string <IteratorT> qs_;
-		};
+  quoted_string <IteratorT> qs_;
+};
 
-	}
+}
 }
 
 #endif

@@ -57,45 +57,45 @@ namespace ascii = boost::spirit::ascii;
 
 namespace GAME
 {
-	namespace Ocl
-	{
+namespace Ocl
+{
 
-		/**
-		* @class object_method
-		*
-		* Underlying grammer for the ocl expression parser.
-		*/
-		template <typename IteratorT>
-		class object_method :
-			public qi::grammar <IteratorT, Method * (), ascii::space_type>
-		{
-		public:
-			object_method (void);
+/**
+* @class object_method
+*
+* Underlying grammer for the ocl expression parser.
+*/
+template <typename IteratorT>
+class object_method :
+  public qi::grammar <IteratorT, Method * (), ascii::space_type>
+{
+public:
+  object_method (void);
 
-		private:
-			qi::rule <IteratorT,
-				Method * (),
-				ascii::space_type> method_;
+private:
+  qi::rule <IteratorT,
+            Method * (),
+            ascii::space_type> method_;
 
-			qi::rule <IteratorT,
-				Name_Method * (),
-				ascii::space_type> name_method_;
+  qi::rule <IteratorT,
+            Name_Method * (),
+            ascii::space_type> name_method_;
 
-			qi::rule <IteratorT,
-				KindName_Method * (),
-				ascii::space_type> kindname_method_;
+  qi::rule <IteratorT,
+            KindName_Method * (),
+            ascii::space_type> kindname_method_;
 
-			qi::rule <IteratorT,
-				Parent_Method * (),
-				ascii::space_type> parent_method_;
+  qi::rule <IteratorT,
+            Parent_Method * (),
+            ascii::space_type> parent_method_;
 
-			qi::rule <IteratorT,
-				IsFCO_Method * (),
-				ascii::space_type> isfco_method_;
+  qi::rule <IteratorT,
+            IsFCO_Method * (),
+            ascii::space_type> isfco_method_;
 
-		};
+};
 
-	}
+}
 }
 
 #endif

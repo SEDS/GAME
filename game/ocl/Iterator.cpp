@@ -5,22 +5,22 @@
 
 namespace GAME
 {
-	namespace Ocl
-	{
+namespace Ocl
+{
 
-		//
-		// Constructor
-		//
-		Iterator::Iterator (void)
-		{
-		}
+//
+// Constructor
+//
+Iterator::Iterator (void)
+{
+}
 
-		//
-		// Destructor
-		//
-		Iterator::~Iterator (void)
-		{
-		}
+//
+// Destructor
+//
+Iterator::~Iterator (void)
+{
+}
 
-	}
+}
 }

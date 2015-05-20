@@ -60,40 +60,40 @@ namespace ascii = boost::spirit::ascii;
 
 namespace GAME
 {
-	namespace Ocl
-	{
+namespace Ocl
+{
 
-		/**
-		* @class Method_Parser_Grammar
-		*
-		* Underlying grammer for the ocl expression parser.
-		*/
-		template <typename IteratorT>
-		class reference_method :
-			public qi::grammar <IteratorT, Method * (), ascii::space_type>
-		{
-		public:
-			reference_method (void);
+/**
+* @class Method_Parser_Grammar
+*
+* Underlying grammer for the ocl expression parser.
+*/
+template <typename IteratorT>
+class reference_method :
+  public qi::grammar <IteratorT, Method * (), ascii::space_type>
+{
+public:
+  reference_method (void);
 
-		private:
-			qi::rule <IteratorT,
-				Method * (),
-				ascii::space_type> method_;
+private:
+  qi::rule <IteratorT,
+            Method * (),
+            ascii::space_type> method_;
 
-			qi::rule <IteratorT,
-				Refers_to_Method * (),
-				ascii::space_type> refers_to_method_;
+  qi::rule <IteratorT,
+            Refers_to_Method * (),
+            ascii::space_type> refers_to_method_;
 
-			qi::rule <IteratorT,
-				UsedByConnPoints_Method * (),
-				ascii::space_type> usedbyconnpoints_method_;
+  qi::rule <IteratorT,
+            UsedByConnPoints_Method * (),
+            ascii::space_type> usedbyconnpoints_method_;
 
-			ident <IteratorT> id_;
+  ident <IteratorT> id_;
 
-			quoted_string <IteratorT> qs_;
-		};
+  quoted_string <IteratorT> qs_;
+};
 
-	}
+}
 }
 
 #endif

@@ -3,8 +3,8 @@
 
 namespace GAME
 {
-	namespace Ocl
-	{
+namespace Ocl
+{
 
 void instantiate_reference_method_grammar (void)
 {
@@ -12,5 +12,5 @@ void instantiate_reference_method_grammar (void)
   reference_method <iterator_type> g;
 }
 
-	}
+}
 }

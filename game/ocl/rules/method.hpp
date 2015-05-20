@@ -64,100 +64,100 @@ namespace ascii = boost::spirit::ascii;
 
 namespace GAME
 {
-	namespace Ocl
-	{
+namespace Ocl
+{
 
-		/**
-		* @class method
-		*
-		* Underlying grammer for the ocl expression parser.
-		*/
-		template <typename IteratorT>
-		class method : public qi::grammar <IteratorT,
-			Method * (),
-			ascii::space_type>
-		{
-		public:
-			method ();
+/**
+* @class method
+*
+* Underlying grammer for the ocl expression parser.
+*/
+template <typename IteratorT>
+class method : public qi::grammar <IteratorT,
+                                   Method * (),
+                                   ascii::space_type>
+{
+public:
+  method ();
 
-		private:
-			qi::rule <IteratorT,
-				Method * (),
-				ascii::space_type> method_;
+private:
+  qi::rule <IteratorT,
+            Method * (),
+            ascii::space_type> method_;
 
-			model_method <IteratorT> model_methods_;
+  model_method <IteratorT> model_methods_;
 
-			reference_method <IteratorT> reference_methods_;
+  reference_method <IteratorT> reference_methods_;
 
-			object_method <IteratorT> object_methods_;
+  object_method <IteratorT> object_methods_;
 
-			connection_method <IteratorT> connection_methods_;
+  connection_method <IteratorT> connection_methods_;
 
-			folder_method <IteratorT> folder_methods_;
+  folder_method <IteratorT> folder_methods_;
 
-			qi::rule <IteratorT,
-				AttachingConnPoints_Method * (),
-				ascii::space_type,
-				qi::locals <std::string>> attachingconnpoints_method_;
+  qi::rule <IteratorT,
+            AttachingConnPoints_Method * (),
+            ascii::space_type,
+            qi::locals <std::string>> attachingconnpoints_method_;
 
-			qi::rule <IteratorT,
-				AttachingConnections_Method * (),
-				ascii::space_type,
-				qi::locals <std::string>> attachingconnections_method_;
+  qi::rule <IteratorT,
+            AttachingConnections_Method * (),
+            ascii::space_type,
+            qi::locals <std::string>> attachingconnections_method_;
 
-			qi::rule <IteratorT,
-				IsConnectedTo_Method * (),
-				ascii::space_type,
-				qi::locals <std::string,
-				std::string>> isconnectedto_method_;
+  qi::rule <IteratorT,
+            IsConnectedTo_Method * (),
+            ascii::space_type,
+            qi::locals <std::string,
+            std::string>> isconnectedto_method_;
 
-			qi::rule <IteratorT,
-				Subtypes_Method * (),
-				ascii::space_type> subtypes_method_;
+  qi::rule <IteratorT,
+            Subtypes_Method * (),
+            ascii::space_type> subtypes_method_;
 
-			qi::rule <IteratorT,
-				Instances_Method * (),
-				ascii::space_type> instances_method_;
+  qi::rule <IteratorT,
+            Instances_Method * (),
+            ascii::space_type> instances_method_;
 
-			qi::rule <IteratorT,
-				Type_Method * (),
-				ascii::space_type> type_method_;
+  qi::rule <IteratorT,
+            Type_Method * (),
+            ascii::space_type> type_method_;
 
-			qi::rule <IteratorT,
-				IsType_Method * (),
-				ascii::space_type> istype_method_;
+  qi::rule <IteratorT,
+            IsType_Method * (),
+            ascii::space_type> istype_method_;
 
-			qi::rule <IteratorT,
-				IsInstance_Method * (),
-				ascii::space_type> isinstance_method_;
+  qi::rule <IteratorT,
+            IsInstance_Method * (),
+            ascii::space_type> isinstance_method_;
 
-			qi::rule <IteratorT,
-				Basetype_Method * (),
-				ascii::space_type> basetype_method_;
+  qi::rule <IteratorT,
+            Basetype_Method * (),
+            ascii::space_type> basetype_method_;
 
-			qi::rule <IteratorT,
-				Folder_Method * (),
-				ascii::space_type> folder_method_;
+  qi::rule <IteratorT,
+            Folder_Method * (),
+            ascii::space_type> folder_method_;
 
-			qi::rule <IteratorT,
-				ReferencedBy_Method * (),
-				ascii::space_type> referencedby_method_;
+  qi::rule <IteratorT,
+            ReferencedBy_Method * (),
+            ascii::space_type> referencedby_method_;
 
-			qi::rule <IteratorT,
-				ConnectedFCOs_Method * (),
-				ascii::space_type,
-				qi::locals <std::string>> connectedfcos_method_;
+  qi::rule <IteratorT,
+            ConnectedFCOs_Method * (),
+            ascii::space_type,
+            qi::locals <std::string>> connectedfcos_method_;
 
-			qi::rule <IteratorT,
-				RoleName_Method * (),
-				ascii::space_type> rolename_method_;
+  qi::rule <IteratorT,
+            RoleName_Method * (),
+            ascii::space_type> rolename_method_;
 
-			ident <IteratorT> id_;
+  ident <IteratorT> id_;
 
-			quoted_string <IteratorT> qs_;
-		};
+  quoted_string <IteratorT> qs_;
+};
 
-	}
+}
 }
 
 #endif

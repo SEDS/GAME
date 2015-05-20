@@ -5,90 +5,90 @@
 
 namespace GAME
 {
-	namespace Ocl
-	{
+namespace Ocl
+{
 
-		//
-		// Constructor
-		//
-		And_Expr::And_Expr (Equality_Expr * left, Equality_Expr * right)
-			: lhs_ (left),
-			rhs_ (right)
-		{
-		}
+//
+// Constructor
+//
+And_Expr::And_Expr (Equality_Expr * left, Equality_Expr * right)
+  : lhs_ (left),
+    rhs_ (right)
+{
+}
 
-		//
-		// Destructor
-		//
-		And_Expr::~And_Expr (void)
-		{
-		}
+//
+// Destructor
+//
+And_Expr::~And_Expr (void)
+{
+}
 
-		//
-		// evaluate
-		//
-		bool And_Expr::evaluate (Ocl_Context & res)
-		{
-			// Evaluating both sides
-			bool left = this->lhs_->evaluate (res);
-			bool right = this->rhs_->evaluate (res);
+//
+// evaluate
+//
+bool And_Expr::evaluate (Ocl_Context & res)
+{
+  // Evaluating both sides
+  bool left = this->lhs_->evaluate (res);
+  bool right = this->rhs_->evaluate (res);
 
-			if (left && right)
-				return true;
+  if (left && right)
+    return true;
 
-			return false;
-		}
+  return false;
+}
 
-		//
-		// filter_evaluate
-		//
-		bool And_Expr::filter_evaluate (Ocl_Context & res, GAME::Mga::FCO & current)
-		{
-			// Setting the current FCO
-			res.cur_fco = current;
+//
+// filter_evaluate
+//
+bool And_Expr::filter_evaluate (Ocl_Context & res, GAME::Mga::FCO & current)
+{
+  // Setting the current FCO
+  res.cur_fco = current;
 
-			// Evaluating both sides
-			bool left = this->lhs_->filter_evaluate (res, current);
-			bool right = this->rhs_->filter_evaluate (res, current);
+  // Evaluating both sides
+  bool left = this->lhs_->filter_evaluate (res, current);
+  bool right = this->rhs_->filter_evaluate (res, current);
 
-			if (left && right)
-				return true;
+  if (left && right)
+    return true;
 
-			return false;
-		}
+  return false;
+}
 
-		//
-		// is_containment
-		//
-		bool And_Expr::is_containment (void)
-		{
-			if (this->lhs_->is_containment () && this->rhs_->is_containment ())
-				return true;
+//
+// is_containment
+//
+bool And_Expr::is_containment (void)
+{
+  if (this->lhs_->is_containment () && this->rhs_->is_containment ())
+    return true;
 
-			return false;
-		}
+  return false;
+}
 
-		//
-		// is_association
-		//
-		bool And_Expr::is_association (void)
-		{
-			if (this->lhs_->is_association () && this->rhs_->is_association ())
-				return true;
+//
+// is_association
+//
+bool And_Expr::is_association (void)
+{
+  if (this->lhs_->is_association () && this->rhs_->is_association ())
+    return true;
 
-			return false;
-		}
+  return false;
+}
 
-		//
-		// is_reference
-		//
-		bool And_Expr::is_reference (void)
-		{
-			if (this->lhs_->is_reference () && this->rhs_->is_reference ())
-				return true;
+//
+// is_reference
+//
+bool And_Expr::is_reference (void)
+{
+  if (this->lhs_->is_reference () && this->rhs_->is_reference ())
+    return true;
 
-			return false;
-		}
+  return false;
+}
 
-	}
+}
 }

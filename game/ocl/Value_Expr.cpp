@@ -5,22 +5,22 @@
 
 namespace GAME
 {
-	namespace Ocl
-	{
+namespace Ocl
+{
 
-		//
-		// Default Constructor
-		//
-		Value_Expr::Value_Expr (void)
-		{
-		}
+//
+// Default Constructor
+//
+Value_Expr::Value_Expr (void)
+{
+}
 
-		//
-		// Destructor
-		//
-		Value_Expr::~Value_Expr (void)
-		{
-		}
+//
+// Destructor
+//
+Value_Expr::~Value_Expr (void)
+{
+}
 
-	}
+}
 }

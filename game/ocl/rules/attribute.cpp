@@ -3,14 +3,14 @@
 
 namespace GAME
 {
-	namespace Ocl
-	{
+namespace Ocl
+{
 
-		void instantiate_attribute_grammar (void)
-		{
-			typedef std::string::const_iterator iterator_type;
-			attribute <iterator_type> g;
-		}
+void instantiate_attribute_grammar (void)
+{
+  typedef std::string::const_iterator iterator_type;
+  attribute <iterator_type> g;
+}
 
-	}
+}
 }

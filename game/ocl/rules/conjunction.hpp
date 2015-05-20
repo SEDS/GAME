@@ -19,29 +19,29 @@ namespace ascii = boost::spirit::ascii;
 
 namespace GAME
 {
-	namespace Ocl
-	{
+namespace Ocl
+{
 
-		/**
-		* @class Conjunction_Parser_Grammar
-		*
-		* Underlying grammer for the ocl expression parser.
-		*/
-		template <typename IteratorT>
-		class conjunction : public qi::grammar <IteratorT,
-			std::string (),
-			ascii::space_type>
-		{
-		public:
-			conjunction ();
+/**
+* @class Conjunction_Parser_Grammar
+*
+* Underlying grammer for the ocl expression parser.
+*/
+template <typename IteratorT>
+class conjunction : public qi::grammar <IteratorT,
+                                        std::string (),
+                                        ascii::space_type>
+{
+public:
+  conjunction ();
 
-		private:
-			qi::rule <IteratorT,
-				std::string (),
-				ascii::space_type> conjunction_;
-		};
+private:
+  qi::rule <IteratorT,
+            std::string (),
+            ascii::space_type> conjunction_;
+};
 
-	}
+}
 }
 
 #endif
