@@ -28,10 +28,10 @@ class Not_Equal_Expr : public Comparison_Expr
 {
 public:
   /// Default constructor.
-	Not_Equal_Expr (Value_Expr * left, Value_Expr * right);
+  Not_Equal_Expr (Value_Expr * left, Value_Expr * right);
 
-	/// Destructor.
-	~Not_Equal_Expr (void);
+  /// Destructor.
+  virtual ~Not_Equal_Expr (void);
 
   /**
    * evaluate method for evaluating the respective expression
@@ -39,7 +39,7 @@ public:
    * @param[in]     res        Object of model intelligence context.
    * @return        bool       True/False
    */
-  bool evaluate (Ocl_Context & res);
+  virtual bool evaluate (Ocl_Context & res);
 
   /**
    * filter_evaluate method for evaluating the respective expression
@@ -48,7 +48,7 @@ public:
    * @param[in]     current    The current FCO being worked with.
    * @return        bool       True/False
    */
-  bool filter_evaluate (Ocl_Context & res, GAME::Mga::FCO & current);
+  virtual bool filter_evaluate (Ocl_Context & res, GAME::Mga::FCO & current);
 
   /**
    * is_association method for determining if this method
@@ -56,7 +56,7 @@ public:
    *
    * @return       bool       True/False
    */
-  bool is_association (void);
+  virtual bool is_association (void);
 
   /**
    * is_containment method for determining if this method
@@ -64,7 +64,7 @@ public:
    *
    * @return       bool       True/False
    */
-  bool is_containment (void);
+  virtual bool is_containment (void);
 
   /**
    * is_reference method for determining if this method
@@ -72,7 +72,7 @@ public:
    *
    * @return       bool       True/False
    */
-  bool is_reference (void);
+  virtual bool is_reference (void);
 private:
   // Left side expression
   Value_Expr * lhs_;

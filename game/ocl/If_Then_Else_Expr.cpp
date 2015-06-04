@@ -3,12 +3,12 @@
 #include "stdafx.h"
 #include "If_Then_Else_Expr.h"
 #include "Object_Value.h"
+#include "If_Then_Else_Expr_Failure.h"
 
 //
 // Constructor
 //
-If_Then_Else_Expr::
-If_Then_Else_Expr (Equality_Expr * cond, std::vector <Boolean_Expr *> & first, std::vector <Boolean_Expr *> & second)
+If_Then_Else_Expr::If_Then_Else_Expr (Equality_Expr * cond, std::vector <Boolean_Expr *> & first, std::vector <Boolean_Expr *> & second)
 : cond_ (cond),
   first_ (first),
   second_ (second)
@@ -41,6 +41,9 @@ bool If_Then_Else_Expr::evaluate (Ocl_Context & res)
     for (Boolean_Expr * expr : this->second_)
       flag = expr->evaluate (res);
   }
+
+  if (flag == false)
+    res.failures.push_back (std::make_shared <If_Then_Else_Expr_Failure> (this));
 
   return flag;
 }

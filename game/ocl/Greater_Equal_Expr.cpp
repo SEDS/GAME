@@ -5,6 +5,7 @@
 #include "Attribute_Expr.h"
 #include "Object_Value.h"
 #include "Int_Value.h"
+#include "Greater_Equal_Expr_Failure.h"
 
 #include "game/mga/Model.h"
 
@@ -30,7 +31,12 @@ Greater_Equal_Expr::~Greater_Equal_Expr (void)
 //
 bool Greater_Equal_Expr::evaluate (Ocl_Context & res)
 {
-  return this->lhs_->evaluate (res)->is_greater_equal (this->rhs_->evaluate (res));
+  if (this->lhs_->evaluate (res)->is_greater_equal (this->rhs_->evaluate (res)) == false)
+  {
+    res.failures.push_back (std::make_shared <Greater_Equal_Expr_Failure> (this));
+    return false;
+  }
+  return true;
 }
 
 //

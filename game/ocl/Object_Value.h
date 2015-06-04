@@ -30,7 +30,7 @@ public:
   Object_Value (GAME::Mga::Object val);
 
   /// Destructor.
-  ~Object_Value (void);
+  virtual ~Object_Value (void);
 
   /**
    * Determines if the object is equal or not.
@@ -39,7 +39,7 @@ public:
    * @return        bool          true if the object is equal
    *                              false if the object is not equal
    */
-  bool is_equal (Value * v);
+  virtual bool is_equal (Value * v);
 
   /**
    * Determines if the object is greater or not.
@@ -48,7 +48,7 @@ public:
    * @return        bool          true if the object is greater
    *                              false if the object is not greater
    */
-  bool is_greater (Value * v);
+  virtual bool is_greater (Value * v);
 
   /**
    * Determines if the object is greater or equal.
@@ -57,7 +57,7 @@ public:
    * @return        bool          true if the object is greater or equal
    *                              false if the object is not greater or equal
    */
-  bool is_greater_equal (Value * v);
+  virtual bool is_greater_equal (Value * v);
 
   /**
    * Determines if the object is lesser or not.
@@ -66,7 +66,7 @@ public:
    * @return        bool          true if the object is lesser
    *                              false if the object is not lesser
    */
-  bool is_lesser (Value * v);
+  virtual bool is_lesser (Value * v);
 
   /**
    * Determines if the object is lesser or equal.
@@ -75,7 +75,7 @@ public:
    * @return        bool          true if the object is lesser or equal
    *                              false if the object is not lesser or equal
    */
-  bool is_lesser_equal (Value * v);
+  virtual bool is_lesser_equal (Value * v);
 
   /**
    * Gets the difference between two variables
@@ -85,7 +85,7 @@ public:
    * @return        bool          true if successful
    *                              false if not successful
    */
-  bool get_diff (Value * v, double & count);
+  virtual bool get_diff (Value * v, double & count);
 
   /**
    * Gets the summation between two variables
@@ -95,14 +95,14 @@ public:
    * @return        bool          true if successful
    *                              false if not successful
    */
-  bool get_sum (Value * v, double & count);
+  virtual bool get_sum (Value * v, double & count);
 
   /**
    * Gets the value of variable
    *
    * @return        Object           The Object value
    */
-  GAME::Mga::Object value (void);
+  virtual GAME::Mga::Object value (void);
 
 private:
   GAME::Mga::Object val_;
