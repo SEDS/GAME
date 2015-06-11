@@ -38,8 +38,8 @@ public:
   /// Role and Kind constructor
   AttachingConnections_Method (std::string & role, std::string & kind);
 
-  /// Destructor.
-  ~AttachingConnections_Method (void);
+	/// Destructor.
+	virtual ~AttachingConnections_Method (void);
 
   /**
    * evaluate method for evaluating the attachingConnections method
@@ -48,7 +48,7 @@ public:
    * @param[in]     caller        The object the method works with
    * @return        Object        Value object
    */
-  Value * evaluate (Ocl_Context & res, GAME::Mga::Object caller);
+  virtual Value * evaluate (Ocl_Context & res, GAME::Mga::Object caller);
 
   /**
    * evaluate method for evaluating the attachingConnections method
@@ -57,7 +57,8 @@ public:
    * @param[in]     caller        Value from previous method
    * @return        Object        Value object
    */
-  Value * evaluate (Ocl_Context & res, Value * caller);
+
+	virtual Value * evaluate (Ocl_Context & res, Value * caller);
 
   /**
    * Determines if the object is for filtration or not.
@@ -65,7 +66,7 @@ public:
    * @return        bool          true if the object is for filtration
    *                              false if the object is not for filtration
    */
-  bool is_filter (void);
+  virtual bool is_filter (void);
 
   /**
    * is_association method for determining if this expression
@@ -73,7 +74,7 @@ public:
    *
    * @return       bool       True/False
    */
-  bool is_association (void);
+  virtual bool is_association (void);
 
   /**
    * is_containment method for determining if this expression
@@ -81,7 +82,7 @@ public:
    *
    * @return       bool       True/False
    */
-  bool is_containment (void);
+  virtual bool is_containment (void);
 
   /**
    * is_reference method for determining if this expression
@@ -89,7 +90,7 @@ public:
    *
    * @return       bool       True/False
    */
-  bool is_reference (void);
+  virtual bool is_reference (void);
 
 private:
   // The kind of the connection

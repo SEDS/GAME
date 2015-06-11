@@ -35,7 +35,7 @@ public:
   Boolean_Expr (void);
 
   /// Destructor.
-  ~Boolean_Expr (void);
+  virtual ~Boolean_Expr (void);
 
   // Pure virtual evaluate method used by derived classes
   // for evaluating the respective sub-expresion

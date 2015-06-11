@@ -39,7 +39,7 @@ public:
                      std::vector <Boolean_Expr *> & second);
 
   /// Destructor.
-  ~If_Then_Else_Expr (void);
+  virtual ~If_Then_Else_Expr (void);
 
   /**
    * evaluate method for evaluating the respective expression
@@ -47,7 +47,7 @@ public:
    * @param[in]     res        Object of model intelligence context.
    * @return        bool       True/False
    */
-  bool evaluate (Ocl_Context & res);
+  virtual bool evaluate (Ocl_Context & res);
 
   /**
    * filter_evaluate method for evaluating the respective expression
@@ -56,7 +56,7 @@ public:
    * @param[in]     current    The current FCO being worked with.
    * @return        bool       True/False
    */
-  bool filter_evaluate (Ocl_Context & res, GAME::Mga::FCO & current);
+  virtual bool filter_evaluate (Ocl_Context & res, GAME::Mga::FCO & current);
 
   /**
    * Value method for getting the value of the local variable
@@ -70,7 +70,7 @@ public:
    *
    * @return       bool       True/False
    */
-  bool is_association (void);
+  virtual bool is_association (void);
 
   /**
    * is_containment method for determining if this expression
@@ -78,7 +78,7 @@ public:
    *
    * @return       bool       True/False
    */
-  bool is_containment (void);
+  virtual bool is_containment (void);
 
   /**
    * is_reference method for determining if this expression
@@ -86,7 +86,7 @@ public:
    *
    * @return       bool       True/False
    */
-  bool is_reference (void);
+  virtual bool is_reference (void);
 private:
   // The condition.
   Equality_Expr * cond_;

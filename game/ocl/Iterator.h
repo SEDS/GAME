@@ -39,7 +39,7 @@ public:
   Iterator (void);
 
   /// Destructor.
-  ~Iterator (void);
+  virtual ~Iterator (void);
 
   // Pure virtual method for evaluating respective boolean expression
   virtual Value * evaluate (Ocl_Context & res,

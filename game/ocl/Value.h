@@ -32,7 +32,7 @@ public:
   Value (void);
 
   /// Destructor.
-  ~Value (void);
+  virtual ~Value (void);
 
   // Pure virtual method to check if the variables are equal
   virtual bool is_equal (Value * v) = 0;

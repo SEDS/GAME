@@ -2,6 +2,7 @@
 
 #include "stdafx.h"
 #include "And_Expr.h"
+#include "And_Expr_Failure.h"
 
 namespace GAME
 {
@@ -36,6 +37,7 @@ bool And_Expr::evaluate (Ocl_Context & res)
   if (left && right)
     return true;
 
+  res.failures.push_back (std::make_shared <And_Expr_Failure> (this));
   return false;
 }
 

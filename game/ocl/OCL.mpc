@@ -93,6 +93,21 @@ project (GAME_OCL): boost_base, game_mga, game_lib {
     Boolean_Value.cpp
     Double_Value.cpp
     Object_Value.cpp
+
+	And_Expr_Failure.cpp
+	Comparison_Expr_Failure.cpp
+	Conjunction_Expr_Failure.cpp
+	Equal_Expr_Failure.cpp
+	Equality_Expr_Failure.cpp
+	Expr_Failure.cpp
+	Expr_Failure_Visitor.cpp
+	Greater_Equal_Expr_Failure.cpp
+	Greater_Expr_Failure.cpp
+	If_Then_Else_Expr_Failure.cpp
+	Not_Equal_Expr_Failure.cpp
+	Lesser_Equal_Expr_Failure.cpp
+	Lesser_Expr_Failure.cpp
+	Or_Expr_Failure.cpp
   }
 
   Header_Files {
