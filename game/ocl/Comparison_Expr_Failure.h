@@ -4,6 +4,11 @@
 #include "Equality_Expr_Failure.h"
 #include "Comparison_Expr.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
 * @class Comparison_Expr_Failure
 *
@@ -26,5 +31,8 @@ public:
 	/// Destructor.
 	virtual ~Comparison_Expr_Failure (void);
 };
+
+}
+}
 
 #endif // !_MODEL_INTELLIGENCE_COMPARISON_EXPR_FAILURE_H_

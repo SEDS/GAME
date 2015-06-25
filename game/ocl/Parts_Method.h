@@ -15,6 +15,11 @@
 
 #include "Method.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Parts_Method
  *
@@ -26,7 +31,7 @@ class Parts_Method : public Method
 {
 public:
   /// Default constructor.
-	Parts_Method (std::string & role);
+  Parts_Method (std::string & role);
 
 	/// Destructor.
 	virtual ~Parts_Method (void);
@@ -35,16 +40,16 @@ public:
    * evaluate method for evaluating the parts method
    *
    * @param[in]     res           Object of model intelligence context
-	 * @param[in]     caller        The object the method works with
+   * @param[in]     caller        The object the method works with
    * @return        Object        Value object
    */
   virtual Value * evaluate (Ocl_Context & res, GAME::Mga::Object caller);
 
-	/**
+  /**
    * evaluate method for evaluating the parts method
    *
    * @param[in]     res           Object of model intelligence context
-	 * @param[in]     caller        Value from previous method
+   * @param[in]     caller        Value from previous method
    * @return        Object        Value object
    */
 	virtual Value * evaluate (Ocl_Context & res, Value * caller);
@@ -84,5 +89,8 @@ public:
 private:
   std::string role_;
 };
+
+}
+}
 
 #endif //_GAME_MODEL_INTELLIGENCE_PARTS_METHOD_CALL_H_

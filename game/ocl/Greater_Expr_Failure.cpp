@@ -1,6 +1,11 @@
 #include "stdafx.h"
 #include "Greater_Expr_Failure.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Default Constructor
 //
@@ -37,4 +42,7 @@ void Greater_Expr_Failure::accept (Expr_Failure_Visitor & v)
 Greater_Expr * Greater_Expr_Failure::get_origin (void) const
 {
   return dynamic_cast <Greater_Expr *> (expr_);
+}
+
+}
 }

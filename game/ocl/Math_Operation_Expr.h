@@ -15,6 +15,11 @@
 
 #include "Value_Expr.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Math_Operation_Expr
  *
@@ -87,4 +92,8 @@ public:
   virtual bool is_reference (void);
 
 };
+
+}
+}
+
 #endif

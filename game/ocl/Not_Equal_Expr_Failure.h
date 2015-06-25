@@ -5,6 +5,11 @@
 #include "Boolean_Expr.h"
 #include "Not_Equal_Expr.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Not_Equal_Expr_Failure
  *
@@ -41,5 +46,8 @@ public:
    */
   virtual Not_Equal_Expr * get_origin() const;
 };
+
+}
+}
 
 #endif // !_MODEL_INTELLIGENCE_NOT_EQUAL_EXPR_FAILURE_H_

@@ -18,6 +18,11 @@
 
 #include "Context.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Boolean_Expr
  *
@@ -52,5 +57,8 @@ public:
   // reference constraints
   virtual bool is_reference (void) = 0;
 };
+
+}
+}
 
 #endif

@@ -8,11 +8,16 @@
 #include "game/mga/Connection.h"
 #include "game/mga/MetaModel.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
 ConnectionParts_Method::ConnectionParts_Method (std::string & role)
-: role_ (role)
+  : role_ (role)
 {
 }
 
@@ -188,4 +193,7 @@ bool ConnectionParts_Method::is_containment (void)
 bool ConnectionParts_Method::is_reference (void)
 {
   return false;
+}
+
+}
 }

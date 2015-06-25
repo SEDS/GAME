@@ -15,6 +15,11 @@
 
 #include "Value_SubExpr.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Constant_Value_Expr
  *
@@ -28,7 +33,7 @@ public:
   Constant_Value_Expr (unsigned int & value);
 
   /// String constructor
-	Constant_Value_Expr (std::string & str);
+  Constant_Value_Expr (std::string & str);
 
 	/// Destructor.
 	virtual ~Constant_Value_Expr (void);
@@ -93,10 +98,13 @@ private:
   unsigned int value_;
 
   // String value of the constant
-	std::string str_;
+  std::string str_;
 
   // Flag to determine the case
-	int flag;
+  int flag;
 };
+
+}
+}
 
 #endif

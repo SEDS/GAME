@@ -4,6 +4,11 @@
 #include "Boolean_Expr.h"
 #include "Expr_Failure_Visitor.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Expr_Failure
  *
@@ -45,5 +50,8 @@ protected:
   Boolean_Expr * expr_;
 
 };
+
+}
+}
 
 #endif // !_MODEL_INTELLIGENCE_EXPR_FAILURE_H_

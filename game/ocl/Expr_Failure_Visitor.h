@@ -1,6 +1,11 @@
 #ifndef _MODEL_INTELLIGENCE_EXPR_FAILURE_VISITOR_H_
 #define _MODEL_INTELLIGENCE_EXPR_FAILURE_VISITOR_H_
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /// Forward Declaration of the Expression classes.
 class Boolean_Expr;
 class And_Expr_Failure;
@@ -99,5 +104,8 @@ public:
    */
   virtual void Visit_If_Then_Else_Expr_Failure (const If_Then_Else_Expr_Failure & object)=0;
 };
+
+}
+}
 
 #endif // !_MODEL_INTELLIGENCE_EXPR_FAILURE_VISITOR_H_

@@ -4,11 +4,16 @@
 #include "Int_Value.h"
 #include "Double_Value.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Default Constructor
 //
 Int_Value::Int_Value (unsigned int val)
-: val_ (val)
+  : val_ (val)
 {
 }
 
@@ -24,13 +29,13 @@ Int_Value::~Int_Value (void)
 //
 bool Int_Value::is_equal (Value *v)
 {
-	Int_Value * iv = dynamic_cast <Int_Value *> (v);
+  Int_Value * iv = dynamic_cast <Int_Value *> (v);
 
-	if (iv != 0)
-	{
-		if (this->val_ == iv->val_)
-			return true;
-	}
+  if (iv != 0)
+  {
+    if (this->val_ == iv->val_)
+      return true;
+  }
   else 
   {
     Double_Value * dv = dynamic_cast <Double_Value *> (v);
@@ -40,7 +45,7 @@ bool Int_Value::is_equal (Value *v)
         return true;
     }
   }
-	return false;
+  return false;
 }
 
 //
@@ -48,13 +53,13 @@ bool Int_Value::is_equal (Value *v)
 //
 bool Int_Value::is_greater (Value * v)
 {
-	Int_Value * iv = dynamic_cast <Int_Value *> (v);
+  Int_Value * iv = dynamic_cast <Int_Value *> (v);
 
-	if (iv != 0)
-	{
-		if (this->val_ > iv->val_)
-			return true;
-	}
+  if (iv != 0)
+  {
+    if (this->val_ > iv->val_)
+      return true;
+  }
   else 
   {
     Double_Value * dv = dynamic_cast <Double_Value *> (v);
@@ -65,7 +70,7 @@ bool Int_Value::is_greater (Value * v)
     }
   }
 
-	return false;
+  return false;
 }
 
 //
@@ -73,13 +78,13 @@ bool Int_Value::is_greater (Value * v)
 //
 bool Int_Value::is_greater_equal (Value * v)
 {
-	Int_Value * iv = dynamic_cast <Int_Value * > (v);
+  Int_Value * iv = dynamic_cast <Int_Value * > (v);
 
-	if (iv != 0)
-	{
-		if (this->val_ >= iv->val_)
-			return true;
-	}
+  if (iv != 0)
+  {
+    if (this->val_ >= iv->val_)
+      return true;
+  }
   else 
   {
     Double_Value * dv = dynamic_cast <Double_Value *> (v);
@@ -89,7 +94,7 @@ bool Int_Value::is_greater_equal (Value * v)
         return true;
     }
   }
-	return false;
+  return false;
 }
 
 //
@@ -97,13 +102,13 @@ bool Int_Value::is_greater_equal (Value * v)
 //
 bool Int_Value::is_lesser (Value *v)
 {
-	Int_Value * iv = dynamic_cast <Int_Value *> (v);
+  Int_Value * iv = dynamic_cast <Int_Value *> (v);
 
-	if (iv != 0)
-	{
-		if (this->val_ < iv->val_)
-			return true;
-	}
+  if (iv != 0)
+  {
+    if (this->val_ < iv->val_)
+      return true;
+  }
   else 
   {
     Double_Value * dv = dynamic_cast <Double_Value *> (v);
@@ -114,7 +119,7 @@ bool Int_Value::is_lesser (Value *v)
     }
   }
 
-	return false;
+  return false;
 }
 
 //
@@ -122,13 +127,13 @@ bool Int_Value::is_lesser (Value *v)
 //
 bool Int_Value::is_lesser_equal (Value * v)
 {
-	Int_Value * iv = dynamic_cast <Int_Value *> (v);
+  Int_Value * iv = dynamic_cast <Int_Value *> (v);
 
-	if (iv != 0)
-	{
-		if (this->val_ <= iv->val_)
-			return true;
-	}
+  if (iv != 0)
+  {
+    if (this->val_ <= iv->val_)
+      return true;
+  }
   else 
   {
     Double_Value * dv = dynamic_cast <Double_Value *> (v);
@@ -139,7 +144,7 @@ bool Int_Value::is_lesser_equal (Value * v)
     }
   }
 
-	return false;
+  return false;
 }
 
 //
@@ -147,13 +152,13 @@ bool Int_Value::is_lesser_equal (Value * v)
 //
 bool Int_Value::get_diff (Value * v, double & count)
 {
-	Int_Value * iv = dynamic_cast <Int_Value *> (v);
+  Int_Value * iv = dynamic_cast <Int_Value *> (v);
 
-	if (iv != 0)
-	{
-		count = this->val_ - iv->val_;
-		return true;
-	}
+  if (iv != 0)
+  {
+    count = this->val_ - iv->val_;
+    return true;
+  }
   else 
   {
     Double_Value * dv = dynamic_cast <Double_Value *> (v);
@@ -163,7 +168,7 @@ bool Int_Value::get_diff (Value * v, double & count)
       return true;
     }
   }
-	return false;
+  return false;
 }
 
 //
@@ -171,13 +176,13 @@ bool Int_Value::get_diff (Value * v, double & count)
 //
 bool Int_Value::get_sum (Value * v, double & count)
 {
-	Int_Value * iv = dynamic_cast <Int_Value *> (v);
+  Int_Value * iv = dynamic_cast <Int_Value *> (v);
 
-	if (iv != 0)
-	{
-		count = this->val_ + iv->val_;
-		return true;
-	}
+  if (iv != 0)
+  {
+    count = this->val_ + iv->val_;
+    return true;
+  }
   else
   {
     Double_Value * dv = dynamic_cast <Double_Value *> (v);
@@ -187,7 +192,7 @@ bool Int_Value::get_sum (Value * v, double & count)
       return true;
     }
   }
-	return false;
+  return false;
 }
 
 //
@@ -198,3 +203,5 @@ int Int_Value::value (void)
   return this->val_;
 }
 
+}
+}

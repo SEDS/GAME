@@ -5,6 +5,11 @@
 #include "String_Value.h"
 #include "Object_Value.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
@@ -25,9 +30,9 @@ RoleName_Method::~RoleName_Method (void)
 Value * RoleName_Method::evaluate (Ocl_Context & res, 
                                    GAME::Mga::Object caller)
 {
-	GAME::Mga::FCO nar = GAME::Mga::FCO::_narrow (caller);
-	std::string name = nar->role ()->name ();
-	return new String_Value (name);
+  GAME::Mga::FCO nar = GAME::Mga::FCO::_narrow (caller);
+  std::string name = nar->role ()->name ();
+  return new String_Value (name);
 }
 
 //
@@ -36,17 +41,17 @@ Value * RoleName_Method::evaluate (Ocl_Context & res,
 Value * RoleName_Method::evaluate (Ocl_Context & res, 
                                    Value * caller)
 {
-	Object_Value * iv = dynamic_cast <Object_Value *> (caller);
-	std::string name = "";
+  Object_Value * iv = dynamic_cast <Object_Value *> (caller);
+  std::string name = "";
 
-	if (iv != 0)
-	{
-		GAME::Mga::Object obj = iv->value ();
-		GAME::Mga::FCO nar = GAME::Mga::FCO::_narrow (obj);
-		name = nar->role ()->name ();
-	}
+  if (iv != 0)
+  {
+    GAME::Mga::Object obj = iv->value ();
+    GAME::Mga::FCO nar = GAME::Mga::FCO::_narrow (obj);
+    name = nar->role ()->name ();
+  }
 
-	return new String_Value (name);
+  return new String_Value (name);
 }
 
 //
@@ -79,4 +84,7 @@ bool RoleName_Method::is_containment (void)
 bool RoleName_Method::is_reference (void)
 {
   return false;
+}
+
+}
 }

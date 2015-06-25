@@ -16,6 +16,11 @@
 #include "Method_Call.h"
 #include <string>
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Local_Value_Method_Call
  *
@@ -25,14 +30,14 @@
 class Local_Value_Method_Call : public Method_Call
 {
 public:
-	// Constructor
-	Local_Value_Method_Call (std::string & var, 
-		                       Method * meth);
+  // Constructor
+  Local_Value_Method_Call (std::string & var, 
+                           Method * meth);
 
 	// Destructor
 	virtual ~Local_Value_Method_Call (void);
 
-	/**
+  /**
    * evaluate method for evaluating the respective expression
    *
    * @param[in]     res           Object of model intelligence context
@@ -81,10 +86,13 @@ public:
   virtual bool is_reference (void);
 private:
   // The base method
-	Method * meth_;
+  Method * meth_;
 
   // The variable invoking the method
-	std::string var_;
+  std::string var_;
 };
+
+}
+}
 
 #endif //_GAME_MODEL_INTELLIGENCE_LOCAL_VALUE_METHOD_CALL_H_

@@ -5,6 +5,11 @@
 #include "Boolean_Expr.h"
 #include "Greater_Expr.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Greater_Expr
  *
@@ -41,5 +46,8 @@ public:
    */
   virtual Greater_Expr * get_origin (void) const;
 };
+
+}
+}
 
 #endif // !_MODEL_INTELLIGENCE_Greater_Expr_Failure_H_

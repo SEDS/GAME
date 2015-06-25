@@ -5,6 +5,11 @@
 #include "Object_Value.h"
 #include "If_Then_Else_Expr_Failure.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
@@ -95,4 +100,7 @@ bool If_Then_Else_Expr::is_containment (void)
 bool If_Then_Else_Expr::is_reference (void)
 {
   return false;
+}
+
+}
 }

@@ -7,6 +7,11 @@
 
 #include "game/mga/Object_Filter.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
@@ -18,7 +23,7 @@ ReferencedBy_Method::ReferencedBy_Method (void)
 // Kind constructor
 //
 ReferencedBy_Method::ReferencedBy_Method (std::string & kind)
-: kind_ (kind)
+  : kind_ (kind)
 {
   flag = 1;
 }
@@ -133,4 +138,7 @@ bool ReferencedBy_Method::is_containment (void)
 bool ReferencedBy_Method::is_reference (void)
 {
   return false;
+}
+
+}
 }

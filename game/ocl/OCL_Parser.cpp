@@ -4,6 +4,11 @@
 #include "OCL_Parser.h"
 #include "rules/grammar.hpp"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 OCL_Parser::OCL_Parser(void)
 {
 }
@@ -29,3 +34,5 @@ bool OCL_Parser::parse (std::string str, std::vector <Boolean_Expr*> &ocl)
   return retval;
 }
 
+}
+}

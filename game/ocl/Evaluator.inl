@@ -6,13 +6,13 @@ namespace Ocl
 {
 
 GAME_INLINE
-Evaluator::Evaluator (void)
+  Evaluator::Evaluator (void)
 {
 
 }
 
 GAME_INLINE
-Evaluator::~Evaluator (void)
+  Evaluator::~Evaluator (void)
 {
 
 }

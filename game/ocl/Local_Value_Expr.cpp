@@ -4,11 +4,16 @@
 #include "Local_Value_Expr.h"
 #include "Int_Value.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
 Local_Value_Expr::Local_Value_Expr (std::string & var)
-: localvar_ (var)
+  : localvar_ (var)
 {
 }
 
@@ -24,7 +29,7 @@ Local_Value_Expr::~Local_Value_Expr (void)
 //
 Value * Local_Value_Expr::evaluate (Ocl_Context & res)
 {   
-	return res.locals[this->localvar_];
+  return res.locals[this->localvar_];
 }
 
 //
@@ -32,7 +37,7 @@ Value * Local_Value_Expr::evaluate (Ocl_Context & res)
 //
 Value * Local_Value_Expr::filter_evaluate (Ocl_Context & res)
 {   
-	return res.locals[this->localvar_];
+  return res.locals[this->localvar_];
 }
 
 //
@@ -73,4 +78,7 @@ bool Local_Value_Expr::is_containment (void)
 bool Local_Value_Expr::is_reference (void)
 {
   return true;
+}
+
+}
 }

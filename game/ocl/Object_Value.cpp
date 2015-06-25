@@ -3,11 +3,16 @@
 #include "stdafx.h"
 #include "Object_Value.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Default Constructor
 //
 Object_Value::Object_Value (GAME::Mga::Object val)
-: val_ (val)
+  : val_ (val)
 {
 }
 
@@ -23,7 +28,7 @@ Object_Value::~Object_Value (void)
 //
 GAME::Mga::Object Object_Value::value (void)
 {
-	return this->val_;
+  return this->val_;
 }
 
 //
@@ -31,14 +36,14 @@ GAME::Mga::Object Object_Value::value (void)
 //
 bool Object_Value::is_equal (Value * v)
 {
-	Object_Value * iv = dynamic_cast <Object_Value *> (v);
+  Object_Value * iv = dynamic_cast <Object_Value *> (v);
 
-	if (iv != 0)
-	{
-		if (this->val_ == iv->val_)
-			return true;
-	}
-	return false;
+  if (iv != 0)
+  {
+    if (this->val_ == iv->val_)
+      return true;
+  }
+  return false;
 }
 
 //
@@ -46,7 +51,7 @@ bool Object_Value::is_equal (Value * v)
 //
 bool Object_Value::is_greater (Value * v)
 {
-	return false;
+  return false;
 }
 
 //
@@ -54,14 +59,14 @@ bool Object_Value::is_greater (Value * v)
 //
 bool Object_Value::is_greater_equal (Value * v)
 {
-	Object_Value * iv = dynamic_cast <Object_Value *> (v);
+  Object_Value * iv = dynamic_cast <Object_Value *> (v);
 
-	if (iv != 0)
-	{
-		if (this->val_ == iv->val_)
-			return true;
-	}
-	return false;
+  if (iv != 0)
+  {
+    if (this->val_ == iv->val_)
+      return true;
+  }
+  return false;
 }
 
 //
@@ -69,7 +74,7 @@ bool Object_Value::is_greater_equal (Value * v)
 //
 bool Object_Value::is_lesser (Value * v)
 {
-	return false;
+  return false;
 }
 
 //
@@ -77,14 +82,14 @@ bool Object_Value::is_lesser (Value * v)
 //
 bool Object_Value::is_lesser_equal (Value * v)
 {
-	Object_Value * iv = dynamic_cast <Object_Value *> (v);
+  Object_Value * iv = dynamic_cast <Object_Value *> (v);
 
-	if (iv != 0)
-	{
-		if (this->val_ == iv->val_)
-			return true;
-	}
-	return false;
+  if (iv != 0)
+  {
+    if (this->val_ == iv->val_)
+      return true;
+  }
+  return false;
 }
 
 //
@@ -92,7 +97,7 @@ bool Object_Value::is_lesser_equal (Value * v)
 //
 bool Object_Value::get_diff (Value * v, double & count)
 {
-	return false;
+  return false;
 }
 
 //
@@ -100,6 +105,8 @@ bool Object_Value::get_diff (Value * v, double & count)
 //
 bool Object_Value::get_sum (Value * v, double & count)
 {
-	return false;
+  return false;
 }
 
+}
+}

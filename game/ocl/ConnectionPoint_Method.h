@@ -15,6 +15,11 @@
 
 #include "Method.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class ConnectionPoint_Method
  *
@@ -34,16 +39,16 @@ public:
    * evaluate method for evaluating the name method
    *
    * @param[in]     res           Object of model intelligence context
-	 * @param[in]     caller        The object the method works with
+   * @param[in]     caller        The object the method works with
    * @return        Object        Value object
    */
   virtual Value * evaluate (Ocl_Context & res, GAME::Mga::Object caller);
 
-	/**
+  /**
    * evaluate method for evaluating the name method
    *
    * @param[in]     res           Object of model intelligence context
-	 * @param[in]     caller        Value from previous method
+   * @param[in]     caller        Value from previous method
    * @return        Object        Value object
    */
 	virtual Value * evaluate (Ocl_Context & res, Value * caller);
@@ -84,5 +89,8 @@ private:
   // The role of the connection point i.e. src/dst 
   std::string role_;
 };
+
+}
+}
 
 #endif //_GAME_MODEL_INTELLIGENCE_CONNECTIONPOINT_METHOD_CALL_H_

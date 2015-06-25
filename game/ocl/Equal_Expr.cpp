@@ -8,11 +8,16 @@
 #include "Int_Value.h"
 #include "Equal_Expr_Failure.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
 Equal_Expr::Equal_Expr (Value_Expr * left, Value_Expr * right)
-: lhs_ (left),
+  : lhs_ (left),
   rhs_ (right)
 {
 }
@@ -100,4 +105,7 @@ bool Equal_Expr::is_containment (void)
 bool Equal_Expr::is_reference (void)
 {
   return (this->lhs_->is_reference () && this->rhs_->is_reference ());
+}
+
+}
 }

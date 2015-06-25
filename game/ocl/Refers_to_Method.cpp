@@ -6,6 +6,11 @@
 #include "Object_Value.h"
 #include "game/mga/Reference.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
@@ -26,9 +31,9 @@ Refers_to_Method::~Refers_to_Method (void)
 Value * Refers_to_Method::evaluate (Ocl_Context & res, 
                                     GAME::Mga::Object caller)
 {
-	GAME::Mga::Reference ref = GAME::Mga::Reference::_narrow (caller);
+  GAME::Mga::Reference ref = GAME::Mga::Reference::_narrow (caller);
 
-	return new Object_Value (ref->refers_to ());
+  return new Object_Value (ref->refers_to ());
 }
 
 //
@@ -37,7 +42,7 @@ Value * Refers_to_Method::evaluate (Ocl_Context & res,
 Value * Refers_to_Method::evaluate (Ocl_Context & res, 
                                     Value * caller)
 {
-	return new Int_Value (0);
+  return new Int_Value (0);
 }
 
 //
@@ -70,4 +75,7 @@ bool Refers_to_Method::is_containment (void)
 bool Refers_to_Method::is_reference (void)
 {
   return true;
+}
+
+}
 }

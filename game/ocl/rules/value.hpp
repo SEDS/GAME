@@ -23,17 +23,22 @@
 namespace qi = boost::spirit::qi;
 namespace ascii = boost::spirit::ascii; 
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
- * @class Value_Parser_Grammar
- *
- * Underlying grammer for the ocl expression parser.
- */
+* @class Value_Parser_Grammar
+*
+* Underlying grammer for the ocl expression parser.
+*/
 template <typename IteratorT>
 class value : public qi::grammar <IteratorT,
                                   Value_Expr * (),
                                   ascii::space_type,
-	                                qi::locals <std::deque <std::string>, 
-                                              std::deque <Value_Expr *> >>
+                                  qi::locals <std::deque <std::string>, 
+                                  std::deque <Value_Expr *> >>
 {  
 public:
   value ();
@@ -42,12 +47,16 @@ private:
   qi::rule <IteratorT,
             Value_Expr * (),
             ascii::space_type,
-	          qi::locals <std::deque <std::string>, 
-                        std::deque <Value_Expr *> >> value_expr_;
+            qi::locals <std::deque <std::string>, 
+            std::deque <Value_Expr *> >> value_expr_;
 
   value_sub <IteratorT> value_subexpr_;
 
   math_op <IteratorT> math_op_;
 
 };
+
+}
+}
+
 #endif

@@ -8,6 +8,11 @@
 #include "game/mga/Connection.h"
 #include "game/mga/FCO.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Default Constructor
 //
@@ -20,7 +25,7 @@ ConnectedFCOs_Method::ConnectedFCOs_Method (void)
 // Role/Kind Constructor
 //
 ConnectedFCOs_Method::ConnectedFCOs_Method (std::string & temp)
-: temp_ (temp)
+  : temp_ (temp)
 {
   if (this->temp_ == "src" || this->temp_ == "dst")
   {
@@ -39,8 +44,8 @@ ConnectedFCOs_Method::ConnectedFCOs_Method (std::string & temp)
 //
 ConnectedFCOs_Method::ConnectedFCOs_Method (std::string & role,
                                             std::string & kind)
-: role_ (role),
-  kind_ (kind)
+  : role_ (role),
+    kind_ (kind)
 {
   flag = 4;
 }
@@ -182,4 +187,7 @@ bool ConnectedFCOs_Method::is_containment (void)
 bool ConnectedFCOs_Method::is_reference (void)
 {
   return false;
+}
+
+}
 }

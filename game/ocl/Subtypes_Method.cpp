@@ -7,6 +7,11 @@
 
 #include "game/mga/Object_Filter.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
@@ -116,4 +121,7 @@ bool Subtypes_Method::is_containment (void)
 bool Subtypes_Method::is_reference (void)
 {
   return false;
+}
+
+}
 }

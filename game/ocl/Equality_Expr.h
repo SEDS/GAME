@@ -15,6 +15,11 @@
 
 #include "Boolean_Expr.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Equality_Expr
  *
@@ -72,5 +77,8 @@ public:
    */
   virtual bool is_reference (void);
 };
+
+}
+}
 
 #endif

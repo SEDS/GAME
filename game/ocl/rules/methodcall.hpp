@@ -24,11 +24,16 @@
 namespace qi = boost::spirit::qi;
 namespace ascii = boost::spirit::ascii; 
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
- * @class MethodCall_Parser_Grammar
- *
- * Underlying grammer for the ocl expression parser.
- */
+* @class MethodCall_Parser_Grammar
+*
+* Underlying grammer for the ocl expression parser.
+*/
 template <typename IteratorT>
 class methodcall : public qi::grammar <IteratorT,
                                        Method_Call * (),
@@ -42,16 +47,16 @@ private:
             Method_Call * (),
             ascii::space_type> method_call_;
 
-	qi::rule <IteratorT,
+  qi::rule <IteratorT,
             Self_Method_Call * (),
             ascii::space_type> self_method_call_;
 
-	qi::rule <IteratorT,
+  qi::rule <IteratorT,
             Local_Value_Method_Call * (),
             ascii::space_type,
             qi::locals <std::string>> lv_method_call_;
 
-	qi::rule <IteratorT,
+  qi::rule <IteratorT,
             std::vector <Method *> (),
             ascii::space_type> method_list_;
 
@@ -59,4 +64,8 @@ private:
 
   method <IteratorT> method_;
 };
+
+}
+}
+
 #endif

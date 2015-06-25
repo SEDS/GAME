@@ -9,12 +9,17 @@
 #include "game/mga/Atom.h"
 #include "game/mga/Model.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
 Not_Equal_Expr::Not_Equal_Expr (Value_Expr * left, Value_Expr * right)
-: lhs_ (left),
-  rhs_ (right)
+  : lhs_ (left),
+    rhs_ (right)
 {
 }
 
@@ -89,4 +94,7 @@ bool Not_Equal_Expr::is_reference (void)
     return true;
 
   return false;
+}
+
+}
 }

@@ -4,6 +4,11 @@
 #include "Math_Operation_Expr.h"
 #include "Int_Value.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
@@ -72,4 +77,7 @@ bool Math_Operation_Expr::is_containment (void)
 bool Math_Operation_Expr::is_reference (void)
 {
   return true;
+}
+
+}
 }

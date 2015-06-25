@@ -3,13 +3,18 @@
 #include "stdafx.h"
 #include "Method_Call.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
 Method_Call::Method_Call ()
-: caller_ (0),
-  base_meth_ (0),
-	next_(0)
+  : caller_ (0),
+    base_meth_ (0),
+    next_(0)
 {
 }
 
@@ -25,19 +30,19 @@ Method_Call::~Method_Call (void)
 //
 Value * Method_Call::evaluate (Ocl_Context & res)
 {   
-	// Calling the first method with the object
-	Value *v = this->base_meth_->evaluate (res, this->caller_);
-	
-	// Calling the rest of the methods
-	std::vector <Method *>::const_iterator
+  // Calling the first method with the object
+  Value *v = this->base_meth_->evaluate (res, this->caller_);
+
+  // Calling the rest of the methods
+  std::vector <Method *>::const_iterator
     iter = this->next_.begin (), iter_end = this->next_.end ();
 
-	for (; iter != iter_end; ++ iter)
-	{
-		v = (*iter)->evaluate (res, v);
-	}
+  for (; iter != iter_end; ++ iter)
+  {
+    v = (*iter)->evaluate (res, v);
+  }
 
-	return v;
+  return v;
 }
 
 //
@@ -45,19 +50,19 @@ Value * Method_Call::evaluate (Ocl_Context & res)
 //
 Value * Method_Call::filter_evaluate (Ocl_Context & res)
 {   
-	// Calling the first method with the object
-	Value *v = this->base_meth_->evaluate (res, this->caller_);
-	
-	// Calling the rest of the methods
-	std::vector <Method *>::const_iterator
+  // Calling the first method with the object
+  Value *v = this->base_meth_->evaluate (res, this->caller_);
+
+  // Calling the rest of the methods
+  std::vector <Method *>::const_iterator
     iter = this->next_.begin (), iter_end = this->next_.end ();
 
-	for (; iter != iter_end; ++ iter)
-	{
-		v = (*iter)->evaluate (res, v);
-	}
+  for (; iter != iter_end; ++ iter)
+  {
+    v = (*iter)->evaluate (res, v);
+  }
 
-	return v;
+  return v;
 }
 
 //
@@ -65,7 +70,7 @@ Value * Method_Call::filter_evaluate (Ocl_Context & res)
 //
 void Method_Call::set_next (std::vector <Method *> & next)
 {
-	this->next_ = next;
+  this->next_ = next;
 }
 
 //
@@ -183,4 +188,7 @@ bool Method_Call::is_reference (void)
   }
 
   return is;
+}
+
+}
 }

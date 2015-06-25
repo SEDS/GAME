@@ -1,6 +1,11 @@
 #include "stdafx.h"
 #include "Comparison_Expr_Failure.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Default Constructor
 //
@@ -21,4 +26,7 @@ Comparison_Expr_Failure::Comparison_Expr_Failure (Comparison_Expr * expr)
 //
 Comparison_Expr_Failure::~Comparison_Expr_Failure (void)
 {
+}
+
+}
 }

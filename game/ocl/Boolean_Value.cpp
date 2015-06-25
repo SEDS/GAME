@@ -3,11 +3,16 @@
 #include "stdafx.h"
 #include "Boolean_Value.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Default Constructor
 //
 Boolean_Value::Boolean_Value (bool val)
-: val_ (val)
+  : val_ (val)
 {
 }
 
@@ -101,4 +106,7 @@ bool Boolean_Value::get_sum (Value * v, double & count)
 bool Boolean_Value::value (void)
 {
   return this->val_;
+}
+
+}
 }

@@ -15,6 +15,11 @@
 
 #include "Iterator.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class ForAll_Iterator
  *
@@ -26,7 +31,7 @@ class ForAll_Iterator : public Iterator
 {
 public:
   /// Default constructor.
-	ForAll_Iterator (void);
+  ForAll_Iterator (void);
 
 	/// Destructor.
 	virtual ~ForAll_Iterator (void);
@@ -47,7 +52,7 @@ public:
                             std::string & decl_type,
                             Boolean_Expr * expr);
 
- /**
+  /**
    * evaluate method for evaluating the exists iterator method
    *
    * @param[in]     res           Object of model intelligence context
@@ -87,5 +92,8 @@ public:
    */
   virtual bool is_reference (void);
 };
+
+}
+}
 
 #endif //_GAME_MODEL_INTELLIGENCE_FORALL_ITERATOR_CALL_H_

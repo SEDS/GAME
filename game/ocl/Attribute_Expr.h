@@ -15,6 +15,11 @@
 
 #include "Value_SubExpr.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class  Attribute_Expr
  *
@@ -25,13 +30,13 @@ class  Attribute_Expr : public Value_SubExpr
 {
 public:
   /// Default constructor.
-	 Attribute_Expr (std::string & var, 
-                   std::string & attr);
+  Attribute_Expr (std::string & var, 
+    std::string & attr);
 
 	/// Destructor.
 	virtual ~Attribute_Expr (void);
 
-	/**
+  /**
    * evaluate method for evaluating the respective expression
    *
    * @param[in]     res           Object of model intelligence context
@@ -103,11 +108,14 @@ public:
 
 private:
   // The invoking object
-	std::string var_;
+  std::string var_;
 
   // The name of the attribute
-	std::string attribute_;
- 
+  std::string attribute_;
+
 };
+
+}
+}
 
 #endif //_GAME_MODEL_INTELLIGENCE_ATTRIBUTE_EXPR_H_

@@ -5,6 +5,11 @@
 #include "Boolean_Expr.h"
 #include "Lesser_Expr.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Lesser_Expr_Failure
  *
@@ -41,5 +46,8 @@ public:
    */
   virtual Lesser_Expr * get_origin() const;
 };
+
+}
+}
 
 #endif // !_MODEL_INTELLIGENCE_LESSER_EXPR_FAILURE_H_

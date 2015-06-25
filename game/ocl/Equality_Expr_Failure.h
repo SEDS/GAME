@@ -5,6 +5,11 @@
 #include "Boolean_Expr.h"
 #include "Equality_Expr.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Equality_Expr_Failure
  *
@@ -28,5 +33,8 @@ public:
   /// Destructor.
   virtual ~Equality_Expr_Failure (void);
 };
+
+}
+}
 
 #endif // !_MODEL_INTELLIGENCE_EQUALITY_EXPR_FAILURE_H_

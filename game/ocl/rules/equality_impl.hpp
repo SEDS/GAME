@@ -3,22 +3,27 @@
 
 #include "equality.hpp"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 template <typename IteratorT>
 equality <IteratorT>::equality (void)
-: equality::base_type (eq_expr_)
+  : equality::base_type (eq_expr_)
 {
-   namespace qi = boost::spirit::qi;
-   namespace phoenix = boost::phoenix;
-   namespace ascii = boost::spirit::ascii;
-   namespace repo = boost::spirit::repository;
+  namespace qi = boost::spirit::qi;
+  namespace phoenix = boost::phoenix;
+  namespace ascii = boost::spirit::ascii;
+  namespace repo = boost::spirit::repository;
 
-   this->eq_expr_ =
-      ((this->comp_expr_[phoenix::push_back (qi::_b, qi::_1)] | 
-        repo::confix ('(', ')')[this->eq_expr_[phoenix::push_back (qi::_b, qi::_1)]]) >>
-      (*(this->conjunction_[phoenix::push_back (qi::_a, qi::_1)] >> 
-          this->eq_expr_[phoenix::push_back (qi::_b, qi::_1)])
-          [phoenix::bind (&operate, qi::_a, qi::_b)]))[qi::_val = phoenix::back (qi::_b)];
- 
+  this->eq_expr_ =
+     ((this->comp_expr_[phoenix::push_back (qi::_b, qi::_1)] | 
+       repo::confix ('(', ')')[this->eq_expr_[phoenix::push_back (qi::_b, qi::_1)]]) >>
+     (*(this->conjunction_[phoenix::push_back (qi::_a, qi::_1)] >> 
+         this->eq_expr_[phoenix::push_back (qi::_b, qi::_1)])
+         [phoenix::bind (&operate, qi::_a, qi::_b)]))[qi::_val = phoenix::back (qi::_b)];
+
 }
 
 //
@@ -49,5 +54,7 @@ void operate (std::deque <std::string>& op_, std::deque <Equality_Expr *>& eq_)
   }
 }
 
+}
+}
 
 #endif

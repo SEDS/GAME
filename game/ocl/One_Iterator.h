@@ -15,6 +15,11 @@
 
 #include "Iterator.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class One_Iterator
  *
@@ -26,7 +31,7 @@ class One_Iterator : public Iterator
 {
 public:
   /// Default constructor.
-	One_Iterator (void);
+  One_Iterator (void);
 
 	/// Destructor.
 	virtual ~One_Iterator (void);
@@ -47,7 +52,7 @@ public:
                             std::string & decl_type,
                             Boolean_Expr * expr);
 
-  
+
   /**
    * evaluate method for evaluating the exists iterator method
    *
@@ -88,5 +93,8 @@ public:
    */
   virtual bool is_reference (void);
 };
+
+}
+}
 
 #endif //_GAME_MODEL_INTELLIGENCE_ONE_ITERATOR_CALL_H_

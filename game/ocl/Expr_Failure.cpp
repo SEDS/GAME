@@ -2,6 +2,11 @@
 #include "Expr_Failure.h"
 #include "Boolean_Expr.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Default Constructor
 //
@@ -31,4 +36,7 @@ Expr_Failure::~Expr_Failure (void)
 Boolean_Expr * Expr_Failure::get_origin (void) const
 {
   return expr_;
+}
+
+}
 }

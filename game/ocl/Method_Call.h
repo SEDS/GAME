@@ -16,6 +16,11 @@
 #include "Value_SubExpr.h"
 #include "Method.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Method_Call
  *
@@ -26,15 +31,15 @@ class Method_Call : public Value_SubExpr
 {
 public:
   /// constructor.
-	Method_Call (void);
+  Method_Call (void);
 
 	/// Destructor.
 	virtual ~Method_Call (void);
 
-	/**
+  /**
    * set_next method for setting the value of next method
    *
-	 * @param[in]     m             Method pointer to be placed in next
+   * @param[in]     m             Method pointer to be placed in next
    */
 	virtual void set_next (std::vector <Method *> & next);
 
@@ -98,10 +103,13 @@ protected:
   GAME::Mga::Object caller_;
 
   // The base method
-	Method * base_meth_;
+  Method * base_meth_;
 
   // The next method in the chain
-	std::vector <Method *> next_;
+  std::vector <Method *> next_;
 };
+
+}
+}
 
 #endif //_GAME_MODEL_INTELLIGENCE_METHOD_CALL_H_

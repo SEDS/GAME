@@ -15,6 +15,11 @@
 
 #include "Method.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Subtypes
  *
@@ -25,7 +30,7 @@ class Subtypes_Method : public Method
 {
 public:
   /// Default constructor.
-	Subtypes_Method (void);
+  Subtypes_Method (void);
 
 	/// Destructor.
 	virtual ~Subtypes_Method (void);
@@ -34,16 +39,16 @@ public:
    * evaluate method for evaluating the subtype method
    *
    * @param[in]     res           Object of model intelligence context
-	 * @param[in]     caller        The object the method works with
+   * @param[in]     caller        The object the method works with
    * @return        Object        Value object
    */
   virtual Value * evaluate (Ocl_Context & res, GAME::Mga::Object caller);
 
-	/**
+  /**
    * evaluate method for evaluating the subtype method
    *
    * @param[in]     res           Object of model intelligence context
-	 * @param[in]     caller        Value from previous method
+   * @param[in]     caller        Value from previous method
    * @return        Object        Value object
    */
 	virtual Value * evaluate (Ocl_Context & res, Value * caller); 
@@ -56,7 +61,7 @@ public:
    */
   virtual bool is_filter (void);
 
-   /**
+  /**
    * is_association method for determining if this method
    * can be used for association constraints
    *
@@ -80,5 +85,8 @@ public:
    */
   virtual bool is_reference (void);
 };
+
+}
+}
 
 #endif //_GAME_MODEL_INTELLIGENCE_SUBTYPES_METHOD_CALL_H_

@@ -8,6 +8,11 @@
 #include "game/mga/Connection.h"
 #include "game/mga/FCO.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Default Constructor
 //
@@ -20,7 +25,7 @@ AttachingConnPoints_Method::AttachingConnPoints_Method (void)
 // Kind/Role Constructor
 //
 AttachingConnPoints_Method::AttachingConnPoints_Method (std::string & temp)
-: temp_ (temp)
+  : temp_ (temp)
 {
   if (this->temp_ == "src" || this->temp_ == "dst")
   {
@@ -39,8 +44,8 @@ AttachingConnPoints_Method::AttachingConnPoints_Method (std::string & temp)
 //
 AttachingConnPoints_Method::AttachingConnPoints_Method (std::string & role,
                                                         std::string & kind)
-: role_ (role),
-  kind_ (kind)
+  : role_ (role),
+    kind_ (kind)
 {
   flag = 4;
 }
@@ -176,4 +181,7 @@ bool AttachingConnPoints_Method::is_containment (void)
 bool AttachingConnPoints_Method::is_reference (void)
 {
   return false;
+}
+
+}
 }

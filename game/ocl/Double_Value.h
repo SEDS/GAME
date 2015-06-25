@@ -17,6 +17,11 @@
 #include <vector>
 #include "Value.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Double_Value. Inherited from Value class
  *
@@ -26,7 +31,7 @@ class Double_Value : public Value
 {
 public:
   /// Default constructor.
-	Double_Value (double val);
+  Double_Value (double val);
 
 	/// Destructor.
 	virtual ~Double_Value (void);
@@ -34,53 +39,53 @@ public:
   /**
    * Determines if the object is equal or not.
    *
-	 * @param[in]     v             Object of Value type
+   * @param[in]     v             Object of Value type
    * @return        bool          true if the object is equal
    *                              false if the object is not equal
    */
   virtual bool is_equal (Value * v);
 
-	/**
+  /**
    * Determines if the object is greater or not.
    *
-	 * @param[in]     v             Object of Value type
+   * @param[in]     v             Object of Value type
    * @return        bool          true if the object is greater
    *                              false if the object is not greater
    */
   virtual bool is_greater (Value * v);
 
-	/**
+  /**
    * Determines if the object is greater or equal.
    *
-	 * @param[in]     v             Object of Value type
+   * @param[in]     v             Object of Value type
    * @return        bool          true if the object is greater or equal
    *                              false if the object is not greater or equal
    */
   virtual bool is_greater_equal (Value * v);
 
-	/**
+  /**
    * Determines if the object is lesser or not.
    *
-	 * @param[in]     v             Object of Value type
+   * @param[in]     v             Object of Value type
    * @return        bool          true if the object is lesser
    *                              false if the object is not lesser
    */
   virtual bool is_lesser (Value * v);
 
-	/**
+  /**
    * Determines if the object is lesser or equal.
    *
-	 * @param[in]     v             Object of Value type
+   * @param[in]     v             Object of Value type
    * @return        bool          true if the object is lesser or equal
    *                              false if the object is not lesser or equal
    */
   virtual bool is_lesser_equal (Value * v);
 
-	/**
+  /**
    * Gets the difference between two variables
    *
-	 * @param[in]     v             Object of Value type
-	 * @param[out]    count         The difference value
+   * @param[in]     v             Object of Value type
+   * @param[out]    count         The difference value
    * @return        bool          true if successful
    *                              false if not successful
    */
@@ -89,8 +94,8 @@ public:
   /**
    * Gets the summation between two variables
    *
-	 * @param[in]     v             Object of Value type
-	 * @param[out]    count         The added value
+   * @param[in]     v             Object of Value type
+   * @param[out]    count         The added value
    * @return        bool          true if successful
    *                              false if not successful
    */
@@ -98,15 +103,17 @@ public:
 
   /**
    * Gets the value of variable
-	 * 
-	 * @return        double           The double value      
+   * 
+   * @return        double           The double value      
    */
 	virtual double value (void);
 
 private:
-	double val_;
+  double val_;
 
 };
 
+}
+}
 
 #endif

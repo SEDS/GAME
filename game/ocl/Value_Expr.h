@@ -1,4 +1,4 @@
-  // -*- C++ -*-
+// -*- C++ -*-
 
 //=============================================================================
 /**
@@ -19,6 +19,11 @@
 
 #include "Context.h"
 #include "Value.h"
+
+namespace GAME
+{
+namespace Ocl
+{
 
 /**
  * @class Value_Expr
@@ -59,5 +64,7 @@ public:
   virtual bool is_reference (void) = 0;
 };
 
+}
+}
 
 #endif

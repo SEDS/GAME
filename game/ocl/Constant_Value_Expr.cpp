@@ -5,11 +5,16 @@
 #include "String_Value.h"
 #include "Constant_Value_Expr.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
 Constant_Value_Expr::Constant_Value_Expr (unsigned int & value)
-: value_ (value)
+  : value_ (value)
 {
   this->flag = 1;
 }
@@ -18,7 +23,7 @@ Constant_Value_Expr::Constant_Value_Expr (unsigned int & value)
 // Constructor
 //
 Constant_Value_Expr::Constant_Value_Expr (std::string & str)
-: str_ (str)
+  : str_ (str)
 {
   this->flag = 2;
 }
@@ -90,4 +95,7 @@ bool Constant_Value_Expr::is_containment (void)
 bool Constant_Value_Expr::is_reference (void)
 {
   return true;
+}
+
+}
 }

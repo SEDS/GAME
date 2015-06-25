@@ -5,6 +5,11 @@
 #include "Boolean_Expr.h"
 #include "If_Then_Else_Expr.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class If_Then_Else_Expr_Failure
  *
@@ -41,5 +46,8 @@ public:
    */
   virtual If_Then_Else_Expr * get_origin (void) const;
 };
+
+}
+}
 
 #endif // !_MODEL_INTELLIGENCE_IF_THEN_ELSE_EXPR_FAILURE_H_

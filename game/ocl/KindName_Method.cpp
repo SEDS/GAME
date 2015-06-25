@@ -5,6 +5,11 @@
 #include "String_Value.h"
 #include "Object_Value.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
@@ -79,4 +84,7 @@ bool KindName_Method::is_containment (void)
 bool KindName_Method::is_reference (void)
 {
   return false;
+}
+
+}
 }

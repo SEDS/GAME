@@ -15,6 +15,11 @@
 
 #include "Method.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Atoms_Method
  *
@@ -25,7 +30,7 @@ class Atoms_Method : public Method
 {
 public:
   /// Default constructor.
-	Atoms_Method (void);
+  Atoms_Method (void);
 
   // Kind constructor
   Atoms_Method (std::string & kind);
@@ -37,18 +42,19 @@ public:
    * evaluate method for evaluating the atoms method
    *
    * @param[in]     res           Object of model intelligence context
-	 * @param[in]     caller        The object the method works with
+   * @param[in]     caller        The object the method works with
    * @return        Object        Value object
    */
   virtual Value * evaluate (Ocl_Context & res, GAME::Mga::Object caller);
 
-	/**
+  /**
    * evaluate method for evaluating the atoms method
    *
    * @param[in]     res           Object of model intelligence context
-	 * @param[in]     caller        Value from previous method
+   * @param[in]     caller        Value from previous method
    * @return        Object        Value object
    */
+
 	virtual Value * evaluate (Ocl_Context & res, Value * caller);
 
   /**
@@ -90,5 +96,8 @@ private:
   // flag to track the case i.e. when kind is provided or not
   int flag;
 };
+
+}
+}
 
 #endif //_GAME_MODEL_INTELLIGENCE_ATOMS_METHOD_CALL_H_

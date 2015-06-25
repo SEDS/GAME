@@ -15,6 +15,11 @@
 
 #include "Method.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Models_Method
  *
@@ -26,7 +31,7 @@ class Models_Method : public Method
 {
 public:
   /// Default constructor.
-	Models_Method (void);
+  Models_Method (void);
 
   // Kind constructor
   Models_Method (std::string & kind);
@@ -38,16 +43,16 @@ public:
    * evaluate method for evaluating the models method
    *
    * @param[in]     res           Object of model intelligence context
-	 * @param[in]     caller        The object the method works with
+   * @param[in]     caller        The object the method works with
    * @return        Object        Value object
    */
   virtual Value * evaluate (Ocl_Context & res, GAME::Mga::Object caller);
 
-	/**
+  /**
    * evaluate method for evaluating the models method
    *
    * @param[in]     res           Object of model intelligence context
-	 * @param[in]     caller        Value from previous method
+   * @param[in]     caller        Value from previous method
    * @return        Object        Value object
    */
 	virtual Value * evaluate (Ocl_Context & res, Value * caller);
@@ -90,5 +95,8 @@ private:
   // flag to track the case
   int flag;
 };
+
+}
+}
 
 #endif //_GAME_MODEL_INTELLIGENCE_MODELS_METHOD_CALL_H_

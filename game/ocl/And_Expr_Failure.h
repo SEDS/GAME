@@ -5,6 +5,11 @@
 #include "Boolean_Expr.h"
 #include "And_Expr.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class And_Expr_Failure
  *
@@ -41,5 +46,8 @@ public:
    */
   virtual And_Expr * get_origin (void) const;
 };
+
+}
+}
 
 #endif // !_MODEL_INTELLIGENCE_AND_EXPR_FAILURE_H_

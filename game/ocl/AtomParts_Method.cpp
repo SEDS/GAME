@@ -7,11 +7,16 @@
 
 #include "game/mga/MetaModel.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
 AtomParts_Method::AtomParts_Method (std::string & role)
-: role_ (role)
+  : role_ (role)
 {
 }
 
@@ -188,4 +193,7 @@ bool AtomParts_Method::is_containment (void)
 bool AtomParts_Method::is_reference (void)
 {
   return false;
+}
+
+}
 }

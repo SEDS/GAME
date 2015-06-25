@@ -8,12 +8,17 @@
 #include "Int_Value.h"
 #include "Greater_Expr_Failure.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
 Greater_Expr::Greater_Expr (Value_Expr * left, Value_Expr * right)
-: lhs_ (left),
-  rhs_ (right)
+  : lhs_ (left),
+    rhs_ (right)
 {
 }
 
@@ -102,4 +107,7 @@ bool Greater_Expr::is_containment (void)
 bool Greater_Expr::is_reference (void)
 {
   return (this->lhs_->is_reference () && this->rhs_->is_reference ());
+}
+
+}
 }

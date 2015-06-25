@@ -5,6 +5,11 @@
 #include "String_Value.h"
 #include "Object_Value.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
@@ -25,8 +30,8 @@ Name_Method::~Name_Method (void)
 Value * Name_Method::evaluate (Ocl_Context & res, 
                                GAME::Mga::Object caller)
 {
-	std::string name = caller->name ();
-	return new String_Value (name);
+  std::string name = caller->name ();
+  return new String_Value (name);
 }
 
 //
@@ -35,16 +40,16 @@ Value * Name_Method::evaluate (Ocl_Context & res,
 Value * Name_Method::evaluate (Ocl_Context & res, 
                                Value * caller)
 {
-	Object_Value * iv = dynamic_cast <Object_Value *> (caller);
-	std::string name = "";
+  Object_Value * iv = dynamic_cast <Object_Value *> (caller);
+  std::string name = "";
 
-	if (iv != 0)
-	{
-		GAME::Mga::Object obj = iv->value ();
-		name = obj->name ();
-	}
+  if (iv != 0)
+  {
+    GAME::Mga::Object obj = iv->value ();
+    name = obj->name ();
+  }
 
-	return new String_Value (name);
+  return new String_Value (name);
 }
 
 //
@@ -77,4 +82,7 @@ bool Name_Method::is_containment (void)
 bool Name_Method::is_reference (void)
 {
   return false;
+}
+
+}
 }

@@ -15,6 +15,11 @@
 
 #include "OCL_export.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Value
  *
@@ -51,5 +56,7 @@ public:
   virtual bool get_sum (Value * v, double & count) = 0;
 };
 
+}
+}
 
 #endif

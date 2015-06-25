@@ -3,9 +3,14 @@
 
 #include "reference_method.hpp"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 template <typename IteratorT>
 reference_method <IteratorT>::reference_method (void)
-: reference_method::base_type (method_)
+  : reference_method::base_type (method_)
 {
   namespace qi = boost::spirit::qi;
   namespace phoenix = boost::phoenix;
@@ -27,6 +32,9 @@ reference_method <IteratorT>::reference_method (void)
     (qi::lit ("(") >>
        this->id_ [qi::_val = phoenix::new_<UsedByConnPoints_Method> (qi::_1)] >>
        qi::lit (")"));
+}
+
+}
 }
 
 #endif

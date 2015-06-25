@@ -18,6 +18,10 @@
 #include "Iterator.h"
 #include "Value_Expr.h"
 
+namespace GAME
+{
+namespace Ocl
+{
 
 /**
  * @class IteratorCall_Expr
@@ -65,14 +69,14 @@ public:
   /**
    * set_declarators method for setting the value of next method
    *
-	 * @param[in]         m          declarator to be placed in next
+   * @param[in]         m          declarator to be placed in next
    */
   virtual void set_declarators (std::vector <std::string> & next);
 
   /**
    * set_dec_type for setting the value of next method
    *
-	 * @param[in]         m          declarator type
+   * @param[in]         m          declarator type
    */
   virtual void set_dec_type (std::string & type);
 
@@ -107,7 +111,7 @@ public:
   virtual bool is_reference (void);
 
 private:
-	// The expression on which the iterator is invoked.
+  // The expression on which the iterator is invoked.
   Value_Expr * obj_;
 
   // The iterator object
@@ -129,5 +133,7 @@ private:
   std::string dec_type_;
 };
 
+}
+}
 
 #endif

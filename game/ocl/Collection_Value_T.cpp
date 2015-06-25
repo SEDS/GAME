@@ -2,12 +2,17 @@
 
 #include "StdAfx.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Default Constructor
 //
 template <typename T>
 Collection_Value_T<T>::Collection_Value_T (std::vector<T> & parts)
-: parts_ (parts)
+  : parts_ (parts)
 {
 }
 
@@ -25,8 +30,8 @@ Collection_Value_T<T>::~Collection_Value_T (void)
 template <typename T>
 bool Collection_Value_T<T>::is_equal (Value * v)
 {
-	// This function is not yet here
-	return false;
+  // This function is not yet here
+  return false;
 }
 
 //
@@ -35,7 +40,7 @@ bool Collection_Value_T<T>::is_equal (Value * v)
 template <typename T>
 bool Collection_Value_T<T>::is_greater (Value *v)
 {
-	return false;
+  return false;
 }
 
 //
@@ -44,7 +49,7 @@ bool Collection_Value_T<T>::is_greater (Value *v)
 template <typename T>
 bool Collection_Value_T<T>::is_greater_equal (Value *v)
 {
-	return false;
+  return false;
 }
 
 //
@@ -53,7 +58,7 @@ bool Collection_Value_T<T>::is_greater_equal (Value *v)
 template <typename T>
 bool Collection_Value_T<T>::is_lesser (Value *v)
 {
-	return false;
+  return false;
 }
 
 //
@@ -62,7 +67,7 @@ bool Collection_Value_T<T>::is_lesser (Value *v)
 template <typename T>
 bool Collection_Value_T<T>::is_lesser_equal (Value * v)
 {
-	return false;
+  return false;
 }
 
 //
@@ -71,7 +76,7 @@ bool Collection_Value_T<T>::is_lesser_equal (Value * v)
 template <typename T>
 bool Collection_Value_T<T>::get_diff (Value * v, double & count)
 {
-	return false;
+  return false;
 }
 
 //
@@ -80,7 +85,7 @@ bool Collection_Value_T<T>::get_diff (Value * v, double & count)
 template <typename T>
 bool Collection_Value_T<T>::get_sum (Value * v, double & count)
 {
-	return false;
+  return false;
 }
 
 //
@@ -89,7 +94,7 @@ bool Collection_Value_T<T>::get_sum (Value * v, double & count)
 template <typename T>
 size_t Collection_Value_T<T>::size (void)
 {
-	return this->parts_.size ();
+  return this->parts_.size ();
 }
 
 //
@@ -99,4 +104,7 @@ template <typename T>
 std::vector <T> Collection_Value_T<T>::value (void)
 {
   return this->parts_;
+}
+
+}
 }

@@ -5,6 +5,11 @@
 #include "Boolean_Expr.h"
 #include "Equal_Expr.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Equal_Expr_Failure
  *
@@ -41,5 +46,8 @@ public:
    */
   virtual Equal_Expr * get_origin (void) const;
 };
+
+}
+}
 
 #endif // !_MODEL_INTELLIGENCE_EQUAL_EXPR_FAILURE_H_

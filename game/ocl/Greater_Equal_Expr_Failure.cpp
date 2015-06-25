@@ -1,6 +1,11 @@
 #include "stdafx.h"
 #include "Greater_Equal_Expr_Failure.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Default Constructor
 //
@@ -37,4 +42,7 @@ void Greater_Equal_Expr_Failure::accept (Expr_Failure_Visitor & v)
 Greater_Equal_Expr * Greater_Equal_Expr_Failure::get_origin (void) const
 {
   return dynamic_cast <Greater_Equal_Expr *> (expr_);
+}
+
+}
 }

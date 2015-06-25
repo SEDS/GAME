@@ -3,9 +3,14 @@
 
 #include "folder_method.hpp"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 template <typename IteratorT>
 folder_method <IteratorT>::folder_method (void)
-: folder_method::base_type (method_)
+  : folder_method::base_type (method_)
 {
   namespace qi = boost::spirit::qi;
   namespace phoenix = boost::phoenix;
@@ -30,6 +35,9 @@ folder_method <IteratorT>::folder_method (void)
     ( (qi::lit ("(") >> qi::lit (")")[qi::_val = phoenix::new_ <Atoms_Method> ()]) |
       (qi::lit ("(") >> this->id_[qi::_val = phoenix::new_<Atoms_Method> (qi::_1)] >>
        qi::lit (")")) );
+}
+
+}
 }
 
 #endif

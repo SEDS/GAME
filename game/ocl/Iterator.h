@@ -1,4 +1,4 @@
-  // -*- C++ -*-
+// -*- C++ -*-
 
 //=============================================================================
 /**
@@ -21,6 +21,11 @@
 #include "Value.h"
 #include "Boolean_Expr.h"
 #include "Value_Expr.h"
+
+namespace GAME
+{
+namespace Ocl
+{
 
 /**
  * @class Iterator
@@ -64,5 +69,7 @@ public:
 
 };
 
+}
+}
 
 #endif

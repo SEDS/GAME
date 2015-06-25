@@ -15,6 +15,11 @@
 
 #include "Equality_Expr.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
 * @class Conjunction_Expr
 *
@@ -71,4 +76,8 @@ public:
 	*/
 	virtual bool is_reference (void);
 };
+
+}
+}
+
 #endif

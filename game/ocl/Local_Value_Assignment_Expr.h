@@ -17,6 +17,11 @@
 #include "Value_Expr.h"
 #include "Value.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Local_Value_Assignment_Expr
  *
@@ -92,5 +97,7 @@ private:
   Value * value_;
 };
 
+}
+}
 
 #endif

@@ -16,6 +16,11 @@
 #include "Conjunction_Expr.h"
 #include "Comparison_Expr.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class And_Expr
  *
@@ -80,5 +85,8 @@ private:
   // Right hand side of the and expression
   Equality_Expr * rhs_;
 };
+
+}
+}
 
 #endif

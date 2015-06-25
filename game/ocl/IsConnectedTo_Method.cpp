@@ -8,11 +8,16 @@
 #include "game/mga/Connection.h"
 #include "game/mga/FCO.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Default Constructor
 //
 IsConnectedTo_Method::IsConnectedTo_Method (std::string & fco)
-: fco_ (fco)
+  : fco_ (fco)
 {
   flag = 1;
 }
@@ -22,8 +27,8 @@ IsConnectedTo_Method::IsConnectedTo_Method (std::string & fco)
 //
 IsConnectedTo_Method::IsConnectedTo_Method (std::string & fco, 
                                             std::string & temp)
-: fco_ (fco),
-  temp_ (temp)
+  : fco_ (fco),
+    temp_ (temp)
 {
   if (this->temp_ == "src" || this->temp_ == "dst")
   {
@@ -43,9 +48,9 @@ IsConnectedTo_Method::IsConnectedTo_Method (std::string & fco,
 IsConnectedTo_Method::IsConnectedTo_Method (std::string & fco, 
                                             std::string & role, 
                                             std::string & kind)
-: fco_ (fco),
-  role_ (role),
-  kind_ (kind)
+  : fco_ (fco),
+    role_ (role),
+    kind_ (kind)
 {
   flag = 4;
 }
@@ -65,7 +70,7 @@ Value * IsConnectedTo_Method::evaluate (Ocl_Context & res,
                                         GAME::Mga::Object caller)
 {
   GAME::Mga::FCO fco = GAME::Mga::FCO::_narrow (caller);
-  
+
   // Get all the connections associated to this fco based on the 
   // kind of the connection
   std::vector <GAME::Mga::Connection> conns;
@@ -114,7 +119,7 @@ Value * IsConnectedTo_Method::evaluate (Ocl_Context & res,
   }
 
   return new Boolean_Value (isconnected);
-  
+
 }
 
 //
@@ -128,8 +133,8 @@ Value * IsConnectedTo_Method::evaluate (Ocl_Context & res,
   // The boolean keeping a check if the fco is connected or not
   bool isconnected = false;
 
-	if (iv != 0)
-	{
+  if (iv != 0)
+  {
     GAME::Mga::Object obj = iv->value ();
     GAME::Mga::FCO fco = GAME::Mga::FCO::_narrow (caller);
 
@@ -180,7 +185,7 @@ Value * IsConnectedTo_Method::evaluate (Ocl_Context & res,
   }
 
   return new Boolean_Value (isconnected);
-  
+
 }
 
 //
@@ -213,4 +218,7 @@ bool IsConnectedTo_Method::is_containment (void)
 bool IsConnectedTo_Method::is_reference (void)
 {
   return false;
+}
+
+}
 }

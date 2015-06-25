@@ -3,6 +3,11 @@
 #include "stdafx.h"
 #include "Value.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Default Constructor
 //
@@ -15,4 +20,7 @@ Value::Value (void)
 //
 Value::~Value (void)
 {
+}
+
+}
 }

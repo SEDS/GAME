@@ -9,13 +9,17 @@
 
 #include "game/mga/Model.h"
 
+namespace GAME
+{
+namespace Ocl
+{
 
 //
 // Constructor
 //
 Greater_Equal_Expr::Greater_Equal_Expr (Value_Expr * left, Value_Expr * right)
-: lhs_ (left),
-  rhs_ (right)
+  : lhs_ (left),
+    rhs_ (right)
 {
 }
 
@@ -104,4 +108,7 @@ bool Greater_Equal_Expr::is_containment (void)
 bool Greater_Equal_Expr::is_reference (void)
 {
   return (this->lhs_->is_reference () && this->rhs_->is_reference ());
+}
+
+}
 }

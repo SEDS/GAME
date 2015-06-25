@@ -10,12 +10,17 @@
 #include "game/mga/Atom.h"
 #include "game/mga/Model.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
 Lesser_Expr::Lesser_Expr (Value_Expr * left, Value_Expr * right)
-: lhs_ (left),
-  rhs_ (right)
+  : lhs_ (left),
+    rhs_ (right)
 {
 }
 
@@ -112,4 +117,7 @@ bool Lesser_Expr::is_reference (void)
     return true;
 
   return false;
+}
+
+}
 }

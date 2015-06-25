@@ -15,6 +15,11 @@
 
 #include "Math_Operation_Expr.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Addition_Operation
  *
@@ -48,7 +53,7 @@ public:
    */
   virtual Value * filter_evaluate (Ocl_Context & res);
 
-	/**
+  /**
    * Determines if the object is mutable or not.
    *
    * @return        bool          true if the object is mutable
@@ -95,5 +100,8 @@ private:
   // The expression to the right of addition operator
   Value_Expr * rhs_;
 };
+
+}
+}
 
 #endif

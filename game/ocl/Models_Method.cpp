@@ -7,6 +7,11 @@
 
 #include "game/mga/Folder.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Default constructor
 //
@@ -19,7 +24,7 @@ Models_Method::Models_Method (void)
 // Constructor
 //
 Models_Method::Models_Method (std::string & kind)
-: kind_ (kind)
+  : kind_ (kind)
 {
   flag = 2;
 }
@@ -145,4 +150,7 @@ bool Models_Method::is_containment (void)
 bool Models_Method::is_reference (void)
 {
   return false;
+}
+
+}
 }

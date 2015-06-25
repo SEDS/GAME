@@ -3,9 +3,14 @@
 
 #include "model_method.hpp"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 template <typename IteratorT>
 model_method <IteratorT>::model_method (void)
-: model_method::base_type (model_method_)
+  : model_method::base_type (model_method_)
 {
   namespace qi = boost::spirit::qi;
   namespace phoenix = boost::phoenix;
@@ -48,6 +53,9 @@ model_method <IteratorT>::model_method (void)
     qi::lit (")")[qi::_val = phoenix::new_ <ConnectionParts_Method> (qi::_a)];
 
   this->size_method_ = qi::lit("size")[qi::_val = phoenix::new_ <Size_Method> ()];
+}
+
+}
 }
 
 #endif

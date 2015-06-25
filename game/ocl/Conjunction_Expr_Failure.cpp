@@ -1,6 +1,11 @@
 #include "stdafx.h"
 #include "Conjunction_Expr_Failure.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Default Constructor
 //
@@ -21,4 +26,7 @@ Conjunction_Expr_Failure::Conjunction_Expr_Failure (Conjunction_Expr * expr)
 //
 Conjunction_Expr_Failure::~Conjunction_Expr_Failure (void)
 {
+}
+
+}
 }

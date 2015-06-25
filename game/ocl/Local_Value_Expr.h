@@ -15,6 +15,11 @@
 
 #include "Value_SubExpr.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Local_Value_Expr
  *
@@ -89,5 +94,8 @@ private:
   // The local variable
   std::string localvar_;
 };
+
+}
+}
 
 #endif //_GAME_MODEL_INTELLIGENCE_LOCAL_VALUE_EXPR_H_

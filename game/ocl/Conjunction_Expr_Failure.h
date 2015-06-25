@@ -4,6 +4,11 @@
 #include "Equality_Expr_Failure.h"
 #include "Conjunction_Expr.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
 * @class Conjunction_Expr_Failure
 *
@@ -26,5 +31,8 @@ public:
 	/// Destructor
 	virtual ~Conjunction_Expr_Failure (void);
 };
+
+}
+}
 
 #endif // !_MODEL_INTELLIGENCE_CONJUNCTION_EXPR_FAILURE_H_

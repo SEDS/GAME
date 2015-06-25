@@ -6,6 +6,11 @@
 
 #include "game/mga/MetaModel.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
@@ -85,4 +90,7 @@ bool Basetype_Method::is_containment (void)
 bool Basetype_Method::is_reference (void)
 {
   return false;
+}
+
+}
 }

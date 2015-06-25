@@ -6,6 +6,11 @@
 #include "Object_Value.h"
 #include "game/mga/Folder.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
@@ -82,4 +87,7 @@ bool ChildFolders_Method::is_containment (void)
 bool ChildFolders_Method::is_reference (void)
 {
   return false;
+}
+
+}
 }

@@ -3,9 +3,14 @@
 
 #include "object_method.hpp"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 template <typename IteratorT>
 object_method <IteratorT>::object_method (void)
-: object_method::base_type (method_)
+  : object_method::base_type (method_)
 {
   namespace qi = boost::spirit::qi;
   namespace phoenix = boost::phoenix;
@@ -30,6 +35,9 @@ object_method <IteratorT>::object_method (void)
 
   this->isfco_method_ = qi::lit ("isFCO") >> (qi::lit ("(") >> qi::lit (")"))
     [qi::_val = phoenix::new_ <IsFCO_Method> ()];
+}
+
+}
 }
 
 #endif

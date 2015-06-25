@@ -16,6 +16,11 @@
 #include "Comparison_Expr.h"
 #include "Value_Expr.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Lesser_Expr
  *
@@ -81,5 +86,8 @@ private:
   // Right side expression
   Value_Expr * rhs_;
 };
+
+}
+}
 
 #endif

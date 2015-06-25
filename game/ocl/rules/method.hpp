@@ -62,33 +62,38 @@
 namespace qi = boost::spirit::qi;
 namespace ascii = boost::spirit::ascii;
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
- * @class method
- *
- * Underlying grammer for the ocl expression parser.
- */
+* @class method
+*
+* Underlying grammer for the ocl expression parser.
+*/
 template <typename IteratorT>
 class method : public qi::grammar <IteratorT,
                                    Method * (),
                                    ascii::space_type>
 {
 public:
-    method ();
+  method ();
 
 private:
   qi::rule <IteratorT,
             Method * (),
             ascii::space_type> method_;
 
-  ::model_method <IteratorT> model_methods_;
+  model_method <IteratorT> model_methods_;
 
-  ::reference_method <IteratorT> reference_methods_;
+  reference_method <IteratorT> reference_methods_;
 
-  ::object_method <IteratorT> object_methods_;
+  object_method <IteratorT> object_methods_;
 
-  ::connection_method <IteratorT> connection_methods_;
+  connection_method <IteratorT> connection_methods_;
 
-  ::folder_method <IteratorT> folder_methods_;
+  folder_method <IteratorT> folder_methods_;
 
   qi::rule <IteratorT,
             AttachingConnPoints_Method * (),
@@ -104,7 +109,7 @@ private:
             IsConnectedTo_Method * (),
             ascii::space_type,
             qi::locals <std::string,
-                        std::string>> isconnectedto_method_;
+            std::string>> isconnectedto_method_;
 
   qi::rule <IteratorT,
             Subtypes_Method * (),
@@ -151,5 +156,8 @@ private:
 
   quoted_string <IteratorT> qs_;
 };
+
+}
+}
 
 #endif

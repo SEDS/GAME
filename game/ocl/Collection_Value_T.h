@@ -18,6 +18,11 @@
 #include "game/mga/FCO.h"
 #include "Value.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Collection_Value_T. Inherited from Value class
  *
@@ -29,7 +34,7 @@ class Collection_Value_T : public Value
 {
 public:
   /// Default constructor.
-	Collection_Value_T (std::vector<T> & parts);
+  Collection_Value_T (std::vector<T> & parts);
 
 	/// Destructor.
 	virtual ~Collection_Value_T (void);
@@ -37,53 +42,53 @@ public:
   /**
    * Determines if the object is equal or not.
    *
-	 * @param[in]     v             Object of Value type
+   * @param[in]     v             Object of Value type
    * @return        bool          true if the object is equal
    *                              false if the object is not equal
    */
   virtual bool is_equal (Value * v);
 
-	/**
+  /**
    * Determines if the object is greater or not.
    *
-	 * @param[in]     v             Object of Value type
+   * @param[in]     v             Object of Value type
    * @return        bool          true if the object is greater
    *                              false if the object is not greater
    */
   virtual bool is_greater (Value * v);
 
-	/**
+  /**
    * Determines if the object is greater or equal.
    *
-	 * @param[in]     v             Object of Value type
+   * @param[in]     v             Object of Value type
    * @return        bool          true if the object is greater or equal
    *                              false if the object is not greater or equal
    */
   virtual bool is_greater_equal (Value * v);
 
-	/**
+  /**
    * Determines if the object is lesser or not.
    *
-	 * @param[in]     v             Object of Value type
+   * @param[in]     v             Object of Value type
    * @return        bool          true if the object is lesser
    *                              false if the object is not lesser
    */
   virtual bool is_lesser (Value * v);
 
-	/**
+  /**
    * Determines if the object is lesser or equal.
    *
-	 * @param[in]     v             Object of Value type
+   * @param[in]     v             Object of Value type
    * @return        bool          true if the object is lesser or equal
    *                              false if the object is not lesser or equal
    */
   virtual bool is_lesser_equal (Value * v);
 
-	/**
+  /**
    * Gets the difference between two variables
    *
-	 * @param[in]     v             Object of Value type
-	 * @param[out]    count         The difference value
+   * @param[in]     v             Object of Value type
+   * @param[out]    count         The difference value
    * @return        bool          true if successful
    *                              false if not successful
    */
@@ -92,14 +97,14 @@ public:
   /**
    * Gets the summation between two variables
    *
-	 * @param[in]     v             Object of Value type
-	 * @param[out]    count         The added value
+   * @param[in]     v             Object of Value type
+   * @param[out]    count         The added value
    * @return        bool          true if successful
    *                              false if not successful
    */
 	virtual bool get_sum (Value * v, double & count);
 
-	/**
+  /**
    * Gets the summation between two variables
 	 *
 	 * @return                      The size of the collection
@@ -108,15 +113,18 @@ public:
 
   /**
    * Gets the value of variable
-	 * 
-	 * @return        vector           The vector containing the values      
+   * 
+   * @return        vector           The vector containing the values      
    */
 	virtual std::vector<T> value (void);
 
 private:
-	std::vector<T> parts_;
+  std::vector<T> parts_;
 
 };
+
+}
+}
 
 #include "Collection_Value_T.cpp"
 

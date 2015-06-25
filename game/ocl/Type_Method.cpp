@@ -6,6 +6,11 @@
 
 #include "game/mga/FCO.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
@@ -82,4 +87,7 @@ bool Type_Method::is_containment (void)
 bool Type_Method::is_reference (void)
 {
   return false;
+}
+
+}
 }

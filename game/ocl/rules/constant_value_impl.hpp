@@ -3,19 +3,27 @@
 
 #include "constant_value.hpp"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 template <typename IteratorT>
 constant_value <IteratorT>::constant_value (void)
-: constant_value::base_type (cv_expr_)
+  : constant_value::base_type (cv_expr_)
 {
-   namespace qi = boost::spirit::qi;
-   namespace phoenix = boost::phoenix;
-   namespace ascii = boost::spirit::ascii;
-   namespace repo = boost::spirit::repository;
+  namespace qi = boost::spirit::qi;
+  namespace phoenix = boost::phoenix;
+  namespace ascii = boost::spirit::ascii;
+  namespace repo = boost::spirit::repository;
 
   this->cv_expr_ = this->integer_[qi::_val = phoenix::new_ <Constant_Value_Expr> (qi::_1)] |
     this->quoted_string_[qi::_val = phoenix::new_ <Constant_Value_Expr> (qi::_1)];
 
   this->integer_ %= qi::uint_;
+}
+
+}
 }
 
 #endif

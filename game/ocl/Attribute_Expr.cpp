@@ -11,13 +11,18 @@
 
 #include "game/mga/MetaAttribute.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
 Attribute_Expr::Attribute_Expr (std::string & var,
                                 std::string & attr)
-: var_ (var),
-  attribute_ (attr)
+  : var_ (var),
+    attribute_ (attr)
 {
 }
 
@@ -188,4 +193,7 @@ bool Attribute_Expr::is_containment (void)
 bool Attribute_Expr::is_reference (void)
 {
   return true;
+}
+
+}
 }

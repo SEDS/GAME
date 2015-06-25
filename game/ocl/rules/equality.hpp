@@ -25,11 +25,16 @@
 namespace qi = boost::spirit::qi;
 namespace ascii = boost::spirit::ascii; 
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
- * @class Constant_Value_Parser_Grammar
- *
- * Underlying grammer for the ocl expression parser.
- */
+* @class Constant_Value_Parser_Grammar
+*
+* Underlying grammer for the ocl expression parser.
+*/
 template <typename IteratorT>
 class equality : public qi::grammar <IteratorT,
                                      Equality_Expr * (),
@@ -51,4 +56,8 @@ private:
 
   conjunction <IteratorT> conjunction_;
 };
+
+}
+}
+
 #endif

@@ -16,6 +16,11 @@
 #include "Boolean_Expr.h"
 #include "Equality_Expr.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class If_Then_Else_Expr
  *
@@ -92,5 +97,8 @@ private:
   // The boolean expression associated to else statement
   std::vector <Boolean_Expr *> second_; 
 };
+
+}
+}
 
 #endif

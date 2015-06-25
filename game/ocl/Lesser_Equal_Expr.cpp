@@ -11,12 +11,17 @@
 #include "game/mga/Atom.h"
 #include "game/mga/Model.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
 Lesser_Equal_Expr::Lesser_Equal_Expr (Value_Expr * left, Value_Expr * right)
-: lhs_ (left),
-  rhs_ (right)
+  : lhs_ (left),
+    rhs_ (right)
 {
 }
 
@@ -107,4 +112,7 @@ bool Lesser_Equal_Expr::is_containment (void)
 bool Lesser_Equal_Expr::is_reference (void)
 {
   return (this->lhs_->is_reference () && this->rhs_->is_reference ());
+}
+
+}
 }

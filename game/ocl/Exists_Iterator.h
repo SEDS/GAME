@@ -15,6 +15,11 @@
 
 #include "Iterator.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Exists_Iterator
  *
@@ -26,7 +31,7 @@ class Exists_Iterator : public Iterator
 {
 public:
   /// Default constructor.
-	Exists_Iterator (void);
+  Exists_Iterator (void);
 
 	/// Destructor.
 	virtual ~Exists_Iterator (void);
@@ -87,5 +92,8 @@ public:
    */
   virtual bool is_reference (void);
 };
+
+}
+}
 
 #endif //_GAME_MODEL_INTELLIGENCE_EXISTS_ITERATOR_CALL_H_

@@ -1,6 +1,11 @@
 #include "stdafx.h"
 #include "If_Then_Else_Expr_Failure.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Default Constructor
 //
@@ -37,4 +42,7 @@ void If_Then_Else_Expr_Failure::accept (Expr_Failure_Visitor & v)
 If_Then_Else_Expr * If_Then_Else_Expr_Failure::get_origin (void) const
 {
   return dynamic_cast <If_Then_Else_Expr *> (expr_);
+}
+
+}
 }

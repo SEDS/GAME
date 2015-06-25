@@ -3,6 +3,11 @@
 #include "stdafx.h"
 #include "Value_Expr.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Default Constructor
 //
@@ -17,3 +22,5 @@ Value_Expr::~Value_Expr (void)
 {
 }
 
+}
+}

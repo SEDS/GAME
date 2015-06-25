@@ -4,12 +4,17 @@
 #include "And_Expr.h"
 #include "And_Expr_Failure.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
 And_Expr::And_Expr (Equality_Expr * left, Equality_Expr * right)
-: lhs_ (left),
-  rhs_ (right)
+  : lhs_ (left),
+    rhs_ (right)
 {
 }
 
@@ -85,4 +90,7 @@ bool And_Expr::is_reference (void)
     return true;
 
   return false;
+}
+
+}
 }

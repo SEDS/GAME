@@ -3,16 +3,24 @@
 
 #include "quoted_string.hpp"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 template <typename IteratorT>
 quoted_string <IteratorT>::quoted_string (void)
-: quoted_string::base_type (quoted_string_)
+  : quoted_string::base_type (quoted_string_)
 {
-   namespace qi = boost::spirit::qi;
-   namespace phoenix = boost::phoenix;
-   namespace ascii = boost::spirit::ascii;
-   namespace repo = boost::spirit::repository;
+  namespace qi = boost::spirit::qi;
+  namespace phoenix = boost::phoenix;
+  namespace ascii = boost::spirit::ascii;
+  namespace repo = boost::spirit::repository;
 
-   this->quoted_string_ %= qi::lexeme[qi::lit ('"') >> *(qi::char_ - '"') >> qi::lit ('"')]; 
+  this->quoted_string_ %= qi::lexeme[qi::lit ('"') >> *(qi::char_ - '"') >> qi::lit ('"')]; 
+}
+
+}
 }
 
 #endif

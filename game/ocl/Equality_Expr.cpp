@@ -3,6 +3,11 @@
 #include "stdafx.h"
 #include "Equality_Expr.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
@@ -55,4 +60,7 @@ bool Equality_Expr::is_containment (void)
 bool Equality_Expr::is_reference (void)
 {
   return true;
+}
+
+}
 }

@@ -3,6 +3,11 @@
 #include "stdafx.h"
 #include "Comparison_Expr.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
@@ -56,4 +61,7 @@ bool Comparison_Expr::is_containment (void)
 bool Comparison_Expr::is_reference (void)
 {
   return true;
+}
+
+}
 }

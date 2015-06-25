@@ -23,6 +23,12 @@
 
 #include "Value.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
+/// Forward Declaration
 class Expr_Failure;
 
 /**
@@ -65,5 +71,8 @@ struct GAME_OCL_Export Ocl_Context
   // Containment Constraint checker
   bool checker;
 };
+
+}
+}
 
 #endif

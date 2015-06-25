@@ -16,6 +16,11 @@
 #include "Method_Call.h"
 #include <string>
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Self_Method_Call
  *
@@ -25,13 +30,13 @@
 class Self_Method_Call : public Method_Call
 {
 public:
-	// Constructor
-	Self_Method_Call (Method * meth);
+  // Constructor
+  Self_Method_Call (Method * meth);
 
 	// Destructor
 	virtual ~Self_Method_Call (void);
 
-	/**
+  /**
    * evaluate method for evaluating the respective expression
    *
    * @param[in]     res           Object of model intelligence context
@@ -81,7 +86,10 @@ public:
 
 private:
   // The invoking method
-	Method * meth_;
+  Method * meth_;
 };
+
+}
+}
 
 #endif //_GAME_MODEL_INTELLIGENCE_SELF_METHOD_CALL_H_

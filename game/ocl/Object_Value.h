@@ -18,6 +18,11 @@
 #include "Value.h"
 #include "game/mga/FCO.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Object_Value
  *
@@ -109,5 +114,7 @@ private:
 
 };
 
+}
+}
 
 #endif

@@ -5,6 +5,11 @@
 #include "Boolean_Expr.h"
 #include "Or_Expr.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Or_Expr_Failure
  *
@@ -41,5 +46,8 @@ public:
    */
   virtual Or_Expr * get_origin (void) const;
 };
+
+}
+}
 
 #endif // !_MODEL_INTELLIGENCE_OR_EXPR_FAILURE_H_
