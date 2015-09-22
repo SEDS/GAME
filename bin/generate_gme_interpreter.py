@@ -687,6 +687,9 @@ def main (*argv):
     if args.has_icon:
         has_icon = True
 
+    if paradigm == '*':
+        paradigm = 'GAME'
+
     #Calling respective function for creating .mwc file
     if not args.no_workspace:
         generate_mwc_file (filename, pathname)
