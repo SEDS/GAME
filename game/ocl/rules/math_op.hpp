@@ -18,11 +18,16 @@
 namespace qi = boost::spirit::qi;
 namespace ascii = boost::spirit::ascii; 
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
- * @class Math_Op_Parser_Grammar
- *
- * Underlying grammer for the ocl expression parser.
- */
+* @class Math_Op_Parser_Grammar
+*
+* Underlying grammer for the ocl expression parser.
+*/
 template <typename IteratorT>
 class math_op : public qi::grammar <IteratorT,
                                     std::string (),
@@ -37,4 +42,8 @@ private:
             ascii::space_type> math_op_;
 
 };
+
+}
+}
+
 #endif

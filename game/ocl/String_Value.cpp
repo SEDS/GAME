@@ -5,11 +5,16 @@
 
 #include <string>
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Default Constructor
 //
 String_Value::String_Value (std::string & val)
-: val_ (val)
+  : val_ (val)
 {
 }
 
@@ -25,14 +30,14 @@ String_Value::~String_Value (void)
 //
 bool String_Value::is_equal (Value * v)
 {
-	String_Value * iv = dynamic_cast <String_Value *> (v);
+  String_Value * iv = dynamic_cast <String_Value *> (v);
 
-	if (iv != 0)
-	{
-		if (this->val_ == iv->val_)
-			return true;
-	}
-	return false;
+  if (iv != 0)
+  {
+    if (this->val_ == iv->val_)
+      return true;
+  }
+  return false;
 }
 
 //
@@ -40,7 +45,7 @@ bool String_Value::is_equal (Value * v)
 //
 bool String_Value::is_greater (Value * v)
 {
-	return false;
+  return false;
 }
 
 //
@@ -48,14 +53,14 @@ bool String_Value::is_greater (Value * v)
 //
 bool String_Value::is_greater_equal (Value * v)
 {
-	String_Value * iv = dynamic_cast <String_Value *> (v);
+  String_Value * iv = dynamic_cast <String_Value *> (v);
 
-	if (iv != 0)
-	{
-		if (this->val_ == iv->val_)
-			return true;
-	}
-	return false;
+  if (iv != 0)
+  {
+    if (this->val_ == iv->val_)
+      return true;
+  }
+  return false;
 }
 
 //
@@ -63,7 +68,7 @@ bool String_Value::is_greater_equal (Value * v)
 //
 bool String_Value::is_lesser (Value * v)
 {
-	return false;
+  return false;
 }
 
 //
@@ -71,14 +76,14 @@ bool String_Value::is_lesser (Value * v)
 //
 bool String_Value::is_lesser_equal (Value * v)
 {
-	String_Value * iv = dynamic_cast <String_Value *> (v);
+  String_Value * iv = dynamic_cast <String_Value *> (v);
 
-	if (iv != 0)
-	{
-		if (this->val_ == iv->val_)
-			return true;
-	}
-	return false;
+  if (iv != 0)
+  {
+    if (this->val_ == iv->val_)
+      return true;
+  }
+  return false;
 }
 
 //
@@ -86,7 +91,7 @@ bool String_Value::is_lesser_equal (Value * v)
 //
 bool String_Value::get_diff (Value * v, double & count)
 {
-	return false;
+  return false;
 }
 
 //
@@ -94,7 +99,7 @@ bool String_Value::get_diff (Value * v, double & count)
 //
 bool String_Value::get_sum (Value * v, double & count)
 {
-	return false;
+  return false;
 }
 
 //
@@ -105,3 +110,5 @@ std::string String_Value::value (void)
   return this->val_;
 }
 
+}
+}

@@ -5,6 +5,11 @@
 #include "Boolean_Value.h"
 #include "Object_Value.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
@@ -81,4 +86,7 @@ bool IsType_Method::is_containment (void)
 bool IsType_Method::is_reference (void)
 {
   return false;
+}
+
+}
 }

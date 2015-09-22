@@ -3,13 +3,18 @@
 #include "stdafx.h"
 #include "Local_Value_Method_Call.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // constructor
 //
 Local_Value_Method_Call::
-Local_Value_Method_Call (std::string & var, Method * meth)
-: meth_ (meth),
-  var_ (var)
+  Local_Value_Method_Call (std::string & var, Method * meth)
+  : meth_ (meth),
+    var_ (var)
 {
 }
 
@@ -94,4 +99,7 @@ bool Local_Value_Method_Call::is_reference (void)
   // Invoking the is_reference method on MethodCall
   bool flag = Method_Call::is_reference ();
   return flag;
+}
+
+}
 }

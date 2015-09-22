@@ -53,7 +53,7 @@ void FCO_Impl::attach (IMgaFCO * fco)
 GAME_INLINE
 bool FCO_Impl::is_subtype (void) const
 {
-  return this->basetype ().is_nil ();
+  return !this->basetype ().is_nil ();
 }
 
 

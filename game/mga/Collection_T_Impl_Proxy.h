@@ -159,6 +159,8 @@ public:
   // The Collection_T_Impl type
   typedef typename impl_type_t <T>::result_type impl_type;
 
+  Collection_T_Impl_Proxy (void);
+
   /// Default constructor.
   Collection_T_Impl_Proxy (impl_type impl);
 

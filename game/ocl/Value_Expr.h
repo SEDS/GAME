@@ -1,4 +1,4 @@
-  // -*- C++ -*-
+// -*- C++ -*-
 
 //=============================================================================
 /**
@@ -20,6 +20,11 @@
 #include "Context.h"
 #include "Value.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Value_Expr
  *
@@ -32,7 +37,7 @@ public:
   Value_Expr (void);
 
   /// Destructor.
-  ~Value_Expr (void);
+  virtual ~Value_Expr (void);
 
   // Pure virtual method for evaluating respective expression
   virtual Value * evaluate (Ocl_Context &res) = 0;
@@ -59,5 +64,7 @@ public:
   virtual bool is_reference (void) = 0;
 };
 
+}
+}
 
 #endif

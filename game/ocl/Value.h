@@ -15,6 +15,11 @@
 
 #include "OCL_export.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Value
  *
@@ -27,7 +32,7 @@ public:
   Value (void);
 
   /// Destructor.
-  ~Value (void);
+  virtual ~Value (void);
 
   // Pure virtual method to check if the variables are equal
   virtual bool is_equal (Value * v) = 0;
@@ -51,5 +56,7 @@ public:
   virtual bool get_sum (Value * v, double & count) = 0;
 };
 
+}
+}
 
 #endif

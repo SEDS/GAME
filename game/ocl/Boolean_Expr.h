@@ -18,6 +18,11 @@
 
 #include "Context.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Boolean_Expr
  *
@@ -30,7 +35,7 @@ public:
   Boolean_Expr (void);
 
   /// Destructor.
-  ~Boolean_Expr (void);
+  virtual ~Boolean_Expr (void);
 
   // Pure virtual evaluate method used by derived classes
   // for evaluating the respective sub-expresion
@@ -52,5 +57,8 @@ public:
   // reference constraints
   virtual bool is_reference (void) = 0;
 };
+
+}
+}
 
 #endif

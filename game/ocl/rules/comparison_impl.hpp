@@ -3,9 +3,14 @@
 
 #include "comparison.hpp"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 template <typename IteratorT>
 comparison <IteratorT>::comparison (void)
-: comparison::base_type (comp_expr_)
+  : comparison::base_type (comp_expr_)
 {
   namespace qi = boost::spirit::qi;
   namespace phoenix = boost::phoenix;
@@ -14,6 +19,9 @@ comparison <IteratorT>::comparison (void)
 
   this->comp_expr_ %= this->equal_expr_ | this->greater_equal_expr_ | 
     this->lesser_equal_expr_ | this->not_equal_expr_ | this->greater_expr_ | this->lesser_expr_;
+}
+
+}
 }
 
 #endif

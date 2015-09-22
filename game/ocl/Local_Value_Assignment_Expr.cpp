@@ -3,13 +3,18 @@
 #include "stdafx.h"
 #include "Local_Value_Assignment_Expr.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
 Local_Value_Assignment_Expr::
-Local_Value_Assignment_Expr (std::string & var, Value_Expr * right)
-: varname_ (var),
-  rhs_ (right)
+  Local_Value_Assignment_Expr (std::string & var, Value_Expr * right)
+  : varname_ (var),
+    rhs_ (right)
 {
 }
 
@@ -93,4 +98,7 @@ bool Local_Value_Assignment_Expr::is_reference (void)
     return true;
 
   return false;
+}
+
+}
 }

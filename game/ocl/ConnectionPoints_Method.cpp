@@ -7,6 +7,11 @@
 
 #include "game/mga/Connection.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Default Constructor
 //
@@ -19,7 +24,7 @@ ConnectionPoints_Method::ConnectionPoints_Method (void)
 // Constructor
 //
 ConnectionPoints_Method::ConnectionPoints_Method (std::string & role)
-: role_ (role)
+  : role_ (role)
 {
   flag = 2;
 }
@@ -46,7 +51,7 @@ Value * ConnectionPoints_Method::evaluate (Ocl_Context & res,
   conn->connection_points (conpts);
 
   GAME::Mga::ConnectionPoints::iterator
-      cit = conpts.begin (), cit_end = conpts.end ();
+    cit = conpts.begin (), cit_end = conpts.end ();
 
   // Filtering out the connection points based on their role (if present)
   for (; cit != cit_end; ++cit)
@@ -84,7 +89,7 @@ Value * ConnectionPoints_Method::evaluate (Ocl_Context &res, Value *caller)
     conn->connection_points (conpts);
 
     GAME::Mga::ConnectionPoints::iterator
-        cit = conpts.begin (), cit_end = conpts.end ();
+      cit = conpts.begin (), cit_end = conpts.end ();
 
     // Filtering out the connection points based on their role (if present)
     for (; cit != cit_end; ++cit)
@@ -137,4 +142,7 @@ bool ConnectionPoints_Method::is_containment (void)
 bool ConnectionPoints_Method::is_reference (void)
 {
   return false;
+}
+
+}
 }

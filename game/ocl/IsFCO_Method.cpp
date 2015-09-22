@@ -5,6 +5,11 @@
 #include "Boolean_Value.h"
 #include "Object_Value.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
@@ -90,4 +95,7 @@ bool IsFCO_Method::is_containment (void)
 bool IsFCO_Method::is_reference (void)
 {
   return false;
+}
+
+}
 }

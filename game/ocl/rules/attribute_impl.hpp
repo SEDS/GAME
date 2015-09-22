@@ -3,9 +3,14 @@
 
 #include "attribute.hpp"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 template <typename IteratorT>
 attribute <IteratorT>::attribute (void)
-: attribute::base_type (attribute_expr_)
+  : attribute::base_type (attribute_expr_)
 {
   namespace qi = boost::spirit::qi;
   namespace phoenix = boost::phoenix;
@@ -15,6 +20,9 @@ attribute <IteratorT>::attribute (void)
   this->attribute_expr_ = this->ident_[qi::_a = qi::_1] >>
     qi::lit (".") >>
     this->ident_[qi::_val = phoenix::new_<Attribute_Expr> (qi::_a, qi::_1)];
+}
+
+}
 }
 
 #endif

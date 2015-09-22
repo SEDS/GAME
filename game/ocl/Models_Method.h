@@ -15,6 +15,11 @@
 
 #include "Method.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Models_Method
  *
@@ -26,31 +31,31 @@ class Models_Method : public Method
 {
 public:
   /// Default constructor.
-	Models_Method (void);
+  Models_Method (void);
 
   // Kind constructor
   Models_Method (std::string & kind);
 
 	/// Destructor.
-	~Models_Method (void);
+	virtual ~Models_Method (void);
 
   /**
    * evaluate method for evaluating the models method
    *
    * @param[in]     res           Object of model intelligence context
-	 * @param[in]     caller        The object the method works with
+   * @param[in]     caller        The object the method works with
    * @return        Object        Value object
    */
-  Value * evaluate (Ocl_Context & res, GAME::Mga::Object caller);
+  virtual Value * evaluate (Ocl_Context & res, GAME::Mga::Object caller);
 
-	/**
+  /**
    * evaluate method for evaluating the models method
    *
    * @param[in]     res           Object of model intelligence context
-	 * @param[in]     caller        Value from previous method
+   * @param[in]     caller        Value from previous method
    * @return        Object        Value object
    */
-	Value * evaluate (Ocl_Context & res, Value * caller);
+	virtual Value * evaluate (Ocl_Context & res, Value * caller);
 
   /**
    * Determines if the object is for filtration or not.
@@ -58,7 +63,7 @@ public:
    * @return        bool          true if the object is for filtration
    *                              false if the object is not for filtration
    */
-  bool is_filter (void);
+  virtual bool is_filter (void);
 
   /**
    * is_association method for determining if this method
@@ -66,7 +71,7 @@ public:
    *
    * @return       bool       True/False
    */
-  bool is_association (void);
+  virtual bool is_association (void);
 
   /**
    * is_containment method for determining if this method
@@ -74,7 +79,7 @@ public:
    *
    * @return       bool       True/False
    */
-  bool is_containment (void);
+  virtual bool is_containment (void);
 
   /**
    * is_reference method for determining if this method
@@ -82,7 +87,7 @@ public:
    *
    * @return       bool       True/False
    */
-  bool is_reference (void);
+  virtual bool is_reference (void);
 private:
   // The kind of the object
   std::string kind_;
@@ -90,5 +95,8 @@ private:
   // flag to track the case
   int flag;
 };
+
+}
+}
 
 #endif //_GAME_MODEL_INTELLIGENCE_MODELS_METHOD_CALL_H_

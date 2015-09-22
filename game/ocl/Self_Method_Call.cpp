@@ -3,11 +3,16 @@
 #include "stdafx.h"
 #include "Self_Method_Call.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // constructor
 //
 Self_Method_Call::Self_Method_Call (Method * meth)
-: meth_ (meth)
+  : meth_ (meth)
 {
 }
 
@@ -23,13 +28,13 @@ Self_Method_Call::~Self_Method_Call (void)
 //
 Value * Self_Method_Call::evaluate (Ocl_Context & res)
 {
-	this->base_meth_ = this->meth_;
-	this->caller_ = res.self;
+  this->base_meth_ = this->meth_;
+  this->caller_ = res.self;
 
   // Invoking the evaluate method in Method_Call class
-	Value * v = Method_Call::evaluate (res);
+  Value * v = Method_Call::evaluate (res);
 
-	return v;
+  return v;
 }
 
 //
@@ -37,13 +42,13 @@ Value * Self_Method_Call::evaluate (Ocl_Context & res)
 //
 Value * Self_Method_Call::filter_evaluate (Ocl_Context & res)
 {
-	this->base_meth_ = this->meth_;
-	this->caller_ = res.self;
+  this->base_meth_ = this->meth_;
+  this->caller_ = res.self;
 
   // Invoking the filter_evaluate method in Method_Call class
   Value * v = Method_Call::filter_evaluate (res);
 
-	return v;
+  return v;
 }
 
 //
@@ -92,4 +97,7 @@ bool Self_Method_Call::is_reference (void)
   // Invoking the is_reference method in Method_Call class
   bool flag = Method_Call::is_reference ();
   return flag;
+}
+
+}
 }

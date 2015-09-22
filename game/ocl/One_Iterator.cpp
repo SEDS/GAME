@@ -5,6 +5,11 @@
 #include "Boolean_Value.h"
 #include "Object_Value.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
@@ -123,4 +128,7 @@ bool One_Iterator::is_containment (void)
 bool One_Iterator::is_reference (void)
 {
   return false;
+}
+
+}
 }

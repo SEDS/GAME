@@ -3,11 +3,16 @@
 #include "stdafx.h"
 #include "Long_Value.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Default Constructor
 //
 Long_Value::Long_Value (long val)
-: val_ (val)
+  : val_ (val)
 {
 }
 
@@ -23,15 +28,15 @@ Long_Value::~Long_Value (void)
 //
 bool Long_Value::is_equal (Value *v)
 {
-	Long_Value * iv = 0;
-	iv = dynamic_cast <Long_Value *> (v);
+  Long_Value * iv = 0;
+  iv = dynamic_cast <Long_Value *> (v);
 
-	if (iv != 0)
-	{
-		if (this->val_ == iv->val_)
-			return true;
-	}
-	return false;
+  if (iv != 0)
+  {
+    if (this->val_ == iv->val_)
+      return true;
+  }
+  return false;
 }
 
 //
@@ -39,14 +44,14 @@ bool Long_Value::is_equal (Value *v)
 //
 bool Long_Value::is_greater (Value * v)
 {
-	Long_Value * iv = dynamic_cast <Long_Value *> (v);
+  Long_Value * iv = dynamic_cast <Long_Value *> (v);
 
-	if (iv != 0)
-	{
-		if (this->val_ > iv->val_)
-			return true;
-	}
-	return false;
+  if (iv != 0)
+  {
+    if (this->val_ > iv->val_)
+      return true;
+  }
+  return false;
 }
 
 //
@@ -54,14 +59,14 @@ bool Long_Value::is_greater (Value * v)
 //
 bool Long_Value::is_greater_equal (Value * v)
 {
-	Long_Value * iv = dynamic_cast <Long_Value *> (v);
+  Long_Value * iv = dynamic_cast <Long_Value *> (v);
 
-	if (iv != 0)
-	{
-		if (this->val_ >= iv->val_)
-			return true;
-	}
-	return false;
+  if (iv != 0)
+  {
+    if (this->val_ >= iv->val_)
+      return true;
+  }
+  return false;
 }
 
 //
@@ -69,14 +74,14 @@ bool Long_Value::is_greater_equal (Value * v)
 //
 bool Long_Value::is_lesser (Value * v)
 {
-	Long_Value * iv = dynamic_cast <Long_Value *> (v);
+  Long_Value * iv = dynamic_cast <Long_Value *> (v);
 
-	if (iv != 0)
-	{
-		if (this->val_ < iv->val_)
-			return true;
-	}
-	return false;
+  if (iv != 0)
+  {
+    if (this->val_ < iv->val_)
+      return true;
+  }
+  return false;
 }
 
 //
@@ -84,14 +89,14 @@ bool Long_Value::is_lesser (Value * v)
 //
 bool Long_Value::is_lesser_equal (Value * v)
 {
-	Long_Value * iv = dynamic_cast <Long_Value *> (v);
+  Long_Value * iv = dynamic_cast <Long_Value *> (v);
 
-	if (iv != 0)
-	{
-		if (this->val_ <= iv->val_)
-			return true;
-	}
-	return false;
+  if (iv != 0)
+  {
+    if (this->val_ <= iv->val_)
+      return true;
+  }
+  return false;
 }
 
 //
@@ -99,14 +104,14 @@ bool Long_Value::is_lesser_equal (Value * v)
 //
 bool Long_Value::get_diff (Value * v, double & count)
 {
-	Long_Value * iv = dynamic_cast <Long_Value *> (v);
+  Long_Value * iv = dynamic_cast <Long_Value *> (v);
 
-	if (iv != 0)
-	{
-		count = this->val_ - iv->val_;
-		return true;
-	}
-	return false;
+  if (iv != 0)
+  {
+    count = this->val_ - iv->val_;
+    return true;
+  }
+  return false;
 }
 
 //
@@ -114,13 +119,15 @@ bool Long_Value::get_diff (Value * v, double & count)
 //
 bool Long_Value::get_sum (Value * v, double & count)
 {
-	Long_Value * iv = dynamic_cast <Long_Value *> (v);
+  Long_Value * iv = dynamic_cast <Long_Value *> (v);
 
-	if (iv != 0)
-	{
-		count = this->val_ + iv->val_;
-		return true;
-	}
-	return false;
+  if (iv != 0)
+  {
+    count = this->val_ + iv->val_;
+    return true;
+  }
+  return false;
 }
 
+}
+}

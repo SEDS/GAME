@@ -4,6 +4,11 @@
 #include "Parent_Method.h"
 #include "Object_Value.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
@@ -24,8 +29,8 @@ Parent_Method::~Parent_Method (void)
 Value * Parent_Method::evaluate (Ocl_Context & res, 
                                  GAME::Mga::Object caller)
 {
-	GAME::Mga::Object parent = caller->parent();
-	return new Object_Value (parent);
+  GAME::Mga::Object parent = caller->parent();
+  return new Object_Value (parent);
 }
 
 //
@@ -34,15 +39,15 @@ Value * Parent_Method::evaluate (Ocl_Context & res,
 Value * Parent_Method::evaluate (Ocl_Context & res, 
                                  Value * caller)
 {
-	GAME::Mga::Object parent;
-	Object_Value * iv = dynamic_cast <Object_Value *> (caller);
-	
-	if (iv != 0)
-	{
-		parent = iv->value ()->parent ();
-	}
+  GAME::Mga::Object parent;
+  Object_Value * iv = dynamic_cast <Object_Value *> (caller);
 
-	return new Object_Value (parent);
+  if (iv != 0)
+  {
+    parent = iv->value ()->parent ();
+  }
+
+  return new Object_Value (parent);
 }
 
 //
@@ -75,4 +80,7 @@ bool Parent_Method::is_containment (void)
 bool Parent_Method::is_reference (void)
 {
   return true;
+}
+
+}
 }

@@ -8,6 +8,11 @@
 #include "game/mga/Folder.h"
 #include "game/mga/MetaModel.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Default constructor
 //
@@ -20,7 +25,7 @@ Atoms_Method::Atoms_Method (void)
 // Constructor
 //
 Atoms_Method::Atoms_Method (std::string &kind)
-: kind_ (kind)
+  : kind_ (kind)
 {
   flag = 2;
 }
@@ -145,4 +150,7 @@ bool Atoms_Method::is_containment (void)
 bool Atoms_Method::is_reference (void)
 {
   return false;
+}
+
+}
 }

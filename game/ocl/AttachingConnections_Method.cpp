@@ -8,6 +8,11 @@
 #include "game/mga/Connection.h"
 #include "game/mga/FCO.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Default Constructor
 //
@@ -20,7 +25,7 @@ AttachingConnections_Method::AttachingConnections_Method (void)
 // Kind/Role Constructor
 //
 AttachingConnections_Method::AttachingConnections_Method (std::string & temp)
-: temp_ (temp)
+  : temp_ (temp)
 {
   if (this->temp_ == "src" || this->temp_ == "dst")
   {
@@ -39,8 +44,8 @@ AttachingConnections_Method::AttachingConnections_Method (std::string & temp)
 //
 AttachingConnections_Method::AttachingConnections_Method (std::string & role,
                                                           std::string & kind)
-: role_ (role),
-  kind_ (kind)
+  : role_ (role),
+    kind_ (kind)
 {
   flag = 4;
 }
@@ -181,4 +186,7 @@ bool AttachingConnections_Method::is_containment (void)
 bool AttachingConnections_Method::is_reference (void)
 {
   return false;
+}
+
+}
 }

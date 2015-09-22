@@ -58,11 +58,16 @@
 namespace qi = boost::spirit::qi;
 namespace ascii = boost::spirit::ascii;
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
- * @class folder_method
- *
- * Underlying grammer for the ocl expression parser.
- */
+* @class folder_method
+*
+* Underlying grammer for the ocl expression parser.
+*/
 template <typename IteratorT>
 class folder_method :
   public qi::grammar <IteratorT, Method * (), ascii::space_type>
@@ -91,5 +96,8 @@ private:
 
   quoted_string <IteratorT> qs_;
 };
+
+}
+}
 
 #endif

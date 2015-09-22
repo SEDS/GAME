@@ -15,6 +15,11 @@
 
 #include "Boolean_Expr.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class OCL_Parser
  *
@@ -38,5 +43,8 @@ public:
    */
   bool parse (std::string str, std::vector <Boolean_Expr *> &ocl);
 };
+
+}
+}
 
 #endif

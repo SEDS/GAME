@@ -1,4 +1,4 @@
-  // -*- C++ -*-
+// -*- C++ -*-
 
 //=============================================================================
 /**
@@ -22,6 +22,11 @@
 #include "Boolean_Expr.h"
 #include "Value_Expr.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
  * @class Iterator
  *
@@ -34,7 +39,7 @@ public:
   Iterator (void);
 
   /// Destructor.
-  ~Iterator (void);
+  virtual ~Iterator (void);
 
   // Pure virtual method for evaluating respective boolean expression
   virtual Value * evaluate (Ocl_Context & res,
@@ -64,5 +69,7 @@ public:
 
 };
 
+}
+}
 
 #endif

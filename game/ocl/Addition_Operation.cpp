@@ -4,12 +4,17 @@
 #include "Addition_Operation.h"
 #include "Double_Value.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
 Addition_Operation::Addition_Operation (Value_Expr *left, Value_Expr *right)
-: lhs_ (left),
-  rhs_ (right)
+  : lhs_ (left),
+    rhs_ (right)
 {
 }
 
@@ -82,4 +87,7 @@ bool Addition_Operation::is_reference (void)
 bool Addition_Operation::is_containment (void)
 {
   return true;
+}
+
+}
 }

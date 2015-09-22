@@ -18,11 +18,16 @@
 namespace qi = boost::spirit::qi;
 namespace ascii = boost::spirit::ascii; 
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
- * @class Ident_Parser_Grammar
- *
- * Underlying grammer for the ocl expression parser.
- */
+* @class Ident_Parser_Grammar
+*
+* Underlying grammer for the ocl expression parser.
+*/
 template <typename IteratorT>
 class ident : public qi::grammar <IteratorT,
                                   std::string (),
@@ -32,9 +37,13 @@ public:
   ident ();
 
 private:
-   qi::rule <IteratorT,
-             std::string (),
-             ascii::space_type> ident_;
+  qi::rule <IteratorT,
+            std::string (),
+            ascii::space_type> ident_;
 
 };
+
+}
+}
+
 #endif

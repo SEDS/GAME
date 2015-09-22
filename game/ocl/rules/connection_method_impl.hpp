@@ -3,9 +3,14 @@
 
 #include "connection_method.hpp"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 template <typename IteratorT>
 connection_method <IteratorT>::connection_method (void)
-: connection_method::base_type (method_)
+  : connection_method::base_type (method_)
 {
   namespace qi = boost::spirit::qi;
   namespace phoenix = boost::phoenix;
@@ -34,6 +39,9 @@ connection_method <IteratorT>::connection_method (void)
 
   this->owner_method_ = qi::lit ("owner") >> (qi::lit ("(") >> qi::lit (")"))
     [qi::_val = phoenix::new_ <Owner_Method> ()];
+}
+
+}
 }
 
 #endif

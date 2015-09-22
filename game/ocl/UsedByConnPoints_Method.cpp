@@ -7,6 +7,11 @@
 
 #include "game/mga/Connection.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Default Constructor
 //
@@ -20,7 +25,7 @@ UsedByConnPoints_Method::UsedByConnPoints_Method (void)
 // Constructor
 //
 UsedByConnPoints_Method::UsedByConnPoints_Method (std::string & kind)
-: kind_ (kind)
+  : kind_ (kind)
 {
   flag = 2;
 }
@@ -48,7 +53,7 @@ Value * UsedByConnPoints_Method::evaluate (Ocl_Context & res,
   ref->in_connection_points (conpts);
 
   GAME::Mga::ConnectionPoints::iterator
-      cit = conpts.begin (), cit_end = conpts.end ();
+    cit = conpts.begin (), cit_end = conpts.end ();
 
   // Filtering the connection points based on the kind of connection
   for (; cit != cit_end; ++cit)
@@ -87,7 +92,7 @@ Value * UsedByConnPoints_Method::evaluate (Ocl_Context & res,
     ref->in_connection_points (conpts);
 
     GAME::Mga::ConnectionPoints::iterator
-        cit = conpts.begin (), cit_end = conpts.end ();
+      cit = conpts.begin (), cit_end = conpts.end ();
 
     // Filtering the connection points based on the kind of connection
     for (; cit != cit_end; ++cit)
@@ -140,4 +145,7 @@ bool UsedByConnPoints_Method::is_containment (void)
 bool UsedByConnPoints_Method::is_reference (void)
 {
   return false;
+}
+
+}
 }

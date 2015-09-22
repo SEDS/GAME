@@ -9,6 +9,10 @@
 #include "game/mga/MetaFCO.h"
 #include "game/mga/FCO.h"
 
+namespace GAME
+{
+namespace Ocl
+{
 
 //
 // Constructor
@@ -16,9 +20,9 @@
 IteratorCall_Expr::IteratorCall_Expr (Value_Expr * obj,
                                       Iterator * name,
                                       Boolean_Expr * expr)
-:obj_ (obj),
- name_ (name),
- expr_ (expr)
+  : obj_ (obj),
+    name_ (name),
+    expr_ (expr)
 {
   flag = 1;
 }
@@ -29,9 +33,9 @@ IteratorCall_Expr::IteratorCall_Expr (Value_Expr * obj,
 IteratorCall_Expr::IteratorCall_Expr (Value_Expr * obj,
                                       Iterator * name,
                                       Value_Expr * valexpr)
-:obj_ (obj),
- name_ (name),
- valexpr_ (valexpr)
+  : obj_ (obj),
+    name_ (name),
+    valexpr_ (valexpr)
 {
   flag = 2;
 }
@@ -80,18 +84,18 @@ bool IteratorCall_Expr::filter_evaluate (Ocl_Context & res,
   std::string name = current->name ();
 
   switch (this->next_.size ()) {
-    case 0:
+  case 0:
     {
       result = this->expr_->filter_evaluate (res, current);
       break;
     }
-    case 1:
+  case 1:
     {
       result = this->expr_->filter_evaluate (res, current);
       break;
     }
-    default:
-      result = false;
+  default:
+    result = false;
   }
 
   return result;
@@ -144,4 +148,7 @@ bool IteratorCall_Expr::is_reference (void)
     return true;
 
   return false;
+}
+
+}
 }

@@ -2,13 +2,19 @@
 
 #include "stdafx.h"
 #include "Or_Expr.h"
+#include "Or_Expr_Failure.h"
+
+namespace GAME
+{
+namespace Ocl
+{
 
 //
 // Constructor
 //
 Or_Expr::Or_Expr (Equality_Expr * left, Equality_Expr * right)
-: lhs_ (left),
-  rhs_ (right)
+  : lhs_ (left),
+    rhs_ (right)
 {
 }
 
@@ -30,6 +36,7 @@ bool Or_Expr::evaluate (Ocl_Context & res)
   if (left || right)
     return true;
 
+  res.failures.push_back (std::make_shared <Or_Expr_Failure> (this));
   return false;
 }
 
@@ -82,3 +89,5 @@ bool Or_Expr::is_reference (void)
   return false;
 }
 
+}
+}

@@ -24,11 +24,16 @@
 namespace qi = boost::spirit::qi;
 namespace ascii = boost::spirit::ascii; 
 
+namespace GAME
+{
+namespace Ocl
+{
+
 /**
- * @class Comparison_Parser_Grammar
- *
- * Underlying grammer for the ocl expression parser.
- */
+* @class Comparison_Parser_Grammar
+*
+* Underlying grammer for the ocl expression parser.
+*/
 template <typename IteratorT>
 class comparison : public qi::grammar <IteratorT,
                                        Comparison_Expr * (),
@@ -54,4 +59,8 @@ private:
 
   lesser <IteratorT> lesser_expr_;
 };
+
+}
+}
+
 #endif

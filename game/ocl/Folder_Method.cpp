@@ -6,6 +6,11 @@
 
 #include "game/mga/Folder.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
@@ -84,4 +89,7 @@ bool Folder_Method::is_containment (void)
 bool Folder_Method::is_reference (void)
 {
   return false;
+}
+
+}
 }

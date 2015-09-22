@@ -3,12 +3,17 @@
 
 #include "method.hpp"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // method
 //
 template <typename IteratorT>
 method <IteratorT>::method (void)
-: method::base_type (method_)
+  : method::base_type (method_)
 {
   namespace qi = boost::spirit::qi;
   namespace phoenix = boost::phoenix;
@@ -109,6 +114,9 @@ method <IteratorT>::method (void)
     (qi::lit ("(") >>
        this->id_ [qi::_val = phoenix::new_<ReferencedBy_Method> (qi::_1)] >>
        qi::lit (")"));
+}
+
+}
 }
 
 #endif

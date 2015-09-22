@@ -7,6 +7,11 @@
 
 #include "game/mga/Connection.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
@@ -81,4 +86,7 @@ bool Owner_Method::is_containment (void)
 bool Owner_Method::is_reference (void)
 {
   return false;
+}
+
+}
 }

@@ -4,6 +4,11 @@
 #include "Value_SubExpr.h"
 #include "Int_Value.h"
 
+namespace GAME
+{
+namespace Ocl
+{
+
 //
 // Constructor
 //
@@ -72,4 +77,7 @@ bool Value_SubExpr::is_containment (void)
 bool Value_SubExpr::is_reference (void)
 {
   return true;
+}
+
+}
 }
