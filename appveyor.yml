@@ -2,7 +2,6 @@ environment:
   MPC_ROOT: C:\projects\MPC
   ACE_ROOT: C:\projects\ATCD\ACE
   GAME_ROOT: C:\projects\GAME
-  PATH: 
 
 install:
   - git clone https://github.com/DOCGroup/MPC.git C:\projects\MPC
