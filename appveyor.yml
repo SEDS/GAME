@@ -3,7 +3,7 @@ environment:
 
 install:
   - git clone https://github.com/DOCGroup/MPC.git C:\projects\MPC
-  - echo %MPC_ROOT%
+  - call perl %MPC_ROOT%\mwc.pl -type vc11 GAME_ACE.mwc
 
 build:
   parallel: true
