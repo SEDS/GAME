@@ -2,12 +2,13 @@ environment:
   MPC_ROOT: C:\projects\MPC
   ACE_ROOT: C:\projects\ATCD\ACE
   GAME_ROOT: C:\projects\GAME
-  PATH: %PATH%:%ACE_ROOT%\lib;ACE_ROOT%\bin;%GAME_ROOT%\lib
+  PATH: 
 
 install:
   - git clone https://github.com/DOCGroup/MPC.git C:\projects\MPC
   - git clone https://github.com/DOCGroup/ATCD.git C:\projects\ATCD
   - echo #include "ace/config-win32.h" > %ACE_ROOT%\ace\config.h
+  - set PATH=%PATH%;%ACE_ROOT%\lib;ACE_ROOT%\bin;%GAME_ROOT%\lib
 
 before_build:
   - call perl %MPC_ROOT%\mwc.pl -type vc11 GAME_ACE.mwc
