@@ -2,7 +2,7 @@ environment:
   MPC_ROOT: C:\Projects\MPC
 
 install:
-  - git clone git@github.com:DOCGroup/MPC.git C:\Projects
+  - git clone git@github.com:DOCGroup/MPC.git C:\Projects\MPC
   - echo %MPC_ROOT%
 
 build:
