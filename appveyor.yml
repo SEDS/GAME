@@ -1,0 +1,10 @@
+environment:
+  MPC_ROOT: C:\Projects\MPC
+
+install:
+  - cmd: git clone git@github.com:DOCGroup/MPC.git C:\Projects
+  - cmd: %MPC_ROOT%\mwc.pl -type vc11 GAME_ACE.mwc
+
+build:
+  parallel: true
+  project: GAME_ACE.sln
